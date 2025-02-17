@@ -2,9 +2,9 @@ package com.example.taskmaster.service.authenticate;
 
 import com.example.taskmaster.model.User;
 
-public interface IAuthenticate {
-    void registerUser (User user);
+public interface IAuthenticateService {
+    void signUp (User user);
     void signIn (String email, String password);
-    void signOut ();
+    void logOut ();
     void resetPassword (String email);
 }
