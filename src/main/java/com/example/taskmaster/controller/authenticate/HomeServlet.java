@@ -15,7 +15,7 @@ public class HomeServlet extends HttpServlet {
 //        String action=request.getParameter("action");
 //        if(action==null){action="";}
 //        switch (action){
-//            case "register":response.sendRedirect("/sign-up");
+//            case "register.css":response.sendRedirect("/sign-up");
 //            case "login":response.sendRedirect("/sign-in");
 //            case "logout":
 //            default:
