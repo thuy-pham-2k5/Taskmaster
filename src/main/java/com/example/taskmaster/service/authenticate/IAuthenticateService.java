@@ -5,6 +5,6 @@ import com.example.taskmaster.model.User;
 public interface IAuthenticateService {
     void signUp (User user);
     void signIn (String email, String password);
-    void logOut ();
+    void logout ();
     void resetPassword (String email);
 }

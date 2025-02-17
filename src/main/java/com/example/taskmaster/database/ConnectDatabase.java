@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class ConnectDatabase {
 
     public static Connection getConnection() {
-        Connection connection = null;
+        Connection connection;
         try {
             Class.forName("com.mysql.jdbc.Driver");
             String password = System.getenv("dbPassword");
