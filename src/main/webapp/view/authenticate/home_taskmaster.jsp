@@ -25,13 +25,9 @@
         <a href="register.jsp" class="button">Đăng Ký</a>
     </nav>
 </header>
-
 <main class="container">
-    <div>
-        <p>Duy trì mọi thứ ở cùng một nơi—dù cho nhóm của bạn
-            không ở cùng nhau</p>
-    </div>
     <div class="image-container">
+        <p>Duy trì mọi thứ ở cùng một nơi—dù cho nhóm của bạn không ở cùng nhau</p>
         <img src="image/image 5.png" alt="Taskmaster UI">
     </div>
     <div class="content">
@@ -41,5 +37,6 @@
         <p>Chỉ với bảng, danh sách và thẻ, bạn sẽ biết rõ ai đang làm gì và những việc cần làm.</p>
     </div>
 </main>
+
 </body>
 </html>
