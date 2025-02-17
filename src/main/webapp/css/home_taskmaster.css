@@ -41,23 +41,27 @@ nav a {
     color: white;
 }
 
-
 .container {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    gap: 50px;
     padding: 50px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
+.image-container,
 .content {
-    width: 50%;
+    flex: 1;
+}
+
+.image-container img {
+    max-width: 90%;
+    /*height: auto;*/
+    border-radius: 10px;
 }
 
 h1 {
     font-size: 36px;
-}
-
-.image-container img {
-    max-width: 70%;
-    border-radius: 10px;
 }
