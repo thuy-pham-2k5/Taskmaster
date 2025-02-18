@@ -20,7 +20,7 @@
     </form>
 
     <p class="register-link">
-        <a href="#">Bạn chưa có tài khoản? <span>Đăng ký</span></a>
+        <a href="/authenticate?action=register">Bạn chưa có tài khoản? <span>Đăng ký</span></a>
     </p>
 </div>
 </body>

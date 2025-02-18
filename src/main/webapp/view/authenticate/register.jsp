@@ -16,7 +16,7 @@
         </div>
         <h2>Đăng ký để tiếp tục</h2>
         <form action="RegisterServlet" method="post">
-            <input type="text" name="full-name" pattern="a-zA-Z" placeholder="Họ và tên....." required>
+            <input type="text" id="fullName" name="full-name" pattern="\p{L}+\s*\p{L}+" title="Họ và tên không hợp lệ: chỉ chấp nhận chữ cái in hoa và chữ cái thường" placeholder="Họ và tên....." required>
             <input type="email" name="email" placeholder="Email....." required>
             <input type="password" name="password" placeholder="Mật khẩu....." required>
             <div class="checkbox">
@@ -27,7 +27,7 @@
             <button type="submit">Đăng ký</button>
         </form>
         <p class="login-link">
-            <a href="#">Bạn đã có tài khoản? <span>Đăng nhập</span></a>
+            <a href="/authenticate?action=login">Bạn đã có tài khoản? <span>Đăng nhập</span></a>
         </p>
     </div>
 </div>

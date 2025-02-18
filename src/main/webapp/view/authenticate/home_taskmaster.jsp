@@ -21,8 +21,8 @@
         <span style="font-family: Italinno;">Taskmaster</span>
     </div>
     <nav>
-        <a href="login.jsp" class="link">Đăng Nhập</a>
-        <a href="register.jsp" class="button">Đăng Ký</a>
+        <a href="/authenticate?action=login" class="link">Đăng Nhập</a>
+        <a href="/authenticate?action=register" class="button">Đăng Ký</a>
     </nav>
 </header>
 <main class="container">
