@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Đăng nhập - Taskmaster</title>
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="/css/authenticate/login.css">
 </head>
 <body>
 <div class="login-box">

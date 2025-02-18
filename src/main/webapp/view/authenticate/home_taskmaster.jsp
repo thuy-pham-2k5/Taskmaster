@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Taskmaster - Trang chủ</title>
-    <link rel="stylesheet" href="css/home_taskmaster.css">
+    <link rel="stylesheet" href="/css/authenticate/home_taskmaster.css">
 </head>
 <body>
 <header>

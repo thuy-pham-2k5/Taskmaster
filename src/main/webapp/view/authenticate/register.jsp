@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Taskmaster - Đăng ký</title>
-    <link rel="stylesheet" href="css/register.css">
+    <link rel="stylesheet" href="/css/authenticate/register.css">
 </head>
 <body>
 <div class="container">
@@ -16,7 +16,7 @@
         </div>
         <h2>Đăng ký để tiếp tục</h2>
         <form action="RegisterServlet" method="post">
-            <input type="text" name="fullname" placeholder="Họ và tên....." required>
+            <input type="text" name="full-name" pattern="a-zA-Z" placeholder="Họ và tên....." required>
             <input type="email" name="email" placeholder="Email....." required>
             <input type="password" name="password" placeholder="Mật khẩu....." required>
             <div class="checkbox">

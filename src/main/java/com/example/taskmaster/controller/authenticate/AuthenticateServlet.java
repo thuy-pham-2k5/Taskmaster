@@ -15,14 +15,14 @@ public class AuthenticateServlet extends HttpServlet {
             action = "";
         switch (action) {
             case "register":
-                response.sendRedirect("/view/authenticate/register.jsp");
+                request.getRequestDispatcher("/view/authenticate/register.jsp").forward(request, response);
                 break;
             case "login":
-                response.sendRedirect("/view/authenticate/login.jsp");
+                request.getRequestDispatcher("/view/authenticate/login.jsp").forward(request, response);
                 break;
             case "logout":
             default:
-                response.sendRedirect("/view/authenticate/home_taskmaster.jsp");
+                request.getRequestDispatcher("/view/authenticate/home_taskmaster.jsp").forward(request, response);
                 break;
         }
     }
