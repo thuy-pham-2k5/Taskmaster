@@ -6,7 +6,14 @@ public class User {
     private int roleId;
     private String roleName;
 
-    public User(int userId, String email, String password, int roleId, String roleName) {
+    public User(String email, String password, String fullName, String username) {
+        this.email = email;
+        this.password = password;
+        this.username = username;
+        this.fullName = fullName;
+    }
+
+    public User (int userId, String email, String password, int roleId, String roleName) {
         this.userId = userId;
         this.email = email;
         this.password = password;
@@ -14,7 +21,7 @@ public class User {
         this.roleName = roleName;
     }
 
-    public User(int userId, String email, String password, String username, String cv, String fullName, String publicName, String title, String department, String organization, String address, int roleId, String roleName) {
+    public User (int userId, String email, String password, String username, String cv, String fullName, String publicName, String title, String department, String organization, String address, int roleId, String roleName) {
         this.userId = userId;
         this.email = email;
         this.password = password;
