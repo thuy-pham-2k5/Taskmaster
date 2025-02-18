@@ -97,13 +97,13 @@
 
     <div id="wallPaper1">
         <img style="width: 100%; height: 50px; border-radius: 5px; margin-right: 5px; margin-left: 5px"
-             src="imageWallpaper1.png" alt="imageWallpaper1">
+             src="../../image/imageWallpaper1.png" alt="imageWallpaper1">
         <img style="width: 100%; height: 50px; border-radius: 5px; margin-right: 5px; margin-left: 5px"
-             src="imageWallpaper 2.png" alt="imageWallpaper2">
+             src="../../image/imageWallpaper2.png" alt="imageWallpaper2">
         <img style="width: 100%; height: 50px; border-radius: 5px; margin-right: 5px; margin-left: 5px"
-             src="imageWallpaper 3.png" alt="imageWallpaper3">
+             src="../../image/imageWallpaper3.png" alt="imageWallpaper3">
         <img style="width: 100%; height: 50px; border-radius: 5px; margin-right: 5px; margin-left: 5px"
-             src="imageWallpaper 4.png" alt="imageWallpaper4">
+             src="../../image/imageWallpaper4.png" alt="imageWallpaper4">
     </div>
 
     <div id="wallPaper2">
@@ -114,7 +114,7 @@
         <div class="wallPaper" style="background-color: #7e8788"></div>
         <div class="wallPaper" style="background-color: #2e7a3f"></div>
         <img style="width: 15%; height: 25px; border-radius: 5px; margin-right: 5px; margin-left: 5px"
-             src="moreWallpaperButton.png " alt="moreWallpaperButton">
+             src="../../image/moreWallpaperButton.png " alt="moreWallpaperButton">
     </div>
 
     <div>
