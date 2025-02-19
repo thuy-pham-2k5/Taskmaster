@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class AuthenticateService implements IAuthenticateService{
     @Override
     public void signUp(User user) {
-        String query = "INSERT INTO users (email, password, full_name, username) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO users (email, password, full_name) VALUES (?, ?, ?)";
         try (Connection connection = ConnectDatabase.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, user.getEmail());

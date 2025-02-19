@@ -5,6 +5,16 @@
     <meta charset="UTF-8">
     <title>Đăng nhập - Taskmaster</title>
     <link rel="stylesheet" href="/css/authenticate/login.css">
+    <script>
+        function togglePasswordVisibility() {
+            let passwordField = document.getElementById("password");
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+            } else {
+                passwordField.type = "password";
+            }
+        }
+    </script>
 </head>
 <body>
 <div class="login-box">
@@ -15,7 +25,10 @@
     <h2>Đăng nhập để tiếp tục</h2>
     <form action="login" method="post">
         <input type="email" name="email" placeholder="Email....." required>
-        <input type="password" name="password" placeholder="Mật khẩu....." required>
+        <div class="password-container">
+            <input type="password" id="password" name="password" placeholder="Mật khẩu....." required>
+            <span class="toggle-password" onclick="togglePasswordVisibility()">👁️</span>
+        </div>
         <button type="submit">Đăng nhập</button>
     </form>
 
