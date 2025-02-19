@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="vi">
@@ -31,7 +32,7 @@
                    placeholder="Họ và tên....." required>
             <input type="email" name="email" placeholder="Email....." required>
             <div class="password-container">
-                <input type="password" id="password" name="password" placeholder="Mật khẩu....." required>
+                <input type="password" id="password" name="password" pattern=".{7,}" title="Mật khẩu yếu, vui lòng sử dụng mật khẩu lớn hơn 6 ký tự" placeholder="Mật khẩu....." required>
                 <span class="toggle-password" onclick="togglePasswordVisibility()">👁️</span>
             </div>
             <div class="checkbox">

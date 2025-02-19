@@ -1,5 +1,8 @@
 package com.example.taskmaster.controller.authenticate;
 
+import com.example.taskmaster.model.User;
+import com.example.taskmaster.service.authenticate.AuthenticateService;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +12,7 @@ import java.io.IOException;
 
 @WebServlet(value = "/authenticate")
 public class AuthenticateServlet extends HttpServlet {
+    AuthenticateService authenticateService = new AuthenticateService();
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         if (action == null)
@@ -55,10 +59,16 @@ public class AuthenticateServlet extends HttpServlet {
 
     }
 
-    private void register (HttpServletRequest request, HttpServletResponse response) {
+    private void register (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String fullName = request.getParameter("fullName");
-
+        User user = new User(email, password, fullName);
+        System.out.println(user);
+        if (authenticateService.signUp(user)) {
+            request.getRequestDispatcher("/view/groups/home_workspace.jsp").forward(request, response);
+        } else {
+            request.getRequestDispatcher("/view/authenticate/register.jsp").forward(request, response);
+        }
     }
 }
