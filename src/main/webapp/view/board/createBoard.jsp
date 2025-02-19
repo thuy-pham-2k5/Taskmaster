@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -25,20 +26,6 @@
             margin-left: auto;
             margin-right: auto;
             border-radius: 5px;
-        }
-
-        .wallPaper {
-            width: 15%;
-            height: 25px;
-            border-radius: 5px;
-            margin-right: 5px;
-            margin-left: 5px
-        }
-
-        #wallPaper1 {
-            width: 100%;
-            height: 60px;
-            display: flex;
         }
 
         #wallPaper2 {
@@ -80,6 +67,8 @@
             border: 0;
         }
     </style>
+    <link rel="stylesheet" href="../../css/board/createBoard.css">
+    <script src="../../js/board/createBoard.js"></script>
 </head>
 <body>
 <div class="container">
@@ -88,33 +77,24 @@
     </div>
 
     <div>
-        <img src="imageCrateBoard.png" alt="imageCrateBoard">
+        <img src="../../image/imageCrateBoard.png" alt="imageCrateBoard">
     </div>
 
     <div style="margin-bottom: 5px">
         <p style="color: white">Phông nền</p>
     </div>
 
-    <div id="wallPaper1">
-        <img style="width: 100%; height: 50px; border-radius: 5px; margin-right: 5px; margin-left: 5px"
-             src="../../image/imageWallpaper1.png" alt="imageWallpaper1">
-        <img style="width: 100%; height: 50px; border-radius: 5px; margin-right: 5px; margin-left: 5px"
-             src="../../image/imageWallpaper2.png" alt="imageWallpaper2">
-        <img style="width: 100%; height: 50px; border-radius: 5px; margin-right: 5px; margin-left: 5px"
-             src="../../image/imageWallpaper3.png" alt="imageWallpaper3">
-        <img style="width: 100%; height: 50px; border-radius: 5px; margin-right: 5px; margin-left: 5px"
-             src="../../image/imageWallpaper4.png" alt="imageWallpaper4">
+    <div id="wallPaper1" style="position: relative;">
+        <c:forEach var="i" begin="1" end="4">
+            <div style="position: relative; width: 25%; text-align: center;">
+                <img style="width: 100%; height: 50px; border-radius: 5px; margin-right: 5px; margin-left: 5px"
+                     src="../../image/imageWallpaper${i}.png" alt="imageWallpaper${i}">
+            </div>
+        </c:forEach>
     </div>
 
     <div id="wallPaper2">
-        <div class="wallPaper" style="background-color: #691875"></div>
-        <div class="wallPaper" style="background-color: #2f2f6b"></div>
-        <div class="wallPaper" style="background-color: #81430f"></div>
-        <div class="wallPaper" style="background-color: #1f736d"></div>
-        <div class="wallPaper" style="background-color: #7e8788"></div>
-        <div class="wallPaper" style="background-color: #2e7a3f"></div>
-        <img style="width: 15%; height: 25px; border-radius: 5px; margin-right: 5px; margin-left: 5px"
-             src="../../image/moreWallpaperButton.png " alt="moreWallpaperButton">
+
     </div>
 
     <div>
