@@ -65,9 +65,9 @@ public class AuthenticateServlet extends HttpServlet {
         String fullName = request.getParameter("fullName");
         User user = new User(email, password, fullName);
         if (authenticateService.signUp(user)) {
-            request.getRequestDispatcher("/view/groups").forward(request, response);
+            request.getRequestDispatcher("/view/groups/home_workspace.jsp").forward(request, response);
         } else {
-            request.getRequestDispatcher("").forward(request, response);
+            request.getRequestDispatcher("/view/authenticate/register.jsp").forward(request, response);
         }
     }
 }
