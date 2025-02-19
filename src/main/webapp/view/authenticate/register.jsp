@@ -19,7 +19,7 @@
         <form action="RegisterServlet" method="post">
             <input type="text" id="fullName" name="full-name" pattern="\p{L}+\s*\p{L}+" title="Họ và tên không hợp lệ: chỉ chấp nhận chữ cái in hoa và chữ cái thường" placeholder="Họ và tên....." required>
             <input type="email" name="email" placeholder="Email....." required>
-            <input type="password" name="password" placeholder="Mật khẩu....." required>
+            <input type="password" name="password" pattern=".{7,}" title="Mật khẩu yếu, vui lòng sử dụng mật khẩu lớn hơn 6 ký tự" placeholder="Mật khẩu....." required>
             <div class="checkbox">
                 <input type="checkbox" id="agree" required>
                 <label for="agree">Tôi đồng ý với điều khoản dịch vụ và chính sách quyền riêng tư của Taskmaster
