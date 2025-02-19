@@ -20,7 +20,13 @@
         <input id="nameSp" type="text">
         <label for="typeSp">Loại không gian làm việc</label>
         <select id="typeSp">
-            <option></option>
+            <option>Điều hành</option>
+            <option>Kinh doanh CRM</option>
+            <option>Kỹ thuật - CNTT</option>
+            <option>Giáo dục</option>
+            <option>Nhân sự</option>
+            <option>Doanh nghiệp nhỏ</option>
+            <option>Marketing</option>
         </select>
         <label for="describe" >Mô tả không gian làm việc</label>
         <textarea id="describe" placeholder="Nhóm của chúng tôi tổ chức mọi thứ ở đây"></textarea>

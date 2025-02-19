@@ -65,7 +65,10 @@
                     <div style="display: flex; align-items: center">
                         <button id="group"><p>P</p></button>
                         <div>
-                            <p id="groupName">Quản lý công việc Taskmaster</p>
+                            <div style="display: flex">
+                                <p id="groupName">Quản lý công việc Taskmaster</p>
+                                <img class="edit_group_pen" src="images/edit.png">
+                            </div>
                             <br>
                             <p style="color: white; margin-left: 15px">Riêng tư</p>
                         </div>
