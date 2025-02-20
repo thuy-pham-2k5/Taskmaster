@@ -18,10 +18,10 @@
 <header>
     <div class="logo">
         <img src="image/logo.png" alt="Taskmaster Logo">
-        <span style="font-family: Italinno;">Taskmaster</span>
+        <span class="logo-text">Taskmaster</span>
     </div>
     <nav>
-        <a href="/authenticate?action=login" class="link">Đăng Nhập</a>
+        <a href="/authenticate?action=login" class="button button-outline">Đăng Nhập</a>
         <a href="/authenticate?action=register" class="button">Đăng Ký</a>
     </nav>
 </header>
