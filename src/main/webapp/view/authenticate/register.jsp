@@ -35,6 +35,7 @@
                 <input type="password" id="password" name="password" pattern=".{7,}" title="Mật khẩu yếu, vui lòng sử dụng mật khẩu lớn hơn 6 ký tự" placeholder="Mật khẩu....." required>
                 <span class="toggle-password" onclick="togglePasswordVisibility()">👁️</span>
             </div>
+            <div id="error-message"></div>
             <div class="checkbox">
                 <input type="checkbox" id="agree" required>
                 <label for="agree">Tôi đồng ý với điều khoản dịch vụ và chính sách quyền riêng tư của Taskmaster
