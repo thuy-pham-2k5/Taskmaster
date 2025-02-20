@@ -10,7 +10,7 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="css/groups/homeWorkspace.css">
+    <link rel="stylesheet" href="css/user/group/homeWorkspace.css">
 </head>
 <body>
 
@@ -81,10 +81,11 @@
                     </p>
                 </div>
 
-                <div id="addAcount">
+<%--                <c:if test="${user.roleId=3}"--%>
+                <div id="addAccount">
                     <button style="background-color: #1B5B94">
-                        <img style="width: 15px; height: 15px" src="images/acount.png"> Mời thành viên vào không gian
-                        làm việc
+                        <img style="width: 15px; height: 15px" src="images/acount.png">
+                        Mời thành viên vào Không gian làm việc
                     </button>
                 </div>
             </div>
