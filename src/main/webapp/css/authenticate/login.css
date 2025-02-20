@@ -17,10 +17,11 @@ body {
 
 .login-box {
     background-color: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    width: 350px;
+    padding: 2.5%;
+    border-radius: 1%;
+    box-shadow: 0 0.5vw 1vw rgba(0, 0, 0, 0.2);
+    width: 30%;
+    max-width: 400px;
     text-align: center;
 }
 
@@ -28,41 +29,35 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 2%;
 }
 
 .logo-container img {
-    width: 50px;
+    width: 12%;
     height: auto;
-    margin-right: 5px;
+    margin-right: 1%;
 }
 
 .logo-text {
     font-family: "italianno", serif;
-    font-size: 24px;
+    font-size: 1.8vw;
     font-style: italic;
     color: #0044cc;
 }
 
 h2 {
     font-family: "Times New Roman", serif;
-    font-size: 28px;
-    margin-bottom: 15px;
+    font-size: 2vw;
+    margin-bottom: 3%;
 }
 
 input, button {
     width: 100%;
-    padding: 12px;
-    margin: 8px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 3%;
+    margin: 2% 0;
+    border: 0.1vw solid #ccc;
+    border-radius: 0.5vw;
     box-sizing: border-box;
-}
-
-input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
 }
 
 .password-container {
@@ -71,17 +66,16 @@ input {
 }
 
 .password-container input {
-    width: 100%;
-    padding-right: 40px;
+    padding-right: 10%;
 }
 
 .toggle-password {
     position: absolute;
-    right: 10px;
+    right: 5%;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
-    font-size: 18px;
+    font-size: 1.5vw;
     color: #888;
 }
 
@@ -94,7 +88,7 @@ button {
     color: white;
     border: none;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 1.2vw;
 }
 
 button:hover {
@@ -102,8 +96,8 @@ button:hover {
 }
 
 .register-link {
-    margin-top: 10px;
-    font-size: 14px;
+    margin-top: 2%;
+    font-size: 1vw;
 }
 
 .register-link a {
@@ -111,21 +105,18 @@ button:hover {
     color: #0056b3;
 }
 
-.register-link span {
-    font-weight: bold;
-}
-
 .register-link a:hover {
     text-decoration: underline;
 }
+
 label {
     display: block;
     background-color: #fff3cd;
     color: #6e6c6c;
-    font-size:small;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 10px;
+    font-size: 1vw;
+    padding: 2%;
+    border-radius: 0.5vw;
+    margin-bottom: 2%;
     text-align: center;
-    border: 1px solid #ffeeba;
+    border: 0.1vw solid #ffeeba;
 }

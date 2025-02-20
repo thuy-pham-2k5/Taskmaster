@@ -5,7 +5,7 @@
 <head>
     <title>Task Management</title>
     <link rel="stylesheet" href="../../css/user/board/createBoard.css">
-    <script src="../../../js/board/createBoard.js"></script>
+    <script src="../../../js/user/board/createBoard.js"></script>
 </head>
 <body>
 <div class="container">

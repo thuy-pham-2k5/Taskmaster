@@ -81,13 +81,14 @@
                     </p>
                 </div>
 
-<%--                <c:if test="${user.roleId=3}"--%>
-                <div id="addAccount">
-                    <button style="background-color: #1B5B94">
-                        <img style="width: 15px; height: 15px" src="images/acount.png">
-                        Mời thành viên vào Không gian làm việc
-                    </button>
-                </div>
+                <c:if test="${roleIdUser == 3}">
+                    <div id="addAccount">
+                        <button style="background-color: #1B5B94">
+                            <img style="width: 15px; height: 15px" src="images/account.png" alt="">
+                            Mời thành viên vào Không gian làm việc
+                        </button>
+                    </div>
+                </c:if>
             </div>
 
             <div id="workspaces">
