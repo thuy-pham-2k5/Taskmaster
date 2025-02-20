@@ -22,7 +22,7 @@
 <div class="container">
     <div class="register-box">
         <div class="logo">
-            <img src="image/logo.png" alt="Taskmaster Logo">
+            <img src="images/logo.png" alt="Taskmaster Logo">
             <span class="logo-text">Taskmaster</span>
         </div>
         <h2>Đăng ký để tiếp tục</h2>

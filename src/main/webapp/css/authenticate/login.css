@@ -118,3 +118,14 @@ button:hover {
 .register-link a:hover {
     text-decoration: underline;
 }
+label {
+    display: block;
+    background-color: #fff3cd;
+    color: #6e6c6c;
+    font-size:small;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    text-align: center;
+    border: 1px solid #ffeeba;
+}
