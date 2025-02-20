@@ -4,8 +4,8 @@
 <html lang="vi">
 <head>
     <title>Task Management</title>
-    <link rel="stylesheet" href="../../css/board/createBoard.css">
-    <script src="../../js/board/createBoard.js"></script>
+    <link rel="stylesheet" href="../../css/user/board/createBoard.css">
+    <script src="../../../js/board/createBoard.js"></script>
 </head>
 <body>
 <div class="container">
