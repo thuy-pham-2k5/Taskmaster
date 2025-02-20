@@ -57,13 +57,24 @@ public class AuthenticateServlet extends HttpServlet {
     }
 
     private void login (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        if (authenticateService.signIn(email, password)) {
-            request.getRequestDispatcher("/view/groups/home_workspace.jsp").forward(request, response);
+        User user = authenticateService.getUserByEmail(email);
+        if (user==null) {
+            request.getRequestDispatcher("/view/authenticate/register.jsp").forward(request, response);
         } else {
-            request.setAttribute("message", "Địa chỉ email hoặc mật khẩu không đúng. Hãy đặt lại mật khẩu nếu bạn quên mật khẩu");
-            request.getRequestDispatcher("/view/authenticate/login.jsp").forward(request, response);
+            if (authenticateService.signIn(email, password)) {
+                session.setAttribute("user", user);
+                if (user.getRoleName().equals("User System")) {
+                    request.getRequestDispatcher("/view/user/group/home_workspace.jsp").forward(request, response);
+                } else {
+                    request.getRequestDispatcher("/view/admin/home_admin.jsp").forward(request, response);
+                }
+            } else {
+                request.setAttribute("message", "Địa chỉ email hoặc mật khẩu không đúng. Hãy đặt lại mật khẩu nếu bạn quên mật khẩu");
+                request.getRequestDispatcher("/view/authenticate/login.jsp").forward(request, response);
+            }
         }
     }
 
@@ -76,7 +87,7 @@ public class AuthenticateServlet extends HttpServlet {
         System.out.println(user);
         if (authenticateService.signUp(user)) {
             session.setAttribute("user", authenticateService.getUserByEmail(email));
-            request.getRequestDispatcher("/view/groups/home_workspace.jsp").forward(request, response);    // chuyển trang sau khi đăng ký thành công
+            request.getRequestDispatcher("/view/user/group/home_workspace.jsp").forward(request, response);    // chuyển trang sau khi đăng ký thành công
         } else {
             request.setAttribute("message", "Có vẻ như bạn đã có một tài khoản được liên kết với email này. Hãy đăng nhập thay thế hoặc đặt lại mật khẩu nếu bạn quên mật khẩu.");
             request.getRequestDispatcher("/view/authenticate/login.jsp").forward(request, response);
