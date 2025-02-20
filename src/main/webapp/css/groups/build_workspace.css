@@ -1,0 +1,105 @@
+/* Căn giữa toàn bộ nội dung */
+body {
+    display: flex;
+    justify-content: center;  /* Căn giữa theo chiều ngang */
+    align-items: center;  /* Căn giữa theo chiều dọc */
+    height: 100vh;  /* Chiếm toàn bộ chiều cao màn hình */
+    margin: 0;
+    background-color: #F0F2F5;  /* Màu nền nhẹ nhàng */
+    font-family: Arial, sans-serif;
+}
+
+/* Tổng thể khung chứa */
+#buildWorkspaceCart {
+    width: 70%;
+    height: 90%;
+    display: flex;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+
+/* Phần nhập thông tin */
+#inputInformationWorkspace {
+    width: 50%;
+    padding:0px 50px 0px 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background-color: white;
+}
+
+/* Tiêu đề in đậm */
+#inputInformationWorkspace p:first-child {
+    font-size: 31px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#inputInformationWorkspace p:nth-child(2) {
+    font-size: 25px;
+    color: #7D7D7D;
+    margin-bottom: 15px;
+}
+
+label {
+    font-size: 17px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid black;
+    font-size: 14px;
+    background-color: white;
+    color: black;
+}
+
+input, select{
+    height: 45px;
+}
+
+textarea {
+    height: 115px;
+    resize: none;
+}
+
+button {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #3498DB;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #2980B9;
+}
+
+
+/* Phần chứa ảnh */
+#imageBackgroud {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #DFFFD6;
+    position: relative;
+}
+
+#imageBackgroud img {
+    width: 80%;
+    height: auto;
+    object-fit: contain;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
