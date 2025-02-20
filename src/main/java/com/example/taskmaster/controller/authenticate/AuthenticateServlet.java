@@ -73,6 +73,7 @@ public class AuthenticateServlet extends HttpServlet {
         String password = request.getParameter("password");
         String fullName = request.getParameter("fullName");
         User user = new User(email, password, fullName);
+        System.out.println(user);
         if (authenticateService.signUp(user)) {
             session.setAttribute("user", authenticateService.getUserByEmail(email));
             request.getRequestDispatcher("/view/groups/home_workspace.jsp").forward(request, response);    // chuyển trang sau khi đăng ký thành công
