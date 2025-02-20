@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="css/board/board.css">
+    <link rel="stylesheet" href="css/user/board/board.css">
 </head>
 <body>
 
