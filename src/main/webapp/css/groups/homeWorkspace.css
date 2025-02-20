@@ -294,3 +294,10 @@ body {
 #workspaceList p{
     font-size: 17px;
 }
+
+
+.edit_group_pen{
+    width: 30px;
+    height: 25px;
+    margin-left: 5px;
+}

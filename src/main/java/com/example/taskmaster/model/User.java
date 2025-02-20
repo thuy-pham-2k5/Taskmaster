@@ -20,6 +20,15 @@ public class User {
         this.roleName = roleName;
     }
 
+    public User(int userId, String email, String username, String publicName, int roleId, String roleName) {
+        this.userId = userId;
+        this.email = email;
+        this.username = username;
+        this.publicName = publicName;
+        this.roleId = roleId;
+        this.roleName = roleName;
+    }
+
     public User (int userId, String email, String password, String username, String cv, String fullName, String publicName, String title, String department, String organization, String address, int roleId, String roleName) {
         this.userId = userId;
         this.email = email;

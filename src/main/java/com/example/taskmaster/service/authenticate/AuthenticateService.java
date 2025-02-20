@@ -2,8 +2,9 @@ package com.example.taskmaster.service.authenticate;
 
 import com.example.taskmaster.database.ConnectDatabase;
 import com.example.taskmaster.model.User;
+import sun.print.PeekGraphics;
 
-import javax.management.Notification;
+import javax.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,12 +13,12 @@ import java.util.Random;
 
 public class AuthenticateService implements IAuthenticateService{
     @Override
-    public Boolean signUp(User user) {
-        if (getUserByField("email", user.getEmail())) {
+    public boolean signUp(User user) {
+        if (checkUserByField("email", user.getEmail())) {
             return false;
         } else {
             String username = createNewUsername();
-            while (getUserByField("username", username)) {
+            while (checkUserByField("username", username)) {
                 username = createNewUsername();
             }
             insertNewUser(user.getEmail(), user.getPassword(), user.getFullName(), username);
@@ -25,8 +26,17 @@ public class AuthenticateService implements IAuthenticateService{
         }
     }
     @Override
-    public void signIn(String email, String password) {
-
+    public boolean signIn(String email, String password) {
+        String query = "select * from users where email = ? and password = ?";
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, password);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            return resultSet.next();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -39,13 +49,34 @@ public class AuthenticateService implements IAuthenticateService{
 
     }
 
-    public Boolean getUserByField (String field, String value) {
+    public Boolean checkUserByField(String field, String value) {
         String query = "select * from users where " + field + " = ?";
         try (Connection connection = ConnectDatabase.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, value);
             ResultSet resultSet = preparedStatement.executeQuery();
             return resultSet.next();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public User getUserByEmail (String email) {
+        String query = "select * from users join roles where users.email = ?";
+        User user = null;
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, email);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                int userId = resultSet.getInt(1);
+                String username = resultSet.getString(4);
+                String publicName = resultSet.getString(7);
+                int roleId = resultSet.getInt(12);
+                String roleName = resultSet.getString(14);
+                user = new User(userId, email, username, publicName, roleId, roleName);
+            }
+            return user;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

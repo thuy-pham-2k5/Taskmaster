@@ -1,0 +1,60 @@
+/* Căn giữa toàn bộ khung chỉnh sửa */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f7fc;
+    font-family: Arial, sans-serif;
+}
+
+/* Khung chỉnh sửa */
+#editFrame {
+    background: white;
+    padding: 20px;
+    width: 350px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Nhãn */
+#editFrame label {
+    font-weight: bold;
+    margin-top: 10px;
+    color: #333;
+}
+
+/* Input và Textarea */
+#editFrame input,
+#editFrame textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Textarea chỉnh kích thước */
+#editFrame textarea {
+    height: 100px;
+    resize: none;
+}
+
+/* Nút bấm */
+#editFrame button {
+    padding: 10px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+/* Hiệu ứng hover */
+#editFrame button:hover {
+    opacity: 0.8;
+}

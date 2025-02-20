@@ -26,10 +26,8 @@
             <span class="logo-text">Taskmaster</span>
         </div>
         <h2>Đăng ký để tiếp tục</h2>
-        <form action="RegisterServlet" method="post">
-            <input type="text" id="fullName" name="full-name" pattern="\p{L}+\s*\p{L}+"
-                   title="Họ và tên không hợp lệ: chỉ chấp nhận chữ cái in hoa và chữ cái thường"
-                   placeholder="Họ và tên....." required>
+        <form action="/authenticate?action=register" method="post">
+            <input type="text" id="fullName" name="full-name" pattern="\p{L}+\s*\p{L}+" title="Họ và tên không hợp lệ: chỉ chấp nhận chữ cái in hoa và chữ cái thường" placeholder="Họ và tên....." required>
             <input type="email" name="email" placeholder="Email....." required>
             <div class="password-container">
                 <input type="password" id="password" name="password" pattern=".{7,}" title="Mật khẩu yếu, vui lòng sử dụng mật khẩu lớn hơn 6 ký tự" placeholder="Mật khẩu....." required>
