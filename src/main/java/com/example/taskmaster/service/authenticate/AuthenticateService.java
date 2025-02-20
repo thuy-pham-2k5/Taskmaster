@@ -13,7 +13,7 @@ import java.util.Random;
 
 public class AuthenticateService implements IAuthenticateService{
     @Override
-    public Boolean signUp(User user) {
+    public boolean signUp(User user) {
         if (checkUserByField("email", user.getEmail())) {
             return false;
         } else {
@@ -26,8 +26,17 @@ public class AuthenticateService implements IAuthenticateService{
         }
     }
     @Override
-    public void signIn(String email, String password) {
-
+    public boolean signIn(String email, String password) {
+        String query = "select * from users where email = ? and password = ?";
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, password);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            return resultSet.next();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
