@@ -80,8 +80,8 @@ input {
 .toggle-password {
     position: absolute;
     right: 10px;
-    width: 24px;
-    height: 24px;
+    width: 15px;
+    height: 15px;
     cursor: pointer;
 }
 
