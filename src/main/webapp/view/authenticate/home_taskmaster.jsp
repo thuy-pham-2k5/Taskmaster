@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: tranz_quyzn
-  Date: 17/02/2025
-  Time: 8:41 SA
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="vi">
@@ -17,7 +11,7 @@
 <body>
 <header>
     <div class="logo">
-        <img src="image/logo.png" alt="Taskmaster Logo">
+        <img src="images/logo.png" alt="Taskmaster Logo">
         <span class="logo-text">Taskmaster</span>
     </div>
     <nav>
@@ -28,7 +22,7 @@
 <main class="container">
     <div class="image-container">
         <p>Duy trì mọi thứ ở cùng một nơi—dù cho nhóm của bạn không ở cùng nhau</p>
-        <img src="image/image_5.png" alt="Taskmaster UI">
+        <img src="images/image_5.png" alt="Taskmaster UI">
     </div>
     <div class="content">
         <h1>Taskmaster giúp bạn quản lý công việc hiệu quả hơn</h1>

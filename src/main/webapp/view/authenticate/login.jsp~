@@ -20,7 +20,7 @@
 <body>
 <div class="login-box">
     <div class="logo-container">
-        <img src="images/logo.png" alt="Taskmaster" class="logo">
+        <img src="image/logo.png" alt="Taskmaster" class="logo">
         <span class="logo-text">Taskmaster</span>
     </div>
     <h2>Đăng nhập để tiếp tục</h2>
