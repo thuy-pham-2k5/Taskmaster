@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="vi">
@@ -13,6 +14,9 @@
         <span class="logo-text">Taskmaster</span>
     </div>
     <h2>Đăng nhập để tiếp tục</h2>
+    <c:if test="${not empty message}">
+        <label>${message}</label>
+    </c:if>
     <form action="login" method="post">
         <input type="email" name="email" placeholder="Email....." required>
         <input type="password" name="password" placeholder="Mật khẩu....." required>
