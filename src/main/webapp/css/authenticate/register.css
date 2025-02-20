@@ -115,30 +115,23 @@ button:hover {
 .login-link a:hover {
     text-decoration: underline;
 }
+
 .password-container {
     position: relative;
-    width: 100%;
+    display: flex;
+    align-items: center;
 }
 
 .password-container input {
     width: 100%;
-    /*padding: 10px;*/
     padding-right: 40px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    box-sizing: border-box;
 }
 
 .toggle-password {
     position: absolute;
     right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
     cursor: pointer;
-    font-size: 18px;
-    color: #888;
 }
-
-.toggle-password:hover {
-    color: #333;
-}
-
