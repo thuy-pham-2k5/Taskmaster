@@ -9,10 +9,14 @@
     <script>
         function togglePasswordVisibility() {
             let passwordField = document.getElementById("password");
+            let toggleIcon = document.getElementById("togglePassword");
+
             if (passwordField.type === "password") {
                 passwordField.type = "text";
+                toggleIcon.src = "images/eye_open.png";
             } else {
                 passwordField.type = "password";
+                toggleIcon.src = "images/eye_close.png";
             }
         }
     </script>
@@ -31,8 +35,9 @@
         <input type="email" name="email" placeholder="Email....." required>
         <div class="password-container">
             <input type="password" id="password" name="password" placeholder="Mật khẩu....." required>
-            <span class="toggle-password" onclick="togglePasswordVisibility()">👁️</span>
+            <img src="images/eye_close.png" id="togglePassword" class="toggle-password" onclick="togglePasswordVisibility()" alt="eye">
         </div>
+
         <button type="submit">Đăng nhập</button>
     </form>
 
