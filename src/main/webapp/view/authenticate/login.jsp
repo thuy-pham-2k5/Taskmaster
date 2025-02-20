@@ -17,7 +17,7 @@
     <c:if test="${not empty message}">
         <label>${message}</label>
     </c:if>
-    <form action="login" method="post">
+    <form action="/authenticate?action=login" method="post">
         <input type="email" name="email" placeholder="Email....." required>
         <input type="password" name="password" placeholder="Mật khẩu....." required>
         <button type="submit">Đăng nhập</button>

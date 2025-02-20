@@ -56,8 +56,15 @@ public class AuthenticateServlet extends HttpServlet {
 
     }
 
-    private void login (HttpServletRequest request, HttpServletResponse response) {
-
+    private void login (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        if (authenticateService.signIn(email, password)) {
+            request.getRequestDispatcher("/view/groups/home_workspace.jsp").forward(request, response);
+        } else {
+            request.setAttribute("message", "Địa chỉ email hoặc mật khẩu không đúng. Hãy đặt lại mật khẩu nếu bạn quên mật khẩu");
+            request.getRequestDispatcher("/view/authenticate/login.jsp").forward(request, response);
+        }
     }
 
     private void register (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
