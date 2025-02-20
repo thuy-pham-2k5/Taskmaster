@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="css/groups/build_workspace.css">
+    <link rel="stylesheet" href="css/user/group/build_workspace.css">
 </head>
 <body>
 <div id="buildWorkspaceCart">
