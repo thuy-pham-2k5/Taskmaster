@@ -2,10 +2,7 @@ package com.example.taskmaster.controller.user.group;
 
 import com.example.taskmaster.model.Group;
 import com.example.taskmaster.model.User;
-import com.example.taskmaster.service.user.GroupService;
-import com.example.taskmaster.service.user.IGroupService;
-import com.example.taskmaster.service.user.IUserService;
-import com.example.taskmaster.service.user.UserService;
+import com.example.taskmaster.service.user.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,18 +16,60 @@ import java.io.IOException;
 public class GroupHomeServlet extends HttpServlet {
     IUserService userService = new UserService();
     IGroupService groupService = new GroupService();
+    IBoardService boardService = new BoardService();
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
+        String action = request.getParameter("action");
+        if (action == null)
+            action = "";
+        switch (action) {
+            default:
+                break;
+        }
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
         String action = request.getParameter("action");
-        if (action==null)
+        if (action == null)
             action = "";
         switch (action) {
-            default:
-                showGroupInfo (request, response);
+            case "sortType":
+                sortTypeListBoards(request, response);
                 break;
+            case "search":
+                searchBoardByKeyword (request, response);
+                break;
+            default:
+                showGroupInfo(request, response);
+                break;
+        }
+    }
+
+    private void searchBoardByKeyword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        String keyword = request.getParameter("keyword");
+        System.out.println(keyword);
+        request.setAttribute("boards", boardService.searchBoardsByName((int) session.getAttribute("groupId"), keyword));
+        request.getRequestDispatcher("view/user/group/home_workspace.jsp").forward(request, response);
+    }
+
+    private void sortTypeListBoards(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String sortType = request.getParameter("mySelect");
+        if (sortType.equals("option1")) {
+            response.sendRedirect("group_home");
+        } else {
+            HttpSession session = request.getSession();
+            int groupId = (int) session.getAttribute("groupId");
+            request.setAttribute("boards", boardService.getAllBoardInGroup(groupId, false));
+            request.getRequestDispatcher("/view/user/group/home_workspace.jsp").forward(request, response);
         }
     }
 
@@ -39,13 +78,10 @@ public class GroupHomeServlet extends HttpServlet {
         User user = (User) session.getAttribute("user");
         int groupId = userService.getGroupByUserId(user.getUserId());
         int roleId = userService.getRoleUserInGroup(user.getUserId(), groupId);
+        session.setAttribute("groupId", groupId);
         request.setAttribute("roleIdUser", roleId);
         request.setAttribute("groupInfo", groupService.getGroupInfoById(groupId));
-
-        System.out.println(groupId);
-        System.out.println(roleId);
-        System.out.println(groupService.getGroupInfoById(groupId));
-
+        request.setAttribute("boards", boardService.getAllBoardInGroup(groupId, true));
         request.getRequestDispatcher("/view/user/group/home_workspace.jsp").forward(request, response);
     }
 }
