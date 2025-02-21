@@ -82,6 +82,7 @@ public class AuthenticateServlet extends HttpServlet {
         String password = request.getParameter("password");
         User user = authenticateService.getUserByEmail(email);
         if (user == null) {
+            request.setAttribute("message", "Địa chỉ email chưa được đăng ký. Vui lòng đăng ký để tiếp tục");
             request.getRequestDispatcher("/view/authenticate/register.jsp").forward(request, response);
         } else {
             if (authenticateService.signIn(email, password)) {

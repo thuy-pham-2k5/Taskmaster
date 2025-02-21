@@ -26,6 +26,9 @@
             <span class="logo-text">Taskmaster</span>
         </div>
         <h2>Đăng ký để tiếp tục</h2>
+        <c:if test="${not empty message}">
+            <label style="background: burlywood">${message}</label>
+        </c:if>
         <form action="/authenticate?action=register" method="post">
             <input type="text" id="fullName" name="full-name" pattern="\p{L}+\s*\p{L}+"
                    title="Họ và tên không hợp lệ: chỉ chấp nhận chữ cái in hoa và chữ cái thường"
