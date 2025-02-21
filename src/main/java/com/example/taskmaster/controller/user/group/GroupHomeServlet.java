@@ -1,5 +1,6 @@
 package com.example.taskmaster.controller.user.group;
 
+import com.example.taskmaster.model.Board;
 import com.example.taskmaster.model.Group;
 import com.example.taskmaster.model.User;
 import com.example.taskmaster.service.user.*;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(value = "/group_home")
 public class GroupHomeServlet extends HttpServlet {
@@ -58,6 +60,7 @@ public class GroupHomeServlet extends HttpServlet {
         String keyword = request.getParameter("keyword");
         System.out.println(keyword);
         request.setAttribute("boards", boardService.searchBoardsByName((int) session.getAttribute("groupId"), keyword));
+        System.out.println(boardService.searchBoardsByName((int) session.getAttribute("groupId"), keyword));
         request.getRequestDispatcher("view/user/group/home_workspace.jsp").forward(request, response);
     }
 
@@ -68,8 +71,10 @@ public class GroupHomeServlet extends HttpServlet {
         } else {
             HttpSession session = request.getSession();
             int groupId = (int) session.getAttribute("groupId");
-            request.setAttribute("boards", boardService.getAllBoardInGroup(groupId, false));
-            request.getRequestDispatcher("/view/user/group/home_workspace.jsp").forward(request, response);
+            List<Board> boards = boardService.getAllBoardInGroup(groupId, false);
+            request.setAttribute("boards", boards);
+            System.out.println(boardService.getAllBoardInGroup(groupId, false));
+            request.getRequestDispatcher("view/authenticate/login.jsp").forward(request, response);
         }
     }
 
@@ -82,6 +87,9 @@ public class GroupHomeServlet extends HttpServlet {
         request.setAttribute("roleIdUser", roleId);
         request.setAttribute("groupInfo", groupService.getGroupInfoById(groupId));
         request.setAttribute("boards", boardService.getAllBoardInGroup(groupId, true));
+        request.setAttribute("closedBoards", boardService.getAllBoardClosedInGroup((int) session.getAttribute("groupId")));
+        System.out.println(boardService.getAllBoardClosedInGroup((int) session.getAttribute("groupId")));
+
         request.getRequestDispatcher("/view/user/group/home_workspace.jsp").forward(request, response);
     }
 }

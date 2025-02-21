@@ -24,3 +24,12 @@ function startTimer() {
 function inputChanged() {
     startTimer();
 }
+
+function showOverlay() {
+    document.getElementById('overlay').style.display = 'block';
+}
+
+// Ẩn overlay
+function hideOverlay() {
+    document.getElementById('overlay').style.display = 'none';
+}

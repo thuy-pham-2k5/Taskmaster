@@ -101,7 +101,8 @@
                     </div>
                     <div id="searchTable">
                         <p style="color: white">Tìm kiếm</p>
-                        <input type="text" id="keyword" name="keyword" placeholder="Tìm kiếm các bảng" oninput="inputChanged()">
+                        <input type="text" id="keyword" name="keyword" placeholder="Tìm kiếm các bảng"
+                               oninput="inputChanged()">
                     </div>
                 </div>
 
@@ -112,11 +113,27 @@
                     <c:forEach var="board" items="${boards}">
                         <div class="workspaceTable">
                             <label>${board.title}</label>
-                        </div>
+                        </div>.
+
                     </c:forEach>
                 </div>
 
                 <button id="viewOffTable">Xem các bảng đã đóng</button>
+
+                <c:if test="${not empty closedBoard}">
+                    <div id="overlay" class="overlay" onclick="hideOverlay()">
+                        <div class="overlay-content" onclick="event.stopPropagation();">
+                            <!-- Nội dung của các bảng đã đóng -->
+                            <h2>Các bảng đã đóng</h2>
+                            <ul id="closedBoardsList">
+                                <c:forEach var="board" items="${closedBoards}">
+                                    <li>${board.title}</li>
+                                </c:forEach>
+                            </ul>
+                            <button onclick="hideOverlay()">Đóng</button>
+                        </div>
+                    </div>
+                </c:if>
             </div>
         </div>
     </div>

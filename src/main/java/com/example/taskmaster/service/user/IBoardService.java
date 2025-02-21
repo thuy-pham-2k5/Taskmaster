@@ -7,4 +7,5 @@ import java.util.List;
 public interface IBoardService {
     List<Board> getAllBoardInGroup (int groupId, boolean sortType);
     List<Board> searchBoardsByName (int groupId, String keyword);
+    List<Board> getAllBoardClosedInGroup (int groupId);
 }
