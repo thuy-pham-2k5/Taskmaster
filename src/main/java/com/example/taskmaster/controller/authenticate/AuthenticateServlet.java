@@ -44,11 +44,27 @@ public class AuthenticateServlet extends HttpServlet {
             case "login":
                 login (request, response);
                 break;
+            case "resetPassword":
+                resetPassword (request, response);
+                break;
             case "logout":
                 logout (request, response);
                 break;
             default:
                 break;
+        }
+    }
+
+    private void resetPassword (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        if (authenticateService.checkUserByField("email", email)) {
+            authenticateService.resetPassword(email, password);
+            request.setAttribute("message", "Đổi mật khẩu thành công");
+            request.getRequestDispatcher("/view/authenticate/login.jsp").forward(request, response);
+        } else {
+            request.setAttribute("message", "Email chưa được đăng ký");
+            request.getRequestDispatcher("/view/authenticate/reset_password.jsp").forward(request, response);
         }
     }
 

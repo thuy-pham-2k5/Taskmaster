@@ -21,9 +21,7 @@ function inputChanged() {
     timer = setTimeout(sendRequest, 1500);
 }
 
-// Bắt đầu gửi yêu cầu 3 giây sau khi nhập ký tự
 document.getElementById('keyword').addEventListener('input', inputChanged);
-
 
 function showOverlay() {
     document.getElementById('overlay').style.display = 'block';
