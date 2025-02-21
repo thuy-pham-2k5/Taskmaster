@@ -40,13 +40,16 @@ public class AuthenticateService implements IAuthenticateService{
     }
 
     @Override
-    public void logout() {
-
-    }
-
-    @Override
-    public void resetPassword(String email) {
-
+    public void resetPassword(String email, String password) {
+        String query = "UPDATE users SET password = ? WHERE email = ?";
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, password);
+            preparedStatement.setString(2, email);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public Boolean checkUserByField(String field, String value) {
@@ -62,7 +65,7 @@ public class AuthenticateService implements IAuthenticateService{
     }
 
     public User getUserByEmail (String email) {
-        String query = "select * from users join roles where users.email = ?";
+        String query = "select * from users left join roles on users.role_id = roles.role_id where users.email = ?;";
         User user = null;
         try (Connection connection = ConnectDatabase.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -72,8 +75,8 @@ public class AuthenticateService implements IAuthenticateService{
                 int userId = resultSet.getInt(1);
                 String username = resultSet.getString(4);
                 String publicName = resultSet.getString(7);
-                int roleId = resultSet.getInt(12);
-                String roleName = resultSet.getString(14);
+                int roleId = resultSet.getInt(13);
+                String roleName = resultSet.getString(15);
                 user = new User(userId, email, username, publicName, roleId, roleName);
             }
             return user;

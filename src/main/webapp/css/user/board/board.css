@@ -1,0 +1,283 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+#header {
+    width: 100%;
+    height: 70px;
+    background-color: #3FB5CC;
+    display: flex;
+    align-items: center;
+
+}
+
+#logo {
+    padding-left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#headerTopic {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 600px;
+    margin-left: 35px;
+}
+
+.topic {
+    border-radius: 4px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    font-size: 18px;
+}
+
+#headerTopic button {
+    width: 70px;
+    height: 30px;
+    background-color: #116676;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.topic:hover {
+    background-color: gray;
+}
+
+.listImage {
+    width: 15px;
+    height: 15px;
+}
+
+
+#logo p {
+    font-size: 35px;
+    color: white;
+    font-family: Italianno;
+    font-style: italic;
+}
+
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+#homeLeft {
+    width: 25%;
+    min-width: 250px;
+    height: 620px;
+    background-color: #93CDD8;
+}
+
+
+#homeRight{
+    flex: 1;
+    height: 620px;
+    background-color: #3179BA;
+
+}
+
+
+#accountSearchNotification {
+    width: 625px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px;
+    padding: 10px;
+}
+
+#header #accountSearchNotification img {
+    width: 40px;
+    height: 40px;
+}
+
+
+
+#homeLeft #workspace{
+    margin: 30px;
+    border-radius: 8px;
+    width: 70px;
+    height: 60px;
+    background-color: orange;
+}
+
+#homeLeft .represent{
+    font-size: 30px;
+    color: white;
+    font-weight: bold;
+}
+
+
+
+#workspaceName {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 2px solid gray;
+}
+
+
+.represent {
+    font-size: 25px;
+    color: white;
+    font-weight: bold;
+    margin: 0;
+}
+
+#workspaceName p {
+    font-size: 25px;
+    color: white;
+    margin: 0;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+}
+
+#workspaceList div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 0;
+}
+
+#workspaceList {
+    padding: 30px 0px 0px 30px;
+}
+
+#group {
+    width: 90px;
+    height: 90px;
+    background-color: orange;
+    border-radius: 8px;
+}
+
+#group p{
+    font-size: 40px;
+    color: white;
+    font-weight: bold;
+}
+
+#groupName{
+    font-size: 30px;
+    color: white;
+    margin-left: 15px;
+}
+
+#content{
+    font-size: 20px;
+    width: 650px;
+    color: #e8e2e2;
+}
+
+#groupInformation{
+    align-items: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid darkgray;
+}
+
+#addAcount button{
+    width: 275px;
+    border: none;
+    height: 30px;
+    background-color: #1B5B94;
+    color: white;
+    cursor: pointer;
+}
+
+#sortAndSearch{
+    display: flex;
+    justify-content: space-between;
+}
+
+#workspaces{
+    margin-left: 52px;
+    margin-right: 52px;
+    margin-top: 30px;
+}
+
+
+#workspaces {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+
+#mySelect{
+    margin-top: 15px;
+    border-radius: 5px;
+    border-color: white;
+    color: white;
+    height: 35px;
+    background-color: #3179BA;
+}
+
+#searchTable input{
+    margin-top: 15px;
+    border-radius: 5px;
+    border-color: white;
+    height: 35px;
+    color: white;
+    background-color: #3179BA;
+}
+#searchTable button{
+    margin-top: 15px;
+    border-radius: 5px;
+    border-color: white;
+    height: 35px;
+    color: white;
+    background-color: #3179BA;
+}
+
+#searchTable input::placeholder {
+    color: white;
+    opacity: 1;
+}
+
+#workspaceTable {
+    display: inline-block;
+    width: auto;
+    min-width: 100px;
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+#workspaceTable button{
+    border: none;
+    border-radius: 10px;
+    width: 177px;
+    height: 75px;
+    color: white;
+    align-content: center;
+    background-color: #0D599D;
+}
+
+#viewOffTable{
+    border-color: white;
+    border-radius: 3px;
+    height: 25px;
+    width: 177px;
+    background-color: #286BA8;
+    color: white;
+}

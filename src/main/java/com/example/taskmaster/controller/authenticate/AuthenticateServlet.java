@@ -44,6 +44,9 @@ public class AuthenticateServlet extends HttpServlet {
             case "login":
                 login (request, response);
                 break;
+            case "resetPassword":
+                resetPassword (request, response);
+                break;
             case "logout":
                 logout (request, response);
                 break;
@@ -52,18 +55,42 @@ public class AuthenticateServlet extends HttpServlet {
         }
     }
 
+    private void resetPassword (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        if (authenticateService.checkUserByField("email", email)) {
+            authenticateService.resetPassword(email, password);
+            request.setAttribute("message", "Đổi mật khẩu thành công");
+            request.getRequestDispatcher("/view/authenticate/login.jsp").forward(request, response);
+        } else {
+            request.setAttribute("message", "Email chưa được đăng ký");
+            request.getRequestDispatcher("/view/authenticate/reset_password.jsp").forward(request, response);
+        }
+    }
+
     private void logout (HttpServletRequest request, HttpServletResponse response) {
 
     }
 
     private void login (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        if (authenticateService.signIn(email, password)) {
-            request.getRequestDispatcher("/view/groups/home_workspace.jsp").forward(request, response);
+        User user = authenticateService.getUserByEmail(email);
+        if (user==null) {
+            request.getRequestDispatcher("/view/authenticate/register.jsp").forward(request, response);
         } else {
-            request.setAttribute("message", "Địa chỉ email hoặc mật khẩu không đúng. Hãy đặt lại mật khẩu nếu bạn quên mật khẩu");
-            request.getRequestDispatcher("/view/authenticate/login.jsp").forward(request, response);
+            if (authenticateService.signIn(email, password)) {
+                session.setAttribute("user", user);
+                if (user.getRoleName().equals("User System")) {
+                    response.sendRedirect("group_home");
+                } else {
+                    request.getRequestDispatcher("/view/admin/home_admin.jsp").forward(request, response);
+                }
+            } else {
+                request.setAttribute("message", "Địa chỉ email hoặc mật khẩu không đúng. Hãy đặt lại mật khẩu nếu bạn quên mật khẩu");
+                request.getRequestDispatcher("/view/authenticate/login.jsp").forward(request, response);
+            }
         }
     }
 
@@ -76,7 +103,7 @@ public class AuthenticateServlet extends HttpServlet {
         System.out.println(user);
         if (authenticateService.signUp(user)) {
             session.setAttribute("user", authenticateService.getUserByEmail(email));
-            request.getRequestDispatcher("/view/groups/home_workspace.jsp").forward(request, response);    // chuyển trang sau khi đăng ký thành công
+            request.getRequestDispatcher("/view/user/group/home_workspace.jsp").forward(request, response);    // chuyển trang sau khi đăng ký thành công
         } else {
             request.setAttribute("message", "Có vẻ như bạn đã có một tài khoản được liên kết với email này. Hãy đăng nhập thay thế hoặc đặt lại mật khẩu nếu bạn quên mật khẩu.");
             request.getRequestDispatcher("/view/authenticate/login.jsp").forward(request, response);
