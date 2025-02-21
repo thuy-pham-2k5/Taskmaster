@@ -16,14 +16,12 @@ function sendRequest() {
     xhr.send();
 }
 
-function startTimer() {
-    clearInterval(timer);
-    timer = setInterval(sendRequest, 3000); // Gửi yêu cầu mỗi 3 giây
+function inputChanged() {
+    clearTimeout(timer);
+    timer = setTimeout(sendRequest, 1500);
 }
 
-function inputChanged() {
-    startTimer();
-}
+document.getElementById('keyword').addEventListener('input', inputChanged);
 
 function showOverlay() {
     document.getElementById('overlay').style.display = 'block';

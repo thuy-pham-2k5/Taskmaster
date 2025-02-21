@@ -117,7 +117,7 @@
                 <button id="viewOffTable">Xem các bảng đã đóng</button>
 
                 <c:if test="${not empty closedBoard}">
-                    <div id="overlay" class="overlay" onclick="hideOverlay()">
+                    <div id="overlay" class="overlay" onclick="showOverlay()">
                         <div class="overlay-content" onclick="event.stopPropagation();">
                             <h2>Các bảng đã đóng</h2>
                             <ul id="closedBoardsList">
