@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: This  PC
-  Date: 17/02/2025
-  Time: 10:26 SA
-  To change this template use File | Settings | File Templates.
---%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -112,14 +105,14 @@
 
                 <div class="flex-container">
                     <div class="workspaceTable">
-                        <button>Tạo bảng mới</button>
+                        <a href="/board?action=create">
+                            <button>Tạo bảng</button>
+                        </a>
                     </div>
                     <c:forEach var="board" items="${boards}">
                         <div class="workspaceTable">
                             <label>${board.title}</label>
                         </div>
-                        .
-
                     </c:forEach>
                 </div>
 
@@ -128,7 +121,6 @@
                 <c:if test="${not empty closedBoard}">
                     <div id="overlay" class="overlay" onclick="showOverlay()">
                         <div class="overlay-content" onclick="event.stopPropagation();">
-                            <!-- Nội dung của các bảng đã đóng -->
                             <h2>Các bảng đã đóng</h2>
                             <ul id="closedBoardsList">
                                 <c:forEach var="board" items="${closedBoards}">

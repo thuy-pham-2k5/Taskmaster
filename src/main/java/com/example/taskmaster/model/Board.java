@@ -16,6 +16,12 @@ public class Board {
         this.groupId = groupId;
     }
 
+    public Board(String title, int backgroundId, int groupId) {
+        this.title = title;
+        this.backgroundId = backgroundId;
+        this.groupId = groupId;
+    }
+
     @Override
     public String toString() {
         return "Board{" +
