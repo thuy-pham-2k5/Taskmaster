@@ -34,7 +34,8 @@
     <form action="/authenticate?action=resetPassword" method="post">
         <input type="email" name="email" placeholder="Email....." required>
         <div class="password-container">
-            <input type="password" id="password" name="password" placeholder="Mật khẩu....." required>
+            <input type="password" id="password" name="password" pattern=".{7,}"
+                   title="Mật khẩu yếu, vui lòng sử dụng mật khẩu lớn hơn 6 ký tự"  placeholder="Mật khẩu....." required>
             <img src="images/eye_close.png" id="togglePassword" class="toggle-password" onclick="togglePasswordVisibility()" alt="eye">
         </div>
 
