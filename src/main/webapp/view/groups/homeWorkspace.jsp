@@ -10,21 +10,35 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="css/groups/homeWorkspace.css">
+    <link rel="stylesheet" href="/css/groups/homeWorkspace.css">
 </head>
 <body>
 
 <div>
     <div id="header">
         <div id="logo">
-            <img style="height: 40px; width: 40px" src="images/logo.png">
+            <img style="height: 40px; width: 40px" src="/images/logo.png">
             <p>Taskmaster</p>
         </div>
         <div id="headerTopic">
-            <div class="topic"><p>Các không gian làm vệc </p> <img class="listImage" src="images/list.png"></div>
-            <div class="topic"><p>Gần đây</p> <img class="listImage" src="images/list.png"></div>
-            <div class="topic"><P>Đã đánh dấu sao</P> <img class="listImage" src="images/list.png"></div>
-            <button>Tạo mới</button>
+            <div class="topic"><p>Các không gian làm vệc </p> <img class="listImage" src="/images/list.png"></div>
+            <div class="topic"><p>Gần đây</p> <img class="listImage" src="/images/list.png"></div>
+            <div class="topic"><P>Đã đánh dấu sao</P> <img class="listImage" src="/images/list.png"></div>
+            <a href="/view/groups/build_workspace.jsp"><button>Tạo không gian làm việc mới</button></a>
+<%--            <button onclick="openModal()">Tạo không gian làm việc mới</button>--%>
+
+<%--            <!-- Modal -->--%>
+<%--            <div id="myModal" class="modal">--%>
+<%--                <div class="modal-content">--%>
+<%--                    <span style="padding: 20px" class="close" onclick="closeModal()">&times;</span>--%>
+<%--                    <iframe src="view/groups/build_workspace.jsp"></iframe>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+
+
+
+
+
         </div>
         <div id="accountSearchNotification">
             <div id="search">
@@ -33,7 +47,7 @@
             </div>
 
 
-            <img src="images/bell.png">
+            <img src="/images/bell.png">
             <img src="https://vivureviews.com/wp-content/uploads/2022/08/avatar-vo-danh-9.png">
         </div>
     </div>
@@ -42,21 +56,21 @@
         <div id="homeLeft">
             <div id="workspaceName">
                 <button id="workspace"><p class="represent">P</p></button>
-                <p>Quản lý công việc Taskmaster</p>
+                <p>${title}</p>
             </div>
 
             <div id="workspaceList">
-                <div><img class="icon" src="images/table.png">
+                <div><img class="icon" src="/images/table.png">
                     <p>Bảng</p></div>
-                <div><img class="icon" src="images/number.png">
+                <div><img class="icon" src="/images/number.png">
                     <p>Thành viên</p></div>
-                <div><img class="icon" src="images/setting.png">
+                <div><img class="icon" src="/images/setting.png">
                     <p>Các cài đặt không gian làm việc</p></div>
 
                 <div style="display: flex; justify-content: space-between"><p style="font-size: 20px">Các bảng của
-                    bạn</p> <img class="icon" src="images/add.png"></div>
+                    bạn</p> <img class="icon" src="/images/add.png"></div>
                 <div style="display: flex; justify-content: space-between ; padding-left: 30px"><p>Bảng 1</p> <img
-                        class="icon" src="images/start.png"></div>
+                        class="icon" src="/images/start.png"></div>
             </div>
         </div>
         <div id="homeRight">
@@ -66,8 +80,8 @@
                         <button id="group"><p>P</p></button>
                         <div>
                             <div style="display: flex">
-                                <p id="groupName">Quản lý công việc Taskmaster</p>
-                                <img class="edit_group_pen" src="images/edit.png">
+                                <p id="groupName">${title}</p>
+                                <img class="edit_group_pen" src="/images/edit.png">
                             </div>
                             <br>
                             <p style="color: white; margin-left: 15px">Riêng tư</p>
@@ -75,15 +89,12 @@
 
                     </div>
                     <br>
-                    <p id="content">Dự án Quản lý công việc Taskmaster nổi bật với khả năng kéo thả các thẻ công việc.
-                        Đơn giản, linh hoạt, mạnh mẽ. Chỉ với bảng, danh sách và thẻ, bạn sẽ biết rõ ai đang làm gì và
-                        những việc cần làm
-                    </p>
+                    <p id="content">${describe}</p>
                 </div>
 
                 <div id="addAcount">
                     <button style="background-color: #1B5B94">
-                        <img style="width: 15px; height: 15px" src="images/acount.png"> Mời thành viên vào không gian
+                        <img style="width: 15px; height: 15px" src="/images/acount.png"> Mời thành viên vào không gian
                         làm việc
                     </button>
                 </div>
@@ -118,6 +129,6 @@
     </div>
 </div>
 
-
+<script src="js/groups/homeWorkspace.js"></script>
 </body>
 </html>

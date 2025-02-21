@@ -1,105 +1,140 @@
+
+
+
 /* Căn giữa toàn bộ nội dung */
 body {
     display: flex;
-    justify-content: center;  /* Căn giữa theo chiều ngang */
-    align-items: center;  /* Căn giữa theo chiều dọc */
-    height: 100vh;  /* Chiếm toàn bộ chiều cao màn hình */
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     margin: 0;
-    background-color: #F0F2F5;  /* Màu nền nhẹ nhàng */
-    font-family: Arial, sans-serif;
+    background-color: #F4F7FC;
+    font-family: 'Arial', sans-serif;
 }
 
-/* Tổng thể khung chứa */
-#buildWorkspaceCart {
-    width: 70%;
+/* Container chính */
+#workspaceContainer {
     height: 90%;
-    display: flex;
+    width: 80%;
+    max-width: 1100px;
     background-color: white;
     border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+/* Bố cục chia form và hình ảnh */
+#workspaceContent {
+    display: flex;
+    width: 100%;
+}
 
-/* Phần nhập thông tin */
-#inputInformationWorkspace {
+/* Phần form nhập thông tin */
+#workspaceForm {
     width: 50%;
-    padding:0px 50px 0px 50px;
+    padding: 40px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    background-color: white;
+    gap: 15px;
 }
 
-/* Tiêu đề in đậm */
-#inputInformationWorkspace p:first-child {
-    font-size: 31px;
+/* Tiêu đề */
+#workspaceForm h1 {
+    font-size: 26px;
     font-weight: bold;
-    margin-bottom: 5px;
+    color: #333;
+    margin-bottom: 10px;
 }
 
-#inputInformationWorkspace p:nth-child(2) {
-    font-size: 25px;
-    color: #7D7D7D;
-    margin-bottom: 15px;
+/* Văn bản phụ */
+.sub-text {
+    font-size: 16px;
+    color: #666;
 }
 
+/* Label */
 label {
-    font-size: 17px;
+    font-size: 16px;
     font-weight: bold;
-    margin-top: 10px;
+    color: #444;
 }
 
+/* Input, Select, Textarea */
 input, select, textarea {
     width: 100%;
-    padding: 8px;
-    border-radius: 5px;
-    border: 1px solid black;
-    font-size: 14px;
-    background-color: white;
-    color: black;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    background-color: #fdfdfd;
+    transition: all 0.3s ease-in-out;
 }
 
-input, select{
-    height: 45px;
+input:focus, select:focus, textarea:focus {
+    border-color: #3498DB;
+    box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
+    outline: none;
 }
 
 textarea {
-    height: 115px;
+    height: 100px;
     resize: none;
 }
 
+/* Nút bấm */
 button {
     margin-top: 15px;
-    padding: 10px;
+    padding: 12px;
     background-color: #3498DB;
     color: white;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
+    transition: 0.3s;
 }
 
 button:hover {
-    background-color: #2980B9;
+    background-color: #217DBB;
+    box-shadow: 0 4px 10px rgba(33, 125, 187, 0.3);
 }
 
-
 /* Phần chứa ảnh */
-#imageBackgroud {
+#workspaceImage {
     width: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: #DFFFD6;
-    position: relative;
+    padding: 20px;
 }
 
-#imageBackgroud img {
-    width: 80%;
+#workspaceImage img {
+    width: 90%;
+    max-width: 350px;
     height: auto;
     object-fit: contain;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
 }
 
+/* Responsive */
+@media screen and (max-width: 900px) {
+    #workspaceContent {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #workspaceForm, #workspaceImage {
+        width: 100%;
+        padding: 30px;
+    }
+
+    #workspaceImage {
+        background: none;
+    }
+}
