@@ -7,4 +7,5 @@ public interface IGroupService {
     void createGroup(Group group, int userId);
     void updateGroup (int groupId, Group group);
     Group getGroupInfoByTitleAndDescription (String title, String description);
+    void inviteMember (int userId, int groupId, int roleId);
 }

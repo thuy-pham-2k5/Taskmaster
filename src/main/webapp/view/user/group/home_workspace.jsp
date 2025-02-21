@@ -125,7 +125,10 @@
                             <h2>Các bảng đã đóng</h2>
                             <ul id="closedBoardsList">
                                 <c:forEach var="board" items="${closedBoards}">
-                                    <li>${board.title}</li>
+                                    <li>
+                                            ${board.title}
+                                        <a href="/board?action=deleteBoard&boardId=${board.boardId}"><button>Xóa bảng</button></a>
+                                    </li>
                                 </c:forEach>
                             </ul>
                             <button onclick="hideOverlay()">Đóng</button>

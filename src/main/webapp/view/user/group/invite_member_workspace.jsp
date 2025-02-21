@@ -15,7 +15,7 @@
     <div class="modal">
         <span id="closeModalBtn" class="close">&times;</span>
         <h2>Invite New Member</h2>
-        <form action="submit_invitation.jsp" method="post">
+        <form action="/group_home?action=inviteMember" method="post">
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
             <br>

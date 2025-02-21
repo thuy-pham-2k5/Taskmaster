@@ -3,6 +3,7 @@ package com.example.taskmaster.controller.user.group;
 import com.example.taskmaster.model.Board;
 import com.example.taskmaster.model.Group;
 import com.example.taskmaster.model.User;
+import com.example.taskmaster.service.authenticate.AuthenticateService;
 import com.example.taskmaster.service.user.*;
 
 import javax.servlet.ServletException;
@@ -19,6 +20,7 @@ public class GroupHomeServlet extends HttpServlet {
     IUserService userService = new UserService();
     IGroupService groupService = new GroupService();
     IBoardService boardService = new BoardService();
+    AuthenticateService authenticateService = new AuthenticateService();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -35,9 +37,21 @@ public class GroupHomeServlet extends HttpServlet {
             case "editInfoGroup":
                 editInfoGroup (request, response);
                 break;
+            case "inviteMember":
+                inviteMemberInGroup (request, response);
+                break;
             default:
                 break;
         }
+    }
+
+    private void inviteMemberInGroup(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String email = request.getParameter("email");
+        User user = authenticateService.getUserByEmail(email);
+        HttpSession session = request.getSession();
+        int groupId = (int) session.getAttribute("groupId");
+        groupService.inviteMember(user.getUserId(), groupId, 4);
+        response.sendRedirect("group_home");
     }
 
     private void editInfoGroup(HttpServletRequest request, HttpServletResponse response) throws IOException {
