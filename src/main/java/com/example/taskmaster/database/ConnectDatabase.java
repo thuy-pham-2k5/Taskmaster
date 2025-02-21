@@ -6,16 +6,14 @@ import java.sql.SQLException;
 
 public class ConnectDatabase {
 
-    public Connection getConnection() {
-        Connection connection = null;
+    public static Connection getConnection() {
+        Connection connection;
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            String password = System.getenv("db_password");
-            System.out.println("Value of password: " + password);
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String password = System.getenv("dbPassword");
             connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/taskmaster", "root", password);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
+
+        } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
         return connection;
