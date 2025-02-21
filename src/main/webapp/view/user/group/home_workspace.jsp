@@ -8,7 +8,9 @@
     <script src="/js/user/group/home_workspace.js" defer></script>
 </head>
 <body>
-
+<%--<div id="invite_member" style="display: none; position: fixed;  top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1000;">--%>
+<%--    <jsp:include page="invite_member_workspace.jsp"/>--%>
+<%--</div>--%>
 <div>
     <div id="header">
         <div id="logo">
@@ -19,7 +21,9 @@
             <div class="topic"><p>Các không gian làm vệc </p> <img class="listImage" src="/images/list.png"></div>
             <div class="topic"><p>Gần đây</p> <img class="listImage" src="/images/list.png"></div>
             <div class="topic"><P>Đã đánh dấu sao</P> <img class="listImage" src="/images/list.png"></div>
-            <a href="/view/user/group/create_workspace.jsp"><button>Tạo không gian làm việc mới</button></a>
+            <a href="/view/user/group/create_workspace.jsp">
+                <button>Tạo không gian làm việc mới</button>
+            </a>
         </div>
         <div id="accountSearchNotification">
             <div id="search">
@@ -74,7 +78,7 @@
 
                 <c:if test="${roleIdUser == 3}">
                     <div id="addAccount">
-                        <button style="background-color: #1B5B94">
+                        <button style="background-color: #1B5B94" onclick="invite_member()">
                             <img style="width: 15px; height: 15px" src="images/account.png" alt="">
                             Mời thành viên vào Không gian làm việc
                         </button>
