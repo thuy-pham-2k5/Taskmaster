@@ -26,7 +26,7 @@
             <div class="topic"><p>Các không gian làm vệc </p> <img class="listImage" src="/images/list.png"></div>
             <div class="topic"><p>Gần đây</p> <img class="listImage" src="/images/list.png"></div>
             <div class="topic"><P>Đã đánh dấu sao</P> <img class="listImage" src="/images/list.png"></div>
-            <a href="/view/groups/build_workspace.jsp"><button>Tạo không gian làm việc mới</button></a>
+            <a href="/view/user/group/create_workspace.jsp"><button>Tạo không gian làm việc mới</button></a>
         </div>
         <div id="accountSearchNotification">
             <div id="search">
@@ -61,6 +61,7 @@
         </div>
         <div id="homeRight">
             <div id="groupInformation">
+
                 <div id="information">
                     <div style="display: flex; align-items: center">
                         <button id="group"><p>P</p></button>

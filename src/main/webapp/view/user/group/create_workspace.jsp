@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/css/user/group/build_workspace.css">
 </head>
 <body>
-<a href="/view/user/group/home_workspace.jsp"><img style="width: 50px; height: 50px" src="https://png.pngtree.com/png-vector/20230311/ourmid/pngtree-logout-arrow-line-icon-vector-png-image_6644097.png"></a>
+<a href="/group_home"><img style="width: 50px; height: 50px" src="https://png.pngtree.com/png-vector/20230311/ourmid/pngtree-logout-arrow-line-icon-vector-png-image_6644097.png"></a>
 <div id="workspaceContainer">
     <div id="workspaceContent">
         <!-- Form nhập thông tin -->
@@ -16,10 +16,10 @@
             <p class="sub-text">Tăng năng suất bằng cách giúp mọi người dễ dàng truy cập bảng ở một vị trí.</p>
 
             <label for="nameSp">📌 Tên không gian làm việc</label>
-            <input id="nameSp" type="text" name="nameSp" placeholder="Nhập tên không gian..." required>
+            <input id="nameSp" type="text" name="title" placeholder="Nhập tên không gian..." required>
 
             <label for="typeSp">📂 Loại không gian làm việc</label>
-            <select id="typeSp" name="typeSp">
+            <select id="typeSp" name="type">
                 <option>Điều hành</option>
                 <option>Kinh doanh CRM</option>
                 <option>Kỹ thuật - CNTT</option>
@@ -30,7 +30,7 @@
             </select>
 
             <label for="describe">📝 Mô tả không gian làm việc</label>
-            <textarea id="describe" name="describe" placeholder="Nhóm của chúng tôi tổ chức mọi thứ ở đây..."></textarea>
+            <textarea id="describe" name="description" placeholder="Nhóm của chúng tôi tổ chức mọi thứ ở đây..."></textarea>
 
             <button type="submit">✨ Tiếp tục</button>
         </form>

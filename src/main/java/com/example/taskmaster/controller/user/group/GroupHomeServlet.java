@@ -38,20 +38,19 @@ public class GroupHomeServlet extends HttpServlet {
     }
 
     protected void createNewGroup(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-//        HttpSession session = request.getSession();
-//        Integer userId = (Integer) session.getAttribute("userId");
-
-        String title = request.getParameter("nameSp");
-        System.out.println(title);
-        String describe = request.getParameter("describe");
-        System.out.println(describe);
-        int userId = 5;
-        System.out.println(userId);
-        Group group = new Group(title, describe);
-        groupService.createGroup(group, userId);
-        request.setAttribute("title", title);
-        request.setAttribute("describe", describe);
-        request.getRequestDispatcher("/view/groups/homeWorkspace.jsp").forward(request, response);
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        String title = request.getParameter("title");
+        String description = request.getParameter("description");
+        groupService.createGroup(new Group(title, description), user.getUserId());
+        Group group = groupService.getGroupInfoByTitleAndDescription(title, description);
+        int roleId = userService.getRoleUserInGroup(user.getUserId(), group.getGroupId());
+        session.setAttribute("groupId", group.getGroupId());
+        request.setAttribute("roleIdUser", roleId);
+        request.setAttribute("groupInfo", group);
+        request.setAttribute("boards", boardService.getAllBoardInGroup(group.getGroupId(), true));
+        request.setAttribute("closedBoards", boardService.getAllBoardClosedInGroup((int) session.getAttribute("groupId")));
+        request.getRequestDispatcher("/view/user/group/home_workspace.jsp").forward(request, response);
     }
 
     @Override

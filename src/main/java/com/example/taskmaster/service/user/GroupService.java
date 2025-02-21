@@ -28,6 +28,27 @@ public class GroupService implements IGroupService {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public Group getGroupInfoByTitleAndDescription(String title, String description) {
+        String query = "select * from `groups` where title = ? and description = ?";
+        Group group = null;
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, title);
+            preparedStatement.setString(2, description);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                int groupId = resultSet.getInt(1);
+                String linkWeb = resultSet.getString(3);
+                String visibility = resultSet.getString(5);
+                group = new Group(groupId, title, linkWeb, description, visibility);
+            }
+            return group;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }    }
+
     private String queryCreateGroup = "INSERT INTO `groups` (title, link_web, description, visibility) VALUES ( ?, ?, ?, ?)";
     private String queryAddCreatorInformation = "INSERT INTO user_group_relationships (user_id, group_id, role_id, permission_id) VALUES ( ?, ?, ?, ?)";
     //    3, 1
