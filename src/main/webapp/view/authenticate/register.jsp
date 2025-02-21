@@ -26,7 +26,7 @@
             <span class="logo-text">Taskmaster</span>
         </div>
         <h2>Đăng ký để tiếp tục</h2>
-        <form action="/authenticate?action=register" method="post">
+        <form action="authenticate?action=register" method="post">
             <input type="text" id="fullName" name="full-name" pattern="\p{L}+\s*\p{L}+"
                    title="Họ và tên không hợp lệ: chỉ chấp nhận chữ cái in hoa và chữ cái thường"
                    placeholder="Họ và tên....." required>
