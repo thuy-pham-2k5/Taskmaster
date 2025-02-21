@@ -12,6 +12,17 @@ public class Group {
         this.visibility = visibility;
     }
 
+    public Group(String title, String link_web, String description, String visibility) {
+        this.title = title;
+        this.linkWeb = link_web;
+        this.description = description;
+        this.visibility = visibility;
+    }
+
+    public Group(String title, String description) {
+        this.title = title;
+        this.description = description;
+    }
     @Override
     public String toString() {
         return "Group{" +
@@ -22,7 +33,6 @@ public class Group {
                 ", visibility='" + visibility + '\'' +
                 '}';
     }
-
     public int getGroupId() {
         return groupId;
     }

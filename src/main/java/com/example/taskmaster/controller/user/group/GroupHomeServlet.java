@@ -29,9 +29,29 @@ public class GroupHomeServlet extends HttpServlet {
         if (action == null)
             action = "";
         switch (action) {
+            case "createGroup":
+                createNewGroup(request, response);
+                break;
             default:
                 break;
         }
+    }
+
+    protected void createNewGroup(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+//        HttpSession session = request.getSession();
+//        Integer userId = (Integer) session.getAttribute("userId");
+
+        String title = request.getParameter("nameSp");
+        System.out.println(title);
+        String describe = request.getParameter("describe");
+        System.out.println(describe);
+        int userId = 5;
+        System.out.println(userId);
+        Group group = new Group(title, describe);
+        groupService.createGroup(group, userId);
+        request.setAttribute("title", title);
+        request.setAttribute("describe", describe);
+        request.getRequestDispatcher("/view/groups/homeWorkspace.jsp").forward(request, response);
     }
 
     @Override
