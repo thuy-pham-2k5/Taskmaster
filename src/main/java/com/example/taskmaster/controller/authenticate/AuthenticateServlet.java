@@ -86,6 +86,7 @@ public class AuthenticateServlet extends HttpServlet {
         } else {
             if (authenticateService.signIn(email, password)) {
                 session.setAttribute("user", user);
+
                 if (user.getRoleName().equals("User System")) {
                     response.sendRedirect("group_home");
                 } else {

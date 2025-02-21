@@ -26,7 +26,7 @@
             <div class="topic"><p>Các không gian làm vệc </p> <img class="listImage" src="/images/list.png"></div>
             <div class="topic"><p>Gần đây</p> <img class="listImage" src="/images/list.png"></div>
             <div class="topic"><P>Đã đánh dấu sao</P> <img class="listImage" src="/images/list.png"></div>
-            <a href="/view/groups/build_workspace.jsp"><button>Tạo không gian làm việc mới</button></a>
+            <a href="/view/user/group/create_workspace.jsp"><button>Tạo không gian làm việc mới</button></a>
         </div>
         <div id="accountSearchNotification">
             <div id="search">
@@ -35,6 +35,7 @@
             </div>
             <img src="/images/bell.png">
             <img src="https://vivureviews.com/wp-content/uploads/2022/08/avatar-vo-danh-9.png">
+            <a href="/logout"> <img src="https://png.pngtree.com/png-clipart/20230314/original/pngtree-log-out-vector-icon-design-illustration-png-image_8987853.png"></a>
         </div>
     </div>
 
