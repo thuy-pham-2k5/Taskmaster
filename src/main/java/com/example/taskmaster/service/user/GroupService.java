@@ -49,6 +49,20 @@ public class GroupService implements IGroupService {
             throw new RuntimeException(e);
         }    }
 
+    @Override
+    public void inviteMember(int userId, int groupId, int roleId) {
+        String query ="INSERT INTO user_group_relationships (`user_id`, `group_id`, `role_id`) VALUES ('?, ?, ?)";
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setInt(2, groupId);
+            preparedStatement.setInt(3, roleId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private String queryCreateGroup = "INSERT INTO `groups` (title, link_web, description, visibility) VALUES ( ?, ?, ?, ?)";
     private String queryAddCreatorInformation = "INSERT INTO user_group_relationships (user_id, group_id, role_id, permission_id) VALUES ( ?, ?, ?, ?)";
     //    3, 1
