@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: This  PC
-  Date: 17/02/2025
-  Time: 10:26 SA
-  To change this template use File | Settings | File Templates.
---%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -15,7 +8,9 @@
     <script src="/js/user/group/home_workspace.js" defer></script>
 </head>
 <body>
-
+<%--<div id="invite_member" style="display: none; position: fixed;  top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1000;">--%>
+<%--    <jsp:include page="invite_member_workspace.jsp"/>--%>
+<%--</div>--%>
 <div>
     <div id="header">
         <div id="logo">
@@ -26,7 +21,9 @@
             <div class="topic"><p>Các không gian làm vệc </p> <img class="listImage" src="/images/list.png"></div>
             <div class="topic"><p>Gần đây</p> <img class="listImage" src="/images/list.png"></div>
             <div class="topic"><P>Đã đánh dấu sao</P> <img class="listImage" src="/images/list.png"></div>
-            <a href="/view/user/group/create_workspace.jsp"><button>Tạo không gian làm việc mới</button></a>
+            <a href="/view/user/group/create_workspace.jsp">
+                <button>Tạo không gian làm việc mới</button>
+            </a>
         </div>
         <div id="accountSearchNotification">
             <div id="search">
@@ -62,6 +59,7 @@
         </div>
         <div id="homeRight">
             <div id="groupInformation">
+
                 <div id="information">
                     <div style="display: flex; align-items: center">
                         <button id="group"><p>P</p></button>
@@ -81,7 +79,7 @@
 
                 <c:if test="${roleIdUser == 3}">
                     <div id="addAccount">
-                        <button style="background-color: #1B5B94">
+                        <button style="background-color: #1B5B94" onclick="invite_member()">
                             <img style="width: 15px; height: 15px" src="images/account.png" alt="">
                             Mời thành viên vào Không gian làm việc
                         </button>
@@ -108,13 +106,14 @@
 
                 <div class="flex-container">
                     <div class="workspaceTable">
-                        <button>Tạo bảng mới</button>
+                        <a href="/board?action=create">
+                            <button>Tạo bảng</button>
+                        </a>
                     </div>
                     <c:forEach var="board" items="${boards}">
                         <div class="workspaceTable">
                             <label>${board.title}</label>
-                        </div>.
-
+                        </div>
                     </c:forEach>
                 </div>
 
@@ -123,7 +122,6 @@
                 <c:if test="${not empty closedBoard}">
                     <div id="overlay" class="overlay" onclick="showOverlay()">
                         <div class="overlay-content" onclick="event.stopPropagation();">
-                            <!-- Nội dung của các bảng đã đóng -->
                             <h2>Các bảng đã đóng</h2>
                             <ul id="closedBoardsList">
                                 <c:forEach var="board" items="${closedBoards}">

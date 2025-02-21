@@ -39,6 +39,7 @@ public class GroupHomeServlet extends HttpServlet {
 
     protected void createNewGroup(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
+<<<<<<< HEAD
         User user = (User) session.getAttribute("user"); // Lấy user từ session
 
             int userId = user.getUserId(); // Giả sử User có phương thức getId()
@@ -54,6 +55,19 @@ public class GroupHomeServlet extends HttpServlet {
         groupService.createGroup(group, userId);
         request.setAttribute("title", title);
         request.setAttribute("describe", describe);
+=======
+        User user = (User) session.getAttribute("user");
+        String title = request.getParameter("title");
+        String description = request.getParameter("description");
+        groupService.createGroup(new Group(title, description), user.getUserId());
+        Group group = groupService.getGroupInfoByTitleAndDescription(title, description);
+        int roleId = userService.getRoleUserInGroup(user.getUserId(), group.getGroupId());
+        session.setAttribute("groupId", group.getGroupId());
+        request.setAttribute("roleIdUser", roleId);
+        request.setAttribute("groupInfo", group);
+        request.setAttribute("boards", boardService.getAllBoardInGroup(group.getGroupId(), true));
+        request.setAttribute("closedBoards", boardService.getAllBoardClosedInGroup((int) session.getAttribute("groupId")));
+>>>>>>> 6f7b9b7649ac7874914514899d4811d2436d32ec
         request.getRequestDispatcher("/view/user/group/home_workspace.jsp").forward(request, response);
     }
 
