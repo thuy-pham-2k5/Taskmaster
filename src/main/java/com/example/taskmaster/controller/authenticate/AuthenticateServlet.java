@@ -14,6 +14,7 @@ import java.io.IOException;
 @WebServlet(value = "/authenticate")
 public class AuthenticateServlet extends HttpServlet {
     AuthenticateService authenticateService = new AuthenticateService();
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         if (action == null)
@@ -25,6 +26,9 @@ public class AuthenticateServlet extends HttpServlet {
             case "login":
                 request.getRequestDispatcher("/view/authenticate/login.jsp").forward(request, response);
                 break;
+            case "resetPassword":
+                request.getRequestDispatcher("/view/authenticate/reset_password.jsp").forward(request, response);
+                break;
             case "logout":
             default:
                 request.getRequestDispatcher("/view/authenticate/home_taskmaster.jsp").forward(request, response);
@@ -35,27 +39,27 @@ public class AuthenticateServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-        if (action==null)
+        if (action == null)
             action = "";
         switch (action) {
             case "register":
-                register (request, response);
+                register(request, response);
                 break;
             case "login":
-                login (request, response);
+                login(request, response);
                 break;
             case "resetPassword":
-                resetPassword (request, response);
+                resetPassword(request, response);
                 break;
             case "logout":
-                logout (request, response);
+                logout(request, response);
                 break;
             default:
                 break;
         }
     }
 
-    private void resetPassword (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void resetPassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         if (authenticateService.checkUserByField("email", email)) {
@@ -68,16 +72,17 @@ public class AuthenticateServlet extends HttpServlet {
         }
     }
 
-    private void logout (HttpServletRequest request, HttpServletResponse response) {
+    private void logout(HttpServletRequest request, HttpServletResponse response) {
 
     }
 
-    private void login (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         User user = authenticateService.getUserByEmail(email);
-        if (user==null) {
+        if (user == null) {
+            request.setAttribute("message", "Địa chỉ email chưa được đăng ký. Vui lòng đăng ký để tiếp tục");
             request.getRequestDispatcher("/view/authenticate/register.jsp").forward(request, response);
         } else {
             if (authenticateService.signIn(email, password)) {
@@ -94,7 +99,7 @@ public class AuthenticateServlet extends HttpServlet {
         }
     }
 
-    private void register (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void register(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         String email = request.getParameter("email");
         String password = request.getParameter("password");

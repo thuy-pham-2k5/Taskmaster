@@ -1,57 +1,18 @@
-package com.example.taskmaster.service.user;
+package com.example.taskmaster.service.authenticate;
 
 import com.example.taskmaster.database.ConnectDatabase;
 import com.example.taskmaster.model.Group;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class GroupService implements IGroupService {
-    @Override
-    public Group getGroupInfoById(int groupId) {
-        String query = "select * from `groups` where group_id = ?";
-        Group group = null;
-        try (Connection connection = ConnectDatabase.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, groupId);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                String title = resultSet.getString(2);
-                String linkWeb = resultSet.getString(3);
-                String description = resultSet.getString(4);
-                String visibility = resultSet.getString(5);
-                group = new Group(groupId, title, linkWeb, description, visibility);
-            }
-            return group;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public Group getGroupInfoByTitleAndDescription(String title, String description) {
-        String query = "select * from `groups` where title = ? and description = ?";
-        Group group = null;
-        try (Connection connection = ConnectDatabase.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, title);
-            preparedStatement.setString(2, description);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                int groupId = resultSet.getInt(1);
-                String linkWeb = resultSet.getString(3);
-                String visibility = resultSet.getString(5);
-                group = new Group(groupId, title, linkWeb, description, visibility);
-            }
-            return group;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }    }
+public class GroupService implements GroupServiceInterface {
 
     private String queryCreateGroup = "INSERT INTO `groups` (title, link_web, description, visibility) VALUES ( ?, ?, ?, ?)";
     private String queryAddCreatorInformation = "INSERT INTO user_group_relationships (user_id, group_id, role_id, permission_id) VALUES ( ?, ?, ?, ?)";
-    //    3, 1
+//    3, 1
     @Override
     public void createGroup(Group group, int userId) {
         Connection conn = null;
