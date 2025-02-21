@@ -37,7 +37,9 @@
             <input type="password" id="password" name="password" placeholder="Mật khẩu....." required>
             <img src="images/eye_close.png" id="togglePassword" class="toggle-password" onclick="togglePasswordVisibility()" alt="eye">
         </div>
-
+        <p class="forgot-password">
+            <a href="/authenticate?action=">Quên mật khẩu?</a>
+        </p>
         <button type="submit">Đăng nhập</button>
     </form>
 
