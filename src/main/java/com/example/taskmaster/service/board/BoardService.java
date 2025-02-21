@@ -14,8 +14,8 @@ public class BoardService implements IBoardService {
         try {
             preparedStatement = connection.prepareStatement("INSERT INTO boards (title, status, background_id, group_id) VALUES (?, ?, ?, ?);");
             preparedStatement.setString(1, board.getTitle());
-            preparedStatement.setBoolean(2, board.getStatus());
-            preparedStatement.setString(3, board.getBackgroundId());
+            preparedStatement.setInt(2, board.getStatus());
+            preparedStatement.setInt(3, board.getBackgroundId());
             preparedStatement.setInt(4, board.getGroupId());
             preparedStatement.executeUpdate();
         } catch (Exception e) {

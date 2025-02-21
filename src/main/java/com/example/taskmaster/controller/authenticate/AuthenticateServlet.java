@@ -67,7 +67,7 @@ public class AuthenticateServlet extends HttpServlet {
             if (authenticateService.signIn(email, password)) {
                 session.setAttribute("user", user);
                 if (user.getRoleName().equals("User System")) {
-                    request.getRequestDispatcher("/view/user/group/home_workspace.jsp").forward(request, response);
+                    response.sendRedirect("group_home");
                 } else {
                     request.getRequestDispatcher("/view/admin/home_admin.jsp").forward(request, response);
                 }

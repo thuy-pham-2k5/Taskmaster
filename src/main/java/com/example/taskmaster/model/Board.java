@@ -3,16 +3,30 @@ package com.example.taskmaster.model;
 public class Board {
     private int boardId;
     private String title;
-    private String backgroundId;
-    private Boolean status;
-    private int groupId;
+    private int backgroundId;
+    private String backgroundLink;
+    private int status, groupId;
 
-    public Board(int boardId, String title, String backgroundId, Boolean status, int groupId) {
+    public Board(int boardId, String title, int backgroundId, String backgroundLink, int status, int groupId) {
         this.boardId = boardId;
         this.title = title;
         this.backgroundId = backgroundId;
+        this.backgroundLink = backgroundLink;
         this.status = status;
         this.groupId = groupId;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Board{" +
+                "boardId=" + boardId +
+                ", title='" + title + '\'' +
+                ", backgroundId='" + backgroundId + '\'' +
+                ", backgroundLink='" + backgroundLink + '\'' +
+                ", status=" + status +
+                ", groupId=" + groupId +
+                '}';
     }
 
     public int getBoardId() {
@@ -31,19 +45,27 @@ public class Board {
         this.title = title;
     }
 
-    public String getBackgroundId() {
+    public int getBackgroundId() {
         return backgroundId;
     }
 
-    public void setBackgroundId(String backgroundId) {
+    public void setBackgroundId(int backgroundId) {
         this.backgroundId = backgroundId;
     }
 
-    public Boolean getStatus() {
+    public String getBackgroundLink() {
+        return backgroundLink;
+    }
+
+    public void setBackgroundLink(String backgroundLink) {
+        this.backgroundLink = backgroundLink;
+    }
+
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -53,16 +75,5 @@ public class Board {
 
     public void setGroupId(int groupId) {
         this.groupId = groupId;
-    }
-
-    @Override
-    public String toString() {
-        return "Board{" +
-                "boardId=" + boardId +
-                ", title='" + title + '\'' +
-                ", backgroundId='" + backgroundId + '\'' +
-                ", status=" + status +
-                ", groupId=" + groupId +
-                '}';
     }
 }
