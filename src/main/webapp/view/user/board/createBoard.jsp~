@@ -14,7 +14,7 @@
     </div>
 
     <div class="wallpaper-form">
-        <img src="../../images/imageCreateBoard.png" alt="imageCreateBoard">
+        <img src="../../image/imageCreateBoard.png" alt="imageCreateBoard">
     </div>
 
     <div style="margin-bottom: 5px">
@@ -24,7 +24,7 @@
     <div id="wallPaper1" style="display: flex; justify-content: center;">
         <c:forEach var="i" begin="1" end="3">
             <div class="wallpaper-item">
-                <img class="wallpaper-img" src="../../images/imageWallpaper${i}.png" alt="imageWallpaper${i}">
+                <img class="wallpaper-img" src="../../image/imageWallpaper${i}.png" alt="imageWallpaper${i}">
                 <div class="overlay"></div>
             </div>
         </c:forEach>

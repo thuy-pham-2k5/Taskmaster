@@ -101,13 +101,16 @@
 
                 <div class="flex-container">
                     <div class="workspaceTable">
-                        <button>Tạo bảng mới</button>
+                        <form method="get">
+                            <a href="board?action=create">
+                                <button>Tạo bảng</button>
+                            </a>
+                        </form>
                     </div>
                     <c:forEach var="board" items="${boards}">
                         <div class="workspaceTable">
                             <label>${board.title}</label>
-                        </div>.
-
+                        </div>
                     </c:forEach>
                 </div>
 
@@ -116,7 +119,6 @@
                 <c:if test="${not empty closedBoard}">
                     <div id="overlay" class="overlay" onclick="hideOverlay()">
                         <div class="overlay-content" onclick="event.stopPropagation();">
-                            <!-- Nội dung của các bảng đã đóng -->
                             <h2>Các bảng đã đóng</h2>
                             <ul id="closedBoardsList">
                                 <c:forEach var="board" items="${closedBoards}">

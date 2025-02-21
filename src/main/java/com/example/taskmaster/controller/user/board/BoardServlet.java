@@ -12,10 +12,12 @@ public class BoardServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
+        System.out.println(action);
         if (action == null)
             action = "";
         switch (action) {
             case "create":
+               resp.sendRedirect("/view/user/board/create_board.jsp");
                 break;
             case "task":
                 break;
@@ -32,6 +34,7 @@ public class BoardServlet extends HttpServlet{
             action = "";
         switch (action) {
             case "create":
+                createBoard(req, resp);
                 break;
             case "task":
                 break;
@@ -39,5 +42,9 @@ public class BoardServlet extends HttpServlet{
                 req.getRequestDispatcher("/view/user/board/board.jsp").forward(req, resp);
                 break;
         }
+    }
+
+    public void createBoard (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
     }
 }
