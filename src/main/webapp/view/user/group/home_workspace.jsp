@@ -101,11 +101,9 @@
 
                 <div class="flex-container">
                     <div class="workspaceTable">
-                        <form method="get">
-                            <a href="board?action=create">
-                                <button>Tạo bảng</button>
-                            </a>
-                        </form>
+                        <a href="/board?action=create">
+                            <button>Tạo bảng</button>
+                        </a>
                     </div>
                     <c:forEach var="board" items="${boards}">
                         <div class="workspaceTable">
