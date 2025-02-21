@@ -114,4 +114,19 @@ public class GroupService implements IGroupService {
             }
         }
     }
+
+    @Override
+    public void updateGroup(int groupId, Group group) {
+        String query  = "UPDATE `groups` SET `title` = ?, `link_web` = ?, `description` = ? WHERE `group_id` = ?;";
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, group.getTitle());
+            preparedStatement.setString(2, group.getLinkWeb());
+            preparedStatement.setString(3, group.getDescription());
+            preparedStatement.setInt(4, groupId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
