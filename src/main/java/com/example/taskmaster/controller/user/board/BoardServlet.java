@@ -29,7 +29,17 @@ public class BoardServlet extends HttpServlet{
             case "board":
                 req.getRequestDispatcher("/view/user/board/board.jsp").forward(req, resp);
                 break;
+            case "deleteBoard":
+                deleteBoardById (req, resp);
+            default:
+                break;
         }
+    }
+
+    private void deleteBoardById(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        int boardId = Integer.parseInt(req.getParameter("boardId"));
+        boardService.deleteBoard(boardId);
+        resp.sendRedirect("group_home");
     }
 
     @Override

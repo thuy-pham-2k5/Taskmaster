@@ -12,4 +12,5 @@ public interface IBoardService {
     List<Board> getAllBoardClosedInGroup(int groupId);
 
     void createBoard(Board board);
+    void deleteBoard (int boardId);
 }
