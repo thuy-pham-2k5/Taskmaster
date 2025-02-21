@@ -40,13 +40,16 @@ public class AuthenticateService implements IAuthenticateService{
     }
 
     @Override
-    public void logout() {
-
-    }
-
-    @Override
-    public void resetPassword(String email) {
-
+    public void resetPassword(String email, String password) {
+        String query = "UPDATE users SET password = ? WHERE email = ?";
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, password);
+            preparedStatement.setString(2, email);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public Boolean checkUserByField(String field, String value) {
