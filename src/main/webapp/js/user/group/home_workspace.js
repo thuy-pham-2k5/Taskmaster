@@ -23,11 +23,21 @@ function inputChanged() {
 
 document.getElementById('keyword').addEventListener('input', inputChanged);
 
-function showOverlay() {
-    document.getElementById('overlay').style.display = 'block';
-}
 
-// Ẩn overlay
-function hideOverlay() {
-    document.getElementById('overlay').style.display = 'none';
-}
+//     document.addEventListener("DOMContentLoaded", function () {
+//     const invite_member = document.getElementById("invite_member");
+//     const popupContent = document.getElementById("popup-content");
+//
+//     function hidePopup() {
+//     invite_member.style.display = "none";
+// }
+//
+//     invite_member.addEventListener("click", function (event) {
+//     if (!popupContent.contains(event.target)) {
+//     hidePopup();
+// }
+// });
+//
+//     window.invite_member = newPost;
+//     window.hidePopup = hidePopup;
+// });
