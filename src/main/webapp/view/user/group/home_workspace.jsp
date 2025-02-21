@@ -10,7 +10,9 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="/css/groups/homeWorkspace.css">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/user/group/homeWorkspace.css">
+    <script src="/js/user/group/home_workspace.js" defer></script>
 </head>
 <body>
 
@@ -25,28 +27,12 @@
             <div class="topic"><p>Gần đây</p> <img class="listImage" src="/images/list.png"></div>
             <div class="topic"><P>Đã đánh dấu sao</P> <img class="listImage" src="/images/list.png"></div>
             <a href="/view/groups/build_workspace.jsp"><button>Tạo không gian làm việc mới</button></a>
-<%--            <button onclick="openModal()">Tạo không gian làm việc mới</button>--%>
-
-<%--            <!-- Modal -->--%>
-<%--            <div id="myModal" class="modal">--%>
-<%--                <div class="modal-content">--%>
-<%--                    <span style="padding: 20px" class="close" onclick="closeModal()">&times;</span>--%>
-<%--                    <iframe src="view/groups/build_workspace.jsp"></iframe>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-
-
-
-
-
         </div>
         <div id="accountSearchNotification">
             <div id="search">
                 <input type="text" style="width: 170px ; height: 30px; border-radius: 5px;"
                        placeholder="Tìm kiếm bảng...">
             </div>
-
-
             <img src="/images/bell.png">
             <img src="https://vivureviews.com/wp-content/uploads/2022/08/avatar-vo-danh-9.png">
         </div>
@@ -56,7 +42,7 @@
         <div id="homeLeft">
             <div id="workspaceName">
                 <button id="workspace"><p class="represent">P</p></button>
-                <p>${title}</p>
+                <p>${groupInfo.title}</p>
             </div>
 
             <div id="workspaceList">
@@ -80,24 +66,26 @@
                         <button id="group"><p>P</p></button>
                         <div>
                             <div style="display: flex">
-                                <p id="groupName">${title}</p>
+                                <p id="groupName">${groupInfo.title}</p>
                                 <img class="edit_group_pen" src="/images/edit.png">
                             </div>
                             <br>
-                            <p style="color: white; margin-left: 15px">Riêng tư</p>
+                            <p style="color: white; margin-left: 15px">${groupInfo.visibility}</p>
                         </div>
 
                     </div>
                     <br>
-                    <p id="content">${describe}</p>
+                    <p id="content">${groupInfo.description}</p>
                 </div>
 
-                <div id="addAcount">
-                    <button style="background-color: #1B5B94">
-                        <img style="width: 15px; height: 15px" src="/images/acount.png"> Mời thành viên vào không gian
-                        làm việc
-                    </button>
-                </div>
+                <c:if test="${roleIdUser == 3}">
+                    <div id="addAccount">
+                        <button style="background-color: #1B5B94">
+                            <img style="width: 15px; height: 15px" src="images/account.png" alt="">
+                            Mời thành viên vào Không gian làm việc
+                        </button>
+                    </div>
+                </c:if>
             </div>
 
             <div id="workspaces">
@@ -105,30 +93,49 @@
                 <div id="sortAndSearch">
                     <div id="sort">
                         <p style="color: white">Sắp xếp theo</p>
-                        <select id="mySelect">
-                            <option value="option1">Hoạt động gần đây nhất</option>
-                            <option value="option2">Ít hoạt động Nhất gần đây</option>
-                            <option value="option3">Theo bảng chữ cái từ A-Z</option>
-                            <option value="option4">Theo bảng chữ cái từ Z-A</option>
+                        <select id="mySelect" onchange="sortTypeChanged()">
+                            <option value="option1">Theo bảng chữ cái từ A-Z</option>
+                            <option value="option2">Theo bảng chữ cái từ Z-A</option>
                         </select>
                     </div>
                     <div id="searchTable">
                         <p style="color: white">Tìm kiếm</p>
-                        <input type="text" placeholder="Tìm kiếm các bảng">
-
+                        <input type="text" id="keyword" name="keyword" placeholder="Tìm kiếm các bảng"
+                               oninput="inputChanged()">
                     </div>
                 </div>
-                <div id="workspaceTable">
-                    <button>Tạo bảng mới</button>
+
+                <div class="flex-container">
+                    <div class="workspaceTable">
+                        <button>Tạo bảng mới</button>
+                    </div>
+                    <c:forEach var="board" items="${boards}">
+                        <div class="workspaceTable">
+                            <label>${board.title}</label>
+                        </div>.
+
+                    </c:forEach>
                 </div>
+
                 <button id="viewOffTable">Xem các bảng đã đóng</button>
 
+                <c:if test="${not empty closedBoard}">
+                    <div id="overlay" class="overlay" onclick="showOverlay()">
+                        <div class="overlay-content" onclick="event.stopPropagation();">
+                            <!-- Nội dung của các bảng đã đóng -->
+                            <h2>Các bảng đã đóng</h2>
+                            <ul id="closedBoardsList">
+                                <c:forEach var="board" items="${closedBoards}">
+                                    <li>${board.title}</li>
+                                </c:forEach>
+                            </ul>
+                            <button onclick="hideOverlay()">Đóng</button>
+                        </div>
+                    </div>
+                </c:if>
             </div>
-
         </div>
     </div>
 </div>
-
-<script src="js/groups/homeWorkspace.js"></script>
 </body>
 </html>

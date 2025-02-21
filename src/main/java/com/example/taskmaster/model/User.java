@@ -6,10 +6,9 @@ public class User {
     private int roleId;
     private String roleName;
 
-    public User(String email, String password, String fullName, String username) {
+    public User(String email, String password, String fullName) {
         this.email = email;
         this.password = password;
-        this.username = username;
         this.fullName = fullName;
     }
 
@@ -17,6 +16,15 @@ public class User {
         this.userId = userId;
         this.email = email;
         this.password = password;
+        this.roleId = roleId;
+        this.roleName = roleName;
+    }
+
+    public User(int userId, String email, String username, String publicName, int roleId, String roleName) {
+        this.userId = userId;
+        this.email = email;
+        this.username = username;
+        this.publicName = publicName;
         this.roleId = roleId;
         this.roleName = roleName;
     }

@@ -4,7 +4,7 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Đăng nhập - Taskmaster</title>
+    <title>Đổi mật khẩu - Taskmaster</title>
     <link rel="stylesheet" href="/css/authenticate/login.css">
     <script>
         function togglePasswordVisibility() {
@@ -27,20 +27,18 @@
         <img src="images/logo.png" alt="Taskmaster" class="logo">
         <span class="logo-text">Taskmaster</span>
     </div>
-    <h2>Đăng nhập để tiếp tục</h2>
+    <h2>Đổi mật khẩu</h2>
     <c:if test="${not empty message}">
         <label>${message}</label>
     </c:if>
-    <form action="/authenticate?action=login" method="post">
+    <form action="/authenticate?action=resetPassword" method="post">
         <input type="email" name="email" placeholder="Email....." required>
         <div class="password-container">
             <input type="password" id="password" name="password" placeholder="Mật khẩu....." required>
             <img src="images/eye_close.png" id="togglePassword" class="toggle-password" onclick="togglePasswordVisibility()" alt="eye">
         </div>
-        <p class="forgot-password">
-            <a href="/authenticate?action=">Quên mật khẩu?</a>
-        </p>
-        <button type="submit">Đăng nhập</button>
+
+        <button type="submit">Đổi mật khẩu</button>
     </form>
 
     <p class="register-link">

@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="css/groups/edit_group.css">
+    <link rel="stylesheet" href="css/user/group/edit_group.css">
 </head>
 <body>
 <div id="editFrame">

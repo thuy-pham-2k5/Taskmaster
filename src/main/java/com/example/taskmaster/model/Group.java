@@ -1,28 +1,20 @@
 package com.example.taskmaster.model;
 
 public class Group {
-    private int group_id;
-    private String title;
-    private String link_web;
-    private String description;
-    private String visibility;
+    private int groupId;
+    private String title, linkWeb, description, visibility;
 
-
-    public Group() {
-    }
-
-    public Group(int group_id, String title, String link_web, String description, String visibility) {
-        this.group_id = group_id;
+    public Group(int groupId, String title, String linkWeb, String description, String visibility) {
+        this.groupId = groupId;
         this.title = title;
-        this.link_web = link_web;
+        this.linkWeb = linkWeb;
         this.description = description;
         this.visibility = visibility;
     }
 
-
     public Group(String title, String link_web, String description, String visibility) {
         this.title = title;
-        this.link_web = link_web;
+        this.linkWeb = link_web;
         this.description = description;
         this.visibility = visibility;
     }
@@ -31,13 +23,22 @@ public class Group {
         this.title = title;
         this.description = description;
     }
-
-    public int getGroup_id() {
-        return group_id;
+    @Override
+    public String toString() {
+        return "Group{" +
+                "groupId=" + groupId +
+                ", title='" + title + '\'' +
+                ", linkWeb='" + linkWeb + '\'' +
+                ", description='" + description + '\'' +
+                ", visibility='" + visibility + '\'' +
+                '}';
+    }
+    public int getGroupId() {
+        return groupId;
     }
 
-    public void setGroup_id(int group_id) {
-        this.group_id = group_id;
+    public void setGroupId(int groupId) {
+        this.groupId = groupId;
     }
 
     public String getTitle() {
@@ -48,12 +49,12 @@ public class Group {
         this.title = title;
     }
 
-    public String getLink_web() {
-        return link_web;
+    public String getLinkWeb() {
+        return linkWeb;
     }
 
-    public void setLink_web(String link_web) {
-        this.link_web = link_web;
+    public void setLinkWeb(String linkWeb) {
+        this.linkWeb = linkWeb;
     }
 
     public String getDescription() {
