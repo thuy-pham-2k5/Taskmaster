@@ -5,6 +5,8 @@ import com.example.taskmaster.model.Group;
 import com.example.taskmaster.model.User;
 import com.example.taskmaster.service.authenticate.AuthenticateService;
 import com.example.taskmaster.service.user.*;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -94,10 +96,21 @@ public class GroupHomeServlet extends HttpServlet {
             case "search":
                 searchBoardByKeyword (request, response);
                 break;
+            case "viewGroups":
+                getAllTitleGroup(request, response);
+                break;
             default:
                 showGroupInfo(request, response);
                 break;
         }
+    }
+
+    private void getAllTitleGroup(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int user_id = 1;
+        List<Group> titleGroupList = groupService.getTitleGroupByUserId(user_id);
+        request.setAttribute("titleGroups", titleGroupList);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("view/user/group/home_workspace.jsp");
+        requestDispatcher.forward(request, response);
     }
 
     private void searchBoardByKeyword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
