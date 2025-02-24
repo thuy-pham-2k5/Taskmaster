@@ -20,9 +20,7 @@
             <label style=" display: block; padding: 10px; border-radius: 5px; color: red; background-color: #f7ebbe;">${message}</label>
         </c:if>
         <form action="/authenticate?action=register" method="post">
-            <input type="text" id="fullName" name="full-name" pattern="\p{L}+\s*\p{L}+"
-                   title="Họ và tên không hợp lệ: chỉ chấp nhận chữ cái in hoa và chữ cái thường"
-                   placeholder="Họ và tên..." required>
+            <input type="text" id="fullName" name="full-name" placeholder="Họ và tên..." required>
             <input type="email" name="email" placeholder="Email..." required>
             <input type="password" id="password" name="password" pattern=".{7,}"
                    title="Mật khẩu yếu, vui lòng sử dụng mật khẩu lớn hơn 6 ký tự" placeholder="Mật khẩu..." required>
@@ -39,11 +37,9 @@
         </p>
     </div>
 </div>
-
 <script>
     const password = document.getElementById('password');
     const rePassword = document.getElementById('re_password');
-
     function validatePassword() {
         if (password.value !== rePassword.value) {
             rePassword.setCustomValidity("Mật khẩu nhập lại không khớp");
@@ -51,7 +47,6 @@
             rePassword.setCustomValidity("");
         }
     }
-
     rePassword.addEventListener('input', validatePassword);
     password.addEventListener('input', validatePassword);
 
