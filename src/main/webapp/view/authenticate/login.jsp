@@ -29,13 +29,14 @@
     </div>
     <h2>Đăng nhập để tiếp tục</h2>
     <c:if test="${not empty message}">
-        <label>${message}</label>
+        <label style=" display: block; padding: 10px; border-radius: 5px; color: red; background-color: #f7ebbe;">${message}</label>
     </c:if>
     <form action="/authenticate?action=login" method="post">
-        <input type="email" name="email" placeholder="Email....." required>
+        <input type="email" name="email" placeholder="Email..." required>
         <div class="password-container">
-            <input type="password" id="password" name="password" placeholder="Mật khẩu....." required>
-            <img src="images/eye_close.png" id="togglePassword" class="toggle-password" onclick="togglePasswordVisibility()" alt="eye">
+            <input type="password" id="password" name="password" placeholder="Mật khẩu..." required>
+            <img src="images/eye_close.png" id="togglePassword" class="toggle-password"
+                 onclick="togglePasswordVisibility()" alt="eye">
         </div>
         <p class="forgot-password">
             <a href="/authenticate?action=resetPassword">Quên mật khẩu?</a>
