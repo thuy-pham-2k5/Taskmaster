@@ -7,16 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Taskmaster - Đăng ký</title>
     <link rel="stylesheet" href="/css/authenticate/register.css">
-    <script>
-        function togglePasswordVisibility() {
-            let passwordField = document.getElementById("password");
-            if (passwordField.type === "password") {
-                passwordField.type = "text";
-            } else {
-                passwordField.type = "password";
-            }
-        }
-    </script>
 </head>
 <body>
 <div class="container">
@@ -27,7 +17,7 @@
         </div>
         <h2>Đăng ký để tiếp tục</h2>
         <c:if test="${not empty message}">
-            <label style="background: burlywood">${message}</label>
+            <label style=" display: block; padding: 10px; border-radius: 5px; color: red; background-color: #f7ebbe;">${message}</label>
         </c:if>
         <form action="/authenticate?action=register" method="post">
             <input type="text" id="fullName" name="full-name" pattern="\p{L}+\s*\p{L}+"
@@ -53,6 +43,7 @@
 <script>
     const password = document.getElementById('password');
     const rePassword = document.getElementById('re_password');
+
     function validatePassword() {
         if (password.value !== rePassword.value) {
             rePassword.setCustomValidity("Mật khẩu nhập lại không khớp");
@@ -60,10 +51,11 @@
             rePassword.setCustomValidity("");
         }
     }
+
     rePassword.addEventListener('input', validatePassword);
     password.addEventListener('input', validatePassword);
 
-    $(document).on('click', '.toggle-password', function() {
+    $(document).on('click', '.toggle-password', function () {
         var input = $('#password');
         if (input.attr('type') === 'password') {
             input.attr('type', 'text');

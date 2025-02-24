@@ -29,13 +29,13 @@
     </div>
     <h2>Đổi mật khẩu</h2>
     <c:if test="${not empty message}">
-        <label>${message}</label>
+        <label style=" display: block; padding: 10px; border-radius: 5px; color: red; background-color: #f7ebbe;">${message}</label>
     </c:if>
     <form action="/authenticate?action=resetPassword" method="post">
-        <input type="email" name="email" placeholder="Email....." required>
+        <input type="email" name="email" placeholder="Email..." required>
         <div class="password-container">
             <input type="password" id="password" name="password" pattern=".{7,}"
-                   title="Mật khẩu yếu, vui lòng sử dụng mật khẩu lớn hơn 6 ký tự"  placeholder="Mật khẩu....." required>
+                   title="Mật khẩu yếu, vui lòng sử dụng mật khẩu lớn hơn 6 ký tự"  placeholder="Mật khẩu..." required>
             <img src="images/eye_close.png" id="togglePassword" class="toggle-password" onclick="togglePasswordVisibility()" alt="eye">
         </div>
 
