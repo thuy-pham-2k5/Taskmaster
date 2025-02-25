@@ -4,8 +4,8 @@
 <head>
     <title>Title</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/css/user/group/homeWorkspace.css">
-    <script src="/js/user/group/home_workspace.js" defer></script>
+    <link rel="stylesheet" href="/css/user/account/home_account.css">
+    <script src="/js/user/account/home_account.js.js" defer></script>
 </head>
 <body>
 
@@ -55,12 +55,14 @@
                             ${group.title}
                     </li>
                     <li>
-                        <a href="">Bảng</a>
+                        <a href="/account_home?action=showGroupHomeView&groupId=${group.groupId}">Bảng</a>
                     </li>
                     <li>
-                        <a href="">Thành viên</a>
+                        <a href="/account_home?action=showMemberViewInGroupHome&groupId=${group.groupId}">Thành viên</a>
                     </li>
-                    <li>Cài đặt</li>
+                    <li>
+                        <a href="/account_home?action=showSettingViewInGroupHome&groupId=${group.groupId}">Cài đặt</a>
+                    </li>
                 </ul>
             </div>
             </c:forEach>
