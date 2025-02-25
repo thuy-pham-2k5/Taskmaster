@@ -94,10 +94,7 @@ public class GroupHomeServlet extends HttpServlet {
                 sortTypeListBoards(request, response);
                 break;
             case "search":
-                searchBoardByKeyword (request, response);
-                break;
-            case "viewGroups":
-                getAllTitleGroup(request, response);
+//                searchBoardByKeyword (request, response);
                 break;
             default:
                 showGroupInfo(request, response);
@@ -105,22 +102,14 @@ public class GroupHomeServlet extends HttpServlet {
         }
     }
 
-    private void getAllTitleGroup(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int user_id = 1;
-        List<Group> titleGroupList = groupService.getTitleGroupByUserId(user_id);
-        request.setAttribute("titleGroups", titleGroupList);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("view/user/group/home_workspace.jsp");
-        requestDispatcher.forward(request, response);
-    }
-
-    private void searchBoardByKeyword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        String keyword = request.getParameter("keyword");
-        System.out.println(keyword);
-        request.setAttribute("boards", boardService.searchBoardsByName((int) session.getAttribute("groupId"), keyword));
-        System.out.println(boardService.searchBoardsByName((int) session.getAttribute("groupId"), keyword));
-        request.getRequestDispatcher("view/user/group/home_workspace.jsp").forward(request, response);
-    }
+//    private void searchBoardByKeyword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        HttpSession session = request.getSession();
+//        String keyword = request.getParameter("keyword");
+//        System.out.println(keyword);
+//        request.setAttribute("boards", boardService.searchBoardsByName((int) session.getAttribute("groupId"), keyword));
+//        System.out.println(boardService.searchBoardsByName((int) session.getAttribute("groupId"), keyword));
+//        request.getRequestDispatcher("view/user/group/home_workspace.jsp").forward(request, response);
+//    }
 
     private void sortTypeListBoards(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String sortType = request.getParameter("mySelect");

@@ -87,9 +87,8 @@ public class AuthenticateServlet extends HttpServlet {
         } else {
             if (authenticateService.signIn(email, password)) {
                 session.setAttribute("user", user);
-
                 if (user.getRoleName().equals("User System")) {
-                    response.sendRedirect("group_home");
+                    response.sendRedirect("account_home");
                 } else {
                     request.getRequestDispatcher("/view/admin/home_admin.jsp").forward(request, response);
                 }
@@ -109,7 +108,7 @@ public class AuthenticateServlet extends HttpServlet {
         System.out.println(user);
         if (authenticateService.signUp(user)) {
             session.setAttribute("user", authenticateService.getUserByEmail(email));
-            request.getRequestDispatcher("/view/user/group/home_workspace.jsp").forward(request, response);    // chuyển trang sau khi đăng ký thành công
+            request.getRequestDispatcher("/view/authenticate/login.jsp").forward(request, response);
         } else {
             request.setAttribute("message", "Có vẻ như bạn đã có một tài khoản được liên kết với email này. Vui lòng đăng ký tài khoản khác");
             request.getRequestDispatcher("/view/authenticate/register.jsp").forward(request, response);
