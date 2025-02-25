@@ -98,15 +98,16 @@ public class BoardService implements IBoardService{
     }
 
     @Override
-    public void deleteBoard(int boardId) {
-        String query = "delete from user_board_relationships where board_id = ?; delete from boards where board_id = ?;";
-        try (Connection connection = ConnectDatabase.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
+    public boolean deleteBoard( int boardId) throws SQLException {
+        PreparedStatement preparedStatement = null;
+        Connection connection = ConnectDatabase.getConnection();
+        try {
+            preparedStatement = connection.prepareStatement("DELETE FROM boards WHERE board_id = ?;");
             preparedStatement.setInt(1, boardId);
-            preparedStatement.setInt(2, boardId);
-            preparedStatement.executeUpdate();
+            return preparedStatement.executeUpdate() > 0; // Trả về true nếu có dòng bị xóa
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
+        return false;}
     }
-}
+

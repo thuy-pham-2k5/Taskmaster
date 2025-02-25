@@ -8,6 +8,13 @@ body {
     font-family: Arial, sans-serif;
 }
 
+
+
+.container {
+    display: flex;
+    min-height: 90vh;
+}
+
 #header {
     width: 100%;
     height: 70px;
@@ -80,15 +87,19 @@ body {
 #homeLeft {
     width: 17%;
     min-width: 250px;
-    height: 833px;
+    min-height: 620px; /* Đảm bảo chiều cao tối thiểu */
+    height: auto; /* Tự động mở rộng theo nội dung */
+    overflow: hidden; /* Ngăn chặn phần tử con tràn ra ngoài */
     background-color: #93CDD8;
 }
 
 
 #homeRight{
     flex: 1;
-    height: 100%;
     background-color: #3179BA;
+    min-height: 620px; /* Đảm bảo chiều cao tối thiểu */
+    height: auto; /* Tự động mở rộng theo nội dung */
+    overflow: hidden; /* Ngăn chặn phần tử con tràn ra ngoài */
 
 }
 
@@ -260,12 +271,19 @@ body {
      padding-left: 5px;
 }
 
-.flex-container {
-    justify-content: space-around; /* Tùy chỉnh khoảng cách giữa các thẻ div */
-    display: flex;
-    gap: 10px; /* Khoảng cách giữa các bảng */
-    padding: 10px;
+/*.flex-container {*/
+/*    display: flex;*/
+/*    justify-content: space-around; !* Tùy chỉnh khoảng cách giữa các thẻ div *!*/
+/*    display: flex;*/
+/*    gap: 10px; !* Khoảng cách giữa các bảng *!*/
+/*    padding: 10px;*/
 
+/*}*/
+.flex-container {
+    display: flex;
+    flex-wrap: wrap; /* Cho phép các phần tử tự động xuống dòng */
+    justify-content: flex-start; /* Căn các phần tử sang bên trái */
+    gap: 15px; /* Tạo khoảng cách giữa các phần tử */
 }
 .card-container{
     display: flex;
@@ -284,7 +302,6 @@ body {
     border-radius: 8px; /* Bo tròn góc */
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2); /* Đổ bóng */
 }
 
 .create-board-btn:hover {
@@ -296,21 +313,35 @@ body {
     transform: scale(0.95); /* Nhấn xuống nhỏ lại một chút */
 }
 
+/*.workspaceTable {*/
+/*    margin: auto;*/
+/*    display: inline-block;*/
+/*    width: auto;*/
+/*    min-width: 100px;*/
+/*    max-width: 100%;*/
+/*    word-wrap: break-word;*/
+/*    overflow-wrap: break-word;*/
+/*    background-color: #0D599D;*/
+/*    padding: 30px 50px;*/
+/*    border-radius: 10px;*/
+/*    margin-left: 20px;*/
+/*    margin-top: 15px;*/
+
+
+/*}*/
 .workspaceTable {
-    margin: auto;
-    display: inline-block; /* Cho phép div mở rộng theo nội dung */
-    width: auto;            /* Chiều rộng tự giãn theo nội dung */
-    min-width: 100px;       /* Đảm bảo không quá nhỏ */
-    max-width: 100%;        /* Không vượt quá khung cha */
-    word-wrap: break-word;  /* Xuống dòng khi hết chỗ */
+    display: flex; /* Dùng flexbox để căn giữa */
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    width: 184px; /* Đặt chiều rộng cố định */
+    height: 90px; /* Đặt chiều cao cố định */
+    word-wrap: break-word;
     overflow-wrap: break-word;
-    background-color: gray;
-    padding: 30px 50px;
+    background-color: #0D599D;
     border-radius: 10px;
-    margin-left: 20px;
-    margin-top: 15px;
-
-
+    overflow: hidden; /* Ngăn không cho nội dung tràn ra */
+    text-overflow: ellipsis; /* Nếu cần cắt bớt nội dung dài */
+    text-align: center; /* Căn giữa nội dung text */
 }
 
 #workspaceTable button{
@@ -346,6 +377,117 @@ body {
     margin-left: 5px;
 }
 
+
+/* Màn hình lớn (PC) */
+@media (min-width: 1025px) {
+    .container {
+        flex-direction: row;
+    }
+}
+
+/* Máy tính bảng (màn hình từ 768px đến 1024px) */
+@media (max-width: 1024px) {
+    .container {
+        flex-direction: column;
+    }
+
+    #homeLeft {
+        width: 100%;
+        height: auto;
+    }
+
+    #homeRight {
+        width: 100%;
+        height: auto;
+    }
+
+    #headerTopic {
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    #accountSearchNotification {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Điện thoại (màn hình nhỏ hơn 768px) */
+@media screen and (max-width: 768px) {
+
+    #header {
+        height: 60px; /* Giảm chiều cao header */
+    }
+
+    #logo p {
+        font-size: 18px; /* Giảm kích thước chữ trong logo */
+    }
+
+    .topic {
+        font-size: 14px; /* Giảm kích thước chữ của các mục trên header */
+    }
+
+    #headerTopic button {
+        width: 90px;
+        height: 25px;
+        font-size: 13px; /* Giảm kích thước chữ của nút */
+    }
+    .container {
+        flex-direction: column;
+    }
+
+    #header {
+        height: auto;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #logo {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    #homeLeft {
+        width: 100%;
+        height: auto;
+        text-align: center;
+    }
+
+    #homeRight {
+        width: 100%;
+        height: auto;
+        padding: 10px;
+    }
+
+    #headerTopic {
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+    }
+
+    #workspaceList div {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    #groupInformation {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    #addAcount button {
+        width: 100%;
+    }
+
+    #workspaceTable button {
+        width: 100%;
+    }
+
+    #viewOffTable {
+        width: 100%;
+    }
+}
 
 
 

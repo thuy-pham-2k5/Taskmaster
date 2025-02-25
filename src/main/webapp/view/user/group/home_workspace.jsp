@@ -18,7 +18,7 @@
             <p>Taskmaster</p>
         </div>
         <div id="headerTopic">
-            <div class="topic"><p>Các không gian làm vệc </p> <img class="listImage" src="/images/list.png"></div>
+            <a href="group_home?action=viewGroups"><div class="topic"><p>Các không gian làm vệc </p> <img class="listImage" src="/images/list.png"></div></a>
             <div class="topic"><p>Gần đây</p> <img class="listImage" src="/images/list.png"></div>
             <div class="topic"><P>Đã đánh dấu sao</P> <img class="listImage" src="/images/list.png"></div>
             <a href="/view/user/group/create_workspace.jsp">
@@ -80,8 +80,8 @@
                 <c:if test="${roleIdUser == 3}">
                     <div id="addAccount">
                         <button style="background-color: #1B5B94" onclick="invite_member()">
-                            <img style="width: 15px; height: 15px" src="images/account.png" alt="">
-                            Mời thành viên vào Không gian làm việc
+                            <img style="width: 15px; height: 15px" src="/images/account.png" alt="">
+                            <p style="color:white;">Mời thành viên vào Không gian làm việc</p>
                         </button>
                     </div>
                 </c:if>
@@ -91,10 +91,10 @@
                 <p style="color: white; font-weight: bold; font-size: 22px">Bảng</p>
                 <div id="sortAndSearch">
                     <div id="sort">
-                        <p style="color: white">Sắp xếp theo</p>
+                        <p><label for="mySelect" style="color: white">Sắp xếp theo</label></p>
                         <select id="mySelect" onchange="sortTypeChanged()">
-                            <option value="option1">Theo bảng chữ cái từ A-Z</option>
-                            <option value="option2">Theo bảng chữ cái từ Z-A</option>
+                            <option value="option1" selected>Theo bảng chữ cái từ A - Z</option>
+                            <option value="option2">Theo bảng chữ cái từ Z - A</option>
                         </select>
                     </div>
                     <div id="searchTable">
@@ -107,13 +107,13 @@
                 <div class="flex-container">
                     <div class="workspaceTable">
                         <a href="/board?action=create">
-                            <button class="create-board-btn">Tạo bảng</button>
+                            <button style="background-color: #0D599D; color: white; border: none" class="create-board-btn">Tạo bảng</button>
                         </a>
                     </div>
                     <div class="card-container">
                     <c:forEach var="board" items="${boards}">
-                        <div class="workspaceTable">
-                            <label>${board.title}</label>
+                        <div style=" background-color: #0D599D; "  class="workspaceTable">
+                            <button style="background-color: #0D599D; color: white; border: none">${board.title}</button>
                         </div>
                     </c:forEach>
                     </div>

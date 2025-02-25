@@ -5,6 +5,8 @@ import com.example.taskmaster.model.Group;
 import com.example.taskmaster.model.User;
 import com.example.taskmaster.service.authenticate.AuthenticateService;
 import com.example.taskmaster.service.user.*;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -92,7 +94,13 @@ public class GroupHomeServlet extends HttpServlet {
                 sortTypeListBoards(request, response);
                 break;
             case "search":
-                searchBoardByKeyword (request, response);
+//                searchBoardByKeyword (request, response);
+                break;
+            case "memberView":
+                showMemberWorkspaceView (request, response);
+                break;
+            case "settingView":
+                showSettingWorkspaceView (request, response);
                 break;
             default:
                 showGroupInfo(request, response);
@@ -100,14 +108,22 @@ public class GroupHomeServlet extends HttpServlet {
         }
     }
 
-    private void searchBoardByKeyword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        String keyword = request.getParameter("keyword");
-        System.out.println(keyword);
-        request.setAttribute("boards", boardService.searchBoardsByName((int) session.getAttribute("groupId"), keyword));
-        System.out.println(boardService.searchBoardsByName((int) session.getAttribute("groupId"), keyword));
-        request.getRequestDispatcher("view/user/group/home_workspace.jsp").forward(request, response);
+    private void showSettingWorkspaceView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("/view/user/group/setting_workspace.jsp").forward(request, response);
     }
+
+    private void showMemberWorkspaceView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("/view/user/group/member_workspace.jsp").forward(request, response);
+    }
+
+//    private void searchBoardByKeyword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        HttpSession session = request.getSession();
+//        String keyword = request.getParameter("keyword");
+//        System.out.println(keyword);
+//        request.setAttribute("boards", boardService.searchBoardsByName((int) session.getAttribute("groupId"), keyword));
+//        System.out.println(boardService.searchBoardsByName((int) session.getAttribute("groupId"), keyword));
+//        request.getRequestDispatcher("view/user/group/home_workspace.jsp").forward(request, response);
+//    }
 
     private void sortTypeListBoards(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String sortType = request.getParameter("mySelect");
@@ -115,7 +131,7 @@ public class GroupHomeServlet extends HttpServlet {
             response.sendRedirect("group_home");
         } else {
             HttpSession session = request.getSession();
-            int groupId = (int) session.getAttribute("groupId");
+            int groupId = Integer.parseInt((String) session.getAttribute("groupId"));
             List<Board> boards = boardService.getAllBoardInGroup(groupId, false);
             request.setAttribute("boards", boards);
             System.out.println(boardService.getAllBoardInGroup(groupId, false));
@@ -126,15 +142,12 @@ public class GroupHomeServlet extends HttpServlet {
     private void showGroupInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        int groupId = userService.getGroupByUserId(user.getUserId());
+        int groupId = Integer.parseInt ((String) session.getAttribute("groupId"));
         int roleId = userService.getRoleUserInGroup(user.getUserId(), groupId);
-        session.setAttribute("groupId", groupId);
         request.setAttribute("roleIdUser", roleId);
         request.setAttribute("groupInfo", groupService.getGroupInfoById(groupId));
         request.setAttribute("boards", boardService.getAllBoardInGroup(groupId, true));
-        request.setAttribute("closedBoards", boardService.getAllBoardClosedInGroup((int) session.getAttribute("groupId")));
-        System.out.println(boardService.getAllBoardClosedInGroup((int) session.getAttribute("groupId")));
-
+        request.setAttribute("closedBoards", boardService.getAllBoardClosedInGroup(groupId));
         request.getRequestDispatcher("/view/user/group/home_workspace.jsp").forward(request, response);
     }
 }
