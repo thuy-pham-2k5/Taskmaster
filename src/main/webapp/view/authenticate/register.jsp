@@ -37,11 +37,9 @@
         </p>
     </div>
 </div>
-
 <script>
     const password = document.getElementById('password');
     const rePassword = document.getElementById('re_password');
-
     function validatePassword() {
         if (password.value !== rePassword.value) {
             rePassword.setCustomValidity("Mật khẩu nhập lại không khớp");
@@ -49,12 +47,11 @@
             rePassword.setCustomValidity("");
         }
     }
-
     rePassword.addEventListener('input', validatePassword);
     password.addEventListener('input', validatePassword);
 
     $(document).on('click', '.toggle-password', function () {
-        var input = $('#password');
+        const input = $('#password');
         if (input.attr('type') === 'password') {
             input.attr('type', 'text');
             $(this).find('i').removeClass('fa-eye').addClass('fa-eye-slash');

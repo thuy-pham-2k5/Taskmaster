@@ -1,9 +1,4 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
-<style>
-
-</style>
 
 <div id="overlay" class="overlay" style="background: gray; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5)">
     <div class="modal">

@@ -49,28 +49,29 @@
                     <p>Bảng</p></div>
                 <div><img class="icon" src="/images/number.png">
                     <p>Thành viên</p></div>
-                <c:forEach items="${groupInfo.members}" var="member">
-                    <div>
-                        <a href="">${member.name}</a>
-                    </div>
-                    <div>
+                <c:forEach items="${groups}" var="group">
+                <ul>
+                    <li>
+                            ${group.title}
+                    </li>
+                    <li>
                         <a href="">Bảng</a>
-                    </div>
-                    <div>
+                    </li>
+                    <li>
                         <a href="">Thành viên</a>
-                    </div>
-                    <div>
-                        <a href="">Cài đặt</a>
-                    </div>
-                </c:forEach>
+                    </li>
+                    <li>Cài đặt</li>
+                </ul>
             </div>
-        </div>
-        <div id="homeRight">
-            <div id="groupInformation">
-
-            </div>
+            </c:forEach>
         </div>
     </div>
+    <div id="homeRight">
+        <div id="groupInformation">
+
+        </div>
+    </div>
+</div>
 </div>
 </body>
 </html>
