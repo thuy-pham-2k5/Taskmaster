@@ -5,6 +5,5 @@
          version="4.0">
     <welcome-file-list>
         <welcome-file>authenticate</welcome-file>
-<!--        <welcome-file>view/user/group/listBoardWorkspace.jsp</welcome-file>-->
     </welcome-file-list>
 </web-app>
