@@ -80,7 +80,7 @@
                     <div id="addAccount">
                         <button style="background-color: #1B5B94" onclick="invite_member()">
                             <img style="width: 15px; height: 15px" src="images/account.png" alt="">
-                            Mời thành viên vào Không gian làm việc
+                            <p style="color:white;">Mời thành viên vào Không gian làm việc</p>
                         </button>
                     </div>
                 </c:if>
@@ -106,13 +106,13 @@
                 <div class="flex-container">
                     <div class="workspaceTable">
                         <a href="/board?action=create">
-                            <button>Tạo bảng</button>
+                            <button style="background-color: #0D599D; color: white; border: none">Tạo bảng</button>
                         </a>
                     </div>
                     <jsp:useBean id="boards" scope="request" type="java.util.List"/>
                     <c:forEach var="board" items="${boards}">
-                        <div class="workspaceTable">
-                            <label>${board.title}</label>
+                        <div style=" background-color: #0D599D;"  class="workspaceTable">
+                            <label style="background-color: #0D599D; color: white; border: none">${board.title}</label>
                         </div>
                     </c:forEach>
                 </div>
@@ -138,6 +138,7 @@
             </div>
         </div>
     </div>
+
 </div>
 </body>
 </html>

@@ -2,14 +2,10 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
 }
 
-
-
-.container {
-    display: flex;
-    min-height: 90vh;
+body {
+    font-family: Arial, sans-serif;
 }
 
 #header {
@@ -84,19 +80,15 @@
 #homeLeft {
     width: 17%;
     min-width: 250px;
-    min-height: 620px; /* Đảm bảo chiều cao tối thiểu */
-    height: auto; /* Tự động mở rộng theo nội dung */
-    overflow: hidden; /* Ngăn chặn phần tử con tràn ra ngoài */
+    height: 100%;
     background-color: #93CDD8;
 }
 
 
 #homeRight{
     flex: 1;
+    height: 100%;
     background-color: #3179BA;
-    min-height: 620px; /* Đảm bảo chiều cao tối thiểu */
-    height: auto; /* Tự động mở rộng theo nội dung */
-    overflow: hidden; /* Ngăn chặn phần tử con tràn ra ngoài */
 
 }
 
@@ -229,9 +221,6 @@
     gap: 25px;
 }
 
-
-
-
 #mySelect{
     margin-top: 15px;
     border-radius: 5px;
@@ -262,10 +251,10 @@
     padding-left: 5px;
 }
 
- #searchTable input::placeholder {
+#searchTable input::placeholder {
     color: white;
     opacity: 1; /* Đảm bảo màu trắng không bị trong suốt */
-     padding-left: 5px;
+    padding-left: 5px;
 }
 
 .flex-container {
@@ -280,7 +269,7 @@
     max-width: 100%;        /* Không vượt quá khung cha */
     word-wrap: break-word;  /* Xuống dòng khi hết chỗ */
     overflow-wrap: break-word;
-    background-color: #0D599D;
+    background-color: gray;
     padding: 30px 50px;
     border-radius: 10px;
 }
@@ -317,118 +306,3 @@
     height: 25px;
     margin-left: 5px;
 }
-
-
-/* Màn hình lớn (PC) */
-@media (min-width: 1025px) {
-    .container {
-        flex-direction: row;
-    }
-}
-
-/* Máy tính bảng (màn hình từ 768px đến 1024px) */
-@media (max-width: 1024px) {
-    .container {
-        flex-direction: column;
-    }
-
-    #homeLeft {
-        width: 100%;
-        height: auto;
-    }
-
-    #homeRight {
-        width: 100%;
-        height: auto;
-    }
-
-    #headerTopic {
-        width: 100%;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    #accountSearchNotification {
-        width: 100%;
-        justify-content: center;
-    }
-}
-
-/* Điện thoại (màn hình nhỏ hơn 768px) */
-@media screen and (max-width: 768px) {
-
-    #header {
-        height: 60px; /* Giảm chiều cao header */
-    }
-
-    #logo p {
-        font-size: 18px; /* Giảm kích thước chữ trong logo */
-    }
-
-    .topic {
-        font-size: 14px; /* Giảm kích thước chữ của các mục trên header */
-    }
-
-    #headerTopic button {
-        width: 90px;
-        height: 25px;
-        font-size: 13px; /* Giảm kích thước chữ của nút */
-    }
-    .container {
-        flex-direction: column;
-    }
-
-    #header {
-        height: auto;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    #logo {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    #homeLeft {
-        width: 100%;
-        height: auto;
-        text-align: center;
-    }
-
-    #homeRight {
-        width: 100%;
-        height: auto;
-        padding: 10px;
-    }
-
-    #headerTopic {
-        flex-wrap: wrap;
-        justify-content: center;
-        width: 100%;
-    }
-
-    #workspaceList div {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    #groupInformation {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    #addAcount button {
-        width: 100%;
-    }
-
-    #workspaceTable button {
-        width: 100%;
-    }
-
-    #viewOffTable {
-        width: 100%;
-    }
-}
-
-
-
