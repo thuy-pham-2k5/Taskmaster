@@ -131,7 +131,7 @@ public class GroupHomeServlet extends HttpServlet {
             response.sendRedirect("group_home");
         } else {
             HttpSession session = request.getSession();
-            int groupId = (int) session.getAttribute("groupId");
+            int groupId = Integer.parseInt((String) session.getAttribute("groupId"));
             List<Board> boards = boardService.getAllBoardInGroup(groupId, false);
             request.setAttribute("boards", boards);
             System.out.println(boardService.getAllBoardInGroup(groupId, false));
@@ -142,13 +142,12 @@ public class GroupHomeServlet extends HttpServlet {
     private void showGroupInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        int groupId = (int) session.getAttribute("groupId");
+        int groupId = Integer.parseInt ((String) session.getAttribute("groupId"));
         int roleId = userService.getRoleUserInGroup(user.getUserId(), groupId);
         request.setAttribute("roleIdUser", roleId);
         request.setAttribute("groupInfo", groupService.getGroupInfoById(groupId));
         request.setAttribute("boards", boardService.getAllBoardInGroup(groupId, true));
         request.setAttribute("closedBoards", boardService.getAllBoardClosedInGroup(groupId));
-        System.out.println(boardService.getAllBoardClosedInGroup(groupId));
         request.getRequestDispatcher("/view/user/group/home_workspace.jsp").forward(request, response);
     }
 }
