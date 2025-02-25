@@ -1,315 +1,117 @@
-* {
+body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-}
-
-body {
     font-family: Arial, sans-serif;
+    background-color: #2C78C1;
+    color: white;
 }
 
 #header {
-    width: 100%;
-    height: 70px;
-    background-color: #3FB5CC;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-
+    padding: 10px 20px;
+    background-color: #1F5C99;
 }
 
 #logo {
-    padding-left: 20px;
     display: flex;
     align-items: center;
-    gap: 10px;
+}
+
+#logo img {
+    height: 40px;
+    width: 40px;
+}
+
+#logo p {
+    margin-left: 10px;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 #headerTopic {
     display: flex;
+    gap: 15px;
     align-items: center;
-    gap: 20px;
-    width: 800px;
-    margin-left: 35px;
 }
 
 .topic {
-    border-radius: 4px;
-    height: 30px;
     display: flex;
     align-items: center;
-    gap: 8px;
-    color: white;
-    font-size: 17px;
-}
-
-#headerTopic button {
-    width: 110px;
-    height: 30px;
-    background-color: #116676;
-    color: white;
-    border-radius: 5px;
-    border: none;
     cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: #174A7E;
 }
 
 .topic:hover {
-    background-color: gray;
+    background-color: #123A5E;
 }
 
-.listImage {
-    width: 15px;
-    height: 15px;
+.topic img {
+    margin-left: 5px;
+    height: 16px;
 }
 
-/* Chữ Taskmaster */
-
-#logo p {
-    font-size: 25px;
-    color: white;
-    font-family: Italianno;
-    font-style: italic;
+button {
+    background-color: #FFD700;
+    color: #000;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
 }
 
+button:hover {
+    background-color: #FFC107;
+}
+
+#accountSearchNotification {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#search input {
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+}
 
 .container {
     display: flex;
-    flex-wrap: wrap; /* Để các phần tử tự xuống dòng trên màn hình nhỏ */
+    padding: 20px;
 }
 
-
-#homeLeft {
-    width: 17%;
-    min-width: 250px;
-    height: 620px;
-    background-color: #93CDD8;
+#sidebar {
+    width: 250px;
+    background: #1F5C99;
+    padding: 15px;
+    border-radius: 10px;
 }
 
-
-#homeRight{
-    flex: 1;
-    height: 620px;
-    background-color: #3179BA;
-
-}
-
-
-#accountSearchNotification {
-    width: 690px;
+.workspace-list {
     display: flex;
-    align-items: center; /* Căn giữa theo chiều dọc */
-    justify-content: flex-end; /* Đưa tất cả phần tử về bên phải */
-    gap: 20px; /* Giãn cách các phần tử dần về bên trái */
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.workspace-item {
+    background: #174A7E;
     padding: 10px;
+    border-radius: 5px;
+    width: 150px;
+    text-align: center;
 }
 
-#header #accountSearchNotification img {
-    width: 40px;
-    height: 40px;
+.workspace-item.red {
+    background: #D9534F;
 }
 
-
-
-#homeLeft #workspace{
-    margin: 18px;
-    border-radius: 8px;
-    width: 50px;
-    height: 40px;
-    background-color: orange;
-}
-
-#homeLeft .represent{
-    font-size: 23px;
-    color: white;
-    font-weight: bold;
-}
-
-
-
-#workspaceName {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    border-bottom: 2px solid gray;
-}
-
-
-.represent {
-    font-size: 25px;
-    color: white;
-    font-weight: bold;
-    margin: 0;
-}
-
-#workspaceName p {
-    font-size: 20px;
-    color: white;
-    margin: 0;
-}
-
-.icon {
-    width: 21px;
-    height: 21px;
-}
-
-/* Căn ảnh và chữ trong cùng một hàng */
-#workspaceList div {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 0;
-}
-
-#workspaceList {
-    padding: 5px 10px 0px 15px;
-}
-
-#group {
-    width: 60px;
-    height: 60px;
-    background-color: orange;
-    border-radius: 8px;
-}
-
-#group p{
-    font-size: 40px;
-    color: white;
-    font-weight: bold;
-}
-
-#groupName{
-    font-size: 23px;
-    color: white;
-    margin-left: 10px;
-}
-
-#content{
-    font-size: 15px;
-    width: 650px;
-    color: #e8e2e2;
-}
-
-#groupInformation{
-    align-items: center;
-    padding-top: 50px;
-    padding-bottom: 50px;
-    display: flex;
-    justify-content: space-around;
-    border-bottom: 1px solid darkgray;
-
-}
-
-#addAcount button{
-    width: 275px;
-    border: none;
+img {
     height: 30px;
-    background-color: #1B5B94;
-    color: white;
-    cursor: pointer;
-}
-
-#sortAndSearch{
-    display: flex;
-    justify-content: space-between;
-}
-
-#workspaces{
-    margin-left: 74px;
-    margin-right: 74px;
-    margin-top: 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-}
-
-
-
-
-#mySelect{
-    margin-top: 15px;
-    border-radius: 5px;
-    border-color: white;
-    color: white;
-    height: 35px;
-    background-color: #3179BA;
-}
-
-#searchTable input{
-    margin-top: 15px;
-    border-radius: 5px;
-    border-color: white;
-    height: 35px;
-    color: white;
-    background-color: #3179BA;
-}
-#searchTable button{
-    margin-top: 15px;
-    border-radius: 5px;
-    border-color: white;
-    height: 35px;
-    color: white;
-    background-color: #3179BA;
-}
-
-#search input::placeholder{
-    padding-left: 5px;
-}
-
- #searchTable input::placeholder {
-    color: white;
-    opacity: 1; /* Đảm bảo màu trắng không bị trong suốt */
-     padding-left: 5px;
-}
-
-.flex-container {
-    display: flex;
-    justify-content: space-around; /* Tùy chỉnh khoảng cách giữa các thẻ div */
-}
-
-.workspaceTable {
-    display: inline-block;  /* Cho phép div mở rộng theo nội dung */
-    width: auto;            /* Chiều rộng tự giãn theo nội dung */
-    min-width: 100px;       /* Đảm bảo không quá nhỏ */
-    max-width: 100%;        /* Không vượt quá khung cha */
-    word-wrap: break-word;  /* Xuống dòng khi hết chỗ */
-    overflow-wrap: break-word;
-    background-color: gray;
-    padding: 30px 50px;
-    border-radius: 10px;
-}
-
-#workspaceTable button{
-    border: none;
-    border-radius: 10px;
-    width: 177px;
-    height: 75px;
-    color: white;
-    align-content: center;
-    background-color: #0D599D;
-    cursor: pointer;
-}
-
-#viewOffTable{
-    border-color: white;
-    border-radius: 3px;
-    height: 25px;
-    width: 177px;
-    background-color: #286BA8;
-    color: white;
-    cursor: pointer;
-}
-
-
-#workspaceList p{
-    font-size: 17px;
-}
-
-
-.edit_group_pen{
     width: 30px;
-    height: 25px;
-    margin-left: 5px;
+    border-radius: 50%;
 }
-
-
-
-

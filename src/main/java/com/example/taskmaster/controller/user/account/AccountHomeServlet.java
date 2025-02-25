@@ -4,8 +4,6 @@ import com.example.taskmaster.model.Group;
 import com.example.taskmaster.model.User;
 import com.example.taskmaster.service.user.GroupService;
 import com.example.taskmaster.service.user.IGroupService;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,17 +21,43 @@ public class AccountHomeServlet extends HttpServlet {
         String action = req.getParameter("action");
         if (action == null) action = "";
         switch (action) {
+            case "showSettingViewInGroupHome":
+                showSettingViewInGroupHome (req, resp);
+            case "showMemberViewInGroupHome":
+                showMemberViewInGroupHome (req, resp);
+                break;
+            case "showGroupHomeView":
+                showGroupHomeViewById (req, resp);
+                break;
             default:
                 getAllTitleGroup(req, resp);
                 break;
         }
     }
 
+    private void showSettingViewInGroupHome(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        HttpSession session = req.getSession();
+        session.setAttribute("groupId", req.getParameter("groupId"));
+        resp.sendRedirect("group_home?action=settingView");
+    }
+
+    private void showMemberViewInGroupHome(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        HttpSession session = req.getSession();
+        session.setAttribute("groupId", req.getParameter("groupId"));
+        resp.sendRedirect("group_home?action=memberView");
+    }
+
+    private void showGroupHomeViewById(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        HttpSession session = req.getSession();
+        session.setAttribute("groupId", req.getParameter("groupId"));
+        resp.sendRedirect("group_home");
+    }
+
     private void getAllTitleGroup(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         List<Group> titleGroupList = groupService.getTitleGroupByUserId(user.getUserId());
-        request.setAttribute("titleGroups", titleGroupList);
-        request.getRequestDispatcher("view/user/group/home_account.jsp").forward(request, response);
+        request.setAttribute("groups", titleGroupList);
+        request.getRequestDispatcher("view/user/account/home_account.jsp").forward(request, response);
     }
 }
