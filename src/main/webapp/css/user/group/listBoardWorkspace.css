@@ -1,0 +1,117 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #2C78C1;
+    color: white;
+}
+
+#header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #1F5C99;
+}
+
+#logo {
+    display: flex;
+    align-items: center;
+}
+
+#logo img {
+    height: 40px;
+    width: 40px;
+}
+
+#logo p {
+    margin-left: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#headerTopic {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.topic {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: #174A7E;
+}
+
+.topic:hover {
+    background-color: #123A5E;
+}
+
+.topic img {
+    margin-left: 5px;
+    height: 16px;
+}
+
+button {
+    background-color: #FFD700;
+    color: #000;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #FFC107;
+}
+
+#accountSearchNotification {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#search input {
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+}
+
+.container {
+    display: flex;
+    padding: 20px;
+}
+
+#sidebar {
+    width: 250px;
+    background: #1F5C99;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.workspace-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.workspace-item {
+    background: #174A7E;
+    padding: 10px;
+    border-radius: 5px;
+    width: 150px;
+    text-align: center;
+}
+
+.workspace-item.red {
+    background: #D9534F;
+}
+
+img {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+}
