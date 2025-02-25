@@ -109,7 +109,7 @@ public class GroupHomeServlet extends HttpServlet {
     }
 
     private void showSettingWorkspaceView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/view/user/group/setting.jsp").forward(request, response);
+        request.getRequestDispatcher("/view/user/group/setting_workspace.jsp").forward(request, response);
     }
 
     private void showMemberWorkspaceView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

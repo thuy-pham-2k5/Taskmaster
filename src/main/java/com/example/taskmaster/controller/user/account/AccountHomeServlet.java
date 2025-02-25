@@ -23,6 +23,7 @@ public class AccountHomeServlet extends HttpServlet {
         switch (action) {
             case "showSettingViewInGroupHome":
                 showSettingViewInGroupHome (req, resp);
+                break;
             case "showMemberViewInGroupHome":
                 showMemberViewInGroupHome (req, resp);
                 break;
