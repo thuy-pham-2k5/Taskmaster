@@ -80,14 +80,14 @@ body {
 #homeLeft {
     width: 17%;
     min-width: 250px;
-    height: 620px;
+    height: 833px;
     background-color: #93CDD8;
 }
 
 
 #homeRight{
     flex: 1;
-    height: 620px;
+    height: 100%;
     background-color: #3179BA;
 
 }
@@ -272,13 +272,14 @@ body {
     flex-wrap: wrap;
     flex: 1 1 400px;
     gap: 5px;
+    width: calc(20% - 20px);
 }
 .create-board-btn {
     background-color: #007bff; /* Màu xanh dương */
     color: white; /* Chữ màu trắng */
     font-size: 16px;
     font-weight: bold;
-    padding: 12px 20px;
+    padding: 6px 10px;
     border: none;
     border-radius: 8px; /* Bo tròn góc */
     cursor: pointer;
