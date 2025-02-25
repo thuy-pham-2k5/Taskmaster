@@ -2,10 +2,14 @@ package com.example.taskmaster.service.user;
 
 import com.example.taskmaster.database.ConnectDatabase;
 import com.example.taskmaster.model.Group;
+import com.example.taskmaster.model.User;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GroupService implements IGroupService {
     @Override
@@ -47,10 +51,48 @@ public class GroupService implements IGroupService {
             return group;
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }    }
+        }
+    }
+
+    @Override
+    public void inviteMember(int userId, int groupId, int roleId) {
+        String query = "INSERT INTO user_group_relationships (`user_id`, `group_id`, `role_id`) VALUES ('?, ?, ?)";
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setInt(2, groupId);
+            preparedStatement.setInt(3, roleId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    private String queryGetTitleGroup = "SELECT `groups`.title FROM `groups` JOIN user_group_relationships ON `groups`.group_id = user_group_relationships.group_id JOIN users ON user_group_relationships.user_id = users.user_id WHERE users.user_id = ?";
+
+    @Override
+    public List<Group> getTitleGroupByUserId(int user_id) {
+        List<Group> titleGroupList = new ArrayList<>();
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(queryGetTitleGroup);
+            preparedStatement.setInt(1, user_id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                String title = resultSet.getString("title");
+                Group group = new Group(title);
+                titleGroupList.add(group);
+                System.out.println(title);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return titleGroupList;
+    }
 
     private String queryCreateGroup = "INSERT INTO `groups` (title, link_web, description, visibility) VALUES ( ?, ?, ?, ?)";
     private String queryAddCreatorInformation = "INSERT INTO user_group_relationships (user_id, group_id, role_id, permission_id) VALUES ( ?, ?, ?, ?)";
+
     //    3, 1
     @Override
     public void createGroup(Group group, int userId) {
@@ -112,6 +154,21 @@ public class GroupService implements IGroupService {
             } catch (SQLException closeEx) {
                 closeEx.printStackTrace();
             }
+        }
+    }
+
+    @Override
+    public void updateGroup(int groupId, Group group) {
+        String query = "UPDATE `groups` SET `title` = ?, `link_web` = ?, `description` = ? WHERE `group_id` = ?;";
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, group.getTitle());
+            preparedStatement.setString(2, group.getLinkWeb());
+            preparedStatement.setString(3, group.getDescription());
+            preparedStatement.setInt(4, groupId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 }

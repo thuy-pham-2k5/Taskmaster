@@ -96,4 +96,17 @@ public class BoardService implements IBoardService{
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void deleteBoard(int boardId) {
+        String query = "delete from user_board_relationships where board_id = ?; delete from boards where board_id = ?;";
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, boardId);
+            preparedStatement.setInt(2, boardId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -82,11 +82,12 @@ public class AuthenticateServlet extends HttpServlet {
         String password = request.getParameter("password");
         User user = authenticateService.getUserByEmail(email);
         if (user == null) {
-            request.setAttribute("message", "Địa chỉ email chưa được đăng ký. Vui lòng đăng ký để tiếp tục");
-            request.getRequestDispatcher("/view/authenticate/register.jsp").forward(request, response);
+            request.setAttribute("message", "Địa chỉ email chưa được đăng ký. Vui lòng đăng nhập tài khoản khác");
+            request.getRequestDispatcher("/view/authenticate/login.jsp").forward(request, response);
         } else {
             if (authenticateService.signIn(email, password)) {
                 session.setAttribute("user", user);
+
                 if (user.getRoleName().equals("User System")) {
                     response.sendRedirect("group_home");
                 } else {
@@ -110,8 +111,8 @@ public class AuthenticateServlet extends HttpServlet {
             session.setAttribute("user", authenticateService.getUserByEmail(email));
             request.getRequestDispatcher("/view/user/group/home_workspace.jsp").forward(request, response);    // chuyển trang sau khi đăng ký thành công
         } else {
-            request.setAttribute("message", "Có vẻ như bạn đã có một tài khoản được liên kết với email này. Hãy đăng nhập thay thế hoặc đặt lại mật khẩu nếu bạn quên mật khẩu.");
-            request.getRequestDispatcher("/view/authenticate/login.jsp").forward(request, response);
+            request.setAttribute("message", "Có vẻ như bạn đã có một tài khoản được liên kết với email này. Vui lòng đăng ký tài khoản khác");
+            request.getRequestDispatcher("/view/authenticate/register.jsp").forward(request, response);
         }
     }
 }
