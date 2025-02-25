@@ -4,8 +4,8 @@
 <head>
     <title>Title</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/css/user/group/listBoardWorkspace.css">
-    <script src="/js/user/group/listBoardWorkspace.js" defer></script>
+    <link rel="stylesheet" href="/css/user/group/homeWorkspace.css">
+    <script src="/js/user/group/home_workspace.js" defer></script>
 </head>
 <body>
 
@@ -19,7 +19,9 @@
             <div class="topic"><p>Các không gian làm vệc </p> <img class="listImage" src="/images/list.png"></div>
             <div class="topic"><p>Gần đây</p> <img class="listImage" src="/images/list.png"></div>
             <div class="topic"><P>Đã đánh dấu sao</P> <img class="listImage" src="/images/list.png"></div>
-            <a href="/view/user/group/create_workspace.jsp"><button>Tạo không gian làm việc mới</button></a>
+            <a href="/view/user/group/create_workspace.jsp">
+                <button>Tạo không gian làm việc mới</button>
+            </a>
         </div>
         <div id="accountSearchNotification">
             <div id="search">
@@ -45,7 +47,6 @@
                     <p>Thành viên</p></div>
                 <div><img class="icon" src="/images/setting.png">
                     <p>Các cài đặt không gian làm việc</p></div>
-
                 <div style="display: flex; justify-content: space-between"><p style="font-size: 20px">Các bảng của
                     bạn</p> <img class="icon" src="/images/add.png"></div>
                 <div style="display: flex; justify-content: space-between ; padding-left: 30px"><p>Bảng 1</p> <img
@@ -78,53 +79,6 @@
                             <img style="width: 15px; height: 15px" src="images/account.png" alt="">
                             Mời thành viên vào Không gian làm việc
                         </button>
-                    </div>
-                </c:if>
-            </div>
-
-            <div id="workspaces">
-                <p style="color: white; font-weight: bold; font-size: 22px">Bảng</p>
-                <div id="sortAndSearch">
-                    <div id="sort">
-                        <p style="color: white">Sắp xếp theo</p>
-                        <select id="mySelect" onchange="sortTypeChanged()">
-                            <option value="option1">Theo bảng chữ cái từ A-Z</option>
-                            <option value="option2">Theo bảng chữ cái từ Z-A</option>
-                        </select>
-                    </div>
-                    <div id="searchTable">
-                        <p style="color: white">Tìm kiếm</p>
-                        <input type="text" id="keyword" name="keyword" placeholder="Tìm kiếm các bảng"
-                               oninput="inputChanged()">
-                    </div>
-                </div>
-
-                <div class="flex-container">
-                    <div class="workspaceTable">
-                        <a href="/board?action=create">
-                            <button>Tạo bảng</button>
-                        </a>
-                    </div>
-                    <c:forEach var="board" items="${boards}">
-                        <div class="workspaceTable">
-                            <label>${board.title}</label>
-                        </div>
-                    </c:forEach>
-                </div>
-
-                <button id="viewOffTable">Xem các bảng đã đóng</button>
-
-                <c:if test="${not empty closedBoard}">
-                    <div id="overlay" class="overlay" onclick="showOverlay()">
-                        <div class="overlay-content" onclick="event.stopPropagation();">
-                            <h2>Các bảng đã đóng</h2>
-                            <ul id="closedBoardsList">
-                                <c:forEach var="board" items="${closedBoards}">
-                                    <li>${board.title}</li>
-                                </c:forEach>
-                            </ul>
-                            <button onclick="hideOverlay()">Đóng</button>
-                        </div>
                     </div>
                 </c:if>
             </div>
