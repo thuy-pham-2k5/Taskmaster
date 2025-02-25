@@ -5,7 +5,6 @@
     <title>Title</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/user/group/homeWorkspace.css">
-    <script src="/js/user/group/home_workspace.js" defer></script>
 </head>
 <body>
 <%--<div id="invite_member" style="display: none; position: fixed;  top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1000;">--%>
@@ -91,10 +90,10 @@
                 <p style="color: white; font-weight: bold; font-size: 22px">Bảng</p>
                 <div id="sortAndSearch">
                     <div id="sort">
-                        <p style="color: white">Sắp xếp theo</p>
+                        <p><label for="mySelect" style="color: white">Sắp xếp theo</label></p>
                         <select id="mySelect" onchange="sortTypeChanged()">
-                            <option value="option1">Theo bảng chữ cái từ A-Z</option>
-                            <option value="option2">Theo bảng chữ cái từ Z-A</option>
+                            <option value="option1" selected>Theo bảng chữ cái từ A - Z</option>
+                            <option value="option2">Theo bảng chữ cái từ Z - A</option>
                         </select>
                     </div>
                     <div id="searchTable">
@@ -110,6 +109,7 @@
                             <button style="background-color: #0D599D; color: white; border: none">Tạo bảng</button>
                         </a>
                     </div>
+                    <jsp:useBean id="boards" scope="request" type="java.util.List"/>
                     <c:forEach var="board" items="${boards}">
                         <div style=" background-color: #0D599D;"  class="workspaceTable">
                             <label style="background-color: #0D599D; color: white; border: none">${board.title}</label>
