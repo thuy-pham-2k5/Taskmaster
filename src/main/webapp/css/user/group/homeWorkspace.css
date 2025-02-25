@@ -270,19 +270,34 @@
 
 .flex-container {
     display: flex;
-    justify-content: space-around; /* Tùy chỉnh khoảng cách giữa các thẻ div */
+    flex-wrap: wrap; /* Cho phép các phần tử tự động xuống dòng */
+    justify-content: flex-start; /* Căn các phần tử sang bên trái */
+    gap: 10px; /* Tạo khoảng cách giữa các phần tử */
 }
 
+
+
+
 .workspaceTable {
-    display: inline-block;  /* Cho phép div mở rộng theo nội dung */
-    width: auto;            /* Chiều rộng tự giãn theo nội dung */
-    min-width: 100px;       /* Đảm bảo không quá nhỏ */
-    max-width: 100%;        /* Không vượt quá khung cha */
-    word-wrap: break-word;  /* Xuống dòng khi hết chỗ */
+    display: flex; /* Dùng flexbox để căn giữa */
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    width: 184px; /* Đặt chiều rộng cố định */
+    height: 90px; /* Đặt chiều cao cố định */
+    word-wrap: break-word;
     overflow-wrap: break-word;
     background-color: #0D599D;
-    padding: 30px 50px;
     border-radius: 10px;
+    overflow: hidden; /* Ngăn không cho nội dung tràn ra */
+    text-overflow: ellipsis; /* Nếu cần cắt bớt nội dung dài */
+    text-align: center; /* Căn giữa nội dung text */
+}
+
+
+.workspaceTable button {
+    white-space: normal; /* Đảm bảo nội dung xuống dòng */
+    word-break: break-word; /* Cắt từ xuống dòng nếu quá dài */
+    overflow: hidden; /* Không cho nội dung tràn ra */
 }
 
 #workspaceTable button{

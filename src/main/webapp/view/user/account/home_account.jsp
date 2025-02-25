@@ -32,7 +32,7 @@
             </div>
             <img src="/images/bell.png">
             <img src="https://vivureviews.com/wp-content/uploads/2022/08/avatar-vo-danh-9.png">
-            <a href="/logout"> <img
+            <a href="#" onclick="confirmLogout()"> <img
                     src="https://png.pngtree.com/png-clipart/20230314/original/pngtree-log-out-vector-icon-design-illustration-png-image_8987853.png"></a>
         </div>
     </div>
@@ -77,3 +77,10 @@
 </div>
 </body>
 </html>
+<script>
+    function confirmLogout() {
+        if (confirm("Bạn có chắc chắn muốn đăng xuất không?")) {
+            window.location.href = "/logout"; // Điều hướng đến Servlet xử lý đăng xuất
+        }
+    }
+</script>

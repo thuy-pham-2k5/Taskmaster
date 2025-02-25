@@ -53,6 +53,7 @@ public class AuthenticateServlet extends HttpServlet {
                 break;
             case "logout":
                 logout(request, response);
+
                 break;
             default:
                 break;
