@@ -107,14 +107,16 @@
                 <div class="flex-container">
                     <div class="workspaceTable">
                         <a href="/board?action=create">
-                            <button>Tạo bảng</button>
+                            <button class="create-board-btn">Tạo bảng</button>
                         </a>
                     </div>
+                    <div class="card-container">
                     <c:forEach var="board" items="${boards}">
                         <div class="workspaceTable">
                             <label>${board.title}</label>
                         </div>
                     </c:forEach>
+                    </div>
                 </div>
 
                 <button id="viewOffTable">Xem các bảng đã đóng</button>
