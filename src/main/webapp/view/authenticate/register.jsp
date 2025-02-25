@@ -51,7 +51,7 @@
     password.addEventListener('input', validatePassword);
 
     $(document).on('click', '.toggle-password', function () {
-        var input = $('#password');
+        const input = $('#password');
         if (input.attr('type') === 'password') {
             input.attr('type', 'text');
             $(this).find('i').removeClass('fa-eye').addClass('fa-eye-slash');

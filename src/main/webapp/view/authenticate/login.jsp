@@ -35,8 +35,8 @@
         <input type="email" name="email" placeholder="Email..." required>
         <div class="password-container">
             <input type="password" id="password" name="password" placeholder="Mật khẩu..." required>
-            <img src="images/eye_close.png" id="togglePassword" class="toggle-password"
-                 onclick="togglePasswordVisibility()" alt="eye">
+
+            <img src="images/eye_close.png" id="togglePassword" class="toggle-password" onclick="togglePasswordVisibility()" alt="eye">
         </div>
         <p class="forgot-password">
             <a href="/authenticate?action=resetPassword">Quên mật khẩu?</a>

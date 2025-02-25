@@ -17,7 +17,7 @@
             <p>Taskmaster</p>
         </div>
         <div id="headerTopic">
-            <div class="topic"><p>Các không gian làm vệc </p> <img class="listImage" src="/images/list.png"></div>
+            <a href="group_home?action=viewGroups"><div class="topic"><p>Các không gian làm vệc </p> <img class="listImage" src="/images/list.png"></div></a>
             <div class="topic"><p>Gần đây</p> <img class="listImage" src="/images/list.png"></div>
             <div class="topic"><P>Đã đánh dấu sao</P> <img class="listImage" src="/images/list.png"></div>
             <a href="/view/user/group/create_workspace.jsp">
