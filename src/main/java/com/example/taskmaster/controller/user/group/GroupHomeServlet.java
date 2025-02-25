@@ -99,10 +99,17 @@ public class GroupHomeServlet extends HttpServlet {
             case "memberView":
                 showMemberWorkspaceView (request, response);
                 break;
+            case "settingView":
+                showSettingWorkspaceView (request, response);
+                break;
             default:
                 showGroupInfo(request, response);
                 break;
         }
+    }
+
+    private void showSettingWorkspaceView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("/view/user/group/setting.jsp").forward(request, response);
     }
 
     private void showMemberWorkspaceView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
