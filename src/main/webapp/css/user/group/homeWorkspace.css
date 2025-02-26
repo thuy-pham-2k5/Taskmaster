@@ -2,6 +2,9 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+body {
     font-family: Arial, sans-serif;
 }
 
@@ -268,11 +271,44 @@
     display: flex;
     flex-wrap: wrap; /* Cho phép các phần tử tự động xuống dòng */
     justify-content: flex-start; /* Căn các phần tử sang bên trái */
-    gap: 10px; /* Tạo khoảng cách giữa các phần tử */
+    gap: 15px; /* Tạo khoảng cách giữa các phần tử */
+}
+.card-container{
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1 1 400px;
+    gap: 5px;
+    width: calc(20% - 20px);
+}
+.create-board-btn {
+    background-color: #007bff; /* Màu xanh dương */
+    color: white; /* Chữ màu trắng */
+    font-size: 16px;
+    font-weight: bold;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 8px; /* Bo tròn góc */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
+.create-board-btn:hover {
+    background-color: #0056b3; /* Đậm hơn khi hover */
+    transform: scale(1.05); /* Hiệu ứng phóng to nhẹ */
+}
 
-
+.create-board-btn:active {
+    transform: scale(0.95); /* Nhấn xuống nhỏ lại một chút */
+}
+.workspaceTable {
+    display: flex; /* Dùng flexbox để căn giữa */
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    width: 184px; /* Đặt chiều rộng cố định */
+    height: 90px; /* Đặt chiều cao cố định */
+    word-wrap: break-word;
+    gap: 10px; /* Tạo khoảng cách giữa các phần tử */
+}
 
 .workspaceTable {
 
@@ -281,6 +317,7 @@
     min-width: 100px; /* Đảm bảo không quá nhỏ */
     max-width: 100%; /* Không vượt quá khung cha */
     word-wrap: break-word; /* Xuống dòng khi hết chỗ */
+  
     overflow-wrap: break-word;
     background-color: #0D599D;
     border-radius: 10px;

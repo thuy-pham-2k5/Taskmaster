@@ -5,6 +5,8 @@
     <title>Title</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/user/group/homeWorkspace.css">
+
+  
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script src="/js/user/group/home_workspace.js" defer></script>
@@ -85,7 +87,7 @@
                 <c:if test="${roleIdUser == 3}">
                     <div id="addAccount">
                         <button style="background-color: #1B5B94" onclick="invite_member()">
-                            <img style="width: 15px; height: 15px" src="images/account.png" alt="">
+                            <img style="width: 15px; height: 15px" src="/images/account.png" alt="">
                             <p style="color:white;">Mời thành viên vào Không gian làm việc</p>
                         </button>
                     </div>
@@ -112,17 +114,27 @@
                 <div class="flex-container">
                     <div class="workspaceTable">
                         <a href="/board?action=create">
-                            <button style="background-color: #0D599D; color: white; border: none">Tạo bảng</button>
+                            <button style="background-color: #0D599D; color: white; border: none" class="create-board-btn">Tạo bảng</button>
                         </a>
                     </div>
 
-                    <jsp:useBean id="boards" scope="request" type="java.util.List"/>
+                    <div class="card-container">
+                    <c:forEach var="board" items="${boards}">
+                        <div style=" background-color: #0D599D; "  class="workspaceTable">
+                            <button style="background-color: #0D599D; color: white; border: none">${board.title}</button>
+                        </div>
+                    </c:forEach>
+                    </div>
+
+<!--                     <jsp:useBean id="boards" scope="request" type="java.util.List"/>
                     <c:forEach var="board" items="${boards}">
                         <div style=" background-color: #0D599D; width: 184px; height: 90px;   "  class="workspaceTable">
                             <button style="background-color: #0D599D; color: white; border: none">${board.title}</button>
                         </div>
-                    </c:forEach>
+                    </c:forEach> -->
 
+              
+              
                 </div>
 
                 <button id="viewOffTable">Xem các bảng đã đóng</button>
@@ -148,7 +160,6 @@
             </div>
         </div>
     </div>
-
 </div>
 </body>
 </html>

@@ -102,7 +102,8 @@ public class BoardService implements IBoardService{
             callableStatement.setInt(1, boardId);
             callableStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
+        return false;}
     }
-}
+
