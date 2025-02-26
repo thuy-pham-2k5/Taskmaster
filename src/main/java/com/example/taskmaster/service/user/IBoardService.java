@@ -2,6 +2,8 @@ package com.example.taskmaster.service.user;
 
 import com.example.taskmaster.model.Board;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 public interface IBoardService {
@@ -12,5 +14,6 @@ public interface IBoardService {
     List<Board> getAllBoardClosedInGroup(int groupId);
 
     void createBoard(Board board);
-    void deleteBoard (int boardId);
+
+    boolean deleteBoard( int boardId) throws SQLException;
 }

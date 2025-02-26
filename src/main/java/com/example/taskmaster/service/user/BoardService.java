@@ -95,14 +95,15 @@ public class BoardService implements IBoardService{
     }
 
     @Override
-    public void deleteBoard(int boardId) {
+    public boolean deleteBoard(int boardId) {
         String query = "{call deleteBoardFromGroup (?)}";
         try (Connection connection = ConnectDatabase.getConnection()) {
             CallableStatement callableStatement = connection.prepareCall(query);
             callableStatement.setInt(1, boardId);
-            callableStatement.executeUpdate();
+            return callableStatement.executeUpdate()>0;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
+        return false;}
     }
-}
+
