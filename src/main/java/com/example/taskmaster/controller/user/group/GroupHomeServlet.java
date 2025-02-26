@@ -120,17 +120,15 @@ public class GroupHomeServlet extends HttpServlet {
 //    }
 
     private void sortTypeListBoards(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String sortType = request.getParameter("mySelect");
-        HttpSession session = request.getSession();
-        int groupId = Integer.parseInt((String) session.getAttribute("groupId"));
-        List<Board> boardList = new ArrayList<>();
+        List<Board> boards;
+        String sortType = request.getParameter("option");
+        int groupId = Integer.parseInt((String) request.getSession().getAttribute("groupId"));
         if (sortType.equals("option1")) {
-            boardList = boardService.getAllBoardInGroup(groupId, true);
+            boards = boardService.getAllBoardInGroup(groupId, true);
         } else {
-            boardList = boardService.getAllBoardInGroup(groupId, false);
+            boards = boardService.getAllBoardInGroup(groupId, false);
         }
-        Gson gson = new Gson();
-        String boardsJson = gson.toJson(boardList);
+        String boardsJson = new Gson().toJson(boards);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(boardsJson);
