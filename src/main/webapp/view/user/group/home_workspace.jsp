@@ -125,8 +125,7 @@
                         </div>
                     </c:forEach>
                     </div>
-
-              
+                  
                 </div>
 
                 <button id="viewOffTable">Xem các bảng đã đóng</button>
