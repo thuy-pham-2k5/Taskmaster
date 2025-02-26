@@ -5,6 +5,7 @@
     <title>Title</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/user/group/homeWorkspace.css">
+    <script src="/js/user/group/home_workspace.js" defer></script>
 </head>
 <body>
 <%--<div id="invite_member" style="display: none; position: fixed;  top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1000;">--%>
@@ -61,7 +62,7 @@
 
                 <div id="information">
                     <div style="display: flex; align-items: center">
-                        <button id="group"><p>P</p></button>
+                        <button id="group"><p>T</p></button>
                         <div>
                             <div style="display: flex">
                                 <p id="groupName">${groupInfo.title}</p>
