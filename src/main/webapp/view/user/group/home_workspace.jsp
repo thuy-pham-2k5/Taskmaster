@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/user/group/homeWorkspace.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script src="/js/user/group/home_workspace.js" defer></script>
 </head>
 <body>
@@ -32,8 +33,11 @@
             </div>
             <img src="/images/bell.png">
             <img src="https://vivureviews.com/wp-content/uploads/2022/08/avatar-vo-danh-9.png">
-            <a href="/logout"> <img
+
+            <a href="javascript:void(0);" onclick="$('#exampleModalCenter').modal('show');"> <img
                     src="https://png.pngtree.com/png-clipart/20230314/original/pngtree-log-out-vector-icon-design-illustration-png-image_8987853.png"></a>
+            <jsp:include page="../account/notification_log_out.jsp" />
+
         </div>
     </div>
 
@@ -111,13 +115,14 @@
                             <button style="background-color: #0D599D; color: white; border: none">Tạo bảng</button>
                         </a>
                     </div>
-                    <div id="listBoards">
-                        <c:forEach var="board" items="${boards}">
-                            <div class="workspaceTable">
-                                <label class="titleBoard">${board.title}</label>
-                            </div>
-                        </c:forEach>
-                    </div>
+
+                    <jsp:useBean id="boards" scope="request" type="java.util.List"/>
+                    <c:forEach var="board" items="${boards}">
+                        <div style=" background-color: #0D599D; width: 184px; height: 90px;   "  class="workspaceTable">
+                            <button style="background-color: #0D599D; color: white; border: none">${board.title}</button>
+                        </div>
+                    </c:forEach>
+
                 </div>
 
                 <button id="viewOffTable">Xem các bảng đã đóng</button>
@@ -147,3 +152,4 @@
 </div>
 </body>
 </html>
+
