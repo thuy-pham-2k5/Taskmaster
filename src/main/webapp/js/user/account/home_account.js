@@ -1,25 +1,23 @@
-function sortTypeChanged() {
-    const selectElement = document.getElementById('mySelect');
-    const selectedValue = selectElement.value;
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', '/group_home?action=sortType&mySelect=' + selectedValue, true);
-    xhr.send();
-}
+document.addEventListener("DOMContentLoaded", function () {
+    // Lấy danh sách tất cả các nút dropdown
+    const dropdownButtons = document.querySelectorAll(".dropbtn");
 
-let timer;
+    dropdownButtons.forEach(button => {
+        button.addEventListener("click", function (event) {
+            event.stopPropagation(); // Ngăn sự kiện lan ra ngoài
 
-function sendRequest() {
-    const inputElement = document.getElementById('keyword');
-    const inputValue = inputElement.value;
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', '/group_home?action=search&keyword=' + inputValue, true);
-    xhr.send();
-}
+            const dropdownContent = this.nextElementSibling; // Lấy <ul class="dropdown-content">
+            const arrow = this.querySelector(".arrow"); // Lấy phần tử chứa mũi tên
 
-function inputChanged() {
-    clearTimeout(timer);
-    timer = setTimeout(sendRequest, 1500);
-}
+            // Toggle hiển thị dropdown
+            dropdownContent.classList.toggle("show");
 
-document.getElementById('keyword').addEventListener('input', inputChanged);
-
+            // Đổi mũi tên lên/xuống
+            if (dropdownContent.classList.contains("show")) {
+                arrow.textContent = "▲"; // Nếu mở, đổi thành mũi tên lên
+            } else {
+                arrow.textContent = "▼"; // Nếu đóng, đổi lại mũi tên xuống
+            }
+        });
+    });
+});

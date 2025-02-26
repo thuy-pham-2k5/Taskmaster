@@ -82,7 +82,7 @@
 
 
 #homeLeft {
-    width: 17%;
+    width: 20%;
     min-width: 250px;
     min-height: 620px; /* Đảm bảo chiều cao tối thiểu */
     height: auto; /* Tự động mở rộng theo nội dung */
@@ -269,12 +269,43 @@
 }
 
 .flex-container {
-    display: flex;
     justify-content: space-around; /* Tùy chỉnh khoảng cách giữa các thẻ div */
+    display: flex;
+    gap: 10px; /* Khoảng cách giữa các bảng */
+    padding: 10px;
+
+}
+.card-container{
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1 1 400px;
+    gap: 5px;
+}
+.create-board-btn {
+    background-color: #007bff; /* Màu xanh dương */
+    color: white; /* Chữ màu trắng */
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px; /* Bo tròn góc */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2); /* Đổ bóng */
+}
+
+.create-board-btn:hover {
+    background-color: #0056b3; /* Đậm hơn khi hover */
+    transform: scale(1.05); /* Hiệu ứng phóng to nhẹ */
+}
+
+.create-board-btn:active {
+    transform: scale(0.95); /* Nhấn xuống nhỏ lại một chút */
 }
 
 .workspaceTable {
-    display: inline-block;  /* Cho phép div mở rộng theo nội dung */
+    margin: auto;
+    display: inline-block; /* Cho phép div mở rộng theo nội dung */
     width: auto;            /* Chiều rộng tự giãn theo nội dung */
     min-width: 100px;       /* Đảm bảo không quá nhỏ */
     max-width: 100%;        /* Không vượt quá khung cha */
@@ -283,6 +314,10 @@
     background-color: #0D599D;
     padding: 30px 50px;
     border-radius: 10px;
+    margin-left: 20px;
+    margin-top: 15px;
+
+
 }
 
 #workspaceTable button{
@@ -396,6 +431,7 @@
     }
 
     #homeRight {
+        flex: 1;
         width: 100%;
         height: auto;
         padding: 10px;
@@ -429,6 +465,3 @@
         width: 100%;
     }
 }
-
-
-

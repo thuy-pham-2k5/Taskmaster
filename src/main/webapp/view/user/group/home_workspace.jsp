@@ -17,8 +17,10 @@
             <p>Taskmaster</p>
         </div>
         <div id="headerTopic">
-            <a href="group_home?action=viewGroups"><div class="topic"><p>Các không gian làm vệc </p> <img class="listImage" src="/images/list.png"></div></a>
-            <div class="topic"><p>Gần đây</p> <img class="listImage" src="/images/list.png"></div>
+            <a href="group_home?action=viewGroups">
+                <div class="topic"><p>Các không gian làm vệc </p> <img class="listImage" src="/images/list.png"></div>
+            </a>
+            <div class="topic"><p>Gần đây</p> <img class="listImage" src="/images/board.png"></div>
             <div class="topic"><P>Đã đánh dấu sao</P> <img class="listImage" src="/images/list.png"></div>
             <a href="/view/user/group/create_workspace.jsp">
                 <button>Tạo không gian làm việc mới</button>
@@ -31,7 +33,8 @@
             </div>
             <img src="/images/bell.png">
             <img src="https://vivureviews.com/wp-content/uploads/2022/08/avatar-vo-danh-9.png">
-            <a href="/logout"> <img src="https://png.pngtree.com/png-clipart/20230314/original/pngtree-log-out-vector-icon-design-illustration-png-image_8987853.png"></a>
+            <a href="/logout"> <img
+                    src="https://png.pngtree.com/png-clipart/20230314/original/pngtree-log-out-vector-icon-design-illustration-png-image_8987853.png"></a>
         </div>
     </div>
 
@@ -106,15 +109,17 @@
                 <div class="flex-container">
                     <div class="workspaceTable">
                         <a href="/board?action=create">
-                            <button style="background-color: #0D599D; color: white; border: none">Tạo bảng</button>
+                            <button class="create-board-btn">Tạo bảng</button>
                         </a>
                     </div>
-                    <jsp:useBean id="boards" scope="request" type="java.util.List"/>
-                    <c:forEach var="board" items="${boards}">
-                        <div style=" background-color: #0D599D;"  class="workspaceTable">
-                            <label style="background-color: #0D599D; color: white; border: none">${board.title}</label>
-                        </div>
-                    </c:forEach>
+                    <div class="card-container">
+                        <jsp:useBean id="boards" scope="request" type="java.util.List"/>
+                        <c:forEach var="board" items="${boards}">
+                            <div style=" background-color: #0D599D;" class="workspaceTable">
+                                <label style="background-color: #0D599D; color: white; border: none">${board.title}</label>
+                            </div>
+                        </c:forEach>
+                    </div>
                 </div>
 
                 <button id="viewOffTable">Xem các bảng đã đóng</button>
@@ -127,7 +132,9 @@
                                 <c:forEach var="board" items="${closedBoards}">
                                     <li>
                                             ${board.title}
-                                        <a href="/board?action=deleteBoard&boardId=${board.boardId}"><button>Xóa bảng</button></a>
+                                        <a href="/board?action=deleteBoard&boardId=${board.boardId}">
+                                            <button>Xóa bảng</button>
+                                        </a>
                                     </li>
                                 </c:forEach>
                             </ul>

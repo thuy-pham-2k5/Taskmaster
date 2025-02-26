@@ -1,78 +1,166 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Title</title>
-</head>
-<body>
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dropdown Menu</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        nav a:hover {
+            text-decoration: underline;
         }
 
-        ul {
-            list-style: none;
-            background: #3498db;
-            padding: 10px;
-            width: 200px;
+        .content-parent {
+            display: flex;
+            justify-content: center;
+            padding-bottom: 40px;
         }
 
-        ul li {
-            position: relative;
+        .home-left-sidebar {
+            margin: 40px 0 0;
+            max-height: 90vh;
+            padding: 0 16px;
+            position: sticky;
+            top: 40px;
+            width: 256px;
         }
 
-        ul li a {
-            display: block;
-            padding: 10px;
-            color: white;
-            text-decoration: none;
+        .ul-workspace {
+            max-height: calc(100vh - 200px);
+            overflow-y: auto;
         }
 
-        ul li:hover {
-            background: #2980b9;
-        }
-
-        /* Dropdown menu */
-        ul li ul {
-            display: none;
-            position: absolute;
-            left: 0;
-            top: 100%;
-            background: #2c3e50;
-            width: 200px;
-        }
-
-        ul li:hover > ul {
-            display: block;
-        }
-
-        ul li ul li {
+        .home-container-all-board {
+            margin: 40px 16px 0;
+            max-width: 825px;
+            min-width: 288px;
             width: 100%;
         }
     </style>
 </head>
 <body>
-<ul>
-    <li><a href="#">Menu 1</a></li>
-    <li>
-        <a href="#">Menu 2 ▼</a>
-        <ul>
-            <li><a href="#">Submenu 1</a></li>
-            <li><a href="#">Submenu 2</a></li>
-            <li><a href="#">Submenu 3</a></li>
-        </ul>
-    </li>
-    <li><a href="#">Menu 3</a></li>
-</ul>
-</body>
-</html>
-
+<div>menubar</div>
+<div class="content-parent">
+    <nav class="home-left-sidebar">
+        <div>
+            <ul>
+                <li>Home</li>
+                <li>Heart</li>
+                <li>Your boards</li>
+            </ul>
+        </div>
+        <div>
+            <ul style="max-height: calc(100vh - 200px); overflow-y: auto;">
+                <div>Khong gian lam viec</div>
+                <li class="ul-workspace">
+                    <ul>Quản lý công việc Taskmaster
+                        <li>Quản lý công việc T</li>
+                        <li>Quản lý công việc A</li>
+                        <li>Quản lý công việc T</li>
+                        <li>Quản lý công việc A</li>
+                        <li>Quản lý công việc T</li>
+                        <li>Quản lý công việc A</li>
+                        <li>Quản lý công việc T</li>
+                        <li>Quản lý công việc A</li>
+                        <li>Quản lý công việc T</li>
+                        <li>Quản lý công việc A</li>
+                    </ul>
+                </li>
+                <li class="ul-workspace">
+                    <ul>Quản lý công việc Taskmaster
+                        <li>Quản lý công việc T</li>
+                        <li>Quản lý công việc A</li>
+                        <li>Quản lý công việc T</li>
+                        <li>Quản lý công việc A</li>
+                        <li>Quản lý công việc T</li>
+                        <li>Quản lý công việc A</li>
+                        <li>Quản lý công việc T</li>
+                        <li>Quản lý công việc A</li>
+                        <li>Quản lý công việc T</li>
+                        <li>Quản lý công việc A</li>
+                    </ul>
+                </li>
+                <li class="ul-workspace">
+                    <ul>Quản lý công việc Taskmaster
+                        <li>Quản lý công việc T</li>
+                        <li>Quản lý công việc A</li>
+                        <li>Quản lý công việc T</li>
+                        <li>Quản lý công việc A</li>
+                        <li>Quản lý công việc T</li>
+                        <li>Quản lý công việc A</li>
+                        <li>Quản lý công việc T</li>
+                        <li>Quản lý công việc A</li>
+                        <li>Quản lý công việc T</li>
+                        <li>Quản lý công việc A</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="home-container-all-board">
+        <div>
+            <p>Bảng ở đây</p>
+            <p>Content ở đây</p>
+            <ul>Quản lý công việc Taskmaster
+                <li>Quản lý công việc T</li>
+                <li>Quản lý công việc A</li>
+                <li>Quản lý công việc S</li>
+                <li>Quản lý công việc K</li>
+                <li>Quản lý công việc M</li>
+                <li>Quản lý công việc A</li>
+                <li>Quản lý công việc S</li>
+                <li>Quản lý công việc T</li>
+                <li>Quản lý công việc E</li>
+                <li>Quản lý công việc R</li>
+            </ul>
+            <ul>Quản lý công việc Taskmaster
+                <li>Quản lý công việc T</li>
+                <li>Quản lý công việc A</li>
+                <li>Quản lý công việc S</li>
+                <li>Quản lý công việc K</li>
+                <li>Quản lý công việc M</li>
+                <li>Quản lý công việc A</li>
+                <li>Quản lý công việc S</li>
+                <li>Quản lý công việc T</li>
+                <li>Quản lý công việc E</li>
+                <li>Quản lý công việc R</li>
+            </ul>
+            <ul>Quản lý công việc Taskmaster
+                <li>Quản lý công việc T</li>
+                <li>Quản lý công việc A</li>
+                <li>Quản lý công việc S</li>
+                <li>Quản lý công việc K</li>
+                <li>Quản lý công việc M</li>
+                <li>Quản lý công việc A</li>
+                <li>Quản lý công việc S</li>
+                <li>Quản lý công việc T</li>
+                <li>Quản lý công việc E</li>
+                <li>Quản lý công việc R</li>
+            </ul>
+            <ul>Quản lý công việc Taskmaster
+                <li>Quản lý công việc T</li>
+                <li>Quản lý công việc A</li>
+                <li>Quản lý công việc S</li>
+                <li>Quản lý công việc K</li>
+                <li>Quản lý công việc M</li>
+                <li>Quản lý công việc A</li>
+                <li>Quản lý công việc S</li>
+                <li>Quản lý công việc T</li>
+                <li>Quản lý công việc E</li>
+                <li>Quản lý công việc R</li>
+            </ul>
+            <ul>Quản lý công việc Taskmaster
+                <li>Quản lý công việc T</li>
+                <li>Quản lý công việc A</li>
+                <li>Quản lý công việc S</li>
+                <li>Quản lý công việc K</li>
+                <li>Quản lý công việc M</li>
+                <li>Quản lý công việc A</li>
+                <li>Quản lý công việc S</li>
+                <li>Quản lý công việc T</li>
+                <li>Quản lý công việc E</li>
+                <li>Quản lý công việc R</li>
+            </ul>
+        </div>
+    </div>
+</div>
 </body>
 </html>

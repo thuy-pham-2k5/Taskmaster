@@ -2,10 +2,19 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
-body {
-    font-family: Arial, sans-serif;
+.body {
+    width: 100%;
+    background-color: #3179BA;
+    height: auto;
+}
+
+.container {
+    display: flex;
+    min-height: 90vh;
+    margin: 0 50px 0 50px;
 }
 
 #header {
@@ -14,7 +23,6 @@ body {
     background-color: #3FB5CC;
     display: flex;
     align-items: center;
-
 }
 
 #logo {
@@ -62,7 +70,6 @@ body {
 }
 
 /* Chữ Taskmaster */
-
 #logo p {
     font-size: 25px;
     color: white;
@@ -70,27 +77,55 @@ body {
     font-style: italic;
 }
 
-
 .container {
     display: flex;
     flex-wrap: wrap; /* Để các phần tử tự xuống dòng trên màn hình nhỏ */
+    background-color: #3179BA;
+    justify-content: center;
 }
-
 
 #homeLeft {
-    width: 17%;
-    min-width: 250px;
-    height: 100%;
-    background-color: #93CDD8;
+    margin: 40px 0 0;
+    padding: 0 16px;
+    width: 20%;
+    height: auto;
+    overflow: hidden;
+    background-color: #3179BA;
+    justify-content: center;
+    unicode-bidi: isolate;
+    display: block;
+    overflow-y: auto;
 }
 
+/* Tiêu đề "Các Không gian làm việc" */
+.title {
+    font-size: 15px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: white;
+}
+
+#workspaceList {
+    width: 100%;
+    height: auto;
+    justify-content: right;
+
+}
+#space {
+    padding: 0px 10px 0px 15px;
+    width: 100%;
+    height: 15%;
+}
 
 #homeRight{
-    flex: 1;
-    height: 100%;
+   flex: 1;
     background-color: #3179BA;
+    width: 80%;
+    min-height: 620px; /* Đảm bảo chiều cao tối thiểu */
+    height: auto; /* Tự động mở rộng theo nội dung */
+    overflow: hidden; /* Ngăn chặn phần tử con tràn ra ngoài */
 }
-
 
 #accountSearchNotification {
     width: 690px;
@@ -106,23 +141,11 @@ body {
     height: 40px;
 }
 
-
-
-#homeLeft #workspace{
-    margin: 18px;
-    border-radius: 8px;
-    width: 50px;
-    height: 40px;
-    background-color: orange;
-}
-
 #homeLeft .represent{
     font-size: 23px;
     color: white;
     font-weight: bold;
 }
-
-
 
 #workspaceName {
     display: flex;
@@ -130,7 +153,6 @@ body {
     gap: 10px;
     border-bottom: 2px solid gray;
 }
-
 
 .represent {
     font-size: 25px;
@@ -150,16 +172,100 @@ body {
     height: 21px;
 }
 
-/* Căn ảnh và chữ trong cùng một hàng */
-#workspaceList div {
+.contentIcon {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 12px 0;
+    margin: 10px 10px;
+    border: 1px solid #3179BA;
 }
 
-#workspaceList {
-    padding: 5px 10px 0px 15px;
+
+.contentIcon a {
+    width: 100%;
+    height: auto;
+    font-size: 20px;
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+.contentIcon a:hover {
+    background-color: #29598D;
+    width: 100%;
+}
+
+#groupList {
+    width: 100%;
+    height: auto;
+    justify-content: right;
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+}
+
+/* Định dạng dropdown */
+.dropdown {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.dropbtn {
+    background-color: #3179BA;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between; /* Đưa mũi tên sát phải */
+    align-items: center; /* Căn giữa theo chiều dọc */
+}
+
+.dropbtn:hover {
+    background-color: #29598D;
+    border-radius: 5px;
+}
+
+/* Định dạng mũi tên */
+.dropbtn .arrow {
+    font-size: 14px;
+    margin-left: auto; /* Đẩy mũi tên sang phải */
+}
+
+/* Dropdown menu (ẩn mặc định) */
+.dropdown-content {
+    display: none;
+    background-color: #3179BA;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #3179BA;
+    width: 100%;
+    overflow-y: auto;
+}
+
+/* Khi có class "show", dropdown sẽ hiển thị */
+.dropdown-content.show {
+    display: block;
+}
+
+/* Item trong dropdown */
+.dropdown-content li {
+    padding: 10px;
+}
+
+/* Link trong dropdown */
+.dropdown-content li a {
+    text-decoration: none;
+    color: white;
+    display: block;
+}
+
+/* Hover cho item */
+.dropdown-content li:hover {
+    background-color: #29598D;
+    border-radius: 5px;
 }
 
 #group {
@@ -180,7 +286,6 @@ body {
     color: white;
     margin-left: 10px;
 }
-
 #content{
     font-size: 15px;
     width: 650px;
@@ -257,20 +362,53 @@ body {
 }
 
 .flex-container {
-    display: flex;
     justify-content: space-around; /* Tùy chỉnh khoảng cách giữa các thẻ div */
+    display: flex;
+    gap: 10px; /* Khoảng cách giữa các bảng */
+    padding: 10px;
+
+}
+.card-container{
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1 1 400px;
+    gap: 5px;
+}
+.create-board-btn {
+    background-color: #007bff; /* Màu xanh dương */
+    color: white; /* Chữ màu trắng */
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px; /* Bo tròn góc */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2); /* Đổ bóng */
+}
+
+.create-board-btn:hover {
+    background-color: #0056b3; /* Đậm hơn khi hover */
+    transform: scale(1.05); /* Hiệu ứng phóng to nhẹ */
+}
+
+.create-board-btn:active {
+    transform: scale(0.95); /* Nhấn xuống nhỏ lại một chút */
 }
 
 .workspaceTable {
-    display: inline-block;  /* Cho phép div mở rộng theo nội dung */
+    margin: auto;
+    display: inline-block; /* Cho phép div mở rộng theo nội dung */
     width: auto;            /* Chiều rộng tự giãn theo nội dung */
     min-width: 100px;       /* Đảm bảo không quá nhỏ */
     max-width: 100%;        /* Không vượt quá khung cha */
     word-wrap: break-word;  /* Xuống dòng khi hết chỗ */
     overflow-wrap: break-word;
-    background-color: gray;
+    background-color: #0D599D;
     padding: 30px 50px;
     border-radius: 10px;
+    margin-left: 20px;
+    margin-top: 15px;
 }
 
 #workspaceTable button{
@@ -305,3 +443,118 @@ body {
     height: 25px;
     margin-left: 5px;
 }
+
+
+/* Màn hình lớn (PC) */
+@media (min-width: 1025px) {
+    .container {
+        flex-direction: row;
+    }
+}
+
+/* Máy tính bảng (màn hình từ 768px đến 1024px) */
+@media (max-width: 1024px) {
+    .container {
+        flex-direction: column;
+    }
+
+    #homeLeft {
+        width: 100%;
+        height: auto;
+    }
+
+    #homeRight {
+        width: 100%;
+        height: auto;
+    }
+
+    #headerTopic {
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    #accountSearchNotification {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Điện thoại (màn hình nhỏ hơn 768px) */
+@media screen and (max-width: 768px) {
+
+    #header {
+        height: 60px; /* Giảm chiều cao header */
+    }
+
+    #logo p {
+        font-size: 18px; /* Giảm kích thước chữ trong logo */
+    }
+
+    .topic {
+        font-size: 14px; /* Giảm kích thước chữ của các mục trên header */
+    }
+
+    #headerTopic button {
+        width: 90px;
+        height: 25px;
+        font-size: 13px; /* Giảm kích thước chữ của nút */
+    }
+    .container {
+        flex-direction: column;
+    }
+
+    #header {
+        height: auto;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #logo {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    #homeLeft {
+        width: 100%;
+        height: auto;
+        text-align: center;
+    }
+
+    #homeRight {
+        width: 100%;
+        height: auto;
+        padding: 10px;
+    }
+
+    #headerTopic {
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+    }
+
+    #workspaceList div {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    #groupInformation {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    #addAcount button {
+        width: 100%;
+    }
+
+    #workspaceTable button {
+        width: 100%;
+    }
+
+    #viewOffTable {
+        width: 100%;
+    }
+}
+
+
+
