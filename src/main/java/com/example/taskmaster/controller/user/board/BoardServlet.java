@@ -30,17 +30,14 @@ public class BoardServlet extends HttpServlet{
                 req.getRequestDispatcher("/view/user/board/board.jsp").forward(req, resp);
                 break;
             case "deleteBoard":
-                deleteBoardById (req, resp);
+
             default:
                 break;
         }
     }
 
-    private void deleteBoardById(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        int boardId = Integer.parseInt(req.getParameter("boardId"));
-        boardService.deleteBoard(boardId);
-        resp.sendRedirect("group_home");
-    }
+
+
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -52,6 +49,9 @@ public class BoardServlet extends HttpServlet{
                 createBoard(req, resp);
                 resp.sendRedirect("/group_home");
                 break;
+                case "deleteBoard":
+
+                    break;
             case "task":
                 break;
             case "board":
@@ -66,8 +66,9 @@ public class BoardServlet extends HttpServlet{
         System.out.println(boardName);
         int backgroundId = 1;
         HttpSession session = req.getSession();
-        int groupId = (int)session.getAttribute("groupId");
+        int groupId = Integer.parseInt((String) session.getAttribute("groupId"));
         Board board = new Board(boardName, backgroundId , groupId);
         boardService.createBoard(board);
     }
+
 }
