@@ -308,7 +308,6 @@ body {
     height: 90px; /* Đặt chiều cao cố định */
     word-wrap: break-word;
     gap: 10px; /* Tạo khoảng cách giữa các phần tử */
-
     overflow-wrap: break-word;
     background-color: #0D599D;
     border-radius: 10px;
