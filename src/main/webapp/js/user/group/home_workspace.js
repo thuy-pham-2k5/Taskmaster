@@ -3,8 +3,49 @@ function sortTypeChanged() {
     const selectedValue = selectElement.value;
     const xhr = new XMLHttpRequest();
     xhr.open('GET', '/group_home?action=sortType&mySelect=' + selectedValue, true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                const boards = JSON.parse(xhr.responseText);
+                const listBoards = document.getElementById("listBoards");
+                listBoards.innerHTML = '';  // Xóa nội dung cũ
+                boards.forEach(board => {
+                    const div = document.createElement('div');
+                    div.className = 'workspaceTable';
+                    const label = document.createElement('label');
+                    label.textContent = board.title;
+                    div.appendChild(label);
+                    listBoards.appendChild(div);
+                });
+            } else {
+                console.error("Error: " + xhr.status + " - " + xhr.statusText);
+            }
+        }
+    };
     xhr.send();
 }
+
+document.getElementById("mySelect").addEventListener("change", sortTypeChanged);
+
+
+// function sortTypeChanged() {
+//     const selectElement = document.getElementById('mySelect');
+//     const selectedValue = selectElement.value;
+//     const xhr = new XMLHttpRequest();
+//
+//     xhr.open('GET', '/group_home?action=sortType&mySelect=' + selectedValue, true);
+//
+//     xhr.onreadystatechange = function() {
+//         if (xhr.readyState === 4 && xhr.status === 200) {
+//             // Xử lý phản hồi từ máy chủ nếu cần
+//             console.log('Response:', xhr.responseText);
+//             // Cập nhật giao diện người dùng nếu cần
+//         }
+//     };
+//
+//     xhr.send();
+// }
+
 
 let timer;
 
