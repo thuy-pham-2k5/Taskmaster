@@ -5,7 +5,11 @@
     <title>Title</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/user/group/homeWorkspace.css">
-    <script src="/js/user/group/home_workspace.js" defer></script>
+<%--    <script src="/js/user/group/home_workspace.js" defer></script>--%>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
 
@@ -32,8 +36,9 @@
             </div>
             <img src="/images/bell.png">
             <img src="https://vivureviews.com/wp-content/uploads/2022/08/avatar-vo-danh-9.png">
-            <a href="#" onclick="confirmLogout()"> <img
+            <a href="javascript:void(0);" onclick="$('#exampleModalCenter').modal('show');"> <img
                     src="https://png.pngtree.com/png-clipart/20230314/original/pngtree-log-out-vector-icon-design-illustration-png-image_8987853.png"></a>
+            <jsp:include page="notification_log_out.jsp" />
         </div>
     </div>
 
@@ -67,20 +72,14 @@
             </div>
             </c:forEach>
         </div>
-    </div>
-    <div id="homeRight">
-        <div id="groupInformation">
+        <div id="homeRight">
+            <div id="groupInformation">
 
+            </div>
         </div>
     </div>
-</div>
+
 </div>
 </body>
 </html>
-<script>
-    function confirmLogout() {
-        if (confirm("Bạn có chắc chắn muốn đăng xuất không?")) {
-            window.location.href = "/logout"; // Điều hướng đến Servlet xử lý đăng xuất
-        }
-    }
-</script>
+

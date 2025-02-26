@@ -7,3 +7,5 @@
         <welcome-file>authenticate</welcome-file>
     </welcome-file-list>
 </web-app>
+
+<!--        view/user/account/notification_log_out.jsp-->
