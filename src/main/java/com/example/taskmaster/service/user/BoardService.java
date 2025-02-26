@@ -3,10 +3,7 @@ package com.example.taskmaster.service.user;
 import com.example.taskmaster.database.ConnectDatabase;
 import com.example.taskmaster.model.Board;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -98,13 +95,12 @@ public class BoardService implements IBoardService{
     }
 
     @Override
-    public boolean deleteBoard( int boardId) throws SQLException {
-        PreparedStatement preparedStatement = null;
-        Connection connection = ConnectDatabase.getConnection();
-        try {
-            preparedStatement = connection.prepareStatement("DELETE FROM boards WHERE board_id = ?;");
-            preparedStatement.setInt(1, boardId);
-            return preparedStatement.executeUpdate() > 0; // Trả về true nếu có dòng bị xóa
+    public void deleteBoard(int boardId) {
+        String query = "{call deleteBoardFromGroup (?)}";
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            CallableStatement callableStatement = connection.prepareCall(query);
+            callableStatement.setInt(1, boardId);
+            callableStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }

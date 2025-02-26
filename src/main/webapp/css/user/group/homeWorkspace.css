@@ -9,7 +9,6 @@ body {
 }
 
 
-
 .container {
     display: flex;
     min-height: 90vh;
@@ -94,7 +93,7 @@ body {
 }
 
 
-#homeRight{
+#homeRight {
     flex: 1;
     background-color: #3179BA;
     min-height: 620px; /* Đảm bảo chiều cao tối thiểu */
@@ -119,8 +118,7 @@ body {
 }
 
 
-
-#homeLeft #workspace{
+#homeLeft #workspace {
     margin: 18px;
     border-radius: 8px;
     width: 50px;
@@ -128,12 +126,11 @@ body {
     background-color: orange;
 }
 
-#homeLeft .represent{
+#homeLeft .represent {
     font-size: 23px;
     color: white;
     font-weight: bold;
 }
-
 
 
 #workspaceName {
@@ -181,25 +178,25 @@ body {
     border-radius: 8px;
 }
 
-#group p{
+#group p {
     font-size: 40px;
     color: white;
     font-weight: bold;
 }
 
-#groupName{
+#groupName {
     font-size: 23px;
     color: white;
     margin-left: 10px;
 }
 
-#content{
+#content {
     font-size: 15px;
     width: 650px;
     color: #e8e2e2;
 }
 
-#groupInformation{
+#groupInformation {
     align-items: center;
     padding-top: 50px;
     padding-bottom: 50px;
@@ -209,7 +206,7 @@ body {
 
 }
 
-#addAcount button{
+#addAcount button {
     width: 275px;
     border: none;
     height: 30px;
@@ -218,12 +215,12 @@ body {
     cursor: pointer;
 }
 
-#sortAndSearch{
+#sortAndSearch {
     display: flex;
     justify-content: space-between;
 }
 
-#workspaces{
+#workspaces {
     margin-left: 74px;
     margin-right: 74px;
     margin-top: 30px;
@@ -233,9 +230,7 @@ body {
 }
 
 
-
-
-#mySelect{
+#mySelect {
     margin-top: 15px;
     border-radius: 5px;
     border-color: white;
@@ -244,15 +239,7 @@ body {
     background-color: #3179BA;
 }
 
-#searchTable input{
-    margin-top: 15px;
-    border-radius: 5px;
-    border-color: white;
-    height: 35px;
-    color: white;
-    background-color: #3179BA;
-}
-#searchTable button{
+#searchTable input {
     margin-top: 15px;
     border-radius: 5px;
     border-color: white;
@@ -261,24 +248,25 @@ body {
     background-color: #3179BA;
 }
 
-#search input::placeholder{
+#searchTable button {
+    margin-top: 15px;
+    border-radius: 5px;
+    border-color: white;
+    height: 35px;
+    color: white;
+    background-color: #3179BA;
+}
+
+#search input::placeholder {
     padding-left: 5px;
 }
 
- #searchTable input::placeholder {
+#searchTable input::placeholder {
     color: white;
     opacity: 1; /* Đảm bảo màu trắng không bị trong suốt */
-     padding-left: 5px;
+    padding-left: 5px;
 }
 
-/*.flex-container {*/
-/*    display: flex;*/
-/*    justify-content: space-around; !* Tùy chỉnh khoảng cách giữa các thẻ div *!*/
-/*    display: flex;*/
-/*    gap: 10px; !* Khoảng cách giữa các bảng *!*/
-/*    padding: 10px;*/
-
-/*}*/
 .flex-container {
     display: flex;
     flex-wrap: wrap; /* Cho phép các phần tử tự động xuống dòng */
@@ -312,23 +300,6 @@ body {
 .create-board-btn:active {
     transform: scale(0.95); /* Nhấn xuống nhỏ lại một chút */
 }
-
-/*.workspaceTable {*/
-/*    margin: auto;*/
-/*    display: inline-block;*/
-/*    width: auto;*/
-/*    min-width: 100px;*/
-/*    max-width: 100%;*/
-/*    word-wrap: break-word;*/
-/*    overflow-wrap: break-word;*/
-/*    background-color: #0D599D;*/
-/*    padding: 30px 50px;*/
-/*    border-radius: 10px;*/
-/*    margin-left: 20px;*/
-/*    margin-top: 15px;*/
-
-
-/*}*/
 .workspaceTable {
     display: flex; /* Dùng flexbox để căn giữa */
     justify-content: center; /* Căn giữa theo chiều ngang */
@@ -336,6 +307,17 @@ body {
     width: 184px; /* Đặt chiều rộng cố định */
     height: 90px; /* Đặt chiều cao cố định */
     word-wrap: break-word;
+    gap: 10px; /* Tạo khoảng cách giữa các phần tử */
+}
+
+.workspaceTable {
+
+    display: inline-block; /* Cho phép div mở rộng theo nội dung */
+    width: auto; /* Chiều rộng tự giãn theo nội dung */
+    min-width: 100px; /* Đảm bảo không quá nhỏ */
+    max-width: 100%; /* Không vượt quá khung cha */
+    word-wrap: break-word; /* Xuống dòng khi hết chỗ */
+  
     overflow-wrap: break-word;
     background-color: #0D599D;
     border-radius: 10px;
@@ -344,7 +326,20 @@ body {
     text-align: center; /* Căn giữa nội dung text */
 }
 
-#workspaceTable button{
+
+.workspaceTable button {
+    white-space: normal; /* Đảm bảo nội dung xuống dòng */
+    word-break: break-word; /* Cắt từ xuống dòng nếu quá dài */
+    overflow: hidden; /* Không cho nội dung tràn ra */
+}
+
+.titleBoard {
+    background-color: #0D599D;
+    color: white;
+    border: none;
+}
+
+#workspaceTable button {
     border: none;
     border-radius: 10px;
     width: 177px;
@@ -355,7 +350,7 @@ body {
     cursor: pointer;
 }
 
-#viewOffTable{
+#viewOffTable {
     border-color: white;
     border-radius: 3px;
     height: 25px;
@@ -366,12 +361,12 @@ body {
 }
 
 
-#workspaceList p{
+#workspaceList p {
     font-size: 17px;
 }
 
 
-.edit_group_pen{
+.edit_group_pen {
     width: 30px;
     height: 25px;
     margin-left: 5px;
@@ -433,6 +428,7 @@ body {
         height: 25px;
         font-size: 13px; /* Giảm kích thước chữ của nút */
     }
+
     .container {
         flex-direction: column;
     }
