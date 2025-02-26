@@ -10,7 +10,8 @@ public class ConnectDatabase {
         Connection connection;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            String password = System.getenv("dbPassword");
+//            String password = System.getenv("dbPassword");
+            String password = "root@123";
             connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/taskmaster", "root", password);
 
         } catch (ClassNotFoundException | SQLException e) {

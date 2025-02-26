@@ -70,7 +70,8 @@ public class BoardServlet extends HttpServlet{
         System.out.println(boardName);
         int backgroundId = 1;
         HttpSession session = req.getSession();
-        int groupId = (int)session.getAttribute("groupId");
+        System.out.println(session.getAttribute("groupId"));
+        int groupId = Integer.parseInt( session.getAttribute("groupId").toString());
         Board board = new Board(boardName, backgroundId , groupId);
         boardService.createBoard(board);
     }
