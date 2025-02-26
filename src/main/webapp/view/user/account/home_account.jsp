@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/user/account/home_account.css">
     <script src="/js/user/account/home_account.js" defer></script>
+
 </head>
 <body>
 
@@ -32,8 +33,9 @@
             </div>
             <img src="/images/bell.png">
             <img src="https://vivureviews.com/wp-content/uploads/2022/08/avatar-vo-danh-9.png">
-            <a href="/logout"> <img
+            <a href="javascript:void(0);" onclick="$('#exampleModalCenter').modal('show');"> <img
                     src="https://png.pngtree.com/png-clipart/20230314/original/pngtree-log-out-vector-icon-design-illustration-png-image_8987853.png"></a>
+            <jsp:include page="notification_log_out.jsp" />
         </div>
     </div>
     <div class="body">
@@ -80,3 +82,4 @@
 </div>
 </body>
 </html>
+

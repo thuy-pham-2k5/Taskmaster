@@ -8,5 +8,6 @@
 <!--        <welcome-file>view/user/group/home_workspace.jsp</welcome-file>-->
 <!--        <welcome-file>view/user/account/home_account.jsp</welcome-file>-->
 <!--        <welcome-file>test.jsp</welcome-file>-->
+<!--        <welcome-file>view/user/group/header_and_homeleft.jsp</welcome-file>-->
     </welcome-file-list>
 </web-app>
