@@ -17,6 +17,7 @@ public class AuthenticateServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
+        System.out.println(action);
         if (action == null)
             action = "";
         switch (action) {

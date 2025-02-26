@@ -39,11 +39,6 @@
             <input class="information-form" type="text" name="title" required>
         </div>
         <div>
-            <p style="color: white; font-size: 10px; margin-top: 0; margin-left: 5px">Tiêu đề của bảng là bắt
-                buộc.</p>
-        </div>
-
-        <div>
             <p style="color: white">Không gian làm việc *</p>
         </div>
 
