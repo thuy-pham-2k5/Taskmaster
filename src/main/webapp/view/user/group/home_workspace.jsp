@@ -126,12 +126,12 @@
                     </c:forEach>
                     </div>
 
-<!--                     <jsp:useBean id="boards" scope="request" type="java.util.List"/>
-                    <c:forEach var="board" items="${boards}">
-                        <div style=" background-color: #0D599D; width: 184px; height: 90px;   "  class="workspaceTable">
-                            <button style="background-color: #0D599D; color: white; border: none">${board.title}</button>
-                        </div>
-                    </c:forEach> -->
+<%--<!--                     <jsp:useBean id="boards" scope="request" type="java.util.List"/>--%>
+<%--                    <c:forEach var="board" items="${boards}">--%>
+<%--                        <div style=" background-color: #0D599D; width: 184px; height: 90px;   "  class="workspaceTable">--%>
+<%--                            <button style="background-color: #0D599D; color: white; border: none">${board.title}</button>--%>
+<%--                        </div>--%>
+<%--                    </c:forEach> -->--%>
 
               
               
