@@ -6,15 +6,10 @@
     <title>Title</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/user/group/homeWorkspace.css">
-
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
     <script src="/js/user/group/home_workspace.js" defer></script>
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweet-modal/dist/min/jquery.sweet-modal.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweet-modal/dist/min/jquery.sweet-modal.min.js"></script>
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweet-modal/dist/min/jquery.sweet-modal.min.css">
 </head>
 <body>
 <div>
@@ -40,10 +35,7 @@
             </div>
             <img src="/images/bell.png">
             <img src="https://vivureviews.com/wp-content/uploads/2022/08/avatar-vo-danh-9.png">
-            <a href="javascript:void(0);" onclick="$('#exampleModalCenter').modal('show');"> <img
-                    src="https://png.pngtree.com/png-clipart/20230314/original/pngtree-log-out-vector-icon-design-illustration-png-image_8987853.png"></a>
-            <jsp:include page="../account/notification_log_out.jsp"/>
-
+            <img src="https://png.pngtree.com/png-clipart/20230314/original/pngtree-log-out-vector-icon-design-illustration-png-image_8987853.png">
         </div>
     </div>
 
@@ -128,20 +120,16 @@
                             </button>
                         </a>
                     </div>
-
-                    <div class="card-container">
-
+                    <div id="listBoards" class="card-container">
                         <c:forEach var="board" items="${boards}">
                             <div style=" background-color: #0D599D; " class="workspaceTable">
                                 <button style="background-color: #0D599D; color: white; border: none">${board.title}</button>
                             </div>
                         </c:forEach>
                     </div>
-
                 </div>
 
-                <button id="openModalButton">Open Modal</button>
-
+                <button id="openModalButton">Xem các bảng đã đóng</button>
             </div>
         </div>
     </div>
@@ -177,7 +165,7 @@
             // ✅ Hiển thị modal với nội dung vừa tạo
             $.sweetModal({
                 title: 'Danh sách sản phẩm',
-                content: contentDiv.outerHTML
+                content: $(contentDiv).html()
             });
         });
     });
