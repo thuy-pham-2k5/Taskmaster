@@ -110,7 +110,7 @@
                     <div id="searchTable">
                         <p style="color: white">Tìm kiếm</p>
                         <input type="text" id="keyword" name="keyword" placeholder="Tìm kiếm các bảng"
-                               oninput="inputChanged()">
+                               onkeyup="filterBoards()">
                     </div>
                 </div>
 
@@ -125,7 +125,7 @@
                     <div id="listBoards" class="card-container">
                         <c:forEach var="board" items="${boards}">
                             <div style=" background-color: #0D599D; " class="workspaceTable">
-                                <button style="background-color: #0D599D; color: white; border: none">${board.title}</button>
+                                <button class="titleBoardWorkspace">${board.title}</button>
                             </div>
                         </c:forEach>
                     </div>
@@ -140,25 +140,26 @@
 
 <script>
     // ✅ In ra console để kiểm tra dữ liệu JSON
-    let products = <%= new Gson().toJson(request.getAttribute("closedBoards")) %>;
-    console.log("Products Data:", products);
+    let closedBoards = <%= new Gson().toJson(request.getAttribute("closedBoards")) %>;
 
-    $(document).ready(function() {
-        $('#openModalButton').click(function() {
-            let contentDiv = document.createElement("div"); // Tạo div chứa sản phẩm
+    $(document).ready(function () {
+        $('#openModalButton').click(function () {
+            let contentDiv = document.createElement("div");
 
-            products.forEach(product => {
+            closedBoards.forEach(board => {
                 let productDiv = document.createElement("div");
                 productDiv.className = "product-container";
 
                 let label = document.createElement("label");
                 label.className = "product-label";
-                label.textContent = product.title;
+                label.textContent = board.title;
 
                 let deleteButton = document.createElement("button");
                 deleteButton.className = "delete-button";
                 deleteButton.textContent = "Xóa";
-                deleteButton.onclick = function() { deleteProduct(product.title); };
+                deleteButton.onclick = function () {
+                    deleteProduct(board.boardId);
+                };
 
                 productDiv.appendChild(label);
                 productDiv.appendChild(deleteButton);
@@ -167,36 +168,41 @@
 
             // ✅ Hiển thị modal với nội dung vừa tạo
             $.sweetModal({
-                title: 'Danh sách sản phẩm',
+                title: 'Các bảng đã đóng',
                 content: $(contentDiv).html()
             });
         });
     });
 
-    function deleteProduct(name) {
-        alert(`Xóa sản phẩm: ${name}`); // ✅ Xử lý xóa ở đây
+    function deleteProduct(title) {
+        // ✅ Xử lý xóa ở đây
     }
-</script>
 
-<style>
-    .product-container {
-        display: flex;
-        justify-content: space-between;
-        padding: 10px;
-        border-bottom: 1px solid #ccc;
-    }
-    .delete-button {
-        background-color: red;
-        color: white;
-        border: none;
-        padding: 5px 10px;
-        cursor: pointer;
-    }
-</style>
-</body>
-</html>
+    // ✅ Lưu danh sách sản phẩm vào JavaScript
+    let boards = <%= new Gson().toJson(request.getAttribute("boards")) %>;
 
-<script>
+    function filterBoards() {
+        let input = document.getElementById("keyword").value.toLowerCase();
+        let listBoards = document.getElementById("listBoards");
+        listBoards.innerHTML = "";
+
+        // ✅ Lọc danh sách sản phẩm theo tên
+        let filteredBoards = boards.filter(board => board.title.toLowerCase().includes(input));
+
+        // ✅ Tạo danh sách mới và thêm vào MODAL
+        filteredBoards.forEach(board => {
+            let boardDiv = document.createElement("div");
+            boardDiv.className = "workspaceTable";
+
+            let button = document.createElement("button");
+            button.className = "titleBoardWorkspace";
+            button.textContent = board.title;
+
+            boardDiv.appendChild(button);
+            listBoards.appendChild(boardDiv);
+        });
+    }
+
     function showEditModal() {
         fetch('/view/user/group/edit_group.jsp') // Đường dẫn đến file JSP của bạn
             .then(response => response.text())
@@ -210,8 +216,8 @@
     function closeEditModal() {
         document.getElementById("editGroupModal").style.display = "none"; // Ẩn modal
     }
-
-
 </script>
+</body>
+</html>
 
 
