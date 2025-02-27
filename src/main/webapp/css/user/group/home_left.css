@@ -9,72 +9,18 @@ body {
 }
 
 
-
-
-#header {
-    width: 100%;
-    height: 70px;
-    background-color: #3FB5CC;
+.container {
     display: flex;
-    align-items: center;
-
+    min-height: 90vh;
 }
 
-#logo {
-    padding-left: 20px;
+
+
+
+.container {
     display: flex;
-    align-items: center;
-    gap: 10px;
+    flex-wrap: wrap; /* Để các phần tử tự xuống dòng trên màn hình nhỏ */
 }
-
-#headerTopic {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    width: 800px;
-    margin-left: 35px;
-}
-
-.topic {
-    border-radius: 4px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: white;
-    font-size: 17px;
-}
-
-#headerTopic button {
-    width: 110px;
-    height: 30px;
-    background-color: #116676;
-    color: white;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-}
-
-.topic:hover {
-    background-color: gray;
-}
-
-.listImage {
-    width: 15px;
-    height: 15px;
-}
-
-
-
-#logo p {
-    font-size: 25px;
-    color: white;
-    font-family: Italianno;
-    font-style: italic;
-}
-
-
-
 
 
 #homeLeft {
@@ -84,22 +30,6 @@ body {
     height: auto; /* Tự động mở rộng theo nội dung */
     overflow: hidden; /* Ngăn chặn phần tử con tràn ra ngoài */
     background-color: #93CDD8;
-}
-
-
-
-#accountSearchNotification {
-    width: 690px;
-    display: flex;
-    align-items: center; /* Căn giữa theo chiều dọc */
-    justify-content: flex-end; /* Đưa tất cả phần tử về bên phải */
-    gap: 20px; /* Giãn cách các phần tử dần về bên trái */
-    padding: 10px;
-}
-
-#header #accountSearchNotification img {
-    width: 40px;
-    height: 40px;
 }
 
 
@@ -156,6 +86,12 @@ body {
     padding: 5px 10px 0px 15px;
 }
 
+#group {
+    width: 60px;
+    height: 60px;
+    background-color: orange;
+    border-radius: 8px;
+}
 
 #group p {
     font-size: 40px;
@@ -175,7 +111,29 @@ body {
     color: #e8e2e2;
 }
 
+#groupInformation {
+    align-items: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid darkgray;
 
+}
+
+#addAcount button {
+    width: 275px;
+    border: none;
+    height: 30px;
+    background-color: #1B5B94;
+    color: white;
+    cursor: pointer;
+}
+
+#sortAndSearch {
+    display: flex;
+    justify-content: space-between;
+}
 
 #workspaces {
     margin-left: 74px;
@@ -187,35 +145,47 @@ body {
 }
 
 
-#mySelect {
+
+#searchTable input {
     margin-top: 15px;
     border-radius: 5px;
     border-color: white;
-    color: white;
     height: 35px;
+    color: white;
+    background-color: #3179BA;
+}
+
+#searchTable button {
+    margin-top: 15px;
+    border-radius: 5px;
+    border-color: white;
+    height: 35px;
+    color: white;
     background-color: #3179BA;
 }
 
 
 
-#search input::placeholder {
-    padding-left: 5px;
+
+.create-board-btn:hover {
+    background-color: #0056b3; /* Đậm hơn khi hover */
+    transform: scale(1.05); /* Hiệu ứng phóng to nhẹ */
 }
 
-#searchTable input::placeholder {
+.create-board-btn:active {
+    transform: scale(0.95); /* Nhấn xuống nhỏ lại một chút */
+}
+
+
+
+
+#workspaceTable button {
+    border: none;
+    border-radius: 10px;
+    width: 177px;
+    height: 75px;
     color: white;
-    opacity: 1; /* Đảm bảo màu trắng không bị trong suốt */
-    padding-left: 5px;
+    align-content: center;
+    background-color: #0D599D;
+    cursor: pointer;
 }
-
-.flex-container {
-    display: flex;
-    flex-wrap: wrap; /* Cho phép các phần tử tự động xuống dòng */
-    justify-content: flex-start; /* Căn các phần tử sang bên trái */
-    gap: 15px; /* Tạo khoảng cách giữa các phần tử */
-}
-
-
-
-
-

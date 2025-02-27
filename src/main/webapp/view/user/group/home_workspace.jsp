@@ -74,7 +74,9 @@
                         <div>
                             <div style="display: flex">
                                 <p id="groupName">${groupInfo.title}</p>
-                                <img class="edit_group_pen" src="/images/edit.png">
+                                <img class="edit_group_pen" src="/images/edit.png" onclick="showEditModal()">
+
+                                <div id="modalContainer"></div>
                             </div>
                             <br>
                             <p style="color: white; margin-left: 15px">${groupInfo.visibility}</p>
@@ -133,6 +135,7 @@
             </div>
         </div>
     </div>
+
 </div>
 
 <script>
@@ -192,4 +195,23 @@
 </style>
 </body>
 </html>
+
+<script>
+    function showEditModal() {
+        fetch('/view/user/group/edit_group.jsp') // Đường dẫn đến file JSP của bạn
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById("modalContainer").innerHTML = html;
+                document.getElementById("editGroupModal").style.display = "block"; // Hiển thị modal
+            })
+            .catch(error => console.error('Error loading modal:', error));
+    }
+
+    function closeEditModal() {
+        document.getElementById("editGroupModal").style.display = "none"; // Ẩn modal
+    }
+
+
+</script>
+
 
