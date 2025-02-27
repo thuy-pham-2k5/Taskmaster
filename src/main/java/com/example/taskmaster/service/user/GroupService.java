@@ -114,4 +114,16 @@ public class GroupService implements IGroupService {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public void deleteGroup(int groupId) {
+        String query = "select * from `groups` where group_id = ?";
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, groupId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
