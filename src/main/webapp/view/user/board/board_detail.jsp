@@ -52,6 +52,7 @@
             </div>
         </div>
         <div id="homeRight">
+            <p>Day la chi tiet bang</p>
         </div>
     </div>
 </div>
