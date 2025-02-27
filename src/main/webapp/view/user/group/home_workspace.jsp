@@ -1,3 +1,4 @@
+<%@ page import="com.google.gson.Gson" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -5,11 +6,10 @@
     <title>Title</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/user/group/homeWorkspace.css">
-
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
     <script src="/js/user/group/home_workspace.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweet-modal/dist/min/jquery.sweet-modal.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweet-modal/dist/min/jquery.sweet-modal.min.css">
 </head>
 <body>
 <div>
@@ -35,10 +35,7 @@
             </div>
             <img src="/images/bell.png">
             <img src="https://vivureviews.com/wp-content/uploads/2022/08/avatar-vo-danh-9.png">
-            <a href="javascript:void(0);" onclick="$('#exampleModalCenter').modal('show');"> <img
-                    src="https://png.pngtree.com/png-clipart/20230314/original/pngtree-log-out-vector-icon-design-illustration-png-image_8987853.png"></a>
-            <jsp:include page="../account/notification_log_out.jsp"/>
-
+            <img src="https://png.pngtree.com/png-clipart/20230314/original/pngtree-log-out-vector-icon-design-illustration-png-image_8987853.png">
         </div>
     </div>
 
@@ -125,43 +122,77 @@
                             </button>
                         </a>
                     </div>
-
-                    <div class="card-container">
-
+                    <div id="listBoards" class="card-container">
                         <c:forEach var="board" items="${boards}">
                             <div style=" background-color: #0D599D; " class="workspaceTable">
                                 <button style="background-color: #0D599D; color: white; border: none">${board.title}</button>
                             </div>
                         </c:forEach>
                     </div>
-
                 </div>
 
-                <button id="viewOffTable">Xem các bảng đã đóng</button>
-
-                <c:if test="${not empty closedBoard}">
-                    <div id="overlay" class="overlay" onclick="showOverlay()">
-                        <div class="overlay-content" onclick="event.stopPropagation();">
-                            <h2>Các bảng đã đóng</h2>
-                            <div id="closedBoardsList">
-                                <c:forEach var="board" items="${closedBoards}">
-                                    <div>
-                                        <label>${board.title}</label>
-                                        <a href="/group_home?action=deleteBoard&boardId=${board.boardId}">
-                                            <button>Xóa bảng</button>
-                                        </a>
-                                    </div>
-                                </c:forEach>
-                            </div>
-                            <button onclick="hideOverlay()">Đóng</button>
-                        </div>
-                    </div>
-                </c:if>
+                <button id="openModalButton">Xem các bảng đã đóng</button>
             </div>
         </div>
     </div>
 
 </div>
+
+<script>
+    // ✅ In ra console để kiểm tra dữ liệu JSON
+    let products = <%= new Gson().toJson(request.getAttribute("closedBoards")) %>;
+    console.log("Products Data:", products);
+
+    $(document).ready(function() {
+        $('#openModalButton').click(function() {
+            let contentDiv = document.createElement("div"); // Tạo div chứa sản phẩm
+
+            products.forEach(product => {
+                let productDiv = document.createElement("div");
+                productDiv.className = "product-container";
+
+                let label = document.createElement("label");
+                label.className = "product-label";
+                label.textContent = product.title;
+
+                let deleteButton = document.createElement("button");
+                deleteButton.className = "delete-button";
+                deleteButton.textContent = "Xóa";
+                deleteButton.onclick = function() { deleteProduct(product.title); };
+
+                productDiv.appendChild(label);
+                productDiv.appendChild(deleteButton);
+                contentDiv.appendChild(productDiv);
+            });
+
+            // ✅ Hiển thị modal với nội dung vừa tạo
+            $.sweetModal({
+                title: 'Danh sách sản phẩm',
+                content: $(contentDiv).html()
+            });
+        });
+    });
+
+    function deleteProduct(name) {
+        alert(`Xóa sản phẩm: ${name}`); // ✅ Xử lý xóa ở đây
+    }
+</script>
+
+<style>
+    .product-container {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+    }
+    .delete-button {
+        background-color: red;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+</style>
 </body>
 </html>
 
