@@ -4,10 +4,7 @@ import com.example.taskmaster.database.ConnectDatabase;
 import com.example.taskmaster.model.Group;
 import com.example.taskmaster.model.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,7 +53,7 @@ public class GroupService implements IGroupService {
 
     @Override
     public void inviteMember(int userId, int groupId, int roleId) {
-        String query = "INSERT INTO user_group_relationships (`user_id`, `group_id`, `role_id`) VALUES ('?, ?, ?)";
+        String query = "INSERT INTO user_group_relationships (`user_id`, `group_id`, `role_id`) VALUES (?, ?, ?)";
         try (Connection connection = ConnectDatabase.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, userId);
@@ -93,11 +90,11 @@ public class GroupService implements IGroupService {
     public void createGroup(Group group, int userId) {
         String query = "{call createNewGroup (?, ?, ?)}";
         try (Connection connection = ConnectDatabase.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, userId);
-            preparedStatement.setString(2, group.getTitle());
-            preparedStatement.setString(3, group.getDescription());
-            preparedStatement.executeUpdate();
+            CallableStatement callableStatement = connection.prepareCall(query);
+            callableStatement.setInt(1, userId);
+            callableStatement.setString(2, group.getTitle());
+            callableStatement.setString(3, group.getDescription());
+            callableStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
