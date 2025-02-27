@@ -1,22 +1,50 @@
-/* Căn giữa toàn bộ khung chỉnh sửa */
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f4f7fc;
-    font-family: Arial, sans-serif;
+/* Định dạng nền tối mờ khi modal hiển thị */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+
+/* Hiển thị modal khi cần */
+.modal.show {
+    visibility: visible;
+    opacity: 1;
 }
 
 /* Khung chỉnh sửa */
 #editFrame {
-    background: white;
+    margin: auto;
+    background: #f0ebff;
     padding: 20px;
-    width: 350px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    width: 400px;
+    border-radius: 0px 0px 10px 10px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: column;
+    animation: slideIn 0.3s ease-in-out;
+}
+
+/* Tiêu đề modal */
+.modal-title {
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    height: 50px;
+    width: 400px;
+    background-color: #2689e3;
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+    border-radius: 10px 10px 0 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 /* Nhãn */
@@ -51,10 +79,33 @@ body {
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
+    transition: 0.2s;
 }
 
+/* Nút Lưu */
+#editFrame button:first-of-type {
+    background-color: #0c66e4;
+    color: white;
+}
+
+/* Nút Hủy */
+#editFrame button:last-of-type {
+    background-color: #ccc;
+}
 
 /* Hiệu ứng hover */
 #editFrame button:hover {
     opacity: 0.8;
+}
+
+/* Hiệu ứng mở modal */
+@keyframes slideIn {
+    from {
+        transform: translateY(-80px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
