@@ -72,14 +72,8 @@ public class GroupHomeServlet extends HttpServlet {
         User user = (User) session.getAttribute("user");
         String title = request.getParameter("title");
         String description = request.getParameter("description");
-        System.out.println(title + "    " + description);
-
         groupService.createGroup(new Group(title, description), user.getUserId());
-
-
         Group group = groupService.getGroupInfoByTitleAndDescription(title, description);
-        System.out.println(group);
-
         int roleId = userService.getRoleUserInGroup(user.getUserId(), group.getGroupId());
         session.setAttribute("groupId", group.getGroupId());
         request.setAttribute("roleIdUser", roleId);
@@ -103,10 +97,10 @@ public class GroupHomeServlet extends HttpServlet {
                 sortTypeListBoards(request, response);
                 break;
             case "memberView":
-                showMemberWorkspaceView(request, response);
+                response.sendRedirect("/group_member");
                 break;
             case "settingView":
-                showSettingWorkspaceView(request, response);
+                response.sendRedirect("/group_setting");
                 break;
             default:
                 showGroupInfo(request, response);
@@ -134,14 +128,6 @@ public class GroupHomeServlet extends HttpServlet {
         response.getWriter().write(boardsJson);
     }
 
-
-    private void showSettingWorkspaceView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/view/user/group/setting_workspace.jsp").forward(request, response);
-    }
-
-    private void showMemberWorkspaceView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/view/user/group/member_workspace.jsp").forward(request, response);
-    }
 
     private void showGroupInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
