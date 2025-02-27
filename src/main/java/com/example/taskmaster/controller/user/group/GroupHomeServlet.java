@@ -38,10 +38,10 @@ public class GroupHomeServlet extends HttpServlet {
                 createNewGroup(request, response);
                 break;
             case "editInfoGroup":
-                editInfoGroup (request, response);
+                editInfoGroup(request, response);
                 break;
             case "inviteMember":
-                inviteMemberInGroup (request, response);
+                inviteMemberInGroup(request, response);
                 break;
             default:
                 break;
@@ -92,6 +92,9 @@ public class GroupHomeServlet extends HttpServlet {
         if (action == null)
             action = "";
         switch (action) {
+            case "boardView":
+                switchToBoardView(request, response);
+                break;
             case "sortType":
                 sortTypeListBoards(request, response);
                 break;
@@ -99,15 +102,20 @@ public class GroupHomeServlet extends HttpServlet {
 //                searchBoardByKeyword (request, response);
                 break;
             case "memberView":
-                showMemberWorkspaceView (request, response);
+                showMemberWorkspaceView(request, response);
                 break;
             case "settingView":
-                showSettingWorkspaceView (request, response);
+                showSettingWorkspaceView(request, response);
                 break;
             default:
                 showGroupInfo(request, response);
                 break;
         }
+    }
+
+    private void switchToBoardView(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String boardId = request.getParameter("boardId");
+        response.sendRedirect("/board_home?boardId=" + boardId);
     }
 
 //    private void searchBoardByKeyword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -146,7 +154,7 @@ public class GroupHomeServlet extends HttpServlet {
     private void showGroupInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        int groupId = Integer.parseInt ((String) session.getAttribute("groupId"));
+        int groupId = Integer.parseInt((String) session.getAttribute("groupId"));
         int roleId = userService.getRoleUserInGroup(user.getUserId(), groupId);
         request.setAttribute("roleIdUser", roleId);
         request.setAttribute("groupInfo", groupService.getGroupInfoById(groupId));
