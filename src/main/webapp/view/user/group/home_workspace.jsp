@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/user/group/homeWorkspace.css">
 
-  
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script src="/js/user/group/home_workspace.js" defer></script>
@@ -35,10 +35,9 @@
             </div>
             <img src="/images/bell.png">
             <img src="https://vivureviews.com/wp-content/uploads/2022/08/avatar-vo-danh-9.png">
-
             <a href="javascript:void(0);" onclick="$('#exampleModalCenter').modal('show');"> <img
                     src="https://png.pngtree.com/png-clipart/20230314/original/pngtree-log-out-vector-icon-design-illustration-png-image_8987853.png"></a>
-            <jsp:include page="../account/notification_log_out.jsp" />
+            <jsp:include page="../account/notification_log_out.jsp"/>
 
         </div>
     </div>
@@ -60,8 +59,13 @@
 
                 <div style="display: flex; justify-content: space-between"><p style="font-size: 20px">Các bảng của
                     bạn</p> <img class="icon" src="/images/add.png"></div>
-                <div style="display: flex; justify-content: space-between ; padding-left: 30px"><p>Bảng 1</p> <img
-                        class="icon" src="/images/start.png"></div>
+                <div style="display: flex; flex-direction: column; justify-content: space-between ; padding-left: 30px">
+                    <form method="post">
+                        <c:forEach var="board" items="${boards}">
+                            <a href="group_home?action=boardView&boardId=${board.boardId}"><p>${board.title}</p></a>
+                        </c:forEach>
+                    </form>
+                </div>
             </div>
         </div>
         <div id="homeRight">
@@ -116,18 +120,21 @@
                 <div class="flex-container">
                     <div class="workspaceTable">
                         <a href="/board?action=create">
-                            <button style="background-color: #0D599D; color: white; border: none" class="create-board-btn">Tạo bảng</button>
+                            <button style="background-color: #0D599D; color: white; border: none"
+                                    class="create-board-btn">Tạo bảng
+                            </button>
                         </a>
                     </div>
 
                     <div class="card-container">
-                    <c:forEach var="board" items="${boards}">
-                        <div style=" background-color: #0D599D; "  class="workspaceTable">
-                            <button style="background-color: #0D599D; color: white; border: none">${board.title}</button>
-                        </div>
-                    </c:forEach>
+
+                        <c:forEach var="board" items="${boards}">
+                            <div style=" background-color: #0D599D; " class="workspaceTable">
+                                <button style="background-color: #0D599D; color: white; border: none">${board.title}</button>
+                            </div>
+                        </c:forEach>
                     </div>
-                  
+
                 </div>
 
                 <button id="viewOffTable">Xem các bảng đã đóng</button>
