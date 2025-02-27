@@ -30,7 +30,7 @@ public class BoardServlet extends HttpServlet{
             case "task":
                 break;
             case "board":
-                req.getRequestDispatcher("/view/user/board/board.jsp").forward(req, resp);
+                req.getRequestDispatcher("/view/user/board/board_detail.jsp").forward(req, resp);
                 break;
             case "deleteBoard":
                 req.getRequestDispatcher("/view/user/board/deleteBoard.jsp").forward (req, resp);

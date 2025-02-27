@@ -59,8 +59,13 @@
 
                 <div style="display: flex; justify-content: space-between"><p style="font-size: 20px">Các bảng của
                     bạn</p> <img class="icon" src="/images/add.png"></div>
-                <div style="display: flex; justify-content: space-between ; padding-left: 30px"><p>Bảng 1</p> <img
-                        class="icon" src="/images/start.png"></div>
+                <div style="display: flex; flex-direction: column; justify-content: space-between ; padding-left: 30px">
+                    <form method="post">
+                        <c:forEach var="board" items="${boards}">
+                            <a href="group_home?action=boardView&boardId=${board.boardId}"><p>${board.title}</p></a>
+                        </c:forEach>
+                    </form>
+                </div>
             </div>
         </div>
         <div id="homeRight">
