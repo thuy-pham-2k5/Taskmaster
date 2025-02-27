@@ -1,3 +1,4 @@
+<%@ page import="com.google.gson.Gson" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -7,6 +8,10 @@
     <link rel="stylesheet" href="/css/user/group/homeWorkspace.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/js/user/group/home_workspace.js" defer></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweet-modal/dist/min/jquery.sweet-modal.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweet-modal/dist/min/jquery.sweet-modal.min.js"></script>
+
 </head>
 <body>
 <div>
@@ -120,30 +125,68 @@
                     </div>
                 </div>
 
-                <button id="viewOffTable">Xem các bảng đã đóng</button>
+                <button id="openModalButton">Open Modal</button>
 
-                <c:if test="${not empty closedBoard}">
-                    <div id="overlay" class="overlay" onclick="showOverlay()">
-                        <div class="overlay-content" onclick="event.stopPropagation();">
-                            <h2>Các bảng đã đóng</h2>
-                            <div id="closedBoardsList">
-                                <c:forEach var="board" items="${closedBoards}">
-                                    <div>
-                                        <label>${board.title}</label>
-                                        <a href="/group_home?action=deleteBoard&boardId=${board.boardId}">
-                                            <button>Xóa bảng</button>
-                                        </a>
-                                    </div>
-                                </c:forEach>
-                            </div>
-                            <button onclick="hideOverlay()">Đóng</button>
-                        </div>
-                    </div>
-                </c:if>
             </div>
         </div>
     </div>
 
 </div>
+
+<script>
+    // ✅ In ra console để kiểm tra dữ liệu JSON
+    let products = <%= new Gson().toJson(request.getAttribute("closedBoards")) %>;
+    console.log("Products Data:", products);
+
+    $(document).ready(function() {
+        $('#openModalButton').click(function() {
+            let contentDiv = document.createElement("div"); // Tạo div chứa sản phẩm
+
+            products.forEach(product => {
+                let productDiv = document.createElement("div");
+                productDiv.className = "product-container";
+
+                let label = document.createElement("label");
+                label.className = "product-label";
+                label.textContent = product.title;
+
+                let deleteButton = document.createElement("button");
+                deleteButton.className = "delete-button";
+                deleteButton.textContent = "Xóa";
+                deleteButton.onclick = function() { deleteProduct(product.title); };
+
+                productDiv.appendChild(label);
+                productDiv.appendChild(deleteButton);
+                contentDiv.appendChild(productDiv);
+            });
+
+            // ✅ Hiển thị modal với nội dung vừa tạo
+            $.sweetModal({
+                title: 'Danh sách sản phẩm',
+                content: contentDiv.outerHTML
+            });
+        });
+    });
+
+    function deleteProduct(name) {
+        alert(`Xóa sản phẩm: ${name}`); // ✅ Xử lý xóa ở đây
+    }
+</script>
+
+<style>
+    .product-container {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+    }
+    .delete-button {
+        background-color: red;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+</style>
 </body>
 </html>
