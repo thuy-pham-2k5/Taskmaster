@@ -3,6 +3,7 @@
 <html>
 <head>
     <title>Title</title>
+<<<<<<< HEAD
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/user/board/board_detail.css">
 
@@ -15,6 +16,15 @@
 
     <!-- Script xử lý -->
     <script src="/js/user/board/board_detail.js" defer></script>
+=======
+    <link rel="stylesheet" href="css/user/board/board.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/js/user/group/home_workspace.js" defer></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweet-modal@1.3.3/dist/min/jquery.sweet-modal.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweet-modal@1.3.3/dist/min/jquery.sweet-modal.min.js"></script>
+>>>>>>> d0dd7498fb118214ddf2f376b933043ef34affc6
 </head>
 <body>
 <div>
@@ -84,3 +94,21 @@
 </body>
 </html>
 
+<script>
+    document.getElementById("logoutBtn").addEventListener("click", function () {
+        Swal.fire({
+            title: "Xác nhận đăng xuất",
+            text: "Bạn có chắc chắn muốn đăng xuất không?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Đăng xuất",
+            cancelButtonText: "Hủy"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/logout"; // Chuyển hướng đến trang đăng xuất
+            }
+        });
+    });
+</script>
