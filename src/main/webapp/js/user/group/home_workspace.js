@@ -11,3 +11,9 @@ $(document).on("change", "#mySelect", function() {
         });
     });
 });
+
+setTimeout(
+    $(document).on('input', '#mySearch', function () {
+
+    }),1500
+);

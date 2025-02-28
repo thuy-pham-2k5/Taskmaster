@@ -13,7 +13,7 @@ public interface IBoardService {
 
     List<Board> getAllBoardClosedInGroup(int groupId);
 
-    void createBoard(Board board);
+    void createBoard(int userId, String boardTitle, int groupId);
 
     boolean deleteBoard( int boardId) throws SQLException;
 }

@@ -4,10 +4,7 @@ import com.example.taskmaster.database.ConnectDatabase;
 import com.example.taskmaster.model.Group;
 import com.example.taskmaster.model.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,7 +53,7 @@ public class GroupService implements IGroupService {
 
     @Override
     public void inviteMember(int userId, int groupId, int roleId) {
-        String query = "INSERT INTO user_group_relationships (`user_id`, `group_id`, `role_id`) VALUES ('?, ?, ?)";
+        String query = "INSERT INTO user_group_relationships (`user_id`, `group_id`, `role_id`) VALUES (?, ?, ?)";
         try (Connection connection = ConnectDatabase.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, userId);
@@ -155,7 +152,6 @@ public class GroupService implements IGroupService {
             }
         }
     }
-
     @Override
     public void updateGroup(int groupId, Group group) {
         String query = "UPDATE `groups` SET `title` = ?, `link_web` = ?, `description` = ? WHERE `group_id` = ?;";
@@ -165,6 +161,18 @@ public class GroupService implements IGroupService {
             preparedStatement.setString(2, group.getLinkWeb());
             preparedStatement.setString(3, group.getDescription());
             preparedStatement.setInt(4, groupId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void deleteGroup(int groupId) {
+        String query = "delete `groups` where group_id = ?";
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, groupId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

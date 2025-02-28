@@ -1,6 +1,7 @@
 package com.example.taskmaster.controller.user.board;
 
 import com.example.taskmaster.model.Board;
+import com.example.taskmaster.model.User;
 import com.example.taskmaster.service.user.BoardService;
 
 import javax.servlet.ServletException;
@@ -66,15 +67,12 @@ public class BoardServlet extends HttpServlet{
     public void createBoard (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html; charset=UTF-8");
+        User user = (User) req.getSession().getAttribute("user");
+        int groupId = Integer.parseInt((String) req.getSession().getAttribute("groupId"));
         String boardName = req.getParameter("title");
-        System.out.println(boardName);
-        int backgroundId = 1;
-        HttpSession session = req.getSession();
-        System.out.println(session.getAttribute("groupId"));
-        int groupId = Integer.parseInt( session.getAttribute("groupId").toString());
-        Board board = new Board(boardName, backgroundId , groupId);
-        boardService.createBoard(board);
+        boardService.createBoard(user.getUserId(), boardName, groupId);
     }
+
     private void deleteBoardById(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
             // Lấy boardId từ request
