@@ -1,0 +1,103 @@
+#homeRight {
+    flex: 1;
+    background-color: #3179BA;
+    min-height: 620px; /* Đảm bảo chiều cao tối thiểu */
+    height: auto; /* Tự động mở rộng theo nội dung */
+    overflow: hidden; /* Ngăn chặn phần tử con tràn ra ngoài */
+
+}
+#groupInformation {
+    align-items: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid darkgray;
+
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e3f2fd;
+    margin: 0;
+}
+
+.main-content {
+    display: flex;
+    background-color: #b3e5fc;
+    border-radius: 10px;;
+    width: 100%;
+
+    }
+
+.child-content-1 {
+  width: 25%;
+    padding-right:20px ;
+}
+
+.child-content-2 {
+    width: 75%;
+}
+.workspace-header {
+    display: flex;
+    align-items: center;
+    background-color: #29b6f6;
+    padding: 15px;
+    border-radius: 10px;
+    color: white;
+    margin-left: -104px;
+}
+
+.workspace-header img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+}
+
+.workspace-info h2 {
+    margin: 0;
+}
+
+.workspace-info p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.workspace-info a {
+    color: white;
+    text-decoration: underline;
+}
+
+.settings {
+    margin-top: 20px;
+}
+
+.setting-item {
+    background-color: white;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.setting-item h4 {
+    margin: 0 0 10px;
+}
+
+.setting-item p {
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.btn {
+    background-color: #0288d1;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #01579b;
+}
