@@ -74,7 +74,7 @@ body {
 }
 
 #accountSearchNotification {
-    width: 690px;
+    
     display: flex;
     align-items: center; /* Căn giữa theo chiều dọc */
     justify-content: flex-end; /* Đưa tất cả phần tử về bên phải */
