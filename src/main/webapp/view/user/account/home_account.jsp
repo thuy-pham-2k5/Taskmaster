@@ -23,7 +23,7 @@
             <p>Taskmaster</p>
         </div>
         <div id="headerTopic">
-            <a href="group_home?action=viewGroups">
+            <a href="group_home?action=viewGroups" style="text-decoration: none">
                 <div class="topic"><p>Các không gian làm vệc </p><img class="listImage" src="/images/list.png"></div>
             </a>
             <div class="topic"><p>Gần đây</p> <img class="listImage" src="/images/list.png"></div>
