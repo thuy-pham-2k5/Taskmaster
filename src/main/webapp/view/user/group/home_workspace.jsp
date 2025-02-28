@@ -1,3 +1,4 @@
+<%@ page import="com.google.gson.Gson" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -6,13 +7,13 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/user/group/homeWorkspace.css">
 
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/js/user/group/home_workspace.js" defer></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweet-modal@1.3.3/dist/min/jquery.sweet-modal.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweet-modal@1.3.3/dist/min/jquery.sweet-modal.min.js"></script>
+
 </head>
 <body>
 <div>
@@ -41,8 +42,6 @@
             <a href="javascript:void(0);" id="logoutBtn">
                 <img src="https://png.pngtree.com/png-clipart/20230314/original/pngtree-log-out-vector-icon-design-illustration-png-image_8987853.png">
             </a>
-
-
         </div>
     </div>
 
@@ -117,7 +116,7 @@
                     <div id="searchTable">
                         <p style="color: white">Tìm kiếm</p>
                         <input type="text" id="keyword" name="keyword" placeholder="Tìm kiếm các bảng"
-                               oninput="inputChanged()">
+                               onkeyup="filterBoards()">
                     </div>
                 </div>
 
@@ -129,45 +128,21 @@
                             </button>
                         </a>
                     </div>
-
-                    <div class="card-container">
-
+                    <div id="listBoards" class="card-container">
                         <c:forEach var="board" items="${boards}">
                             <div style=" background-color: #0D599D; " class="workspaceTable">
-                                <button style="background-color: #0D599D; color: white; border: none">${board.title}</button>
+                                <button class="titleBoardWorkspace">${board.title}</button>
                             </div>
                         </c:forEach>
                     </div>
-
                 </div>
 
-                <button id="viewOffTable">Xem các bảng đã đóng</button>
-
-                <c:if test="${not empty closedBoard}">
-                    <div id="overlay" class="overlay" onclick="showOverlay()">
-                        <div class="overlay-content" onclick="event.stopPropagation();">
-                            <h2>Các bảng đã đóng</h2>
-                            <div id="closedBoardsList">
-                                <c:forEach var="board" items="${closedBoards}">
-                                    <div>
-                                        <label>${board.title}</label>
-                                        <a href="/group_home?action=deleteBoard&boardId=${board.boardId}">
-                                            <button>Xóa bảng</button>
-                                        </a>
-                                    </div>
-                                </c:forEach>
-                            </div>
-                            <button onclick="hideOverlay()">Đóng</button>
-                        </div>
-                    </div>
-                </c:if>
+                <button id="openModalButton">Xem các bảng đã đóng</button>
             </div>
         </div>
     </div>
 
 </div>
-</body>
-</html>
 
 <script>
     document.getElementById("logoutBtn").addEventListener("click", function () {
@@ -191,6 +166,71 @@
 
 
 <script>
+    // ✅ In ra console để kiểm tra dữ liệu JSON
+    let closedBoards = <%= new Gson().toJson(request.getAttribute("closedBoards")) %>;
+
+    $(document).ready(function () {
+        $('#openModalButton').click(function () {
+            let contentDiv = document.createElement("div");
+
+            closedBoards.forEach(board => {
+                let productDiv = document.createElement("div");
+                productDiv.className = "product-container";
+
+                let label = document.createElement("label");
+                label.className = "product-label";
+                label.textContent = board.title;
+
+                let deleteButton = document.createElement("button");
+                deleteButton.className = "delete-button";
+                deleteButton.textContent = "Xóa";
+                deleteButton.onclick = function () {
+                    deleteProduct(board.boardId);
+                };
+
+                productDiv.appendChild(label);
+                productDiv.appendChild(deleteButton);
+                contentDiv.appendChild(productDiv);
+            });
+
+            // ✅ Hiển thị modal với nội dung vừa tạo
+            $.sweetModal({
+                title: 'Các bảng đã đóng',
+                content: $(contentDiv).html()
+            });
+        });
+    });
+
+    function deleteProduct(title) {
+        // ✅ Xử lý xóa ở đây
+    }
+
+    // ✅ Lưu danh sách sản phẩm vào JavaScript
+    let boards = <%= new Gson().toJson(request.getAttribute("boards")) %>;
+
+    function filterBoards() {
+        let input = document.getElementById("keyword").value.toLowerCase();
+        let listBoards = document.getElementById("listBoards");
+        listBoards.innerHTML = "";
+
+        // ✅ Lọc danh sách sản phẩm theo tên
+        let filteredBoards = boards.filter(board => board.title.toLowerCase().includes(input));
+
+        // ✅ Tạo danh sách mới và thêm vào MODAL
+        filteredBoards.forEach(board => {
+            let boardDiv = document.createElement("div");
+            boardDiv.className = "workspaceTable";
+
+            let button = document.createElement("button");
+            button.className = "titleBoardWorkspace";
+            button.textContent = board.title;
+
+            boardDiv.appendChild(button);
+            listBoards.appendChild(boardDiv);
+        });
+    }
+
+
     function showEditModal() {
         fetch('/view/user/group/edit_group.jsp') // Đường dẫn đến file JSP của bạn
             .then(response => response.text())
@@ -204,8 +244,8 @@
     function closeEditModal() {
         document.getElementById("editGroupModal").style.display = "none"; // Ẩn modal
     }
-
-
 </script>
+</body>
+</html>
 
 

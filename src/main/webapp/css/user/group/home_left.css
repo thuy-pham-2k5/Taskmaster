@@ -26,7 +26,7 @@ body {
 #homeLeft {
     width: 17%;
     min-width: 250px;
-    min-height: 620px; /* Đảm bảo chiều cao tối thiểu */
+    min-height: 100%; /* Đảm bảo chiều cao tối thiểu */
     height: auto; /* Tự động mở rộng theo nội dung */
     overflow: hidden; /* Ngăn chặn phần tử con tràn ra ngoài */
     background-color: #93CDD8;
