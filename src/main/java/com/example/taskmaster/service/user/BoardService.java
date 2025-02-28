@@ -81,15 +81,14 @@ public class BoardService implements IBoardService {
         }
     }
 
-    public void createBoard(Board board) {
-        PreparedStatement preparedStatement = null;
-        Connection connection = ConnectDatabase.getConnection();
-        try {
-            preparedStatement = connection.prepareStatement("INSERT INTO boards (title, background_id, status, group_id) VALUES (?, ?, 1, ?);");
-            preparedStatement.setString(1, board.getTitle());
-            preparedStatement.setInt(2, board.getBackgroundId());
-            preparedStatement.setInt(3, board.getGroupId());
-            preparedStatement.executeUpdate();
+    public void createBoard(int userId, String boardTitle, int groupId) {
+        String query = "{call createNewBoard (?, ?, ?)}";
+        try (Connection connection = ConnectDatabase.getConnection();) {
+            CallableStatement callableStatement = connection.prepareCall(query);
+            callableStatement.setInt(1, userId);
+            callableStatement.setString(2, boardTitle);
+            callableStatement.setInt(3, groupId);
+            callableStatement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -106,6 +105,11 @@ public class BoardService implements IBoardService {
             e.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public void closeBoard(int boardId) {
+
     }
 }
 

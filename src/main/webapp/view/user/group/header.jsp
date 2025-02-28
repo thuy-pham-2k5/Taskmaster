@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="css/user/group/header_and_homeleft.css">
+    <link rel="stylesheet" href="css/user/group/header.css">
 </head>
 <body>
 <div id="header">
@@ -38,26 +38,6 @@
         <a href="javascript:void(0);" onclick="$('#exampleModalCenter').modal('show');"> <img
                 src="https://png.pngtree.com/png-clipart/20230314/original/pngtree-log-out-vector-icon-design-illustration-png-image_8987853.png"></a>
         <jsp:include page="../account/notification_log_out.jsp" />
-    </div>
-</div>
-<div id="homeLeft">
-    <div id="workspaceName">
-        <button id="workspace"><p class="represent">P</p></button>
-        <p>${groupInfo.title}</p>
-    </div>
-
-    <div id="workspaceList">
-        <div><img class="icon" src="/images/table.png">
-            <p>Bảng</p></div>
-        <div><img class="icon" src="/images/number.png">
-            <p>Thành viên</p></div>
-        <div><img class="icon" src="/images/setting.png">
-            <p>Các cài đặt không gian làm việc</p></div>
-
-        <div style="display: flex; justify-content: space-between"><p style="font-size: 20px">Các bảng của
-            bạn</p> <img class="icon" src="/images/add.png"></div>
-        <div style="display: flex; justify-content: space-between ; padding-left: 30px"><p>Bảng 1</p> <img
-                class="icon" src="/images/start.png"></div>
     </div>
 </div>
 </body>

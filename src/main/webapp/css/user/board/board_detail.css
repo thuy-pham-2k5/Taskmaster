@@ -151,19 +151,30 @@ body {
 }
 
 .menu-btn {
-    width: 20px;
-    height: 20px;
-    border-radius: 5px;
-    background-color: #3179BA;
-    color: white;
+    width: 100%;
+    height: 100%;
     font-size: 25px;
-    border: none;
-    cursor: pointer;
+    border-radius: 5px;
+}
+
+.board a{
+    text-decoration: none;
+    color: black;
+    width: 75%;
 }
 
 .board:hover {
     background-color: #3179BA;
     border-radius: 5px;
+    color: #FFFFFF;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    border-radius: 5px;
+    width: 25%;
+    height: 100%;
 }
 
 #workspaceName {
@@ -244,20 +255,6 @@ body {
 
 }
 
-#addAcount button {
-    width: 275px;
-    border: none;
-    height: 30px;
-    background-color: #1B5B94;
-    color: white;
-    cursor: pointer;
-}
-
-#sortAndSearch {
-    display: flex;
-    justify-content: space-between;
-}
-
 #workspaces {
     margin-left: 74px;
     margin-right: 74px;
@@ -275,34 +272,6 @@ body {
     color: white;
     height: 35px;
     background-color: #3179BA;
-}
-
-#searchTable input {
-    margin-top: 15px;
-    border-radius: 5px;
-    border-color: white;
-    height: 35px;
-    color: white;
-    background-color: #3179BA;
-}
-
-#searchTable button {
-    margin-top: 15px;
-    border-radius: 5px;
-    border-color: white;
-    height: 35px;
-    color: white;
-    background-color: #3179BA;
-}
-
-#search input::placeholder {
-    padding-left: 5px;
-}
-
-#searchTable input::placeholder {
-    color: white;
-    opacity: 1; /* Đảm bảo màu trắng không bị trong suốt */
-    padding-left: 5px;
 }
 
 .flex-container {
@@ -365,17 +334,6 @@ body {
     background-color: #0D599D;
     color: white;
     border: none;
-}
-
-#workspaceTable button {
-    border: none;
-    border-radius: 10px;
-    width: 177px;
-    height: 75px;
-    color: white;
-    align-content: center;
-    background-color: #0D599D;
-    cursor: pointer;
 }
 
 #viewOffTable {
@@ -499,14 +457,6 @@ body {
     #groupInformation {
         flex-direction: column;
         text-align: center;
-    }
-
-    #addAcount button {
-        width: 100%;
-    }
-
-    #workspaceTable button {
-        width: 100%;
     }
 
     #viewOffTable {

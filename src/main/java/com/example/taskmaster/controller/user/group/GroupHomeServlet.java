@@ -78,8 +78,6 @@ public class GroupHomeServlet extends HttpServlet {
         session.setAttribute("groupId", group.getGroupId());
         request.setAttribute("roleIdUser", roleId);
         request.setAttribute("groupInfo", group);
-        request.setAttribute("boards", boardService.getAllBoardInGroup(group.getGroupId(), true));
-        request.setAttribute("closedBoards", boardService.getAllBoardClosedInGroup((int) session.getAttribute("groupId")));
         request.getRequestDispatcher("/view/user/group/home_workspace.jsp").forward(request, response);
     }
 
@@ -98,14 +96,11 @@ public class GroupHomeServlet extends HttpServlet {
             case "sortType":
                 sortTypeListBoards(request, response);
                 break;
-            case "search":
-//                searchBoardByKeyword (request, response);
-                break;
             case "memberView":
-                showMemberWorkspaceView(request, response);
+                response.sendRedirect("/group_member");
                 break;
             case "settingView":
-                showSettingWorkspaceView(request, response);
+                response.sendRedirect("/group_setting");
                 break;
             default:
                 showGroupInfo(request, response);
@@ -117,15 +112,6 @@ public class GroupHomeServlet extends HttpServlet {
         String boardId = request.getParameter("boardId");
         response.sendRedirect("/board_home?boardId=" + boardId);
     }
-
-//    private void searchBoardByKeyword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        HttpSession session = request.getSession();
-//        String keyword = request.getParameter("keyword");
-//        System.out.println(keyword);
-//        request.setAttribute("boards", boardService.searchBoardsByName((int) session.getAttribute("groupId"), keyword));
-//        System.out.println(boardService.searchBoardsByName((int) session.getAttribute("groupId"), keyword));
-//        request.getRequestDispatcher("view/user/group/home_workspace.jsp").forward(request, response);
-//    }
 
     private void sortTypeListBoards(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Board> boards;
@@ -142,14 +128,6 @@ public class GroupHomeServlet extends HttpServlet {
         response.getWriter().write(boardsJson);
     }
 
-
-    private void showSettingWorkspaceView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/view/user/group/setting_workspace.jsp").forward(request, response);
-    }
-
-    private void showMemberWorkspaceView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/view/user/group/member_workspace.jsp").forward(request, response);
-    }
 
     private void showGroupInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();

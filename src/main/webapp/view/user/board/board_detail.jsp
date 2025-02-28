@@ -5,7 +5,15 @@
     <title>Title</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/user/board/board_detail.css">
+
+    <!-- Thư viện jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Thư viện SweetModal -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery-sweetmodal@1.3.3/dist/jquery.sweet-modal.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-sweetmodal@1.3.3/dist/jquery.sweet-modal.min.css">
+
+    <!-- Script xử lý -->
     <script src="/js/user/board/board_detail.js" defer></script>
 </head>
 <body>
@@ -60,7 +68,9 @@
                                 <p>${board.title}</p>
                             </a>
                             <div class="dropdown">
-                                <button class="menu-btn" onclick="openModal('${board.boardId}')">&#8942;</button>
+                                <a href="" class="openModal" data-boardid="${board.boardId}">
+                                    <img style="width: 60%; height: 20px" src="../images/ellipsis.png">
+                                </a>
                             </div>
                         </div>
                     </c:forEach>
