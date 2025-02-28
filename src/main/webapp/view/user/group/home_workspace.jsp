@@ -82,7 +82,7 @@
                         <div>
                             <div style="display: flex">
                                 <p id="groupName">${groupInfo.title}</p>
-                                <img class="edit_group_pen" src="/images/edit.png" onclick="showEditModal()">
+                                <img class="edit_group_pen"  src="/images/edit.png" onclick="showEditModal()">
 
                                 <div id="modalContainer"></div>
                             </div>
@@ -228,20 +228,16 @@
         });
     }
 
+
     function showEditModal() {
-        fetch('/view/user/group/edit_group.jsp')
+        fetch('/view/user/group/edit_group.jsp') // Đường dẫn đến file JSP của bạn
             .then(response => response.text())
             .then(html => {
                 document.getElementById("modalContainer").innerHTML = html;
                 document.getElementById("editGroupModal").style.display = "block"; // Hiển thị modal
-
-                // 🚀 Gán dữ liệu vào input sau khi modal đã được thêm vào DOM
-                document.getElementById("groupNameInput").value = "${groupInfo.title}";
-                document.getElementById("groupDescInput").value = "${groupInfo.description}";
             })
-            .catch(error => console.error('Lỗi tải modal:', error));
+            .catch(error => console.error('Error loading modal:', error));
     }
-
 
     function closeEditModal() {
         document.getElementById("editGroupModal").style.display = "none"; // Ẩn modal
@@ -249,5 +245,3 @@
 </script>
 </body>
 </html>
-
-
