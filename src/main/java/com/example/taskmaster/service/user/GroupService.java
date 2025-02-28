@@ -152,6 +152,7 @@ public class GroupService implements IGroupService {
             }
         }
     }
+
     @Override
     public void updateGroup(int groupId, Group group) {
         String query = "UPDATE `groups` SET `title` = ?, `link_web` = ?, `description` = ? WHERE `group_id` = ?;";
