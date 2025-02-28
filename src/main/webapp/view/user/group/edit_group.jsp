@@ -10,10 +10,10 @@
         <div class="modal-title">Chỉnh sửa</div>
         <div id="editFrame">
             <label>🏢 Tên không gian làm việc</label>
-            <input type="text">
+            <input type="text" id="groupNameInput" value="${groupInfo.title}">
 
             <label>📝 Mô tả (tùy chỉnh)</label>
-            <textarea></textarea>
+            <textarea id="groupDescInput">${groupInfo.description}</textarea>
 
             <button style="background-color: #0c66e4; color: white">
                 💾 Lưu
