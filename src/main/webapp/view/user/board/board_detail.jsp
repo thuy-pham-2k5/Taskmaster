@@ -3,28 +3,13 @@
 <html>
 <head>
     <title>Title</title>
-<<<<<<< HEAD
-    <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/user/board/board_detail.css">
-
-    <!-- Thư viện jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <!-- Thư viện SweetModal -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery-sweetmodal@1.3.3/dist/jquery.sweet-modal.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-sweetmodal@1.3.3/dist/jquery.sweet-modal.min.css">
-
-    <!-- Script xử lý -->
-    <script src="/js/user/board/board_detail.js" defer></script>
-=======
-    <link rel="stylesheet" href="css/user/board/board.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="/js/user/group/home_workspace.js" defer></script>
+    <script src="/js/user/board/board_detail.js" defer></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweet-modal@1.3.3/dist/min/jquery.sweet-modal.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweet-modal@1.3.3/dist/min/jquery.sweet-modal.min.js"></script>
->>>>>>> d0dd7498fb118214ddf2f376b933043ef34affc6
 </head>
 <body>
 <div>
@@ -34,7 +19,7 @@
             <p>Taskmaster</p>
         </div>
         <div id="headerTopic">
-            <a href="group_home?action=viewGroups">
+            <a href="group_home?action=viewGroups" style="text-decoration: none">
                 <div class="topic"><p>Các không gian làm vệc </p> <img class="listImage" src="/images/list.png"></div>
             </a>
             <div class="topic"><p>Gần đây</p> <img class="listImage" src="/images/list.png"></div>

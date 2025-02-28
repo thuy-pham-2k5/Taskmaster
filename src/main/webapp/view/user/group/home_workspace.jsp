@@ -23,7 +23,7 @@
             <p>Taskmaster</p>
         </div>
         <div id="headerTopic">
-            <a href="group_home?action=viewGroups">
+            <a href="group_home?action=viewGroups" style="text-decoration: none">
                 <div class="topic"><p>Các không gian làm vệc </p> <img class="listImage" src="/images/list.png"></div>
             </a>
             <div class="topic"><p>Gần đây</p> <img class="listImage" src="/images/list.png"></div>
@@ -62,9 +62,15 @@
                     bạn</p> <img class="icon" src="/images/add.png"></div>
                 <div style="display: flex; flex-direction: column">
                     <c:forEach var="board" items="${boards}">
-                        <div class="board">
+                        <div class="board" style="display: flex; justify-content: space-between; align-items: center;">
                             <a href="group_home?action=boardView&boardId=${board.boardId}">
-                                <p>${board.title}</p></a>
+                                <p>${board.title}</p>
+                            </a>
+                            <div class="dropdown">
+                                <a href="" class="openModal" data-boardid="${board.boardId}">
+                                    <img style="width: 60%; height: 20px" src="../images/ellipsis.png">
+                                </a>
+                            </div>
                         </div>
                     </c:forEach>
                 </div>
