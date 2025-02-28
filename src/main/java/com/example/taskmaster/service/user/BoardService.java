@@ -106,5 +106,10 @@ public class BoardService implements IBoardService {
         }
         return false;
     }
+
+    @Override
+    public void closeBoard(int boardId) {
+
+    }
 }
 

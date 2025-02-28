@@ -6,10 +6,14 @@
     <title>Title</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/user/group/homeWorkspace.css">
-    <script src="/js/user/group/home_workspace.js" defer></script>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweet-modal/dist/min/jquery.sweet-modal.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweet-modal/dist/min/jquery.sweet-modal.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/js/user/group/home_workspace.js" defer></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweet-modal@1.3.3/dist/min/jquery.sweet-modal.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweet-modal@1.3.3/dist/min/jquery.sweet-modal.min.js"></script>
+
 </head>
 <body>
 <div>
@@ -19,7 +23,7 @@
             <p>Taskmaster</p>
         </div>
         <div id="headerTopic">
-            <a href="group_home?action=viewGroups">
+            <a href="group_home?action=viewGroups" style="text-decoration: none">
                 <div class="topic"><p>Các không gian làm vệc </p> <img class="listImage" src="/images/list.png"></div>
             </a>
             <div class="topic"><p>Gần đây</p> <img class="listImage" src="/images/list.png"></div>
@@ -35,7 +39,9 @@
             </div>
             <img src="/images/bell.png">
             <img src="https://vivureviews.com/wp-content/uploads/2022/08/avatar-vo-danh-9.png">
-            <img src="https://png.pngtree.com/png-clipart/20230314/original/pngtree-log-out-vector-icon-design-illustration-png-image_8987853.png">
+            <a href="javascript:void(0);" id="logoutBtn">
+                <img src="https://png.pngtree.com/png-clipart/20230314/original/pngtree-log-out-vector-icon-design-illustration-png-image_8987853.png">
+            </a>
         </div>
     </div>
 
@@ -45,7 +51,6 @@
                 <button id="workspace"><p class="represent">P</p></button>
                 <p>${groupInfo.title}</p>
             </div>
-
             <div id="workspaceList">
                 <div><img class="icon" src="/images/table.png">
                     <p>Bảng</p></div>
@@ -53,15 +58,21 @@
                     <p>Thành viên</p></div>
                 <div><img class="icon" src="/images/setting.png">
                     <p>Các cài đặt không gian làm việc</p></div>
-
                 <div style="display: flex; justify-content: space-between"><p style="font-size: 20px">Các bảng của
                     bạn</p> <img class="icon" src="/images/add.png"></div>
-                <div style="display: flex; flex-direction: column; justify-content: space-between ; padding-left: 30px">
-                    <form method="post">
-                        <c:forEach var="board" items="${boards}">
-                            <a href="group_home?action=boardView&boardId=${board.boardId}"><p>${board.title}</p></a>
-                        </c:forEach>
-                    </form>
+                <div style="display: flex; flex-direction: column">
+                    <c:forEach var="board" items="${boards}">
+                        <div class="board" style="display: flex; justify-content: space-between; align-items: center;">
+                            <a href="group_home?action=boardView&boardId=${board.boardId}">
+                                <p>${board.title}</p>
+                            </a>
+                            <div class="dropdown">
+                                <a href="" class="openModal" data-boardid="${board.boardId}">
+                                    <img style="width: 60%; height: 20px" src="../images/ellipsis.png">
+                                </a>
+                            </div>
+                        </div>
+                    </c:forEach>
                 </div>
             </div>
         </div>
@@ -74,7 +85,7 @@
                         <div>
                             <div style="display: flex">
                                 <p id="groupName">${groupInfo.title}</p>
-                                <img class="edit_group_pen" src="/images/edit.png" onclick="showEditModal()">
+                                <img class="edit_group_pen"  src="/images/edit.png" onclick="showEditModal()">
 
                                 <div id="modalContainer"></div>
                             </div>
@@ -137,6 +148,27 @@
     </div>
 
 </div>
+
+<script>
+    document.getElementById("logoutBtn").addEventListener("click", function () {
+        Swal.fire({
+            title: "Xác nhận đăng xuất",
+            text: "Bạn có chắc chắn muốn đăng xuất không?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Đăng xuất",
+            cancelButtonText: "Hủy"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/logout"; // Chuyển hướng đến trang đăng xuất
+            }
+        });
+    });
+</script>
+
+
 
 <script>
     // ✅ In ra console để kiểm tra dữ liệu JSON
@@ -202,6 +234,7 @@
             listBoards.appendChild(boardDiv);
         });
     }
+
 
     function showEditModal() {
         fetch('/view/user/group/edit_group.jsp') // Đường dẫn đến file JSP của bạn
