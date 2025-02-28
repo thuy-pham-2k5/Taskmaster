@@ -4,14 +4,7 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
     <welcome-file-list>
-        <welcome-file>view/user/group/member_workspace.jsp</welcome-file>
+        <welcome-file>authenticate</welcome-file>
     </welcome-file-list>
 </web-app>
-
-<!--        view/user/account/notification_log_out.jsp-->
-<!--        authenticate-->
-<!--        <welcome-file>view/user/group/home_workspace.jsp</welcome-file>-->
-<!--        <welcome-file>view/user/account/home_account.jsp</welcome-file>-->
-<!--        <welcome-file>test.jsp</welcome-file>-->
-<!--        <welcome-file>view/user/group/header_and_homeleft.jsp</welcome-file>-->
 
