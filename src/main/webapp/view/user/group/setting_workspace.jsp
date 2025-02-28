@@ -87,26 +87,31 @@
 
 <!-- Script xử lý modal và xác nhận xóa -->
 <script>
-    function openDeleteModal() {
-        document.getElementById("deleteWorkspaceModal").style.display = "block";
-    }
-
-    function closeDeleteModal() {
-        document.getElementById("deleteWorkspaceModal").style.display = "none";
-    }
-
     function confirmDelete() {
         let enteredName = document.getElementById("workspaceNameInput").value.trim();
-        let workspaceName = "${group.title}".trim();  // Lấy tên từ JSP
+        let workspaceName = "${group.title}".trim();
 
         if (enteredName === workspaceName) {
-            window.location.href = "deleteWorkspace?id=${group.group_id}";
+            fetch("group_setting", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: "id=" + encodeURIComponent("${group.group_id}")
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert("Xóa thành công!");
+                        window.location.reload();
+                    } else {
+                        alert("Xóa thất bại!");
+                    }
+                })
+                .catch(error => console.error("Lỗi:", error));
         } else {
-            let errorMsg = document.getElementById("errorMessage");
-            errorMsg.style.display = "block";
-            errorMsg.innerHTML = "⚠️ Tên không gian làm việc không đúng!";
+            document.getElementById("errorMessage").style.display = "block";
+            document.getElementById("errorMessage").innerHTML = "⚠️ Tên không gian làm việc không đúng!";
         }
     }
+
 </script>
 
 </body>

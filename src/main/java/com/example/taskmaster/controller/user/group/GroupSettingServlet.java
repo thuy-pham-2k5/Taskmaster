@@ -28,6 +28,7 @@ public class GroupSettingServlet extends HttpServlet {
 
     private void deleteGroupById(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         int groupId = Integer.parseInt((String) req.getSession().getAttribute("groupId"));
+        req.getParameter("groupId");
         groupService.deleteGroup(groupId);
         resp.sendRedirect("/account_home");
     }
