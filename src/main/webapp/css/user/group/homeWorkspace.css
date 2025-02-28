@@ -92,7 +92,6 @@ body {
     background-color: #93CDD8;
 }
 
-
 #homeRight {
     flex: 1;
     background-color: #3179BA;
@@ -162,13 +161,14 @@ body {
 /* Căn ảnh và chữ trong cùng một hàng */
 #workspaceList div {
     display: flex;
-    align-items: center;
     gap: 10px;
     padding: 12px 0;
 }
 
 #workspaceList {
     padding: 5px 10px 0px 15px;
+    height: auto;
+    overflow-y: auto;
 }
 
 #group {
