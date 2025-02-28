@@ -5,6 +5,7 @@
       <map>
         <entry key="file://$PROJECT_DIR$/src/main/webapp/view/authenticate/register.jsp" value="file://$PROJECT_DIR$/src/main/webapp/view/authenticate" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/view/user/group/home_workspace.jsp" value="file://$PROJECT_DIR$/src/main/webapp/view/user/group" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/view/user/group/setting_workspace.jsp" value="file://$PROJECT_DIR$/src/main/webapp/view/user/group" />
       </map>
     </option>
   </component>

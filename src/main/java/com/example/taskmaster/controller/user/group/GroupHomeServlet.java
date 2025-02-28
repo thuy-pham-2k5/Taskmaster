@@ -43,9 +43,18 @@ public class GroupHomeServlet extends HttpServlet {
             case "inviteMember":
                 inviteMemberInGroup(request, response);
                 break;
+                case "deleteGroup":
+                    deleteGroup(request, response);
+                    break;
             default:
                 break;
         }
+    }
+
+    private void deleteGroup(HttpServletRequest request, HttpServletResponse response) {
+        String groupId = request.getParameter("groupId");
+        groupService.deleteGroup(Integer.parseInt(groupId));
+        response.sendRedirect("/group_home");
     }
 
     private void inviteMemberInGroup(HttpServletRequest request, HttpServletResponse response) throws IOException {
