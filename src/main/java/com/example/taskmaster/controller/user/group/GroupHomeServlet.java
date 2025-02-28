@@ -117,7 +117,7 @@ public class GroupHomeServlet extends HttpServlet {
         List<Board> boards;
         String sortType = request.getParameter("option");
         int groupId = Integer.parseInt((String) request.getSession().getAttribute("groupId"));
-        if (sortType.equals("option1")) {
+        if ("option1".equals(sortType)) {
             boards = boardService.getAllBoardInGroup(groupId, true);
         } else {
             boards = boardService.getAllBoardInGroup(groupId, false);
