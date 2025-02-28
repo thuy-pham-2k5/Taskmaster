@@ -228,8 +228,6 @@
         });
     }
 
-    let groupInfo = <%= new Gson().toJson(request.getAttribute("groupInfo"))%>;
-
     function showEditModal() {
         fetch('/view/user/group/edit_group.jsp')
             .then(response => response.text())

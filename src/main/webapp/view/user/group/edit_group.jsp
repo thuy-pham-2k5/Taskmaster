@@ -15,7 +15,7 @@
             <label>📝 Mô tả (tùy chỉnh)</label>
             <textarea id="groupDescInput">${groupInfo.description}</textarea>
 
-            <button style="background-color: #0c66e4; color: white">
+            <button style="background-color: #0c66e4; color: white" onclick="saveEditGroup()">
                 💾 Lưu
             </button>
 
