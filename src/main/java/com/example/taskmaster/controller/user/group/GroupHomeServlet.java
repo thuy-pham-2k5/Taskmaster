@@ -51,11 +51,7 @@ public class GroupHomeServlet extends HttpServlet {
         }
     }
 
-    private void deleteGroup(HttpServletRequest request, HttpServletResponse response) {
-        String groupId = request.getParameter("groupId");
-        groupService.deleteGroup(Integer.parseInt(groupId));
-        response.sendRedirect("/group_home");
-    }
+//  git
 
     private void inviteMemberInGroup(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String email = request.getParameter("email");
