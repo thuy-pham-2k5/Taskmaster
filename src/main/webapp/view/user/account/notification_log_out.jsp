@@ -20,9 +20,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
-<body onload="$('#logoutModal').modal('show');">
+<body onload="$('#exampleModalCenter').modal('show');">
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -38,16 +38,7 @@
         </div>
     </div>
 </div>
-
-
 </body>
 </html>
 
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        document.getElementById("confirmLogout").addEventListener("click", function () {
-            window.location.href = "/logout"; // Chuyển hướng đến Servlet xử lý đăng xuất
-        });
-    });
-</script>
