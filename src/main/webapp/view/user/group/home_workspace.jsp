@@ -190,6 +190,7 @@
                 productDiv.appendChild(deleteButton);
                 contentDiv.appendChild(productDiv);
             });
+
             // ✅ Hiển thị modal với nội dung vừa tạo
             $.sweetModal({
                 title: 'Các bảng đã đóng',
