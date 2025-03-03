@@ -16,8 +16,11 @@
 <div>
     <div id="header">
         <div id="logo">
-            <img style="height: 40px; width: 40px" src="/images/logo.png">
-            <p>Taskmaster</p>
+            <a href="/account_home">
+                <img style="height: 40px; width: 40px" src="/images/logo.png">
+                <p>Taskmaster</p>
+            </a>
+
         </div>
         <div id="headerTopic">
             <a href="group_home?action=viewGroups" style="text-decoration: none">
