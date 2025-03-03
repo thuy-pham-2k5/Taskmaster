@@ -164,6 +164,8 @@
         });
     });
 
+
+
     // ✅ In ra console để kiểm tra dữ liệu JSON
     let closedBoards = <%= new Gson().toJson(request.getAttribute("closedBoards")) %>;
 
