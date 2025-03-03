@@ -50,7 +50,7 @@ public class AccountHomeServlet extends HttpServlet {
 
     private void showGroupHomeViewById(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession();
-        session.setAttribute("groupId", req.getParameter("groupId"));
+        session.setAttribute("groupId", Integer.parseInt(req.getParameter("groupId")));
         resp.sendRedirect("group_home");
     }
 

@@ -1,9 +1,7 @@
 package com.example.taskmaster.controller.user.board;
 
-import com.example.taskmaster.model.Board;
 import com.example.taskmaster.model.User;
 import com.example.taskmaster.service.user.BoardService;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,8 +11,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(value = "/board")
-public class BoardServlet extends HttpServlet{
+public class BoardServlet extends HttpServlet {
     BoardService boardService = new BoardService();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
@@ -26,7 +25,7 @@ public class BoardServlet extends HttpServlet{
             action = "";
         switch (action) {
             case "create":
-               req.getRequestDispatcher("/view/user/board/createBoard.jsp").forward(req, resp);
+                req.getRequestDispatcher("/view/user/board/createBoard.jsp").forward(req, resp);
                 break;
             case "task":
                 break;
@@ -34,7 +33,7 @@ public class BoardServlet extends HttpServlet{
                 req.getRequestDispatcher("/view/user/board/board_detail.jsp").forward(req, resp);
                 break;
             case "deleteBoard":
-                req.getRequestDispatcher("/view/user/board/deleteBoard.jsp").forward (req, resp);
+                req.getRequestDispatcher("/view/user/board/deleteBoard.jsp").forward(req, resp);
             default:
                 break;
         }
@@ -52,11 +51,10 @@ public class BoardServlet extends HttpServlet{
         switch (action) {
             case "create":
                 createBoard(req, resp);
-                resp.sendRedirect("/group_home");
                 break;
-                case "deleteBoard":
-                    deleteBoardById (req, resp);
-                    break;
+            case "deleteBoard":
+                deleteBoardById(req, resp);
+                break;
             case "task":
                 break;
             case "board":
@@ -64,13 +62,16 @@ public class BoardServlet extends HttpServlet{
         }
     }
 
-    public void createBoard (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void createBoard(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html; charset=UTF-8");
-        User user = (User) req.getSession().getAttribute("user");
-        int groupId = Integer.parseInt((String) req.getSession().getAttribute("groupId"));
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
+        int groupId = (Integer) session.getAttribute("groupId");
+        System.out.println(groupId);
         String boardName = req.getParameter("title");
         boardService.createBoard(user.getUserId(), boardName, groupId);
+        resp.sendRedirect("/group_home");
     }
 
     private void deleteBoardById(HttpServletRequest req, HttpServletResponse resp) throws IOException {

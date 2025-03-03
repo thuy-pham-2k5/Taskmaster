@@ -83,8 +83,6 @@ public class GroupHomeServlet extends HttpServlet {
         session.setAttribute("groupId", group.getGroupId());
         request.setAttribute("roleIdUser", roleId);
         request.setAttribute("groupInfo", group);
-        request.setAttribute("boards", boardService.getAllBoardInGroup(group.getGroupId(), true));
-        request.setAttribute("closedBoards", boardService.getAllBoardClosedInGroup((int) session.getAttribute("groupId")));
         request.getRequestDispatcher("/view/user/group/home_workspace.jsp").forward(request, response);
     }
 
@@ -117,13 +115,13 @@ public class GroupHomeServlet extends HttpServlet {
 
     private void switchToBoardView(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String boardId = request.getParameter("boardId");
-        response.sendRedirect("/board_home?boardId=" + boardId);
+        response.sendRedirect("board_home?boardId=" + boardId);
     }
 
     private void sortTypeListBoards(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Board> boards;
         String sortType = request.getParameter("option");
-        int groupId = Integer.parseInt((String) request.getSession().getAttribute("groupId"));
+        int groupId = (Integer) request.getSession().getAttribute("groupId");
         if (sortType.equals("option1")) {
             boards = boardService.getAllBoardInGroup(groupId, true);
         } else {
@@ -139,7 +137,7 @@ public class GroupHomeServlet extends HttpServlet {
     private void showGroupInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        int groupId = Integer.parseInt((String) session.getAttribute("groupId"));
+        int groupId = (Integer) session.getAttribute("groupId");
         int roleId = userService.getRoleUserInGroup(user.getUserId(), groupId);
         request.setAttribute("roleIdUser", roleId);
         request.setAttribute("groupInfo", groupService.getGroupInfoById(groupId));

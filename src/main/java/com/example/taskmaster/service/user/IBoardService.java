@@ -16,4 +16,6 @@ public interface IBoardService {
     void createBoard(int userId, String boardTitle, int groupId);
 
     boolean deleteBoard( int boardId) throws SQLException;
+
+    void closeBoard(int boardId);
 }

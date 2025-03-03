@@ -7,7 +7,7 @@ body {
 
 /* Container chính */
 .container {
-    width: 26%;
+    width: 20%;
     margin: 50px auto;
     padding: 20px;
     background-color: #329cf1;
@@ -82,22 +82,6 @@ img[alt='imageCreateBoard'] {
     transform: scale(1.05);
 }
 
-/* Nút 3 chấm */
-.more-options {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
-    height: 30px;
-    background-color: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    cursor: pointer;
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-    text-align: center;
-}
-
 /* Ô nhập thông tin */
 .information-form, .spaceWork-form {
     width: 90%;
@@ -156,11 +140,14 @@ img[alt='imageCreateBoard'] {
     color: white;
 }
 
+#actionForm {
+    display: none;
+    width: 80%;
+}
 
 /* Hiển thị danh sách quyền xem */
 .options {
-    position: absolute;
-    width: 95%;
+    width: 80%;
     background-color: #286398;
     border-radius: 8px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);

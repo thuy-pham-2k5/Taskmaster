@@ -12,11 +12,24 @@ public class User {
         this.fullName = fullName;
     }
 
+    public User(int userId, String fullName, String username) {
+        this.userId = userId;
+        this.username = username;
+        this.fullName = fullName;
+    }
+
     public User (int userId, String email, String password, int roleId, String roleName) {
         this.userId = userId;
         this.email = email;
         this.password = password;
         this.roleId = roleId;
+        this.roleName = roleName;
+    }
+
+    public User(int userId, String fullName, String username, String roleName) {
+        this.userId = userId;
+        this.fullName = fullName;
+        this.username = username;
         this.roleName = roleName;
     }
 
@@ -28,6 +41,8 @@ public class User {
         this.roleId = roleId;
         this.roleName = roleName;
     }
+
+
 
     public User (int userId, String email, String password, String username, String cv, String fullName, String publicName, String title, String department, String organization, String address, int roleId, String roleName) {
         this.userId = userId;
