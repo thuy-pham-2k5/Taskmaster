@@ -54,13 +54,15 @@
                     <div>
                         <div class="member-section">
                             <c:forEach items="${members}" var="user">
-                                <div>
-                                    <label>${user.fullName}</label>
-                                    <label>${user.username}</label>
-                                    <label>${user.roleName}</label>
-                                    <a href="#">
+                                <div class="user-general-info">
+                                    <div class="user-info">
+                                        <p class="user-info-name">${user.fullName}</p>
+                                        <p>@${user.username}</p>
+                                    </div>
+                                    <div class="user-button-change">
+                                        <button>${user.roleName}</button>
                                         <button>Loại bỏ</button>
-                                    </a>
+                                    </div>
                                 </div>
                             </c:forEach>
                         </div>
