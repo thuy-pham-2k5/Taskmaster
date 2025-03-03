@@ -6,14 +6,11 @@
     <title>Title</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/user/group/homeWorkspace.css">
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/js/user/group/home_workspace.js" defer></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweet-modal@1.3.3/dist/min/jquery.sweet-modal.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweet-modal@1.3.3/dist/min/jquery.sweet-modal.min.js"></script>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/sweet-modal/dist/min/jquery.sweet-modal.min.css">
+    <script src="https://unpkg.com/sweet-modal/dist/min/jquery.sweet-modal.min.js"></script>
 </head>
 <body>
 <div>
@@ -66,11 +63,11 @@
                             <a href="group_home?action=boardView&boardId=${board.boardId}">
                                 <p>${board.title}</p>
                             </a>
-                            <div class="dropdown">
-                                <a href="" class="openModal" data-boardid="${board.boardId}">
-                                    <img style="width: 60%; height: 20px" src="../images/ellipsis.png">
-                                </a>
-                            </div>
+<%--                            <div class="dropdown">--%>
+<%--                                <a href="" class="openModal" data-boardid="${board.boardId}">--%>
+<%--                                    <img style="width: 60%; height: 20px" src="../images/ellipsis.png">--%>
+<%--                                </a>--%>
+<%--                            </div>--%>
                         </div>
                     </c:forEach>
                 </div>
@@ -85,7 +82,7 @@
                         <div>
                             <div style="display: flex">
                                 <p id="groupName">${groupInfo.title}</p>
-                                <img class="edit_group_pen"  src="/images/edit.png" onclick="showEditModal()">
+                                <img class="edit_group_pen" src="/images/edit.png" onclick="showEditModal()">
 
                                 <div id="modalContainer"></div>
                             </div>
@@ -166,11 +163,7 @@
             }
         });
     });
-</script>
 
-
-
-<script>
     // ✅ In ra console để kiểm tra dữ liệu JSON
     let closedBoards = <%= new Gson().toJson(request.getAttribute("closedBoards")) %>;
 
@@ -235,16 +228,20 @@
         });
     }
 
-
     function showEditModal() {
-        fetch('/view/user/group/edit_group.jsp') // Đường dẫn đến file JSP của bạn
+        fetch('/view/user/group/edit_group.jsp')
             .then(response => response.text())
             .then(html => {
                 document.getElementById("modalContainer").innerHTML = html;
                 document.getElementById("editGroupModal").style.display = "block"; // Hiển thị modal
+
+                // 🚀 Gán dữ liệu vào input sau khi modal đã được thêm vào DOM
+                document.getElementById("groupNameInput").value = "${groupInfo.title}";
+                document.getElementById("groupDescInput").value = "${groupInfo.description}";
             })
-            .catch(error => console.error('Error loading modal:', error));
+            .catch(error => console.error('Lỗi tải modal:', error));
     }
+
 
     function closeEditModal() {
         document.getElementById("editGroupModal").style.display = "none"; // Ẩn modal

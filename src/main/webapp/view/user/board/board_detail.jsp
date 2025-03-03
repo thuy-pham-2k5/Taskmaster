@@ -62,11 +62,11 @@
                             <a href="group_home?action=boardView&boardId=${board.boardId}">
                                 <p>${board.title}</p>
                             </a>
-                            <div class="dropdown">
-                                <a href="" class="openModal" data-boardid="${board.boardId}">
-                                    <img style="width: 60%; height: 20px" src="../images/ellipsis.png">
-                                </a>
-                            </div>
+<%--                            <div class="dropdown">--%>
+<%--                                <a href="" class="openModal" data-boardid="${board.boardId}">--%>
+<%--                                    <img style="width: 60%; height: 20px" src="../images/ellipsis.png">--%>
+<%--                                </a>--%>
+<%--                            </div>--%>
                         </div>
                     </c:forEach>
                 </div>
