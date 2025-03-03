@@ -5,6 +5,10 @@
     <title>Cài đặt Không gian làm việc</title>
     <link rel="stylesheet" href="/css/user/group/setting_workspace.css">
     <link rel="stylesheet" href="/css/user/group/header.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/sweet-modal/dist/min/jquery.sweet-modal.min.css">
+    <script src="https://unpkg.com/sweet-modal/dist/min/jquery.sweet-modal.min.js"></script>
     <style>
         /* Style cho modal */
         .modal {
@@ -64,8 +68,8 @@
 
             <!-- Nút xóa không gian làm việc -->
             <div>
-                <a href="javascript:void(0);" onclick="openDeleteModal()" style="color: red; text-decoration: underline;">
-                    Xóa không gian làm việc này
+                <a id="deleteWorkspaceBtn" style="color: #FF8C00;">
+                    Xóa không gian làm việc này?
                 </a>
             </div>
         </div>
@@ -76,43 +80,22 @@
 <div id="deleteWorkspaceModal" class="modal">
     <div class="modal-content">
         <h3>Xác nhận xóa không gian làm việc</h3>
-        <p>Nhập tên không gian làm việc để xác nhận xóa:</p>
-        <input type="text" id="workspaceNameInput" placeholder="Nhập tên không gian làm việc...">
-        <p id="errorMessage"></p>
-        <br>
         <button class="btn btn-danger" onclick="confirmDelete()">Xóa</button>
         <button class="btn btn-close" onclick="closeDeleteModal()">Hủy</button>
     </div>
 </div>
-
-<!-- Script xử lý modal và xác nhận xóa -->
+</body>
 <script>
-    function confirmDelete() {
-        let enteredName = document.getElementById("workspaceNameInput").value.trim();
-        let workspaceName = "${group.title}".trim();
+    document.getElementById("deleteWorkspaceBtn").addEventListener("click", function () {
+        document.getElementById("deleteWorkspaceModal").style.display = "block";
+    });
 
-        if (enteredName === workspaceName) {
-            fetch("group_setting", {
-                method: "POST",
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: "id=" + encodeURIComponent("${group.group_id}")
-            })
-                .then(response => {
-                    if (response.ok) {
-                        alert("Xóa thành công!");
-                        window.location.reload();
-                    } else {
-                        alert("Xóa thất bại!");
-                    }
-                })
-                .catch(error => console.error("Lỗi:", error));
-        } else {
-            document.getElementById("errorMessage").style.display = "block";
-            document.getElementById("errorMessage").innerHTML = "⚠️ Tên không gian làm việc không đúng!";
-        }
+    function closeDeleteModal() {
+        document.getElementById("deleteWorkspaceModal").style.display = "none";
     }
 
+    function confirmDelete() {
+        window.location.href = "/group_setting?action=deleteGroup";
+    }
 </script>
-
-</body>
 </html>
