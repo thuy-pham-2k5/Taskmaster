@@ -18,9 +18,6 @@ public class GroupSettingServlet extends HttpServlet {
         String action = req.getParameter("action");
         if (action == null) action = "";
         switch (action) {
-            case "deleteGroup":
-                deleteGroupById (req, resp);
-                break;
             default:
                 break;
         }
@@ -37,6 +34,9 @@ public class GroupSettingServlet extends HttpServlet {
         String action = req.getParameter("action");
         if (action==null) action = "";
         switch (action) {
+            case "deleteGroup":
+                deleteGroupById (req, resp);
+                break;
             default:
                 showGroupSetting (req, resp);
                 break;
