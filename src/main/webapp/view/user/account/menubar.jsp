@@ -79,6 +79,7 @@
         min-width: 292px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         border-radius: 5px;
+        z-index: 9999;
     }
 
     /* Các item trong dropdown */
