@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="/css/user/group/memberWorkspace.css">
 </head>
 <body>
+<header>
+    <jsp:include page="../account/menubar.jsp"/>
+</header>
 <main>
     <div class="content-container">
         <div class="content">

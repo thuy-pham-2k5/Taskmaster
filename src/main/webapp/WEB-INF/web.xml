@@ -6,7 +6,4 @@
     <welcome-file-list>
         <welcome-file>authenticate</welcome-file>
     </welcome-file-list>
-
 </web-app>
-<!--        view/user/group/home_workspace.jsp-->
-<!--        authenticate-->
