@@ -115,7 +115,8 @@
                 <c:if test="${roleIdUser == 3}">
                     <div id="addAccount">
                         <button style="background-color: #1B5B94; padding: 10px;cursor: pointer;border-radius: 5px;align-items: center;height: 35px;justify-content: space-around;display: flex;width: 285px;border: none;" onclick="invite_member()">
-                            <img style="width: 18px; height: 18px" src="/images/account.png" alt="">
+                            <img style="width: 18px; height: 18px" src="/images/add_account.png" alt="">
+
                             <p style="color:white;">Mời thành viên vào Không gian làm việc</p>
                         </button>
                     </div>
