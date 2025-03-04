@@ -7,17 +7,21 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/user/group/homeWorkspace.css">
     <script src="/js/user/group/home_workspace.js" defer></script>
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/sweet-modal/dist/min/jquery.sweet-modal.min.css">
     <script src="https://unpkg.com/sweet-modal/dist/min/jquery.sweet-modal.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 <body>
 <div>
     <div id="header">
         <div id="logo">
-            <img style="height: 40px; width: 40px" src="/images/logo.png">
-            <p>Taskmaster</p>
+            <a href="/account_home">
+                <img style="height: 40px; width: 40px" src="/images/logo.png">
+                <p>Taskmaster</p>
+            </a>
+
         </div>
         <div id="headerTopic">
             <a href="group_home?action=viewGroups" style="text-decoration: none">
@@ -63,11 +67,16 @@
                             <a href="group_home?action=boardView&boardId=${board.boardId}">
                                 <p>${board.title}</p>
                             </a>
-<%--                            <div class="dropdown">--%>
-<%--                                <a href="" class="openModal" data-boardid="${board.boardId}">--%>
-<%--                                    <img style="width: 60%; height: 20px" src="../images/ellipsis.png">--%>
-<%--                                </a>--%>
-<%--                            </div>--%>
+                            <div class="btn-group dropend">
+                                <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">
+                                    ...
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <h6 class="dropdown-header">Tiêu đề bảng</h6>
+                                    <div class="dropdown-divider"></div>
+                                    <li><a class="dropdown-item" href="#">Rời khỏi bảng</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </c:forEach>
                 </div>
@@ -83,8 +92,7 @@
                             <div style="display: flex">
                                 <p id="groupName">${groupInfo.title}</p>
                                 <img class="edit_group_pen" src="/images/edit.png" onclick="showEditModal()">
-
-                                <div id="modalContainer"></div>
+                                <div id="leaveGroupModal"></div>
                             </div>
                             <br>
                             <p style="color: white; margin-left: 15px">${groupInfo.visibility}</p>
@@ -147,6 +155,7 @@
 </div>
 
 <script>
+    /*log out action*/
     document.getElementById("logoutBtn").addEventListener("click", function () {
         Swal.fire({
             title: "Xác nhận đăng xuất",
@@ -228,26 +237,21 @@
         });
     }
 
+    /*Edit the title of group*/
     function showEditModal() {
-        fetch('/view/user/group/edit_group.jsp')
+        fetch('/view/user/group/edit_group.jsp') // Đường dẫn đến file JSP của bạn
             .then(response => response.text())
             .then(html => {
                 document.getElementById("modalContainer").innerHTML = html;
                 document.getElementById("editGroupModal").style.display = "block"; // Hiển thị modal
-
-                // 🚀 Gán dữ liệu vào input sau khi modal đã được thêm vào DOM
-                document.getElementById("groupNameInput").value = "${groupInfo.title}";
-                document.getElementById("groupDescInput").value = "${groupInfo.description}";
             })
-            .catch(error => console.error('Lỗi tải modal:', error));
+            .catch(error => console.error('Error loading modal:', error));
     }
-
 
     function closeEditModal() {
         document.getElementById("editGroupModal").style.display = "none"; // Ẩn modal
     }
+
 </script>
 </body>
 </html>
-
-

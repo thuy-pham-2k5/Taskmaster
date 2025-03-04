@@ -113,7 +113,7 @@ body {
 .board a{
     text-decoration: none;
     color: black;
-    width: 75%;
+    width: 95%;
 }
 
 .board:hover {
@@ -126,8 +126,7 @@ body {
     position: relative;
     display: inline-block;
     border-radius: 5px;
-    width: 25%;
-    height: 100%;
+    width: 5%;
 }
 
 #homeRight {

@@ -83,3 +83,34 @@ button {
     border-radius: 3px;
     border: 1px solid #FFFFFF;
 }
+
+.member-section {
+    margin-top: 20px;
+}
+
+.user-general-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.user-info p {
+    margin: 0;
+}
+
+.user-info-name {
+    font-size: 22px;
+}
+
+.user-button-change {
+    display: flex;
+    align-items: center;
+}
+
+.user-button-change button {
+    margin: 0 25px;
+    padding: 7px 20px;
+    border: 0;
+    background: #145289;
+    border-radius: 5px;
+}
