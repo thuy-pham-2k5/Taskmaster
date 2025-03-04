@@ -35,5 +35,3 @@
         <jsp:include page="../account/notification_log_out.jsp" />
     </div>
 </div>
-</body>
-</html>

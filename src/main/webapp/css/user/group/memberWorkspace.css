@@ -1,12 +1,15 @@
 .content-container {
     background-color: #3179BA;
     color: white;
+    display: flex;
+    height: 100%;
     width: 100%;
-    max-width: 1250px;
     position: absolute;
     margin: 0 auto;
     padding: 16px 32px;
     overflow: visible !important;
+    display: flex;
+    justify-content: center;
 }
 
 .content {

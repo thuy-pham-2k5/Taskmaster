@@ -38,30 +38,6 @@ body {
     margin-left: 35px;
 }
 
-.topic {
-    border-radius: 4px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: white;
-    font-size: 17px;
-}
-
-#headerTopic button {
-    width: 110px;
-    height: 30px;
-    background-color: #116676;
-    color: white;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-}
-
-.topic:hover {
-    background-color: gray;
-}
-
 .listImage {
     width: 15px;
     height: 15px;
@@ -169,7 +145,7 @@ body {
     color: #FFFFFF;
 }
 
-.dropdown {
+.dropdown-menubar {
     position: relative;
     display: inline-block;
     border-radius: 5px;

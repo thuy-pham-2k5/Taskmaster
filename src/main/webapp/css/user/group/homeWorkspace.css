@@ -142,14 +142,6 @@ body {
     color: #FFFFFF;
 }
 
-.dropdown {
-    position: relative;
-    display: inline-block;
-    border-radius: 5px;
-    width: 25%;
-    height: 100%;
-}
-
 #homeRight {
     flex: 1;
     background-color: #3179BA;
