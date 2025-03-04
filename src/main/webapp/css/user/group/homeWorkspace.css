@@ -26,9 +26,29 @@ body {
 #logo {
     padding-left: 20px;
     display: flex;
-    align-items: center;
-    gap: 10px;
+    align-items: center; /* Căn giữa theo chiều dọc */
 }
+
+#logo a {
+    display: flex;
+    align-items: center; /* Đảm bảo hình ảnh và văn bản thẳng hàng */
+    text-decoration: none; /* Loại bỏ gạch chân mặc định của thẻ <a> */
+    gap: 10px; /* Tạo khoảng cách giữa logo và chữ */
+}
+
+#logo img {
+    height: 40px;
+    width: 40px;
+    object-fit: contain; /* Đảm bảo hình ảnh không bị méo */
+}
+
+#logo span {
+    font-size: 18px;
+    font-weight: bold;
+    color: #1E293B; /* Màu chữ tối hơn giúp dễ đọc */
+    white-space: nowrap; /* Tránh bị xuống dòng */
+}
+
 
 #headerTopic {
     display: flex;
@@ -50,7 +70,7 @@ body {
 
 #headerTopic button {
     width: 110px;
-    height: 30px;
+    height: 43px;
     background-color: #116676;
     color: white;
     border-radius: 5px;
@@ -156,6 +176,7 @@ body {
 
 
 #homeLeft #workspace {
+    border: none;
     margin: 18px;
     border-radius: 8px;
     width: 50px;
@@ -210,6 +231,7 @@ body {
 }
 
 #group {
+    border: none;
     width: 60px;
     height: 60px;
     background-color: orange;
@@ -235,9 +257,10 @@ body {
 }
 
 #groupInformation {
+    height: auto;
     align-items: center;
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding-top: 30px;
+    padding-bottom: 30px;
     display: flex;
     justify-content: space-around;
     border-bottom: 1px solid darkgray;
@@ -275,6 +298,7 @@ body {
     color: white;
     height: 35px;
     background-color: #3179BA;
+    outline: none;
 }
 
 #searchTable input {
@@ -284,6 +308,8 @@ body {
     height: 35px;
     color: white;
     background-color: #3179BA;
+    outline: none;
+    padding: 12px;
 }
 
 #searchTable button {
@@ -521,4 +547,93 @@ body {
     #viewOffTable {
         width: 100%;
     }
+}
+
+
+
+/* Khung chính */
+#edit_frame {
+    width: 380px;
+    display: none; /* Ẩn mặc định */
+    background-color: #3179BA; /* Màu xanh đậm hơn */
+    padding: 24px;
+    max-width: 460px; /* Giới hạn chiều rộng */
+}
+
+/* Tiêu đề & nhãn */
+#edit_frame label {
+    color: #F1F5F9; /* Màu chữ trắng nhạt */
+    font-size: 16px;
+    align-self: flex-start; /* Căn trái label */
+}
+
+/* Ô input và textarea */
+#groupNameInput,
+#groupDescInput {
+    margin-top: 4px;
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #a0bbdc;
+    border-radius: 8px;
+    font-size: 15px;
+    background-color: #6494c4;
+    color: #1E293B;
+    box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#groupNameInput:focus,
+#groupDescInput:focus {
+    border-color: #0EA5E9; /* Màu xanh khi focus */
+    outline: none;
+    box-shadow: 0px 0px 8px rgba(14, 165, 233, 0.5);
+}
+
+/* Thiết kế textarea */
+#groupDescInput {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Nhóm nút bấm */
+.button-group {
+    width: 100%;
+    display: flex;
+    gap: 12px;
+}
+
+/* Thiết kế nút */
+#edit_frame button {
+    width: 90px;
+    margin-top: 20px;
+    padding: 12px;
+    border: none;
+    border-radius: 3px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Nút Lưu */
+.save-btn {
+    background-color: #0EA5E9;
+    color: white;
+}
+
+.save-btn:hover {
+    background-color: #0284C7;
+    transform: translateY(-2px);
+    box-shadow: 0px 6px 12px rgba(18, 145, 213, 0.4);
+}
+
+/* Nút Hủy */
+.cancel-btn {
+    background-color: #8a939d;
+    color: white;
+}
+
+.cancel-btn:hover {
+    background-color: #DC2626;
+    transform: translateY(-2px);
+    box-shadow: 0px 6px 12px rgba(220, 38, 38, 0.4);
 }
