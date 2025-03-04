@@ -59,7 +59,7 @@
     .button-menubar {
         border: 0;
         height: 32px;
-        margin-right: 4px;
+        margin-right: 18px;
         line-height: 32px;
         white-space: nowrap;
         background: none;
@@ -96,7 +96,8 @@
     }
 
     .dropdown-content a:hover {
-        background-color: #d5d4d4;
+        border-radius: 5px;
+        background-color: rgb(59 139 210);
     }
 
     .dropdown-menubar button.active,
@@ -130,6 +131,7 @@
         color: white;
         font-family: inherit;
         padding: 4px;
+        margin-right: 15px;
     }
 
     .logo-web:hover {
@@ -161,9 +163,15 @@
         display: flex;
     }
 
+    .dropdown-img {
+        width: 14px;
+        margin-left: 4px;
+        transform: translateY(2px);
+    }
+
     .input-search {
         height: 32px;
-        margin-right: 4px;
+        margin-right: 10px;
         background: none;
         border: 1px solid white;
         border-radius: 5px;
@@ -179,7 +187,7 @@
     .notification {
         display: inline-block;
         position: relative;
-        margin-right: 4px;
+        margin-right: 10px;
     }
 
     .img-notification {
@@ -267,7 +275,10 @@
         </a>
         <div class="basic-list">
             <div class="dropdown-menubar">
-                <button class="button-hover button-menubar basic-list-1" onclick="toggleDropdownMenubar('workspace', this)">Các không gian làm việc</button>
+                <button class="button-hover button-menubar basic-list-1" onclick="toggleDropdownMenubar('workspace', this)">
+                    Các không gian làm việc
+                    <img src="/images/list.png" alt="dropdown.png" class="dropdown-img">
+                </button>
                 <div class="dropdown-content" id="workspace">
                     <a href="#">Tùy chọn 1</a>
                     <a href="#">Tùy chọn 2</a>
@@ -275,7 +286,10 @@
                 </div>
             </div>
             <div class="dropdown-menubar">
-                <button class="button-hover button-menubar basic-list-2" onclick="toggleDropdownMenubar('recent', this)">Gần đây</button>
+                <button class="button-hover button-menubar basic-list-2" onclick="toggleDropdownMenubar('recent', this)">
+                    Gần đây
+                    <img src="/images/list.png" alt="dropdown.png" class="dropdown-img">
+                </button>
                 <div class="dropdown-content" id="recent">
                     <a href="#">Tùy chọn 3</a>
                     <a>Tùy chọn 4</a>
@@ -283,7 +297,10 @@
                 </div>
             </div>
             <div class="dropdown-menubar">
-                <button class="button-hover button-menubar basic-list-3" onclick="toggleDropdownMenubar('stars', this)">Đã đánh dấu sao</button>
+                <button class="button-hover button-menubar basic-list-3" onclick="toggleDropdownMenubar('stars', this)">
+                    Đã đánh dấu sao
+                    <img src="/images/list.png" alt="dropdown.png" class="dropdown-img">
+                </button>
                 <div class="dropdown-content" id="stars">
                     <a href="#">Tùy chọn 6</a>
                     <a href="#">Tùy chọn 7</a>
@@ -293,7 +310,10 @@
         </div>
         <div class="backup-list">
             <div class="dropdown-menubar">
-                <button class="button-hover button-menubar" onclick="toggleDropdownMenubar('add', this)">Thêm</button>
+                <button class="button-hover button-menubar" onclick="toggleDropdownMenubar('add', this)">
+                    Thêm
+                    <img src="/images/list.png" alt="dropdown.png" class="dropdown-img">
+                </button>
                 <div>
                     <div class="dropdown-content" id="add">
                         <a id="link-add-workspace" onclick="toggleDisplayMenubar(event, 'add-workspace', this)">Các không gian làm việc</a>
