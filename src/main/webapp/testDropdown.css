@@ -1,0 +1,93 @@
+.dropdown-menu {
+    background-color: #1e1e1e;
+    border-radius: 12px;
+    padding: 10px;
+    min-width: 220px; /* Giảm chiều rộng tối thiểu */
+    max-width: 250px; /* Giữ kích thước hợp lý */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    border: none;
+    width: auto;
+}
+
+.dropdown-header {
+    color: #bbb;
+    font-size: 14px;
+    padding: 8px 12px; /* Giảm padding để gọn hơn */
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-btn {
+    cursor: pointer;
+    font-size: 16px;
+    color: #999;
+    transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+    color: white;
+}
+
+.dropdown-item-button {
+    background: transparent;
+    border: none;
+    color: #d1d1d1;
+    font-size: 14px; /* Giảm font-size để gọn hơn */
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px; /* Giữ khoảng cách hợp lý */
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.dropdown-item-button:hover {
+    background-color: #333;
+    color: white;
+}
+
+.arrow {
+    font-size: 14px;
+    color: #999;
+    transition: color 0.3s ease;
+}
+
+.dropdown-item-button:hover .arrow {
+    color: white;
+}
+
+.dropdown-toggle::after {
+    display: none !important;
+}
+
+.confirm-btn {
+    background-color: #e74c3c;
+    color: white;
+    font-size: 14px; /* Giảm font-size để gọn hơn */
+    padding: 8px;
+    width: 100%;
+    border-radius: 6px;
+    border: none;
+}
+
+.confirm-btn:hover {
+    background-color: #c0392b;
+}
+
+#dropdownMenu2 {
+    background-color: #1e1e1e;
+    border-radius: 12px;
+    padding: 10px;
+    min-width: 250px;
+    max-width: 300px;
+}
+
+/* Chỉnh lại đoạn mô tả trong dropdown 2 */
+#dropdownMenu2 p {
+    font-size: 13px;  /* Giảm kích thước chữ */
+    font-weight: 500;  /* Đậm hơn để dễ đọc */
+    color: #e0e0e0;  /* Màu sáng hơn cho dễ nhìn */
+}
