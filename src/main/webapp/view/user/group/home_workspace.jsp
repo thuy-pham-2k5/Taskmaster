@@ -34,7 +34,7 @@
         </div>
         <div id="accountSearchNotification">
             <div id="search">
-                <input type="text" style="width: 170px ; height: 30px; border-radius: 5px;"
+                <input type="text" style="width: 170px ; height: 30px; border-radius: 5px; border: none; outline: none;padding: 12px;"
                        placeholder="Tìm kiếm bảng...">
             </div>
             <img src="/images/bell.png">
@@ -97,11 +97,26 @@
                     <br>
                     <p id="content">${groupInfo.description}</p>
                 </div>
+                <!-- Phần chỉnh sửa, Ẩn mặc định -->
+                <div id="edit_frame">
+                    <label>🏢 Tên không gian làm việc</label>
+                    <input type="text" id="groupNameInput" style="margin-bottom: 20px" value="${groupInfo.title}">
+
+                    <label>📝 Mô tả (tùy chỉnh)</label>
+                    <textarea id="groupDescInput">${groupInfo.description}</textarea>
+
+                    <div class="button-group">
+                        <button class="save-btn" onclick="saveEditGroup()">Lưu</button>
+                        <button class="cancel-btn" onclick="cancelEdit()">Hủy</button>
+                    </div>
+                </div>
+
 
                 <c:if test="${roleIdUser == 3}">
                     <div id="addAccount">
-                        <button style="background-color: #1B5B94" onclick="invite_member()">
-                            <img style="width: 15px; height: 15px" src="/images/add_account.png" alt="">
+                        <button style="background-color: #1B5B94; padding: 10px;cursor: pointer;border-radius: 5px;align-items: center;height: 35px;justify-content: space-around;display: flex;width: 285px;border: none;" onclick="invite_member()">
+                            <img style="width: 18px; height: 18px" src="/images/add_account.png" alt="">
+
                             <p style="color:white;">Mời thành viên vào Không gian làm việc</p>
                         </button>
                     </div>
@@ -150,6 +165,42 @@
 </div>
 
 <script>
+
+    function showEditModal() {
+        // Ẩn div information và hiển thị div edit_frame
+        document.getElementById("information").style.display = "none";
+        document.getElementById("edit_frame").style.display = "block";
+
+        // Copy nội dung cũ vào input
+        document.getElementById("editInput").value = document.getElementById("groupName").textContent;
+    }
+
+    function saveChanges() {
+        // Cập nhật nội dung mới
+        document.getElementById("groupName").textContent = document.getElementById("editInput").value;
+
+        // Quay về trạng thái hiển thị ban đầu
+        document.getElementById("edit_frame").style.display = "none";
+        document.getElementById("information").style.display = "block";
+    }
+
+    function cancelEdit() {
+        // Hủy chỉnh sửa, quay về ban đầu
+        document.getElementById("edit_frame").style.display = "none";
+        document.getElementById("information").style.display = "block";
+    }
+
+
+
+
+
+
+
+
+
+
+
+
     document.getElementById("logoutBtn").addEventListener("click", function () {
         Swal.fire({
             title: "Xác nhận đăng xuất",
@@ -166,6 +217,8 @@
             }
         });
     });
+
+
 
     // ✅ In ra console để kiểm tra dữ liệu JSON
     let closedBoards = <%= new Gson().toJson(request.getAttribute("closedBoards")) %>;
@@ -231,20 +284,6 @@
         });
     }
 
-
-    function showEditModal() {
-        fetch('/view/user/group/edit_group.jsp') // Đường dẫn đến file JSP của bạn
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById("modalContainer").innerHTML = html;
-                document.getElementById("editGroupModal").style.display = "block"; // Hiển thị modal
-            })
-            .catch(error => console.error('Error loading modal:', error));
-    }
-
-    function closeEditModal() {
-        document.getElementById("editGroupModal").style.display = "none"; // Ẩn modal
-    }
 </script>
 </body>
 </html>
