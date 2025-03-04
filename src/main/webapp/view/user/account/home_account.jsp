@@ -33,7 +33,7 @@
         </div>
         <div id="accountSearchNotification">
             <div id="search">
-                <input type="text" style="width: 170px ; height: 30px; border-radius: 5px;"
+                <input type="text" style="width: 170px ; height: 30px; border-radius: 5px; border: none"
                        placeholder="Tìm kiếm bảng...">
             </div>
             <img src="/images/bell.png">

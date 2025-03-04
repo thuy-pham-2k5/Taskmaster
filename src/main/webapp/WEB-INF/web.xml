@@ -6,9 +6,8 @@
     <welcome-file-list>
 <!--        <welcome-file>view/user/account/menubar.jsp</welcome-file>-->
 <!--        <welcome-file>authenticate</welcome-file>-->
-        <welcome-file>testDropdown.jsp</welcome-file>
+<!--        <welcome-file>testDropdown.jsp</welcome-file>-->
 <!--        <welcome-file>view/user/group/notification_leave_board.jsp</welcome-file>-->
-<!--        <welcome-file>view/user/account/menubar.jsp</welcome-file>-->
+        <welcome-file>view/user/account/menubar.jsp</welcome-file>
     </welcome-file-list>
-
 </web-app>
