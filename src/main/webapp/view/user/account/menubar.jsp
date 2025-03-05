@@ -25,6 +25,10 @@
         align-items: stretch;
     }
 
+    .basic-list {
+        display: flex;
+    }
+
     .create-new-one {
         display: flex;
         margin: 0 4px;
@@ -64,7 +68,7 @@
     }
 
     /* Container của dropdown */
-    .dropdown {
+    .dropdown-menubar {
         position: relative;
         display: inline-block;
     }
@@ -95,8 +99,8 @@
         background-color: #d5d4d4;
     }
 
-    .dropdown button.active,
-    .dropdown button:hover {
+    .dropdown-menubar button.active,
+    .dropdown-menubar button:hover {
         background-color: rgb(227 226 226 / 50%);
         border-radius: 5px;
     }
@@ -262,24 +266,24 @@
             </div>
         </a>
         <div class="basic-list">
-            <div class="dropdown">
-                <button class="button-hover button-menubar basic-list-1" onclick="toggleDropdown('workspace', this)">Các không gian làm việc</button>
+            <div class="dropdown-menubar">
+                <button class="button-hover button-menubar basic-list-1" onclick="toggleDropdownMenubar('workspace', this)">Các không gian làm việc</button>
                 <div class="dropdown-content" id="workspace">
                     <a href="#">Tùy chọn 1</a>
                     <a href="#">Tùy chọn 2</a>
                     <a href="#">Tùy chọn 3</a>
                 </div>
             </div>
-            <div class="dropdown">
-                <button class="button-hover button-menubar basic-list-2" onclick="toggleDropdown('recent', this)">Gần đây</button>
+            <div class="dropdown-menubar">
+                <button class="button-hover button-menubar basic-list-2" onclick="toggleDropdownMenubar('recent', this)">Gần đây</button>
                 <div class="dropdown-content" id="recent">
                     <a href="#">Tùy chọn 3</a>
                     <a>Tùy chọn 4</a>
                     <a>Tùy chọn 5</a>
                 </div>
             </div>
-            <div class="dropdown">
-                <button class="button-hover button-menubar basic-list-3" onclick="toggleDropdown('stars', this)">Đã đánh dấu sao</button>
+            <div class="dropdown-menubar">
+                <button class="button-hover button-menubar basic-list-3" onclick="toggleDropdownMenubar('stars', this)">Đã đánh dấu sao</button>
                 <div class="dropdown-content" id="stars">
                     <a href="#">Tùy chọn 6</a>
                     <a href="#">Tùy chọn 7</a>
@@ -288,13 +292,13 @@
             </div>
         </div>
         <div class="backup-list">
-            <div class="dropdown">
-                <button class="button-hover button-menubar" onclick="toggleDropdown('add', this)">Thêm</button>
+            <div class="dropdown-menubar">
+                <button class="button-hover button-menubar" onclick="toggleDropdownMenubar('add', this)">Thêm</button>
                 <div>
                     <div class="dropdown-content" id="add">
-                        <a id="link-add-workspace" onclick="toggleDisplay(event, 'add-workspace', this)">Các không gian làm việc</a>
-                        <a id="link-add-recent" onclick="toggleDisplay(event, 'add-recent', this)">Gần đây</a>
-                        <a id="link-add-stars" onclick="toggleDisplay(event, 'add-stars', this)">Đã đánh dấu sao</a>
+                        <a id="link-add-workspace" onclick="toggleDisplayMenubar(event, 'add-workspace', this)">Các không gian làm việc</a>
+                        <a id="link-add-recent" onclick="toggleDisplayMenubar(event, 'add-recent', this)">Gần đây</a>
+                        <a id="link-add-stars" onclick="toggleDisplayMenubar(event, 'add-stars', this)">Đã đánh dấu sao</a>
                     </div>
                     <div class="dropdown-content" id="add-workspace">
                         <div style="display: flex; justify-content: space-between; margin-bottom: 15px">
@@ -342,8 +346,8 @@
             </div>
         </div>
         <div>
-            <div class="dropdown">
-                <button class="create-new-one" onclick="toggleDropdown('create-new', this)">
+            <div class="dropdown-menubar">
+                <button class="create-new-one" onclick="toggleDropdownMenubar('create-new', this)">
                     <label>Tạo mới</label>
                     <img class="img-menubar" src="/images/add.png" alt="plus.png" style="margin: auto">
                 </button>
@@ -364,8 +368,8 @@
             <div class="number-of-notification"><span>3</span></div>
         </div>
         <div>
-            <div class="dropdown">
-                <button class="button-menubar" style="padding: 0" onclick="toggleDropdown('account', this)"><img
+            <div class="dropdown-menubar">
+                <button class="button-menubar" style="padding: 0" onclick="toggleDropdownMenubar('account', this)"><img
                         class="img-account" src="/images/account.png" alt="account.png"></button>
                 <div class="dropdown-content" id="account">
                     <h4 style="color: white">Tài khoản</h4>
@@ -384,7 +388,7 @@
 </div>
 
 <script>
-    function toggleDropdown(dataId, button) {
+    function toggleDropdownMenubar(dataId, button) {
         let dropdown = document.getElementById(dataId);
 
         // Đóng tất cả dropdown khác và xóa class active của tất cả button
@@ -393,7 +397,7 @@
                 menu.style.display = "none";
             }
         });
-        document.querySelectorAll(".dropdown button").forEach(btn => {
+        document.querySelectorAll(".dropdown-menubar button").forEach(btn => {
             if (btn !== button) {
                 btn.classList.remove("active");
             }
@@ -422,20 +426,20 @@
 
     // Ẩn tất cả dropdown khi click ra ngoài
     window.onclick = function (event) {
-        let button = event.target.closest(".dropdown button"); // Tìm button cha nếu có
+        let button = event.target.closest(".dropdown-menubar button"); // Tìm button cha nếu có
         let dropdownContent = event.target.closest(".dropdown-content"); // Tìm dropdown đang chứa phần tử click vào
 
         if (!button && !dropdownContent) { // Nếu không phải button hoặc phần tử trong dropdown
             document.querySelectorAll(".dropdown-content").forEach(menu => {
                 menu.style.display = "none";
             });
-            document.querySelectorAll(".dropdown button").forEach(btn => {
+            document.querySelectorAll(".dropdown-menubar button").forEach(btn => {
                 btn.classList.remove("active");
             });
         }
     };
 
-    function toggleDisplay(event, id, link) {
+    function toggleDisplayMenubar(event, id, link) {
         event.stopPropagation(); // Ngăn chặn sự kiện click lan lên window
 
         let dropdown = document.getElementById(id);

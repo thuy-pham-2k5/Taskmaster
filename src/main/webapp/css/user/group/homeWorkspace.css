@@ -142,6 +142,7 @@ body {
     color: #FFFFFF;
 }
 
+<<<<<<< HEAD
 .dropdown {
     position: relative;
     display: inline-block;
@@ -149,6 +150,8 @@ body {
     width: 5%;
 }
 
+=======
+>>>>>>> ef15ccfeb98a86e9b866d90d9da7d2a05bb53255
 #homeRight {
     flex: 1;
     background-color: #3179BA;

@@ -46,6 +46,9 @@
             </a>
         </div>
     </div>
+    <div>
+        <jsp:include page="../account/menubar.jsp"/>
+    </div>
 
     <div class="container">
         <div id="homeLeft">
@@ -163,7 +166,6 @@
                         </c:forEach>
                     </div>
                 </div>
-
                 <button id="openModalButton">Xem các bảng đã đóng</button>
             </div>
         </div>

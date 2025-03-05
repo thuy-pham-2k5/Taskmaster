@@ -44,7 +44,7 @@
 
 <!-- Sidebar -->
 <div class="sidebar">
-    <jsp:include page="../group/header.jsp"/>
+    <jsp:include page="../account/menubar.jsp"/>
 </div>
 
 <!-- Container chính -->

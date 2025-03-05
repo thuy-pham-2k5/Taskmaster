@@ -14,36 +14,10 @@
     <script src="https://cdn.jsdelivr.net/npm/sweet-modal@1.3.3/dist/min/jquery.sweet-modal.min.js"></script>
 </head>
 <body>
-
 <div>
-    <div id="header">
-        <div id="logo">
-            <img style="height: 40px; width: 40px" src="/images/logo.png">
-            <p>Taskmaster</p>
-        </div>
-        <div id="headerTopic">
-            <a href="group_home?action=viewGroups" style="text-decoration: none">
-                <div class="topic"><p>Các không gian làm vệc </p><img class="listImage" src="/images/list.png"></div>
-            </a>
-            <div class="topic"><p>Gần đây</p> <img class="listImage" src="/images/list.png"></div>
-            <div class="topic"><P>Đã đánh dấu sao</P><img class="listImage" src="/images/list.png"></div>
-            <a href="/view/user/group/create_workspace.jsp">
-                <button>Tạo không gian làm việc mới</button>
-            </a>
-        </div>
-        <div id="accountSearchNotification">
-            <div id="search">
-                <input type="text" style="width: 170px ; height: 30px; border-radius: 5px; border: none"
-                       placeholder="Tìm kiếm bảng...">
-            </div>
-            <img src="/images/bell.png">
-            <img src="https://vivureviews.com/wp-content/uploads/2022/08/avatar-vo-danh-9.png">
-            <a href="javascript:void(0);" id="logoutBtn">
-                <img src="https://png.pngtree.com/png-clipart/20230314/original/pngtree-log-out-vector-icon-design-illustration-png-image_8987853.png">
-            </a>
-
-        </div>
-    </div>
+    <jsp:include page="menubar.jsp"/>
+</div>
+<div>
     <div class="body">
         <div class="container">
             <nav id="homeLeft">
@@ -59,12 +33,12 @@
                     <hr style="color: white">
                     <ul class="title">Các Không gian làm việc</ul>
                     <c:forEach items="${groups}" var="group">
-                        <div class="dropdown">
+                        <div class="dropdown-container-group">
                             <button class="dropbtn">
                                     ${group.title}
                                 <span class="arrow">▼</span>
                             </button>
-                            <ul class="dropdown-content">
+                            <ul class="dropdown-content-group">
                                 <li>
                                     <a href="/account_home?action=showGroupHomeView&groupId=${group.groupId}">Bảng</a>
                                 </li>

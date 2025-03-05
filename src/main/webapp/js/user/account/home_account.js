@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
         button.addEventListener("click", function (event) {
             event.stopPropagation(); // Ngăn sự kiện lan ra ngoài
 
-            const dropdownContent = this.nextElementSibling; // Lấy <ul class="dropdown-content">
+            const dropdownContent = this.nextElementSibling; // Lấy <ul class="dropdown-content-group">
             const arrow = this.querySelector(".arrow"); // Lấy phần tử chứa mũi tên
 
             // Toggle hiển thị dropdown

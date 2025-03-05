@@ -1,12 +1,19 @@
 .content-container {
     background-color: #3179BA;
     color: white;
+    display: flex;
+    height: 100%;
     width: 100%;
+<<<<<<< HEAD
     /*max-width: 1250px;*/
+=======
+>>>>>>> ef15ccfeb98a86e9b866d90d9da7d2a05bb53255
     position: absolute;
     margin: 0 auto;
     padding: 16px 32px;
     overflow: visible !important;
+    display: flex;
+    justify-content: center;
 }
 
 .content {
