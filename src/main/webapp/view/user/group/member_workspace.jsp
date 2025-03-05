@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="/css/user/group/memberWorkspace.css">
 </head>
 <body>
+<header>
+    <jsp:include page="../account/menubar.jsp"/>
+</header>
 <main>
     <div class="content-container">
         <div class="content">
@@ -41,9 +44,9 @@
                         <%--yêu cầu tham gia--%>
                         <jsp:useBean id="user" scope="session" type="com.example.taskmaster.model.User"/>
                         <c:if test="${user.roleId == 3}">
-                        <div class="request-section" style="display: none;">
-                            <h2>Yêu cầu tham gia</h2>
-                        </div>
+                            <div class="request-section" style="display: none;">
+                                <h2>Yêu cầu tham gia</h2>
+                            </div>
                         </c:if>
                     </div>
                     <hr>

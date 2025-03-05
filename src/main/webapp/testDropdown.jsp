@@ -9,51 +9,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="testDropdown.css">
-    <style>
-        .dropdown-menu {
-            transform: translateX(20px) translateY(10px); /* Chỉnh lệch phải và xuống */
-            min-width: 300px;
-        }
-
-        .dropdown-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            font-weight: bold;
-        }
-
-        .close-btn {
-            cursor: pointer;
-            font-size: 18px;
-        }
-
-        .dropdown-item-button {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            background: none;
-            border: none;
-            padding: 10px;
-            text-align: left;
-        }
-
-        .confirm-btn {
-            width: 100%;
-            padding: 10px;
-            background-color: red;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        #dropdownMenu2 {
-            min-width: 250px;
-        }
-    </style>
 </head>
 <body class="bg-dark">
-
 <div class="container mt-5">
     <div class="btn-group">
         <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">
