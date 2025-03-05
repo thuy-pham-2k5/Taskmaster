@@ -1,9 +1,3 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
     font-family: Arial, sans-serif;
 }
@@ -13,45 +7,6 @@ body {
     display: flex;
     min-height: 90vh;
 }
-
-#header {
-    width: 100%;
-    height: 70px;
-    background-color: #3FB5CC;
-    display: flex;
-    align-items: center;
-
-}
-
-#logo {
-    padding-left: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-#headerTopic {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    width: 800px;
-    margin-left: 35px;
-}
-
-.listImage {
-    width: 15px;
-    height: 15px;
-}
-
-/* Chữ Taskmaster */
-
-#logo p {
-    font-size: 25px;
-    color: white;
-    font-family: Italianno;
-    font-style: italic;
-}
-
 
 .container {
     display: flex;
@@ -77,22 +32,6 @@ body {
     overflow: hidden; /* Ngăn chặn phần tử con tràn ra ngoài */
 
 }
-
-
-#accountSearchNotification {
-    width: 690px;
-    display: flex;
-    align-items: center; /* Căn giữa theo chiều dọc */
-    justify-content: flex-end; /* Đưa tất cả phần tử về bên phải */
-    gap: 20px; /* Giãn cách các phần tử dần về bên trái */
-    padding: 10px;
-}
-
-#header #accountSearchNotification img {
-    width: 40px;
-    height: 40px;
-}
-
 
 #homeLeft #workspace {
     margin: 18px;
@@ -143,14 +82,6 @@ body {
     background-color: #3179BA;
     border-radius: 5px;
     color: #FFFFFF;
-}
-
-.dropdown-menubar {
-    position: relative;
-    display: inline-block;
-    border-radius: 5px;
-    width: 25%;
-    height: 100%;
 }
 
 #workspaceName {
@@ -357,53 +288,12 @@ body {
         width: 100%;
         height: auto;
     }
-
-    #headerTopic {
-        width: 100%;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    #accountSearchNotification {
-        width: 100%;
-        justify-content: center;
-    }
 }
 
 /* Điện thoại (màn hình nhỏ hơn 768px) */
 @media screen and (max-width: 768px) {
-
-    #header {
-        height: 60px; /* Giảm chiều cao header */
-    }
-
-    #logo p {
-        font-size: 18px; /* Giảm kích thước chữ trong logo */
-    }
-
-    .topic {
-        font-size: 14px; /* Giảm kích thước chữ của các mục trên header */
-    }
-
-    #headerTopic button {
-        width: 90px;
-        height: 25px;
-        font-size: 13px; /* Giảm kích thước chữ của nút */
-    }
-
     .container {
         flex-direction: column;
-    }
-
-    #header {
-        height: auto;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    #logo {
-        flex-direction: column;
-        text-align: center;
     }
 
     #homeLeft {
@@ -417,12 +307,6 @@ body {
         width: 100%;
         height: auto;
         padding: 10px;
-    }
-
-    #headerTopic {
-        flex-wrap: wrap;
-        justify-content: center;
-        width: 100%;
     }
 
     #workspaceList div {
