@@ -1,116 +1,193 @@
+
 * {
     background-color: #3179BA;
-    color: white;
 }
-
 .content-container {
-    max-width: 1250px;
-    position: relative;
-    margin: 0 auto;
-    padding: 16px 32px;
-}
-
-.content {
     display: flex;
     flex-direction: column;
-    margin: 0;
+    font-family: Arial, sans-serif;
 }
 
 .header-content {
-    padding-top: 16px;
+    margin-top: 30px;
 }
 
 .header-content h2 {
-    margin-bottom: 16px;
+    color: white;
+    margin: 0;
+    font-size: 32px;
 }
 
 .main-content {
     display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    gap: 32px;
+    margin-top: 20px;
 }
 
 .main-content-sidebar {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    max-width: 240px;
-    margin: 0;
+    width: 300px;
+    padding-right: 10px;
 }
 
-ul {
+.main-content-sidebar ul {
     list-style: none;
-    margin: 0;
     padding: 0;
 }
 
-ul li {
-    display: list-item;
-    text-align: -webkit-match-parent;
-    unicode-bidi: isolate;
-    padding: 10px;
-    transition: background-color 0.3s ease;
+.main-content-sidebar ul li {
+    margin: 20px 0;
+}
+
+.main-content-sidebar ul li a {
+    font-size: 20px;
+    text-decoration: none;
+    color: white;
     cursor: pointer;
-    margin-bottom: 5px;
-}
-
-ul li.active {
-    background-color: rgb(6 43 95 / 50%);
-    color: #fff;
-    border-radius: 5px;
-}
-
-ul li:hover {
-    border-radius: 5px;
-    background-color: rgba(217, 217, 217, 0.5);
-}
-
-ul li a {
-    background-color: transparent;
 }
 
 .main-content-show {
-    flex: 1 1 600px;
+    margin-top: 5px;
+    flex: 1;
+    padding-left: 40px;
+    padding-right: 40px;
 }
 
-button {
-    cursor: pointer;
-}
-.input-search {
-    padding: 5px;
-    border-radius: 3px;
-    border: 1px solid #FFFFFF;
+.member-section, .guest-section, .request-section {
+    display: none;
 }
 
-.member-section {
-    margin-top: 20px;
+.member-section.active, .guest-section.active, .request-section.active {
+    display: block;
 }
 
 .user-general-info {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid rgb(255 255 255 / 39%);
 }
 
-.user-info p {
-    margin: 0;
+.user-info {
+    color: white;
+    display: flex;
+    flex-direction: column;
 }
 
 .user-info-name {
-    font-size: 22px;
-}
-
-.user-button-change {
-    display: flex;
-    align-items: center;
+    font-size: 20px;
+    /*font-weight: bold;*/
+    margin: 0;
 }
 
 .user-button-change button {
-    margin: 0 25px;
-    padding: 7px 20px;
-    border: 0;
-    background: #145289;
-    border-radius: 5px;
+    height: 35px;
+    width: 130px;
+    border-radius: 4px;
+    color: white;
+    outline: none;
+    margin-left: 10px;
+    padding: 5px 10px;
+    border: 1px solid #fafafa;
+    background-color:#ffffff12;
+    cursor: pointer;
+}
+
+.input-search{
+    background-color: #ffffff17;
+    padding-left: 10px;
+    margin-top: 20px;
+    border-radius: 4px;
+    width: 250px;
+    height: 35px;
+    border: 1px solid #fff;
+    outline: none;
+}
+
+h2{
+    color: white;
+}
+
+p{
+    color: white;
+    font-size: 16px;
+    margin: 13px 0px 0px 0px;
+}
+
+
+
+
+
+
+
+
+
+.guest-section {
+    display: none;
+}
+
+/* Chỉnh các phần tử hiển thị theo hàng ngang và căn đều */
+.guest-section div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0px;
+    border-bottom: 1px solid rgb(255 255 255 / 39%);
+}
+
+/* Chỉnh màu chữ trắng */
+.guest-section label {
+    color: white;
+    font-size: 18px;
+    flex: 1; /* Để các label chia đều khoảng cách */
+}
+
+/* Nút "Loại bỏ" */
+.guest-section button {
+    height: 35px;
+    width: 130px;
+    border-radius: 4px;
+    color: white;
+    outline: none;
+    margin-left: 10px;
+    padding: 5px 10px;
+    border: 1px solid #fafafa;
+    background-color:#ffffff12;
+    cursor: pointer;
+}
+
+
+
+
+.request-section{
+    display: none;
+}
+
+.request-section div{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0px;
+    border-bottom: 1px solid rgb(255 255 255 / 39%);
+}
+
+
+/* Chỉnh màu chữ trắng */
+.request-section label {
+    color: white;
+    font-size: 18px;
+    flex: 1; /* Để các label chia đều khoảng cách */
+}
+
+/* Nút "Loại bỏ" */
+.request-section button {
+    height: 35px;
+    width: 130px;
+    border-radius: 4px;
+    color: white;
+    outline: none;
+    margin-left: 10px;
+    padding: 5px 10px;
+    border: 1px solid #fafafa;
+    background-color:#ffffff12;
+    cursor: pointer;
 }

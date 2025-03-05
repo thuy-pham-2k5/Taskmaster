@@ -7,12 +7,11 @@
     <link rel="stylesheet" href="/css/user/group/memberWorkspace.css">
 </head>
 <body>
-<main>
     <div class="content-container">
-        <div class="content">
-            <header class="header-content">
+            <div class="header-content">
                 <h2>Người cộng tác</h2>
-            </header>
+            </div>
+
             <div class="main-content">
                 <%--nội dung bên trái--%>
                 <div class="main-content-sidebar">
@@ -26,31 +25,42 @@
 
                 <%--nội dung bên phải--%>
                 <div class="main-content-show">
-                    <div>
                         <%--thành viên Không gian--%>
                         <div class="member-section">
                             <h2>Thành viên Không gian làm việc</h2>
                             <p>Các thành viên trong Không gian làm việc có thể xem và tham gia tất cả các bảng Không
                                 gian làm việc hiển thị và tạo ra các bảng mới trong Không gian làm việc.</p>
                         </div>
+
+
+
                         <%--khách--%>
                         <div class="guest-section" style="display: none;">
                             <h2>Khách</h2>
                             <p>Khách chỉ có thể xem và chỉnh sửa bảng mà họ được thêm vào.</p>
                         </div>
+
+
+
                         <%--yêu cầu tham gia--%>
                         <jsp:useBean id="user" scope="session" type="com.example.taskmaster.model.User"/>
-                        <c:if test="${user.roleId == 3}">
+<%--                        <c:if test="${user.roleId == 3}">--%>
                         <div class="request-section" style="display: none;">
                             <h2>Yêu cầu tham gia</h2>
+                            <p>Những người này đã yêu cầu tham gia Không gian làm việc này</p>
                         </div>
-                        </c:if>
-                    </div>
+<%--                        </c:if>--%>
+
+
+
+
                     <hr>
                     <div>
                         <input class="input-search" placeholder="Lọc theo tên">
                     </div>
                     <hr>
+
+
                     <div>
                         <div class="member-section">
                             <c:forEach items="${members}" var="user">
@@ -66,7 +76,9 @@
                                 </div>
                             </c:forEach>
                         </div>
-                        <div class="guest-section" style="display: none;">
+
+
+                        <div class="guest-section">
                             <c:forEach items="${guests}" var="user">
                                 <div>
                                     <label>${user.fullName}</label>
@@ -78,7 +90,10 @@
                                 </div>
                             </c:forEach>
                         </div>
-                        <div class="request-section" style="display: none;">
+
+
+
+                        <div class="request-section">
                             <c:forEach items="${requests}" var="user">
                                 <div>
                                     <label>${user.fullName}</label>
@@ -89,12 +104,15 @@
                                 </div>
                             </c:forEach>
                         </div>
+
+
                     </div>
                 </div>
             </div>
-        </div>
     </div>
-</main>
+
+
+
 <script>
     let currentButtonId = "member"; // Đặt member là mặc định
 
@@ -125,5 +143,6 @@
         toggleDisplay("member"); // section mặc định
     }
 </script>
+
 </body>
 </html>
