@@ -8,6 +8,7 @@
     <script src="../../../js/user/board/createBoard.js"></script>
 </head>
 <body>
+<a href="/group_home"><img style="width: 50px; height: 50px" src="https://png.pngtree.com/png-vector/20230311/ourmid/pngtree-logout-arrow-line-icon-vector-png-image_6644097.png"></a>
 <div class="container">
     <div>
         <h1 style="text-align: center; color: white">Tạo Bảng Mới</h1>

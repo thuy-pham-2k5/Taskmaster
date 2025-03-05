@@ -4,9 +4,10 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
     <welcome-file-list>
+<!--        <welcome-file>view/user/account/menubar.jsp</welcome-file>-->
         <welcome-file>authenticate</welcome-file>
+<!--        <welcome-file>testDropdown.jsp</welcome-file>-->
+<!--        <welcome-file>view/user/group/notification_leave_board.jsp</welcome-file>-->
+<!--        <welcome-file>view/user/account/menubar.jsp</welcome-file>-->
     </welcome-file-list>
-
 </web-app>
-<!--        view/user/group/home_workspace.jsp-->
-<!--        authenticate-->

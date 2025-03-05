@@ -102,15 +102,32 @@ public class GroupHomeServlet extends HttpServlet {
             case "settingView":
                 response.sendRedirect("/group_setting");
                 break;
+            case "viewGroups":
+                response.sendRedirect("/account_home");
+                break;
             default:
                 showGroupInfo(request, response);
                 break;
         }
     }
 
+    private void showViewGroups(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        int groupId = Integer.parseInt((String) session.getAttribute("groupId"));
+        int roleId = userService.getRoleUserInGroup(user.getUserId(), groupId);
+        request.setAttribute("roleIdUser", roleId);
+        request.setAttribute("groupInfo", groupService.getGroupInfoById(groupId));
+        request.setAttribute("boards", boardService.getAllBoardInGroup(groupId, true));
+        request.setAttribute("closedBoards", boardService.getAllBoardClosedInGroup(groupId));
+        List<Group> groups = groupService.getTitleGroupByUserId(user.getUserId());
+        request.setAttribute("groups", groups);
+        request.getRequestDispatcher("/view/user/group/home_workspace.jsp").forward(request, response);
+    }
+
     private void switchToBoardView(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String boardId = request.getParameter("boardId");
-        response.sendRedirect("board_home?boardId=" + boardId);
+        response.sendRedirect("/board_home?boardId=" + boardId);
     }
 
     private void sortTypeListBoards(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

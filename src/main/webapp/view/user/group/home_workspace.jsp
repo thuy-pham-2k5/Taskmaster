@@ -7,10 +7,11 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/user/group/homeWorkspace.css">
     <script src="/js/user/group/home_workspace.js" defer></script>
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/sweet-modal/dist/min/jquery.sweet-modal.min.css">
     <script src="https://unpkg.com/sweet-modal/dist/min/jquery.sweet-modal.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 <body>
 <div>
@@ -34,7 +35,8 @@
         </div>
         <div id="accountSearchNotification">
             <div id="search">
-                <input type="text" style="width: 170px ; height: 30px; border-radius: 5px; border: none; outline: none;padding: 12px;"
+                <input type="text"
+                       style="width: 170px ; height: 30px; border-radius: 5px; border: none; outline: none;padding: 12px;"
                        placeholder="Tìm kiếm bảng...">
             </div>
             <img src="/images/bell.png">
@@ -43,6 +45,9 @@
                 <img src="https://png.pngtree.com/png-clipart/20230314/original/pngtree-log-out-vector-icon-design-illustration-png-image_8987853.png">
             </a>
         </div>
+    </div>
+    <div>
+        <jsp:include page="../account/menubar.jsp"/>
     </div>
 
     <div class="container">
@@ -66,10 +71,15 @@
                             <a href="group_home?action=boardView&boardId=${board.boardId}">
                                 <p>${board.title}</p>
                             </a>
-                            <div class="dropdown">
-                                <a href="" class="openModal" data-boardid="${board.boardId}">
-                                    <img style="width: 60%; height: 20px" src="../images/ellipsis.png">
-                                </a>
+                            <div class="btn-group dropend">
+                                <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">
+                                    ...
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <h6 class="dropdown-header">Tiêu đề bảng</h6>
+                                    <div class="dropdown-divider"></div>
+                                    <li><a class="dropdown-item" href="#">Rời khỏi bảng</a></li>
+                                </ul>
                             </div>
                         </div>
                     </c:forEach>
@@ -85,9 +95,8 @@
                         <div>
                             <div style="display: flex">
                                 <p id="groupName">${groupInfo.title}</p>
-                                <img class="edit_group_pen"  src="/images/edit.png" onclick="showEditModal()">
-
-                                <div id="modalContainer"></div>
+                                <img class="edit_group_pen" src="/images/edit.png" onclick="showEditModal()">
+                                <div id="leaveGroupModal"></div>
                             </div>
                             <br>
                             <p style="color: white; margin-left: 15px">${groupInfo.visibility}</p>
@@ -114,7 +123,8 @@
 
                 <c:if test="${roleIdUser == 3}">
                     <div id="addAccount">
-                        <button style="background-color: #1B5B94; padding: 10px;cursor: pointer;border-radius: 5px;align-items: center;height: 35px;justify-content: space-around;display: flex;width: 285px;border: none;" onclick="invite_member()">
+                        <button style="background-color: #1B5B94; padding: 10px;cursor: pointer;border-radius: 5px;align-items: center;height: 35px;justify-content: space-around;display: flex;width: 285px;border: none;"
+                                onclick="invite_member()">
                             <img style="width: 18px; height: 18px" src="/images/add_account.png" alt="">
 
                             <p style="color:white;">Mời thành viên vào Không gian làm việc</p>
@@ -156,7 +166,6 @@
                         </c:forEach>
                     </div>
                 </div>
-
                 <button id="openModalButton">Xem các bảng đã đóng</button>
             </div>
         </div>
@@ -165,7 +174,6 @@
 </div>
 
 <script>
-
     function showEditModal() {
         // Ẩn div information và hiển thị div edit_frame
         document.getElementById("information").style.display = "none";
@@ -191,16 +199,7 @@
     }
 
 
-
-
-
-
-
-
-
-
-
-
+    /*log out action*/
     document.getElementById("logoutBtn").addEventListener("click", function () {
         Swal.fire({
             title: "Xác nhận đăng xuất",
@@ -217,7 +216,6 @@
             }
         });
     });
-
 
 
     // ✅ In ra console để kiểm tra dữ liệu JSON
@@ -284,6 +282,20 @@
         });
     }
 
+    /*Edit the title of group*/
+    function showEditModal() {
+        fetch('/view/user/group/edit_group.jsp') // Đường dẫn đến file JSP của bạn
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById("modalContainer").innerHTML = html;
+                document.getElementById("editGroupModal").style.display = "block"; // Hiển thị modal
+            })
+            .catch(error => console.error('Error loading modal:', error));
+    }
+
+    function closeEditModal() {
+        document.getElementById("editGroupModal").style.display = "none"; // Ẩn modal
+    }
 </script>
 </body>
 </html>
