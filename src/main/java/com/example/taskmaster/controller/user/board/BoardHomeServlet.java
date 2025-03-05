@@ -30,7 +30,7 @@ public class BoardHomeServlet extends HttpServlet {
 
     private void showDetailBoard(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        int groupId = Integer.parseInt((String) session.getAttribute("groupId"));
+        int groupId = (Integer) session.getAttribute("groupId");
         System.out.println(groupId);
         req.setAttribute("groupInfo", groupService.getGroupInfoById(groupId));
         req.setAttribute("boards", boardService.getAllBoardInGroup(groupId, true));
