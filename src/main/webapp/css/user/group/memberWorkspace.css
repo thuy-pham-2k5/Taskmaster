@@ -1,7 +1,85 @@
-.content-container {
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+main {
+    display: flex;
+    min-height: 100vh;
+    height: auto;
+}
+
+.home-left {
+    width: 260px;
+    position: sticky;
+    top: 48px;
+    left: 0;
+    height: calc(100vh - 48px);
+    background: #afe4f1;
+}
+
+.content-member-workspace {
     background-color: #3179BA;
+    flex-grow: 1;
+    min-height: 100vh;
+    height: auto;
+}
+
+.group-general-info {
+    margin: 0 auto;
+    padding: 32px;
+    max-width: 850px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.group-info {
+    display: flex;
+}
+
+.group-info-logo {
+    margin-right: 10px;
+}
+
+.group-title {
+    width: 60px;
+    height: 60px;
+    border: 0;
+    border-radius: 5px;
+    font-size: 35px;
+}
+
+.group-info-detail {
+    margin: auto 0;
+    color: white;
+}
+
+.group-info-detail h2 {
+    margin: 0;
+}
+
+.img-edit-group {
+    width: 20px;
+}
+
+.group-invite-member {
+    padding: 2px 5px;
+    font-size: 15px;
+}
+
+.group-invite-member {
+    padding: 6px 9px;
+    background: #084294;
+    margin: auto 0;
+    border-radius: 5px;
+}
+
+.group-invite-member button {
+    border: none;
+    background: none;
     color: white;
     display: flex;
+<<<<<<< HEAD
     height: 100%;
     width: 100%;
 <<<<<<< HEAD
@@ -9,11 +87,26 @@
 =======
 >>>>>>> ef15ccfeb98a86e9b866d90d9da7d2a05bb53255
     position: absolute;
+=======
+    align-items: center;
+}
+
+.group-invite-member button img {
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
+}
+
+/*main*/
+
+
+.content-container {
+    background: #3179ba;
+    color: white;
+    max-width: 1250px;
+>>>>>>> 5d0d86f173133d85ea5b8c100da90c4385ca5163
     margin: 0 auto;
     padding: 16px 32px;
-    overflow: visible !important;
-    display: flex;
-    justify-content: center;
 }
 
 .content {
@@ -84,6 +177,7 @@ ul li a {
 button {
     cursor: pointer;
 }
+
 .input-search {
     padding: 5px;
     border-radius: 3px;
