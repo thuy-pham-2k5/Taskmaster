@@ -31,12 +31,12 @@
                     <hr style="color: white">
                     <ul class="title">Các Không gian làm việc</ul>
                     <c:forEach items="${groups}" var="group">
-                        <div class="dropdown">
+                        <div class="dropdown-container-group">
                             <button class="dropbtn">
                                     ${group.title}
                                 <span class="arrow">▼</span>
                             </button>
-                            <ul class="dropdown-content">
+                            <ul class="dropdown-content-group">
                                 <li>
                                     <a href="/account_home?action=showGroupHomeView&groupId=${group.groupId}">Bảng</a>
                                 </li>

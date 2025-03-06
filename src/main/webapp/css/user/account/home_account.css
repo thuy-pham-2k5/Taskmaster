@@ -80,7 +80,6 @@
 #homeLeft {
     margin: 40px 0 0;
     padding: 0 16px;
-    width: 20%;
     height: auto;
     overflow: hidden;
     background-color: #3179BA;
@@ -195,10 +194,11 @@
     justify-content: right;
     max-height: calc(100vh - 200px);
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 /* Định dạng dropdown */
-.dropdown {
+.dropdown-container-group {
     display: block;
     width: 100%;
     margin-bottom: 10px;
@@ -228,7 +228,7 @@
 }
 
 /* Dropdown menu (ẩn mặc định) */
-.dropdown-content {
+.dropdown-content-group {
     display: none;
     background-color: #3179BA;
     list-style: none;
@@ -240,24 +240,24 @@
 }
 
 /* Khi có class "show", dropdown sẽ hiển thị */
-.dropdown-content.show {
+.dropdown-content-group.show {
     display: block;
 }
 
 /* Item trong dropdown */
-.dropdown-content li {
+.dropdown-content-group li {
     padding: 10px;
 }
 
 /* Link trong dropdown */
-.dropdown-content li a {
+.dropdown-content-group li a {
     text-decoration: none;
     color: white;
     display: block;
 }
 
 /* Hover cho item */
-.dropdown-content li:hover {
+.dropdown-content-group li:hover {
     background-color: #29598D;
     border-radius: 5px;
 }
