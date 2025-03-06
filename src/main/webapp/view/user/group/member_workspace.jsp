@@ -38,14 +38,14 @@
         </div>
         <div class="content-container">
             <div class="content">
-                <header class="header-content">
+                <div class="header-content">
                     <h2>Người cộng tác</h2>
-                </header>
+                </div>
                 <div class="main-content">
                     <%--nội dung bên trái--%>
                     <div class="main-content-sidebar">
                         <ul>
-                            <li id="member" onclick="toggleDisplay('member')"><a>Thành viên Không gian làm việc</a></li>
+                            <li id="member" onclick="toggleDisplay('member')"><a>Thành viên không gian làm việc</a></li>
                             <li id="guest" onclick="toggleDisplay('guest')"><a>Khách</a></li>
                             <hr>
                             <li id="request" onclick="toggleDisplay('request')"><a>Yêu cầu tham gia</a></li>
@@ -57,7 +57,7 @@
                         <div>
                             <%--thành viên Không gian--%>
                             <div class="member-section">
-                                <h2>Thành viên Không gian làm việc</h2>
+                                <h2>Thành viên không gian làm việc</h2>
                                 <p>Các thành viên trong Không gian làm việc có thể xem và tham gia tất cả các bảng Không
                                     gian làm việc hiển thị và tạo ra các bảng mới trong Không gian làm việc.</p>
                             </div>

@@ -62,7 +62,7 @@
                             <a href="group_home?action=boardView&boardId=${board.boardId}">
                                 <p>${board.title}</p>
                             </a>
-                            <div class="dropdown">
+                            <div class="dropdown-group">
                                 <a href="" class="openModal" data-boardid="${board.boardId}">
                                     <img style="width: 60%; height: 20px" src="../images/ellipsis.png">
                                 </a>
