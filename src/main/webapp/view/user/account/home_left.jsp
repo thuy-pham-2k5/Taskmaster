@@ -123,8 +123,10 @@
     }
 
     .hl-list-boards-ul {
-        padding: 2px 0;
-        margin: 0;
+        scrollbar-color: #9590908f #f1f1f1;
+        scrollbar-width: thin;
+        overflow-y: auto;
+        max-height: 450px;
     }
 
     .hl-list-boards-ul li {
@@ -139,6 +141,7 @@
         overflow: hidden;
         display: block;
         white-space: nowrap;
+        color: white;
     }
 
     .hl-list-boards-ul li:hover {
@@ -194,7 +197,7 @@
                         <h3>Các bảng của bạn</h3>
                     </div>
                     <ul class="hl-list-boards-ul">
-                        <c:forEach items="boards" var="board">
+                        <c:forEach items="${boards}" var="board">
                             <li>
                                 <a href="board_home">${board.title}</a>
                                 <img src="/images/ellipsis-solid.svg" alt="closed-board"/>
