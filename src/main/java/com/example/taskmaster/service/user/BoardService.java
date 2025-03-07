@@ -37,6 +37,25 @@ public class BoardService implements IBoardService {
     }
 
     @Override
+    public Board getBoardById(int boardId) {
+        Board board = null;
+        String query = "select * from boards where board_id = ?";
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, boardId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                String title = resultSet.getString(2);
+                int status = resultSet.getInt(5);
+                board = new Board(boardId, title, status);
+            }
+            return board;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public List<Board> searchBoardsByName(int groupId, String keyword) {
         String query = "select * from boards left join board_backgrounds on boards.background_id = board_backgrounds.background_id where boards.group_id =  ? and boards.status = 1 and boards.title like concat('%', ? , '%');";
         List<Board> boards = new ArrayList<>();
