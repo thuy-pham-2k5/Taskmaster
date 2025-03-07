@@ -179,15 +179,15 @@
         <div class="hl-general-info">
             <div>
                 <div class="hl-group-basic-features">
-                    <a href="group_home">
+                    <a href="account_home?action=showGroupHomeView">
                         <img class="hl-img" src="/images/board.png" alt="board.png">
                         <span>Bảng</span>
                     </a>
-                    <a href="group_member">
+                    <a href="account_home?action=showMemberViewInGroupHome">
                         <img class="hl-img" src="/images/account.png" alt="account.png">
                         <span>Thành viên</span>
                     </a>
-                    <a href="group_setting">
+                    <a href="account_home?action=showSettingViewInGroupHome">
                         <img class="hl-img" src="/images/setting.png" alt="setting.png">
                         <span>Các cài đặt không gian làm việc</span>
                     </a>
