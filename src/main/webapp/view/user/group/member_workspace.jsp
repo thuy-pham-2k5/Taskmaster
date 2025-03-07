@@ -52,6 +52,9 @@
                         </ul>
                     </div>
 
+
+
+
                     <%--nội dung bên phải--%>
                     <div class="main-content-show">
                         <div>
@@ -76,6 +79,8 @@
                         <div>
                             <input class="input-search" placeholder="Lọc theo tên">
                         </div>
+
+
                         <hr>
                         <div>
                             <div class="member-section">
@@ -92,6 +97,9 @@
                                     </div>
                                 </c:forEach>
                             </div>
+
+
+
                             <div class="guest-section" style="display: none;">
                                 <c:forEach items="${guests}" var="user">
                                     <div class="user-general-info">
@@ -113,6 +121,9 @@
                                     </div>
                                 </c:forEach>
                             </div>
+
+
+
                             <div class="request-section" style="display: none;">
                                 <c:forEach items="${requests}" var="user">
                                     <div class="user-general-info">
@@ -132,6 +143,9 @@
                                     </div>
                                 </c:forEach>
                             </div>
+
+
+
                         </div>
                     </div>
                 </div>
