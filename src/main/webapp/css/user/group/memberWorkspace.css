@@ -157,6 +157,7 @@ ul li:hover {
 }
 
 ul li a {
+    font-size: 20px;
     background-color: transparent;
 }
 
@@ -173,15 +174,21 @@ button {
     border-radius: 3px;
     border: 1px solid #FFFFFF;
 }
+.input-search::placeholder {
+    color: #d9d7d7;
+    opacity: 1; /* Đảm bảo màu trắng hiển thị rõ */
+}
 
-.member-section {
-    margin-top: 20px;
+.member-section h2{
+    margin: 0px;
 }
 
 .user-general-info {
+    border-bottom: 1px solid #ffffff63;
+    align-items: center;
+    height: 80px;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
 }
 
 .user-info p {
@@ -189,7 +196,7 @@ button {
 }
 
 .user-info-name {
-    font-size: 22px;
+    font-size: 21px;
 }
 
 .user-button-change {
@@ -198,9 +205,22 @@ button {
 }
 
 .user-button-change button {
-    margin: 0 25px;
-    padding: 7px 20px;
-    border: 0;
-    background: #145289;
+    color: white;
+    outline: none;
+    height: 40px;
+    margin-left: 20px;
+    width: 140px;
+    border: 1px solid white;
+    background: #ffffff2e;
     border-radius: 5px;
+}
+
+
+.guest-section h2{
+    margin: 0px;
+}
+
+
+.request-section h2{
+    margin: 0px;
 }
