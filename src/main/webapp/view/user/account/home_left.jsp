@@ -200,7 +200,7 @@
                         <c:forEach items="${boards}" var="board">
                             <li>
                                 <a href="board_home">${board.title}</a>
-                                <img src="/images/ellipsis-solid.svg" alt="closed-board"/>
+                                <img src="/images/ellipsis.png" alt="closed-board"/>
                             </li>
                         </c:forEach>
                     </ul>

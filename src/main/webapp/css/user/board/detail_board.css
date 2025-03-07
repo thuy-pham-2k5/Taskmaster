@@ -12,3 +12,32 @@ header {
     height: calc(100vh - 48px);
     background: #afe4f1;
 }
+
+.board_detail {
+    background: #3179ba;
+    color: white;
+    max-width: 1250px;
+    padding: 16px 32px;
+    margin-top: 0;
+    flex: 1;
+}
+
+.board_name {
+    margin-top: 0;
+    flex: 1;
+}
+
+.list_detail {
+    width: 200px;
+    border-radius: 5px;
+    background: #6daae0;
+    padding: 14px;
+    margin-right: 10px;
+}
+
+.task_name {
+    background: #6797c2;
+    padding: 11px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}

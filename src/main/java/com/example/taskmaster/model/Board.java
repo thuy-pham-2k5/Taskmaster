@@ -16,10 +16,17 @@ public class Board {
         this.groupId = groupId;
     }
 
-    public Board(String title, int backgroundId, int groupId) {
+    public Board(int boardId, String title, int backgroundId, String backgroundLink) {
+        this.boardId = boardId;
         this.title = title;
         this.backgroundId = backgroundId;
-        this.groupId = groupId;
+        this.backgroundLink = backgroundLink;
+    }
+
+    public Board(int boardId, String title, int status) {
+        this.boardId = boardId;
+        this.title = title;
+        this.status = status;
     }
 
     @Override

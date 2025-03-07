@@ -39,9 +39,11 @@ public class BoardHomeServlet extends HttpServlet {
         int boardId = Integer.parseInt(req.getParameter("boardId"));
         req.setAttribute("groupInfo", groupService.getGroupInfoById(groupId));
         req.setAttribute("boards", boardService.getAllBoardInGroup(groupId, true));
+        req.setAttribute("boardDetail", boardService.getBoardById(boardId));
         req.setAttribute("boardId", boardId);
         req.setAttribute("columns", columnService.getAllColumn(boardId));
-        req.setAttribute("tasks", taskService.getAllTask(taskService.getAllColumnId(boardId)));
+        Map<Integer, List<Task>> tasks = taskService.getAllTask(taskService.getAllColumnId(boardId));
+        req.setAttribute("tasks", tasks);
         req.getRequestDispatcher("/view/user/board/detail_board.jsp").forward(req, resp);
     }
 }
