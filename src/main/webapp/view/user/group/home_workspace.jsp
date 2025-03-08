@@ -173,22 +173,6 @@
 
 
 
-    document.getElementById("logoutBtn").addEventListener("click", function () {
-        Swal.fire({
-            title: "Xác nhận đăng xuất",
-            text: "Bạn có chắc chắn muốn đăng xuất không?",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Đăng xuất",
-            cancelButtonText: "Hủy"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = "/logout"; // Chuyển hướng đến trang đăng xuất
-            }
-        });
-    });
 
 
 
