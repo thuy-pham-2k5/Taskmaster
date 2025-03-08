@@ -123,8 +123,10 @@
     }
 
     .hl-list-boards-ul {
-        padding: 2px 0;
-        margin: 0;
+        scrollbar-color: #9590908f #f1f1f1;
+        scrollbar-width: thin;
+        overflow-y: auto;
+        max-height: 450px;
     }
 
     .hl-list-boards-ul li {
@@ -139,6 +141,7 @@
         overflow: hidden;
         display: block;
         white-space: nowrap;
+        color: white;
     }
 
     .hl-list-boards-ul li:hover {
@@ -176,15 +179,15 @@
         <div class="hl-general-info">
             <div>
                 <div class="hl-group-basic-features">
-                    <a href="group_home">
+                    <a href="account_home?action=showGroupHomeView">
                         <img class="hl-img" src="/images/board.png" alt="board.png">
                         <span>Bảng</span>
                     </a>
-                    <a href="group_member">
+                    <a href="account_home?action=showMemberViewInGroupHome">
                         <img class="hl-img" src="/images/account.png" alt="account.png">
                         <span>Thành viên</span>
                     </a>
-                    <a href="group_setting">
+                    <a href="account_home?action=showSettingViewInGroupHome">
                         <img class="hl-img" src="/images/setting.png" alt="setting.png">
                         <span>Các cài đặt không gian làm việc</span>
                     </a>
@@ -194,10 +197,10 @@
                         <h3>Các bảng của bạn</h3>
                     </div>
                     <ul class="hl-list-boards-ul">
-                        <c:forEach items="boards" var="board">
+                        <c:forEach items="${boards}" var="board">
                             <li>
                                 <a href="board_home">${board.title}</a>
-                                <img src="/images/ellipsis-solid.svg" alt="closed-board"/>
+                                <img src="/images/ellipsis.png" alt="closed-board"/>
                             </li>
                         </c:forEach>
                     </ul>

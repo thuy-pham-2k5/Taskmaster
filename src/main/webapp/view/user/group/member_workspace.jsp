@@ -10,11 +10,11 @@
 <header>
     <jsp:include page="../account/menubar.jsp"/>
 </header>
-<main>
+<main style="display:flex;">
     <div class="home-left">
-        Day la home left
+        <jsp:include page="../account/home_left.jsp"/>
     </div>
-    <div class="content-member-workspace">
+    <div class="content-member-workspace" style="margin-top: 0; flex: 1;">
         <div class="group-general-info">
             <div class="group-info">
                 <div class="group-info-logo">
