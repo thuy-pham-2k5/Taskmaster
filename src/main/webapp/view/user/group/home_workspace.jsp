@@ -56,14 +56,13 @@
                     <div style="display: flex; align-items: center">
                         <button id="group"><p>T</p></button>
                         <div>
-                            <div style="display: flex">
+                            <div style="display: flex; justify-content: center; align-items: center">
                                 <p id="groupName">${groupInfo.title}</p>
                                 <img class="edit_group_pen"  src="/images/edit.png" onclick="showEditModal()">
 
                                 <div id="modalContainer"></div>
                             </div>
-                            <br>
-                            <p style="color: white; margin-left: 15px">${groupInfo.visibility}</p>
+                            <p style="color: white; margin-left: 40px; margin-top: 0px">${groupInfo.visibility}</p>
                         </div>
 
                     </div>
@@ -90,14 +89,14 @@
                         <button style="background-color: #1B5B94; padding: 10px;cursor: pointer;border-radius: 5px;align-items: center;height: 35px;justify-content: space-around;display: flex;width: 285px;border: none;" onclick="invite_member()">
                             <img style="width: 18px; height: 18px" src="/images/add_account.png" alt="">
 
-                            <p style="color:white;">Mời thành viên vào Không gian làm việc</p>
+                            <p style="color:white;">Mời thành viên vào không gian làm việc</p>
                         </button>
                     </div>
                 </c:if>
             </div>
 
             <div id="workspaces">
-                <p style="color: white; font-weight: bold; font-size: 22px">Bảng</p>
+                <p style="color: white; font-weight: bold; font-size: 22px; margin-bottom: 0px">Bảng</p>
                 <div id="sortAndSearch">
                     <div id="sort">
                         <p><label for="mySelect" style="color: white">Sắp xếp theo</label></p>
