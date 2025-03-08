@@ -271,7 +271,7 @@ body {
 #workspaces {
     margin-left: 74px;
     margin-right: 74px;
-    margin-top: 30px;
+    margin-top: 15px;
     display: flex;
     flex-direction: column;
     gap: 25px;
@@ -358,7 +358,7 @@ body {
     display: flex; /* Dùng flexbox để căn giữa */
     justify-content: center; /* Căn giữa theo chiều ngang */
     align-items: center; /* Căn giữa theo chiều dọc */
-    width: 184px; /* Đặt chiều rộng cố định */
+    width: 172px; /* Đặt chiều rộng cố định */
     height: 90px; /* Đặt chiều cao cố định */
     word-wrap: break-word;
     gap: 10px; /* Tạo khoảng cách giữa các phần tử */
