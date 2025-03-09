@@ -14,51 +14,23 @@
 </head>
 <body>
 <div>
-    <div>
+    <div class="menubar-home-workspace">
         <jsp:include page="../account/menubar.jsp"/>
     </div>
-
     <div class="container">
         <div id="homeLeft">
-            <div id="workspaceName">
-                <button id="workspace"><p class="represent">P</p></button>
-                <p>${groupInfo.title}</p>
-            </div>
-            <div id="workspaceList">
-                <div><img class="icon" src="/images/table.png">
-                    <p>Bảng</p></div>
-                <div><img class="icon" src="/images/number.png">
-                    <p>Thành viên</p></div>
-                <div><img class="icon" src="/images/setting.png">
-                    <p>Các cài đặt không gian làm việc</p></div>
-                <div style="display: flex; justify-content: space-between"><p style="font-size: 20px">Các bảng của
-                    bạn</p> <img class="icon" src="/images/add.png"></div>
-                <div style="display: flex; flex-direction: column">
-                    <c:forEach var="board" items="${boards}">
-                        <div class="board" style="display: flex; justify-content: space-between; align-items: center;">
-                            <a href="group_home?action=boardView&boardId=${board.boardId}">
-                                <p>${board.title}</p>
-                            </a>
-                            <div class="dropdown-menubar">
-                                <a href="" class="openModal" data-boardid="${board.boardId}">
-                                    <img style="width: 60%; height: 20px" src="../images/ellipsis.png">
-                                </a>
-                            </div>
-                        </div>
-                    </c:forEach>
-                </div>
-            </div>
+            <jsp:include page="../account/home_left.jsp"/>
         </div>
         <div id="homeRight">
             <div id="groupInformation">
 
                 <div id="information">
                     <div style="display: flex; align-items: center">
-                        <button id="group"><p>T</p></button>
+                        <button id="group">${sessionScope.groupName.substring(0,1).toUpperCase()}</button>
                         <div>
                             <div style="display: flex">
-                                <p id="groupName">${groupInfo.title}</p>
-                                <img class="edit_group_pen"  src="/images/edit.png" onclick="showEditModal()">
+                                <p id="groupName">${sessionScope.groupInfo.title}</p>
+                                <img class="edit_group_pen" src="/images/edit.png" onclick="showEditModal()">
 
                                 <div id="modalContainer"></div>
                             </div>
@@ -87,7 +59,8 @@
 
                 <c:if test="${roleIdUser == 3}">
                     <div id="addAccount">
-                        <button style="background-color: #1B5B94; padding: 10px;cursor: pointer;border-radius: 5px;align-items: center;height: 35px;justify-content: space-around;display: flex;width: 285px;border: none;" onclick="invite_member()">
+                        <button style="background-color: #1B5B94; padding: 10px;cursor: pointer;border-radius: 5px;align-items: center;height: 35px;justify-content: space-around;display: flex;width: 285px;border: none;"
+                                onclick="invite_member()">
                             <img style="width: 18px; height: 18px" src="/images/add_account.png" alt="">
 
                             <p style="color:white;">Mời thành viên vào Không gian làm việc</p>
@@ -134,7 +107,7 @@
             </div>
         </div>
     </div>
-
+</div>
 </div>
 
 <script>
@@ -164,16 +137,6 @@
     }
 
 
-
-
-
-
-
-
-
-
-
-
     document.getElementById("logoutBtn").addEventListener("click", function () {
         Swal.fire({
             title: "Xác nhận đăng xuất",
@@ -190,7 +153,6 @@
             }
         });
     });
-
 
 
     // ✅ In ra console để kiểm tra dữ liệu JSON

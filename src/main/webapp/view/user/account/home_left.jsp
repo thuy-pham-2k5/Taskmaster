@@ -2,11 +2,18 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <style>
+    .position-home-left {
+        width: 260px;
+        position: sticky;
+        top: 48px;
+        left: 0;
+        height: calc(100vh - 48px);
+    }
+
     .home-left {
         width: 260px;
         z-index: 5;
-        box-shadow: 1px 0 0 0 rgba(127, 127, 127, 0.16);
-        background: #93CDD8;
+        background: #3179ba;
     }
 
     .home-left-child {
@@ -19,6 +26,8 @@
         display: flex;
         flex-direction: column;
         background: inherit;
+        box-shadow: 1px 0 0 #fff;
+        font-size: 15px;
     }
 
     .home-left-child span {
@@ -29,7 +38,7 @@
         margin: 0;
         padding: 8px 12px;
         display: flex;
-        box-shadow: 0 0 1px 0 #222;
+        box-shadow: 0 0.8px 0 #fff;
         align-items: center;
     }
 
@@ -57,7 +66,12 @@
         font-size: 20px;
     }
 
+    .group-info-text span a {
+        color: white;
+    }
+
     .group-info-text p {
+        color: white;
         margin: 8px 0 0 0;
         font-size: 14px;
     }
@@ -81,6 +95,7 @@
 
     .hl-group-basic-features {
         padding-top: 12px;
+        padding-bottom: 9px;
         display: flex;
         flex-direction: column;
     }
@@ -98,7 +113,6 @@
 
     .hl-group-basic-features a span {
         margin-left: 10px;
-        font-size: 18px;
         line-height: 20px;
     }
 
@@ -115,18 +129,48 @@
     }
 
     .hl-list-boards-title {
-        padding-left: 10px;
+        display: flex;
+        padding: 0 10px;
+        justify-content: space-between;
+        height: 22px;
     }
 
     .hl-list-boards-title h3 {
         margin: 0;
     }
 
+    .hl-list-boards-title div {
+        display: flex;
+        align-items: center;
+    }
+
+    .hl-list-boards-title-closed-board-img {
+        display: none;
+        padding:5px;
+        width: 13px;
+        height: 13px;
+        border-radius: 5px;
+        margin-right: 10px;
+    }
+
+    .hl-list-boards-title:hover .hl-list-boards-title-closed-board-img {
+        display: block;
+        background: rgb(227 226 226 / 50%);
+    }
+
+    .hl-list-boards-title-add-board-img {
+        width: 18px;
+        height: 18px;
+    }
+
     .hl-list-boards-ul {
-        scrollbar-color: #9590908f #f1f1f1;
+        scrollbar-color: #2a6ba5 #d6d6d6;
         scrollbar-width: thin;
         overflow-y: auto;
-        max-height: 450px;
+        max-height: 436px;
+        margin-top: 5px;
+        margin-left: 0;
+        padding: 0;
     }
 
     .hl-list-boards-ul li {
@@ -134,6 +178,7 @@
         height: 32px;
         display: flex;
         align-items: center;
+        justify-content: space-between;
     }
 
     .hl-list-boards-ul li a {
@@ -145,7 +190,7 @@
     }
 
     .hl-list-boards-ul li:hover {
-        background: rgb(106 103 103 / 50%);
+        background: rgb(227 226 226 / 50%);
         cursor: pointer;
     }
 
@@ -159,61 +204,66 @@
         display: none;
         margin: 0 0 0 15px;
     }
-
 </style>
 
-<nav class="home-left">
-    <div class="home-left-child">
-        <div class="hl-group-info">
-            <div class="hl-group-info-logo">
-                <a class="group-logo-link" href="group_home">T</a>
-            </div>
-            <div class="group-info-text">
-                <span style="line-height: 20px"><a href="group_home">Taskmaster</a></span>
-                <p>Riêng tư</p>
-            </div>
-            <button class="closed-home-left">
-                <img class="hl-img" src="/images/list.png" alt="closed-menu.png">
-            </button>
-        </div>
-        <div class="hl-general-info">
-            <div>
-                <div class="hl-group-basic-features">
-                    <a href="account_home?action=showGroupHomeView">
-                        <img class="hl-img" src="/images/board.png" alt="board.png">
-                        <span>Bảng</span>
-                    </a>
-                    <a href="account_home?action=showMemberViewInGroupHome">
-                        <img class="hl-img" src="/images/account.png" alt="account.png">
-                        <span>Thành viên</span>
-                    </a>
-                    <a href="account_home?action=showSettingViewInGroupHome">
-                        <img class="hl-img" src="/images/setting.png" alt="setting.png">
-                        <span>Các cài đặt không gian làm việc</span>
-                    </a>
+<div class="position-home-left">
+    <nav class="home-left">
+        <div class="home-left-child">
+            <div class="hl-group-info">
+                <div class="hl-group-info-logo">
+                    <a class="group-logo-link" href="group_home">${groupInfo.title.substring(0,1).toUpperCase()}</a>
                 </div>
-                <div class="hl-list-boards">
-                    <div class="hl-list-boards-title">
-                        <h3>Các bảng của bạn</h3>
+                <div class="group-info-text">
+                    <span style="line-height: 20px"><a href="group_home">${groupInfo.title}</a></span>
+                    <p>Riêng tư</p>
+                </div>
+                <button class="closed-home-left">
+                    <img class="hl-img" src="/images/list.png" alt="closed-menu.png">
+                </button>
+            </div>
+            <div class="hl-general-info">
+                <div>
+                    <div class="hl-group-basic-features">
+                        <a href="group_home">
+                            <img class="hl-img" src="/images/board.png" alt="board.png">
+                            <span>Bảng</span>
+                        </a>
+                        <a href="group_member">
+                            <img class="hl-img" src="/images/account.png" alt="account.png">
+                            <span>Thành viên</span>
+                        </a>
+                        <a href="group_setting">
+                            <img class="hl-img" src="/images/setting.png" alt="setting.png">
+                            <span>Các cài đặt không gian làm việc</span>
+                        </a>
                     </div>
-                    <ul class="hl-list-boards-ul">
-                        <c:forEach items="${boards}" var="board">
-                            <li>
-                                <a href="board_home">${board.title}</a>
-                                <img src="/images/ellipsis.png" alt="closed-board"/>
-                            </li>
-                        </c:forEach>
-                    </ul>
+                    <div class="hl-list-boards">
+                        <div class="hl-list-boards-title">
+                            <h3>Các bảng của bạn</h3>
+                            <div>
+                                <img class="hl-list-boards-title-closed-board-img" src="/images/ellipsis.png" alt="closed-board"/>
+                                <img class="hl-list-boards-title-add-board-img" src="/images/plus.png" alt="plus.png">
+                            </div>
+                        </div>
+                        <ul class="hl-list-boards-ul">
+                            <c:forEach items="${boards}" var="board">
+                                <li>
+                                    <a href="board_home?boardId=${board.boardId}">${board.title}</a>
+                                    <img src="/images/ellipsis.png" alt="closed-board"/>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </div>
                 </div>
             </div>
+            <%--        <div class="hl-auxiliary-part">--%>
+            <%--            <div class="role-guest-workspace">--%>
+            <%--                <p>Bạn là khách của không gian làm việc.</p>--%>
+            <%--                <p>Để xem các bảng và thành viên khác trong không gian làm việc này, quản trị viên phải thêm bạn làm--%>
+            <%--                    thành viên không gian làm việc</p>--%>
+            <%--                <button>Yêu cầu tham gia</button>--%>
+            <%--            </div>--%>
+            <%--        </div>--%>
         </div>
-<%--        <div class="hl-auxiliary-part">--%>
-<%--            <div class="role-guest-workspace">--%>
-<%--                <p>Bạn là khách của không gian làm việc.</p>--%>
-<%--                <p>Để xem các bảng và thành viên khác trong không gian làm việc này, quản trị viên phải thêm bạn làm--%>
-<%--                    thành viên không gian làm việc</p>--%>
-<%--                <button>Yêu cầu tham gia</button>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-    </div>
-</nav>
+    </nav>
+</div>
