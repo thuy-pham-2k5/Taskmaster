@@ -18,15 +18,21 @@
             <div class="board_title">${boardDetail.title}</div>
         </div>
         <div class="lists">
-            <c:forEach items="columns" var="column">
+            <c:forEach items="${columns}" var="column">
                 <div class="container-list">
                     <div class="detail-list">
                         <div class="title-list">
                             <h2>${column.name}</h2>
                         </div>
                         <ol class="list-task">
-                            <c:forEach items="tasks" var="task">
-                                <li class="task">he</li>
+                            <c:forEach items="${tasks}" var="entry">
+                                <c:set var="key" value="${entry.key}"/>
+                                <c:set var="taskList" value="${entry.value}"/>
+                                <c:if test="${column.columnId==key}">
+                                    <c:forEach var="task" items="${taskList}">
+                                        <li class="task">${task.title}</li>
+                                    </c:forEach>
+                                </c:if>
                             </c:forEach>
                         </ol>
                         <div class="add_task">
