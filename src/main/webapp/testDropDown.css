@@ -1,0 +1,91 @@
+.backup-list {
+    display: flex;
+}
+
+.dropdown-img {
+    width: 14px;
+    margin-left: 4px;
+    transform: translateY(2px);
+}
+
+/* Container của dropdown */
+.dropdown-menubar-leave-board {
+    position: relative;
+    display: inline-block;
+}
+
+/* Danh sách dropdown (ẩn mặc định) */
+.dropdown-content-leave-board {
+    transform: translateY(8px);
+    display: none;
+    position: absolute;
+    padding: 12px;
+    background-color: #1d71bc;
+    min-width: 292px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    z-index: 9999;
+}
+
+.form-first-action {
+    width: 100%;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+.form-first-action:hover {
+    border-radius: 5px;
+    background-color: rgb(0, 185, 255);
+}
+
+
+.form-second-action {
+    display: flex;
+    width: 100%;
+    color: white;
+    background-color: #d71212;
+    padding: 5px;
+    border-radius: 5px;
+    justify-content: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.form-second-action:hover {
+    background-color: #ff0000;
+    padding: 5px;
+    border-radius: 5px;
+    justify-content: center;
+}
+
+.form-title-first-board {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.form-title-second-board {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.content-leave-board {
+    color: white;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+
+.dropdown-menubar-leave-board button.active,
+.dropdown-menubar-leave-board button:hover {
+    background-color: rgb(227 226 226 / 50%);
+    border-radius: 5px;
+}
