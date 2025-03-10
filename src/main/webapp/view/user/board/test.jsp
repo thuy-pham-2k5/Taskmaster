@@ -3,7 +3,6 @@
 <html>
 <head>
     <title>Chi tiết bảng</title>
-    <link rel="stylesheet" href="/css/user/board/detail_board.css">
 </head>
 <body>
 <header>
@@ -13,7 +12,7 @@
     <div class="home-left">
         <jsp:include page="../account/home_left.jsp"/>
     </div>
-    <div class="homeRight">
+    <div class="home-right">
         <div class="title_bar">Tiêu đề</div>
         <div class="board_lists">
             <ol class="list-item">
@@ -25,8 +24,40 @@
                             <li>hihiahafsd afhsdlkf flaksflskdfjsdf aflkdsjffsdalfkj faskdlj fjalks faksj faslk</li>
                             <li>Pham Thi Kim Thuy sinh vien nam hai truong Dai hoc Thanh Do ahihi</li>
                             <li>Pham Thi Ngoc Thom sinh vien nam tu hoc vien mat ma</li>
-                            <li>Nguyen Thanh Tung 28 tuoi designer cua cong ty Mac Adjust tinh Tay Nam Quang Dong Nga
-                            </li>
+                            <li>Nguyen Thanh Tung 28 tuoi designer cua cong ty Mac Adjust tinh Tay Nam Quang Dong Nga</li>
+                            <li>hihiahafsd afhsdlkf flaksflskdfjsdf aflkdsjf</li>
+                            <li>hihiahafsd afhsdlkf flaksflskdfjsdf aflkdsjffsdalfkj faskdlj fjalks faksj faslk</li>
+                            <li>Pham Thi Kim Thuy sinh vien nam hai truong Dai hoc Thanh Do ahihi</li>
+                            <li>Pham Thi Ngoc Thom sinh vien nam tu hoc vien mat ma</li>
+                            <li>Nguyen Thanh Tung 28 tuoi designer cua cong ty Mac Adjust tinh Tay Nam Quang Dong Nga</li><li>hihiahafsd afhsdlkf flaksflskdfjsdf aflkdsjf</li>
+                            <li>hihiahafsd afhsdlkf flaksflskdfjsdf aflkdsjffsdalfkj faskdlj fjalks faksj faslk</li>
+                            <li>Pham Thi Kim Thuy sinh vien nam hai truong Dai hoc Thanh Do ahihi</li>
+                            <li>Pham Thi Ngoc Thom sinh vien nam tu hoc vien mat ma</li>
+                            <li>Nguyen Thanh Tung 28 tuoi designer cua cong ty Mac Adjust tinh Tay Nam Quang Dong Nga</li><li>hihiahafsd afhsdlkf flaksflskdfjsdf aflkdsjf</li>
+                            <li>hihiahafsd afhsdlkf flaksflskdfjsdf aflkdsjffsdalfkj faskdlj fjalks faksj faslk</li>
+                            <li>Pham Thi Kim Thuy sinh vien nam hai truong Dai hoc Thanh Do ahihi</li>
+                            <li>Pham Thi Ngoc Thom sinh vien nam tu hoc vien mat ma</li>
+                            <li>Nguyen Thanh Tung 28 tuoi designer cua cong ty Mac Adjust tinh Tay Nam Quang Dong Nga</li>
+                            <li>hihiahafsd afhsdlkf flaksflskdfjsdf aflkdsjf</li>
+                            <li>hihiahafsd afhsdlkf flaksflskdfjsdf aflkdsjffsdalfkj faskdlj fjalks faksj faslk</li>
+                            <li>Pham Thi Kim Thuy sinh vien nam hai truong Dai hoc Thanh Do ahihi</li>
+                            <li>Pham Thi Ngoc Thom sinh vien nam tu hoc vien mat ma</li>
+                            <li>Nguyen Thanh Tung 28 tuoi designer cua cong ty Mac Adjust tinh Tay Nam Quang Dong Nga</li>
+                            <li>hihiahafsd afhsdlkf flaksflskdfjsdf aflkdsjf</li>
+                            <li>hihiahafsd afhsdlkf flaksflskdfjsdf aflkdsjffsdalfkj faskdlj fjalks faksj faslk</li>
+                            <li>Pham Thi Kim Thuy sinh vien nam hai truong Dai hoc Thanh Do ahihi</li>
+                            <li>Pham Thi Ngoc Thom sinh vien nam tu hoc vien mat ma</li>
+                            <li>Nguyen Thanh Tung 28 tuoi designer cua cong ty Mac Adjust tinh Tay Nam Quang Dong Nga</li>
+                            <li>hihiahafsd afhsdlkf flaksflskdfjsdf aflkdsjf</li>
+                            <li>hihiahafsd afhsdlkf flaksflskdfjsdf aflkdsjffsdalfkj faskdlj fjalks faksj faslk</li>
+                            <li>Pham Thi Kim Thuy sinh vien nam hai truong Dai hoc Thanh Do ahihi</li>
+                            <li>Pham Thi Ngoc Thom sinh vien nam tu hoc vien mat ma</li>
+                            <li>Nguyen Thanh Tung 28 tuoi designer cua cong ty Mac Adjust tinh Tay Nam Quang Dong Nga</li>
+                            <li>hihiahafsd afhsdlkf flaksflskdfjsdf aflkdsjf</li>
+                            <li>hihiahafsd afhsdlkf flaksflskdfjsdf aflkdsjffsdalfkj faskdlj fjalks faksj faslk</li>
+                            <li>Pham Thi Kim Thuy sinh vien nam hai truong Dai hoc Thanh Do ahihi</li>
+                            <li>Pham Thi Ngoc Thom sinh vien nam tu hoc vien mat ma</li>
+                            <li>Nguyen Thanh Tung 28 tuoi designer cua cong ty Mac Adjust tinh Tay Nam Quang Dong Nga</li>
                         </ol>
                     </div>
                 </li>
@@ -145,6 +176,13 @@
 
 
 <style>
+    body {
+        font-family: Arial, sans-serif;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
     header {
         position: sticky;
         top: 0;
@@ -153,15 +191,14 @@
 
     main {
         display: flex;
+        flex-grow: 1;
+        flex-direction: row;
+        background: #3179ba;
     }
 
-    .home-left {
-        position: sticky;
-    }
-
-    .homeRight {
-        height: 95vh; /* Chiều cao toàn màn hình */
-        background: #3179BA;
+    .home-right {
+        height: 95vh;
+        flex: 1;
         display: flex;
         flex-direction: column;
     }

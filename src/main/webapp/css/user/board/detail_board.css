@@ -1,9 +1,55 @@
 body {
     font-family: Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 header {
     position: sticky;
     top: 0;
     z-index: 1000;
+}
+
+main {
+    width: 100%;
+    display: flex;
+    flex: 1;
+    background: #3179ba;
+}
+
+.home-right {
+    width: calc(100% - 260px);
+    display: flex;
+    flex-direction: column;
+}
+
+.title_bar {
+    padding: 12px;
+}
+
+.board_title {
+    padding: 0 10px ;
+}
+
+.lists {
+    aspect-ratio: 3 / 1;
+    margin: 12px 0 0 0;
+    border: solid black 2px;
+    overflow-x: auto;
+    display: flex;
+    max-width: 100%;
+    flex: 1;
+    overflow-y: hidden;
+}
+
+.container-list {
+    width: 272px;
+    aspect-ratio: 3/1;
+}
+
+.list-task {
+    overflow-y: auto;
+    height: calc(100% - 40px);
 }

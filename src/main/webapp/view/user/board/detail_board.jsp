@@ -14,8 +14,233 @@
         <jsp:include page="../account/home_left.jsp"/>
     </div>
     <div class="home-right">
-        <div class="title_bar">
-            <div class="board_name">${boardDetail.title}</div>
+        <div class="title-bar">
+            <div class="board_title">${boardDetail.title}</div>
+        </div>
+        <div class="lists">
+            <div class="container-list">
+                <div class="detail-list">
+                    <div class="title-list">Tiêu đề thẻ</div>
+                    <ol class="list-task">
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                    </ol>
+                    <div class="add_task">
+                        <input placeholder="them the..."/>
+                    </div>
+                </div>
+            </div>
+            <div class="container-list">
+                <div class="detail-list">
+                    <div class="title-list">Tiêu đề thẻ</div>
+                    <ol class="list-task">
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                        <li class="task">he</li>
+                    </ol>
+                    <div class="add_task">
+                        <input placeholder="them the..."/>
+                    </div>
+                </div>
+            </div>
+            <div class="container-list">
+                <div class="detail-list">
+                    <div class="title-list">Tiêu đề thẻ</div>
+                    <ol class="list-task">
+                        <li class="task">he</li>
+                    </ol>
+                    <div class="add_task">
+                        <input placeholder="them the..."/>
+                    </div>
+                </div>
+            </div>
+            <div class="container-list">
+                <div class="detail-list">
+                    <div class="title-list">Tiêu đề thẻ</div>
+                    <ol class="list-task">
+                        <li class="task">he</li>
+                    </ol>
+                    <div class="add_task">
+                        <input placeholder="them the..."/>
+                    </div>
+                </div>
+            </div>
+            <div class="container-list">
+                <div class="detail-list">
+                    <div class="title-list">Tiêu đề thẻ</div>
+                    <ol class="list-task">
+                        <li class="task">he</li>
+                    </ol>
+                    <div class="add_task">
+                        <input placeholder="them the..."/>
+                    </div>
+                </div>
+            </div>
+            <div class="container-list">
+                <div class="detail-list">
+                    <div class="title-list">Tiêu đề thẻ</div>
+                    <ol class="list-task">
+                        <li class="task">he</li>
+                    </ol>
+                    <div class="add_task">
+                        <input placeholder="them the..."/>
+                    </div>
+                </div>
+            </div>
+            <div class="container-list">
+                <div class="detail-list">
+                    <div class="title-list">Tiêu đề thẻ</div>
+                    <ol class="list-task">
+                        <li class="task">he</li>
+                    </ol>
+                    <div class="add_task">
+                        <input placeholder="them the..."/>
+                    </div>
+                </div>
+            </div>
+            <div class="container-list">
+                <div class="detail-list">
+                    <div class="title-list">Tiêu đề thẻ</div>
+                    <ol class="list-task">
+                        <li class="task">he</li>
+                    </ol>
+                    <div class="add_task">
+                        <input placeholder="them the..."/>
+                    </div>
+                </div>
+            </div>
+            <div class="container-list">
+                <div class="detail-list">
+                    <div class="title-list">Tiêu đề thẻ</div>
+                    <ol class="list-task">
+                        <li class="task">he</li>
+                    </ol>
+                    <div class="add_task">
+                        <input placeholder="them the..."/>
+                    </div>
+                </div>
+            </div>
+            <div class="container-list">
+                <div class="detail-list">
+                    <div class="title-list">Tiêu đề thẻ</div>
+                    <ol class="list-task">
+                        <li class="task">he</li>
+                    </ol>
+                    <div class="add_task">
+                        <input placeholder="them the..."/>
+                    </div>
+                </div>
+            </div>
+            <div class="container-list">
+                <div class="detail-list">
+                    <div class="title-list">Tiêu đề thẻ</div>
+                    <ol class="list-task">
+                        <li class="task">he</li>
+                    </ol>
+                    <div class="add_task">
+                        <input placeholder="them the..."/>
+                    </div>
+                </div>
+            </div>
+            <div class="container-list">
+                <div class="detail-list">
+                    <div class="title-list">Tiêu đề thẻ</div>
+                    <ol class="list-task">
+                        <li class="task">he</li>
+                    </ol>
+                    <div class="add_task">
+                        <input placeholder="them the..."/>
+                    </div>
+                </div>
+            </div>
+            <div class="container-list">
+                <div class="detail-list">
+                    <div class="title-list">Tiêu đề thẻ</div>
+                    <ol class="list-task">
+                        <li class="task">he</li>
+                    </ol>
+                    <div class="add_task">
+                        <input placeholder="them the..."/>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </main>
