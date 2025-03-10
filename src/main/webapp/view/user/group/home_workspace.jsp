@@ -41,21 +41,27 @@
                         </div>
                         <p id="content">${groupInfo.description}</p>
                     </div>
-
-                    <!-- Phần chỉnh sửa, Ẩn mặc định -->
+                </div>
+                <!-- Phần chỉnh sửa, Ẩn mặc định -->
+                <form action="/group_home?action=editInfoGroup&groupId=${groupInfo.groupId}" method="post">
                     <div id="edit_frame">
                         <label>🏢 Tên không gian làm việc</label>
-                        <input type="text" id="groupNameInput" style="margin-bottom: 20px" value="${groupInfo.title}">
+                        <input name="title" type="text" id="groupNameInput" style="margin-bottom: 20px" value="${groupInfo.title}">
+
+                        <label>🔠 Tên ngắn gọn</label>
+                        <input name="short_title" type="text" id="shortNameInput" style="margin-bottom: 20px" value="${groupInfo.short_title}">
 
                         <label>📝 Mô tả (tùy chỉnh)</label>
-                        <textarea id="groupDescInput">${groupInfo.description}</textarea>
+                        <textarea name="description" id="groupDescInput">${groupInfo.description}</textarea>
 
                         <div class="button-group">
-                            <button class="save-btn" onclick="saveEditGroup()">Lưu</button>
+                            <button class="save-btn" type="submit">Lưu</button>
                             <button class="cancel-btn" onclick="cancelEdit()">Hủy</button>
                         </div>
                     </div>
-                </div>
+                </form>
+
+
                 <c:if test="${roleIdUser == 3}">
                     <div id="addAccount">
                         <button style="background-color: #1B5B94; padding: 10px;cursor: pointer;border-radius: 5px;align-items: center;height: 35px;justify-content: space-around;display: flex;width: 285px;border: none;"
@@ -115,13 +121,9 @@
         document.getElementById("information").style.display = "none";
         document.getElementById("edit_frame").style.display = "block";
 
-        // Copy nội dung cũ vào input
-        document.getElementById("editInput").value = document.getElementById("groupName").textContent;
     }
 
     function saveChanges() {
-        // Cập nhật nội dung mới
-        document.getElementById("groupName").textContent = document.getElementById("editInput").value;
 
         // Quay về trạng thái hiển thị ban đầu
         document.getElementById("edit_frame").style.display = "none";

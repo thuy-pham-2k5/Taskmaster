@@ -558,7 +558,8 @@ body {
 
 /* Ô input và textarea */
 #groupNameInput,
-#groupDescInput {
+#groupDescInput,
+#shortNameInput{
     margin-top: 4px;
     width: 100%;
     padding: 12px;
@@ -571,7 +572,8 @@ body {
 }
 
 #groupNameInput:focus,
-#groupDescInput:focus {
+#groupDescInput:focus,
+#shortNameInput:focus{
     border-color: #0EA5E9; /* Màu xanh khi focus */
     outline: none;
     box-shadow: 0px 0px 8px rgba(14, 165, 233, 0.5);
