@@ -69,7 +69,7 @@ main {
     scrollbar-color: #d8d8d8 #00000026;
     scrollbar-width: thin;
     list-style-type: none;
-    padding-left: 15px;
+    padding: 0 10px;
     min-height: 0;
     height: fit-content;
     overflow-y: auto;
@@ -82,7 +82,7 @@ main {
     font-size: 18px;
     border-radius: 7px;
     padding: 8px;
-    margin-right: 5px;
+    margin: 8px 0 4px 0;
     white-space: break-spaces;
     overflow-wrap: anywhere;
 }
