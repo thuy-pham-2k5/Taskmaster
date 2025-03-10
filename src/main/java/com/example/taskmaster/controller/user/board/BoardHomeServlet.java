@@ -27,15 +27,33 @@ public class BoardHomeServlet extends HttpServlet {
         String action = req.getParameter("action");
         if (action == null) action = "";
         switch (action) {
+            case "changeBoardStarredStatus":
+                starredBoardByBoardId (req, resp);
+                break;
             default:
+                setTimestampToBoard (req);
                 showDetailBoard (req, resp);
                 break;
         }
     }
 
+    private void starredBoardByBoardId(HttpServletRequest req, HttpServletResponse resp) {
+        int boardId = Integer.parseInt(req.getParameter("boardId"));
+        User user = (User) req.getSession().getAttribute("user");
+        boolean boardStarredStatus = Boolean.parseBoolean(req.getParameter("boardStarredStatus"));
+        boardService.changeStarredBoard(user.getUserId(), boardId, boardStarredStatus);
+    }
+
+    private void setTimestampToBoard(HttpServletRequest req) {
+        User user = (User) req.getSession().getAttribute("user");
+        int boardId = Integer.parseInt(req.getParameter("boardId"));
+        boardService.saveTimestampToBoard(user.getUserId(), boardId);
+    }
+
+
     private void showDetailBoard(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        int groupId = (Integer) session.getAttribute("groupId");
+        int groupId = Integer.parseInt((String) session.getAttribute("groupId"));
         int boardId = Integer.parseInt(req.getParameter("boardId"));
         req.setAttribute("groupInfo", groupService.getGroupInfoById(groupId));
         req.setAttribute("boards", boardService.getAllBoardInGroup(groupId, true));

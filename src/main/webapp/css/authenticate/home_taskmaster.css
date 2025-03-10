@@ -77,7 +77,7 @@ nav a {
 }
 
 .image-container,
-.content {
+.board_lists {
     flex: 1;
     min-width: 40%;
 }

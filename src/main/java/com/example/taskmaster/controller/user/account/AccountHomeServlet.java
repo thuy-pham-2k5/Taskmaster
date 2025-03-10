@@ -38,19 +38,25 @@ public class AccountHomeServlet extends HttpServlet {
 
     private void showSettingViewInGroupHome(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession();
+        int groupId = Integer.parseInt(req.getParameter("groupId"));
         session.setAttribute("groupId", req.getParameter("groupId"));
+        session.setAttribute("groupInfo", groupService.getGroupInfoById(groupId));
         resp.sendRedirect("group_home?action=settingView");
     }
 
     private void showMemberViewInGroupHome(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession();
+        int groupId = Integer.parseInt(req.getParameter("groupId"));
         session.setAttribute("groupId", req.getParameter("groupId"));
+        session.setAttribute("groupInfo", groupService.getGroupInfoById(groupId));
         resp.sendRedirect("group_home?action=memberView");
     }
 
     private void showGroupHomeViewById(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession();
-        session.setAttribute("groupId", Integer.parseInt(req.getParameter("groupId")));
+        int groupId = Integer.parseInt(req.getParameter("groupId"));
+        session.setAttribute("groupId", req.getParameter("groupId"));
+        session.setAttribute("groupInfo", groupService.getGroupInfoById(groupId));
         resp.sendRedirect("group_home");
     }
 
@@ -58,7 +64,7 @@ public class AccountHomeServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         List<Group> titleGroupList = groupService.getTitleGroupByUserId(user.getUserId());
-        request.setAttribute("groups", titleGroupList);
+        session.setAttribute("groups", titleGroupList);
         request.getRequestDispatcher("view/user/account/home_account.jsp").forward(request, response);
     }
 }

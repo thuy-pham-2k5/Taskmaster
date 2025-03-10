@@ -1,26 +1,3 @@
-#homeRight {
-    flex: 1;
-    background-color: #3179BA;
-    min-height: 620px; /* Đảm bảo chiều cao tối thiểu */
-    height: auto; /* Tự động mở rộng theo nội dung */
-    overflow: hidden; /* Ngăn chặn phần tử con tràn ra ngoài */
-
-}
-#groupInformation {
-    align-items: center;
-    padding-top: 50px;
-    padding-bottom: 50px;
-    display: flex;
-    justify-content: space-around;
-    border-bottom: 1px solid darkgray;
-
-}
-body {
-    font-family: Arial, sans-serif;
-    background-color: #e3f2fd;
-    margin: 0;
-}
-
 .main-content {
     display: flex;
     background-color: #b3e5fc;
@@ -30,12 +7,11 @@ body {
     }
 
 .child-content-1 {
-  width: 25%;
-    padding-right:20px ;
+    width: 260px;
 }
 
 .child-content-2 {
-    width: 75%;
+    flex: 1;
 }
 .workspace-header {
     display: flex;
@@ -44,7 +20,6 @@ body {
     padding: 15px;
     border-radius: 10px;
     color: white;
-    margin-left: -104px;
 }
 
 .workspace-header img {

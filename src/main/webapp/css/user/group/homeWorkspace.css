@@ -2,6 +2,11 @@ body {
     font-family: Arial, sans-serif;
 }
 
+.menubar-home-workspace {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
 
 .container {
     display: flex;
@@ -93,17 +98,7 @@ body {
 
 .container {
     display: flex;
-    flex-wrap: wrap; /* Để các phần tử tự xuống dòng trên màn hình nhỏ */
-}
-
-
-#homeLeft {
-    width: 20%;
-    min-width: 250px;
-    min-height: 620px; /* Đảm bảo chiều cao tối thiểu */
-    height: auto; /* Tự động mở rộng theo nội dung */
-    overflow: hidden; /* Ngăn chặn phần tử con tràn ra ngoài */
-    background-color: #93CDD8;
+    background: #3179ba;
 }
 
 .board {
@@ -216,21 +211,6 @@ body {
     overflow-y: auto;
 }
 
-#group {
-    border: none;
-    width: 60px;
-    height: 60px;
-    background-color: orange;
-    border-radius: 8px;
-}
-
-#group p {
-    font-size: 40px;
-    color: white;
-    font-weight: bold;
-    margin: 0;
-}
-
 #groupName {
     font-size: 23px;
     color: white;
@@ -239,19 +219,40 @@ body {
 
 #content {
     font-size: 15px;
-    width: 650px;
     color: #e8e2e2;
 }
 
-#groupInformation {
-    height: auto;
-    align-items: center;
-    padding-top: 30px;
-    padding-bottom: 30px;
+.group-info {
+    margin: 15px auto;
     display: flex;
-    justify-content: space-around;
-    border-bottom: 1px solid darkgray;
+    max-width: 850px;
+    align-items: center;
+    justify-content: center;
+}
 
+#group-info {
+     display: flex;
+ }
+
+.group-info-logo {
+    margin-right: 10px;
+}
+
+.group-title {
+    width: 60px;
+    height: 60px;
+    border: 0;
+    border-radius: 5px;
+    font-size: 35px;
+}
+
+.group-info-detail {
+    margin: auto 0;
+    color: white;
+}
+
+.group-info-detail h2 {
+    margin: 0;
 }
 
 #addAcount button {
@@ -275,6 +276,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 25px;
+    box-shadow: 0 -1px 0 0 #fff;
 }
 
 
@@ -383,7 +385,7 @@ body {
     overflow: hidden; /* Không cho nội dung tràn ra */
 }
 
-.titleBoard {
+.title_bar {
     background-color: #0D599D;
     color: white;
     border: none;
@@ -518,7 +520,7 @@ body {
         text-align: center;
     }
 
-    #groupInformation {
+    #group-info {
         flex-direction: column;
         text-align: center;
     }
