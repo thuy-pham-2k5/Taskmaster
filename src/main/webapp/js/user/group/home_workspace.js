@@ -6,7 +6,7 @@ $(document).on("change", "#mySelect", function() {
         $listBoards.empty();
         $.each(responseJson, function(index, board) {
             $("<div>").addClass("workspaceTable")
-                .append($("<label>").addClass("titleBoard").text(board.title))
+                .append($("<label>").addClass("title_bar").text(board.title))
                 .appendTo($listBoards);
         });
     });

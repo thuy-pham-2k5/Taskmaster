@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <meta charset="UTF-8">
@@ -15,8 +16,9 @@
     .parent {
         display: flex;
         padding: 8px;
-        background: #3FB5CC;
+        background: #3179ba;
         user-select: none;
+        border-bottom: 0.1px solid white;
     }
 
     .child-1 {
@@ -40,7 +42,7 @@
         border: 0;
         border-radius: 5px;
         font-size: 17px;
-        background: #007f99;
+        background: #0d599d;
         color: white;
         white-space: nowrap;
         transition: background-color 0.3s ease;
@@ -283,9 +285,9 @@
                     <img src="/images/list.png" alt="dropdown.png" class="dropdown-img">
                 </button>
                 <div class="dropdown-content" id="workspace">
-                    <a href="#">Tùy chọn 1</a>
-                    <a href="#">Tùy chọn 2</a>
-                    <a href="#">Tùy chọn 3</a>
+                    <c:forEach items="${groups}" var="group">
+                        <a href="/account_home?action=showGroupHomeView&groupId=${group.groupId}">${group.title}</a>
+                    </c:forEach>
                 </div>
             </div>
             <div class="dropdown-menubar">
@@ -372,7 +374,7 @@
             <div class="dropdown-menubar">
                 <button class="create-new-one" onclick="toggleDropdownMenubar('create-new', this)">
                     <label>Tạo mới</label>
-                    <img class="img-menubar" src="/images/add.png" alt="plus.png" style="margin: auto">
+                    <img class="img-menubar" src="/images/plus.png" alt="plus.png" style="margin: auto">
                 </button>
                 <div class="dropdown-content" id="create-new">
                     <p>Tạo bảng</p>

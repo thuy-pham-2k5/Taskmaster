@@ -10,7 +10,7 @@
 <header>
     <jsp:include page="../account/menubar.jsp"/>
 </header>
-<main style="display:flex;">
+<main>
     <div class="home-left">
         <jsp:include page="../account/home_left.jsp"/>
     </div>
@@ -22,11 +22,11 @@
                 </div>
                 <div class="group-info-detail">
                     <h2>
-                        Taskmaster
+                        ${groupInfo.title}
                         <button style="background: none; border: 0"><img class="img-edit-group" src="/images/edit.png">
                         </button>
                     </h2>
-                    <span>Riêng tư</span>
+                    <span>${groupInfo.visibility}</span>
                 </div>
             </div>
             <div class="group-invite-member">

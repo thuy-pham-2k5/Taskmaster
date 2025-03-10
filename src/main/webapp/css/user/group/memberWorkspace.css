@@ -1,3 +1,7 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
 header {
     position: sticky;
     top: 0;
@@ -99,7 +103,7 @@ main {
     padding: 16px 32px;
 }
 
-.content {
+.board_lists {
     display: flex;
     flex-direction: column;
     margin: 0;
@@ -157,7 +161,6 @@ ul li:hover {
 }
 
 ul li a {
-    font-size: 20px;
     background-color: transparent;
 }
 
