@@ -31,6 +31,7 @@ public class GroupHomeServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
         String action = request.getParameter("action");
+        System.out.println(action);
         if (action == null)
             action = "";
         switch (action) {
@@ -38,6 +39,7 @@ public class GroupHomeServlet extends HttpServlet {
                 createNewGroup(request, response);
                 break;
             case "editInfoGroup":
+                System.out.println("hekkeo");
                 editInfoGroup(request, response);
                 break;
             case "inviteMember":
@@ -59,11 +61,15 @@ public class GroupHomeServlet extends HttpServlet {
 
     private void editInfoGroup(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
-        int groupId = (int) session.getAttribute("groupId");
+        int groupId = Integer.parseInt(session.getAttribute("groupId").toString());
         String title = request.getParameter("title");
-        String linkWeb = request.getParameter("linkWeb");
+        String short_title = request.getParameter("short_title");
         String description = request.getParameter("description");
-        groupService.updateGroup(groupId, new Group(title, linkWeb, description));
+        System.out.println(groupId);
+        System.out.println(title);
+        System.out.println(short_title);
+        System.out.println(description);
+        groupService.updateGroup(groupId, new Group(short_title, title, "https://trello.com/b/KX3U0lwT/backlog-sprint", description));
         response.sendRedirect("/group_home");
     }
 
@@ -87,6 +93,7 @@ public class GroupHomeServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
         String action = request.getParameter("action");
+        System.out.println(action);
         if (action == null)
             action = "";
         switch (action) {
