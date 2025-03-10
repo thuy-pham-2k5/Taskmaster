@@ -11,7 +11,7 @@ public class ConnectDatabase {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             String password = System.getenv("dbPassword");
-            connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/taskmaster", "root", "1234");
+            connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/taskmaster", "root", password);
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }

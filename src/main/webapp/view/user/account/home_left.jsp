@@ -7,7 +7,7 @@
         position: sticky;
         top: 48px;
         left: 0;
-        height: calc(100vh - 48px);
+        height: calc(100vh - 50px);
     }
 
     .home-left {
@@ -164,12 +164,11 @@
     }
 
     .hl-list-boards-ul {
-        scrollbar-color: #2a6ba5 #d6d6d6;
+        scrollbar-color: #fff6 #00000026;
         scrollbar-width: thin;
         overflow-y: auto;
-        max-height: 436px;
-        margin-top: 5px;
-        margin-left: 0;
+        max-height: 457px;
+        margin: 5px 0 0 0;
         padding: 0;
     }
 

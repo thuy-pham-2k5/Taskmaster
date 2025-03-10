@@ -98,6 +98,7 @@ body {
 
 .container {
     display: flex;
+    background: #3179ba;
 }
 
 .board {
@@ -210,21 +211,6 @@ body {
     overflow-y: auto;
 }
 
-#group {
-    border: none;
-    width: 60px;
-    height: 60px;
-    background-color: orange;
-    border-radius: 8px;
-}
-
-#group p {
-    font-size: 40px;
-    color: white;
-    font-weight: bold;
-    margin: 0;
-}
-
 #groupName {
     font-size: 23px;
     color: white;
@@ -233,19 +219,40 @@ body {
 
 #content {
     font-size: 15px;
-    width: 650px;
     color: #e8e2e2;
 }
 
-#groupInformation {
-    height: auto;
-    align-items: center;
-    padding-top: 30px;
-    padding-bottom: 30px;
+.group-info {
+    margin: 15px auto;
     display: flex;
-    justify-content: space-around;
-    border-bottom: 1px solid darkgray;
+    max-width: 850px;
+    align-items: center;
+    justify-content: center;
+}
 
+#group-info {
+     display: flex;
+ }
+
+.group-info-logo {
+    margin-right: 10px;
+}
+
+.group-title {
+    width: 60px;
+    height: 60px;
+    border: 0;
+    border-radius: 5px;
+    font-size: 35px;
+}
+
+.group-info-detail {
+    margin: auto 0;
+    color: white;
+}
+
+.group-info-detail h2 {
+    margin: 0;
 }
 
 #addAcount button {
@@ -265,10 +272,11 @@ body {
 #workspaces {
     margin-left: 74px;
     margin-right: 74px;
-    margin-top: 30px;
+    margin-top: 15px;
     display: flex;
     flex-direction: column;
     gap: 25px;
+    box-shadow: 0 -1px 0 0 #fff;
 }
 
 
@@ -352,7 +360,7 @@ body {
     display: flex; /* Dùng flexbox để căn giữa */
     justify-content: center; /* Căn giữa theo chiều ngang */
     align-items: center; /* Căn giữa theo chiều dọc */
-    width: 184px; /* Đặt chiều rộng cố định */
+    width: 172px; /* Đặt chiều rộng cố định */
     height: 90px; /* Đặt chiều cao cố định */
     word-wrap: break-word;
     gap: 10px; /* Tạo khoảng cách giữa các phần tử */
@@ -377,7 +385,7 @@ body {
     overflow: hidden; /* Không cho nội dung tràn ra */
 }
 
-.titleBoard {
+.title_bar {
     background-color: #0D599D;
     color: white;
     border: none;
@@ -512,7 +520,7 @@ body {
         text-align: center;
     }
 
-    #groupInformation {
+    #group-info {
         flex-direction: column;
         text-align: center;
     }

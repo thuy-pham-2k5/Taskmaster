@@ -10,7 +10,7 @@
 <header>
     <jsp:include page="../account/menubar.jsp"/>
 </header>
-<main style="display:flex;">
+<main>
     <div class="home-left">
         <jsp:include page="../account/home_left.jsp"/>
     </div>
@@ -22,11 +22,11 @@
                 </div>
                 <div class="group-info-detail">
                     <h2>
-                        Taskmaster
+                        ${groupInfo.title}
                         <button style="background: none; border: 0"><img class="img-edit-group" src="/images/edit.png">
                         </button>
                     </h2>
-                    <span>Riêng tư</span>
+                    <span>${groupInfo.visibility}</span>
                 </div>
             </div>
             <div class="group-invite-member">
@@ -92,7 +92,15 @@
                                         </div>
                                         <div class="user-button-change">
                                             <button>${user.roleName}</button>
-                                            <button>Loại bỏ</button>
+                                            <button class="remove-btn">Loại bỏ</button>
+
+
+                                            <div class="confirm-box">
+                                                <p>Bạn có chắc muốn loại bỏ ${user.fullName}?</p>
+                                                <button class="confirm-remove">Có</button>
+                                                <button class="cancel-remove">Hủy</button>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </c:forEach>
@@ -115,8 +123,15 @@
                                                 <button>Thêm vào không gian làm việc</button>
                                             </a>
                                             <a href="/group_member?action=delete&userId=${user.userId}">
-                                                <button>Loại bỏ</button>
+                                                <button >Loại bỏ</button>
                                             </a>
+
+
+                                            <div class="confirm-box">
+                                                <p>Bạn có chắc muốn loại bỏ ${user.fullName}?</p>
+                                                <button class="confirm-remove">Có</button>
+                                                <button class="cancel-remove">Hủy</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </c:forEach>
@@ -139,6 +154,12 @@
                                             <a href="/group_member?action=delete&userId=${user.userId}">
                                                 <button>Loại bỏ</button>
                                             </a>
+
+                                            <div class="confirm-box">
+                                                <p>Bạn có chắc muốn loại bỏ ${user.fullName}?</p>
+                                                <button class="confirm-remove">Có</button>
+                                                <button class="cancel-remove">Hủy</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </c:forEach>
@@ -154,6 +175,69 @@
     </div>
 </main>
 <script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const removeButtons = document.querySelectorAll(".remove-btn");
+
+        removeButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                // Lấy modal xác nhận gần nút được nhấn
+                const confirmBox = this.nextElementSibling;
+
+                // Ẩn tất cả các modal khác
+                document.querySelectorAll(".confirm-box").forEach(box => {
+                    if (box !== confirmBox) {
+                        box.classList.remove("show");
+                    }
+                });
+
+                // Hiển thị modal dưới nút "Loại bỏ"
+                confirmBox.classList.add("show");
+
+                // Xác định vị trí modal ngay dưới nút
+                const rect = this.getBoundingClientRect();
+                confirmBox.style.top = `${rect.bottom + window.scrollY + 45}px`; /* Hiển thị ngay dưới */
+                confirmBox.style.left = `${rect.left + window.scrollX + 45}px`; /* Canh lề theo nút */
+            });
+        });
+
+        // Xử lý nút "Hủy"
+        document.querySelectorAll(".cancel-remove").forEach(cancelButton => {
+            cancelButton.addEventListener("click", function () {
+                this.parentElement.classList.remove("show"); // Ẩn modal
+            });
+        });
+
+        // Xử lý nút "Có" (thực hiện xóa)
+        document.querySelectorAll(".confirm-remove").forEach(confirmButton => {
+            confirmButton.addEventListener("click", function () {
+                const userInfo = this.closest(".user-general-info");
+                userInfo.remove(); // Xóa phần tử khỏi giao diện (có thể gửi AJAX)
+            });
+        });
+
+        // Ẩn modal khi click ra ngoài
+        document.addEventListener("click", function (event) {
+            if (!event.target.matches(".remove-btn") && !event.target.closest(".confirm-box")) {
+                document.querySelectorAll(".confirm-box").forEach(box => {
+                    box.classList.remove("show");
+                });
+            }
+        });
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
     let currentButtonId = "member"; // Đặt member là mặc định
 
     function toggleDisplay(buttonId) {

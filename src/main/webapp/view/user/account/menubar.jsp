@@ -5,6 +5,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Italianno&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 <style>
     body {
         margin: 0;
@@ -400,9 +403,9 @@
                     <a>Thẻ</a>
                     <a>Cài đặt</a>
                     <hr>
-                    <a>Tạo Không gian làm việc</a>
+                    <a href="group_home?action=showCreateGroup">Tạo Không gian làm việc</a>
                     <hr>
-                    <a>Đăng xuất</a>
+                    <a href="javascript:void(0);" id="logoutBtn">Đăng xuất</a>
                 </div>
             </div>
         </div>
@@ -410,6 +413,33 @@
 </div>
 
 <script>
+
+
+
+    document.getElementById("logoutBtn").addEventListener("click", function () {
+        Swal.fire({
+            title: "Xác nhận đăng xuất",
+            text: "Bạn có chắc chắn muốn đăng xuất không?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Đăng xuất",
+            cancelButtonText: "Hủy"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/logout"; // Chuyển hướng đến trang đăng xuất
+            }
+        });
+    });
+
+
+
+
+
+
+
+
     function toggleDropdownMenubar(dataId, button) {
         let dropdown = document.getElementById(dataId);
 

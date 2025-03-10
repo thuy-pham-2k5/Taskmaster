@@ -102,6 +102,9 @@ public class GroupHomeServlet extends HttpServlet {
             case "settingView":
                 response.sendRedirect("/group_setting");
                 break;
+            case "showCreateGroup":
+                response.sendRedirect("/view/user/group/create_workspace.jsp");
+                break;
             default:
                 showGroupInfo(request, response);
                 break;
