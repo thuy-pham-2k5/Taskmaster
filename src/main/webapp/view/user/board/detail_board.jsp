@@ -18,229 +18,29 @@
             <div class="board_title">${boardDetail.title}</div>
         </div>
         <div class="lists">
-            <div class="container-list">
-                <div class="detail-list">
-                    <div class="title-list">Tiêu đề thẻ</div>
-                    <ol class="list-task">
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                    </ol>
-                    <div class="add_task">
-                        <input placeholder="them the..."/>
+            <c:forEach items="columns" var="column">
+                <div class="container-list">
+                    <div class="detail-list">
+                        <div class="title-list">
+                            <h2>${column.name}</h2>
+                        </div>
+                        <ol class="list-task">
+                            <c:forEach items="tasks" var="task">
+                                <li class="task">he</li>
+                            </c:forEach>
+                        </ol>
+                        <div class="add_task">
+                            <div class="btn_add_task">
+                                <button>
+                                    <img src="/images/add.png"/>
+                                    Thêm thẻ
+                                </button>
+                            </div>
+                            <div class="input_add_task"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="container-list">
-                <div class="detail-list">
-                    <div class="title-list">Tiêu đề thẻ</div>
-                    <ol class="list-task">
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                        <li class="task">he</li>
-                    </ol>
-                    <div class="add_task">
-                        <input placeholder="them the..."/>
-                    </div>
-                </div>
-            </div>
-            <div class="container-list">
-                <div class="detail-list">
-                    <div class="title-list">Tiêu đề thẻ</div>
-                    <ol class="list-task">
-                        <li class="task">he</li>
-                    </ol>
-                    <div class="add_task">
-                        <input placeholder="them the..."/>
-                    </div>
-                </div>
-            </div>
-            <div class="container-list">
-                <div class="detail-list">
-                    <div class="title-list">Tiêu đề thẻ</div>
-                    <ol class="list-task">
-                        <li class="task">he</li>
-                    </ol>
-                    <div class="add_task">
-                        <input placeholder="them the..."/>
-                    </div>
-                </div>
-            </div>
-            <div class="container-list">
-                <div class="detail-list">
-                    <div class="title-list">Tiêu đề thẻ</div>
-                    <ol class="list-task">
-                        <li class="task">he</li>
-                    </ol>
-                    <div class="add_task">
-                        <input placeholder="them the..."/>
-                    </div>
-                </div>
-            </div>
-            <div class="container-list">
-                <div class="detail-list">
-                    <div class="title-list">Tiêu đề thẻ</div>
-                    <ol class="list-task">
-                        <li class="task">he</li>
-                    </ol>
-                    <div class="add_task">
-                        <input placeholder="them the..."/>
-                    </div>
-                </div>
-            </div>
-            <div class="container-list">
-                <div class="detail-list">
-                    <div class="title-list">Tiêu đề thẻ</div>
-                    <ol class="list-task">
-                        <li class="task">he</li>
-                    </ol>
-                    <div class="add_task">
-                        <input placeholder="them the..."/>
-                    </div>
-                </div>
-            </div>
-            <div class="container-list">
-                <div class="detail-list">
-                    <div class="title-list">Tiêu đề thẻ</div>
-                    <ol class="list-task">
-                        <li class="task">he</li>
-                    </ol>
-                    <div class="add_task">
-                        <input placeholder="them the..."/>
-                    </div>
-                </div>
-            </div>
-            <div class="container-list">
-                <div class="detail-list">
-                    <div class="title-list">Tiêu đề thẻ</div>
-                    <ol class="list-task">
-                        <li class="task">he</li>
-                    </ol>
-                    <div class="add_task">
-                        <input placeholder="them the..."/>
-                    </div>
-                </div>
-            </div>
-            <div class="container-list">
-                <div class="detail-list">
-                    <div class="title-list">Tiêu đề thẻ</div>
-                    <ol class="list-task">
-                        <li class="task">he</li>
-                    </ol>
-                    <div class="add_task">
-                        <input placeholder="them the..."/>
-                    </div>
-                </div>
-            </div>
-            <div class="container-list">
-                <div class="detail-list">
-                    <div class="title-list">Tiêu đề thẻ</div>
-                    <ol class="list-task">
-                        <li class="task">he</li>
-                    </ol>
-                    <div class="add_task">
-                        <input placeholder="them the..."/>
-                    </div>
-                </div>
-            </div>
-            <div class="container-list">
-                <div class="detail-list">
-                    <div class="title-list">Tiêu đề thẻ</div>
-                    <ol class="list-task">
-                        <li class="task">he</li>
-                    </ol>
-                    <div class="add_task">
-                        <input placeholder="them the..."/>
-                    </div>
-                </div>
-            </div>
-            <div class="container-list">
-                <div class="detail-list">
-                    <div class="title-list">Tiêu đề thẻ</div>
-                    <ol class="list-task">
-                        <li class="task">he</li>
-                    </ol>
-                    <div class="add_task">
-                        <input placeholder="them the..."/>
-                    </div>
-                </div>
-            </div>
-
+            </c:forEach>
         </div>
     </div>
 </main>
