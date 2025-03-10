@@ -4,8 +4,11 @@ import com.example.taskmaster.database.ConnectDatabase;
 import com.example.taskmaster.model.Board;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.time.LocalTime.now;
 
 public class BoardService implements IBoardService {
 
@@ -31,6 +34,52 @@ public class BoardService implements IBoardService {
                 boards.add(new Board(boardId, title, backgroundId, backgroundLink, status, groupId));
             }
             return boards;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public Board getBoardById(int boardId) {
+        Board board = null;
+        String query = "select * from boards where board_id = ?";
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, boardId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                String title = resultSet.getString(2);
+                int status = resultSet.getInt(5);
+                board = new Board(boardId, title, status);
+            }
+            return board;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void saveTimestampToBoard(int userId, int boardId) {
+        String query = "UPDATE user_board_relationships set timestamp = current_timestamp() WHERE (user_id = ? and board_id = ? )";
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setInt(2, boardId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void changeStarredBoard(int userId, int boardId, boolean starred) {
+        String query = "UPDATE user_board_relationships set starred = ? WHERE (user_id = ? and board_id = ?);";
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setBoolean(1, starred);
+            preparedStatement.setInt(2, userId);
+            preparedStatement.setInt(3, boardId);
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

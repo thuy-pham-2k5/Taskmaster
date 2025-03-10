@@ -52,10 +52,6 @@ public class AuthenticateServlet extends HttpServlet {
             case "resetPassword":
                 resetPassword(request, response);
                 break;
-            case "logout":
-                logout(request, response);
-
-                break;
             default:
                 break;
         }
@@ -72,10 +68,6 @@ public class AuthenticateServlet extends HttpServlet {
             request.setAttribute("message", "Email chưa được đăng ký");
             request.getRequestDispatcher("/view/authenticate/reset_password.jsp").forward(request, response);
         }
-    }
-
-    private void logout(HttpServletRequest request, HttpServletResponse response) {
-
     }
 
     private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

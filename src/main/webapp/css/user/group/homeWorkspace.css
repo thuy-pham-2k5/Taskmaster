@@ -1,13 +1,12 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
     font-family: Arial, sans-serif;
 }
 
+.menubar-home-workspace {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
 
 .container {
     display: flex;
@@ -26,9 +25,29 @@ body {
 #logo {
     padding-left: 20px;
     display: flex;
-    align-items: center;
-    gap: 10px;
+    align-items: center; /* Căn giữa theo chiều dọc */
 }
+
+#logo a {
+    display: flex;
+    align-items: center; /* Đảm bảo hình ảnh và văn bản thẳng hàng */
+    text-decoration: none; /* Loại bỏ gạch chân mặc định của thẻ <a> */
+    gap: 10px; /* Tạo khoảng cách giữa logo và chữ */
+}
+
+#logo img {
+    height: 40px;
+    width: 40px;
+    object-fit: contain; /* Đảm bảo hình ảnh không bị méo */
+}
+
+#logo span {
+    font-size: 18px;
+    font-weight: bold;
+    color: #1E293B; /* Màu chữ tối hơn giúp dễ đọc */
+    white-space: nowrap; /* Tránh bị xuống dòng */
+}
+
 
 #headerTopic {
     display: flex;
@@ -50,7 +69,7 @@ body {
 
 #headerTopic button {
     width: 110px;
-    height: 30px;
+    height: 43px;
     background-color: #116676;
     color: white;
     border-radius: 5px;
@@ -79,17 +98,7 @@ body {
 
 .container {
     display: flex;
-    flex-wrap: wrap; /* Để các phần tử tự xuống dòng trên màn hình nhỏ */
-}
-
-
-#homeLeft {
-    width: 20%;
-    min-width: 250px;
-    min-height: 620px; /* Đảm bảo chiều cao tối thiểu */
-    height: auto; /* Tự động mở rộng theo nội dung */
-    overflow: hidden; /* Ngăn chặn phần tử con tràn ra ngoài */
-    background-color: #93CDD8;
+    background: #3179ba;
 }
 
 .board {
@@ -122,14 +131,6 @@ body {
     color: #FFFFFF;
 }
 
-.dropdown {
-    position: relative;
-    display: inline-block;
-    border-radius: 5px;
-    width: 25%;
-    height: 100%;
-}
-
 #homeRight {
     flex: 1;
     background-color: #3179BA;
@@ -156,6 +157,7 @@ body {
 
 
 #homeLeft #workspace {
+    border: none;
     margin: 18px;
     border-radius: 8px;
     width: 50px;
@@ -209,19 +211,6 @@ body {
     overflow-y: auto;
 }
 
-#group {
-    width: 60px;
-    height: 60px;
-    background-color: orange;
-    border-radius: 8px;
-}
-
-#group p {
-    font-size: 40px;
-    color: white;
-    font-weight: bold;
-}
-
 #groupName {
     font-size: 23px;
     color: white;
@@ -230,18 +219,40 @@ body {
 
 #content {
     font-size: 15px;
-    width: 650px;
     color: #e8e2e2;
 }
 
-#groupInformation {
-    align-items: center;
-    padding-top: 50px;
-    padding-bottom: 50px;
+.group-info {
+    margin: 15px auto;
     display: flex;
-    justify-content: space-around;
-    border-bottom: 1px solid darkgray;
+    max-width: 850px;
+    align-items: center;
+    justify-content: center;
+}
 
+#group-info {
+     display: flex;
+ }
+
+.group-info-logo {
+    margin-right: 10px;
+}
+
+.group-title {
+    width: 60px;
+    height: 60px;
+    border: 0;
+    border-radius: 5px;
+    font-size: 35px;
+}
+
+.group-info-detail {
+    margin: auto 0;
+    color: white;
+}
+
+.group-info-detail h2 {
+    margin: 0;
 }
 
 #addAcount button {
@@ -261,10 +272,11 @@ body {
 #workspaces {
     margin-left: 74px;
     margin-right: 74px;
-    margin-top: 30px;
+    margin-top: 15px;
     display: flex;
     flex-direction: column;
     gap: 25px;
+    box-shadow: 0 -1px 0 0 #fff;
 }
 
 
@@ -275,6 +287,7 @@ body {
     color: white;
     height: 35px;
     background-color: #3179BA;
+    outline: none;
 }
 
 #searchTable input {
@@ -284,6 +297,8 @@ body {
     height: 35px;
     color: white;
     background-color: #3179BA;
+    outline: none;
+    padding: 12px;
 }
 
 #searchTable button {
@@ -345,7 +360,7 @@ body {
     display: flex; /* Dùng flexbox để căn giữa */
     justify-content: center; /* Căn giữa theo chiều ngang */
     align-items: center; /* Căn giữa theo chiều dọc */
-    width: 184px; /* Đặt chiều rộng cố định */
+    width: 172px; /* Đặt chiều rộng cố định */
     height: 90px; /* Đặt chiều cao cố định */
     word-wrap: break-word;
     gap: 10px; /* Tạo khoảng cách giữa các phần tử */
@@ -370,7 +385,7 @@ body {
     overflow: hidden; /* Không cho nội dung tràn ra */
 }
 
-.titleBoard {
+.title_bar {
     background-color: #0D599D;
     color: white;
     border: none;
@@ -505,7 +520,7 @@ body {
         text-align: center;
     }
 
-    #groupInformation {
+    #group-info {
         flex-direction: column;
         text-align: center;
     }
@@ -521,4 +536,93 @@ body {
     #viewOffTable {
         width: 100%;
     }
+}
+
+
+
+/* Khung chính */
+#edit_frame {
+    width: 380px;
+    display: none; /* Ẩn mặc định */
+    background-color: #3179BA; /* Màu xanh đậm hơn */
+    padding: 24px;
+    max-width: 460px; /* Giới hạn chiều rộng */
+}
+
+/* Tiêu đề & nhãn */
+#edit_frame label {
+    color: #F1F5F9; /* Màu chữ trắng nhạt */
+    font-size: 16px;
+    align-self: flex-start; /* Căn trái label */
+}
+
+/* Ô input và textarea */
+#groupNameInput,
+#groupDescInput {
+    margin-top: 4px;
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #a0bbdc;
+    border-radius: 8px;
+    font-size: 15px;
+    background-color: #6494c4;
+    color: #1E293B;
+    box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#groupNameInput:focus,
+#groupDescInput:focus {
+    border-color: #0EA5E9; /* Màu xanh khi focus */
+    outline: none;
+    box-shadow: 0px 0px 8px rgba(14, 165, 233, 0.5);
+}
+
+/* Thiết kế textarea */
+#groupDescInput {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Nhóm nút bấm */
+.button-group {
+    width: 100%;
+    display: flex;
+    gap: 12px;
+}
+
+/* Thiết kế nút */
+#edit_frame button {
+    width: 90px;
+    margin-top: 20px;
+    padding: 12px;
+    border: none;
+    border-radius: 3px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Nút Lưu */
+.save-btn {
+    background-color: #0EA5E9;
+    color: white;
+}
+
+.save-btn:hover {
+    background-color: #0284C7;
+    transform: translateY(-2px);
+    box-shadow: 0px 6px 12px rgba(18, 145, 213, 0.4);
+}
+
+/* Nút Hủy */
+.cancel-btn {
+    background-color: #8a939d;
+    color: white;
+}
+
+.cancel-btn:hover {
+    background-color: #DC2626;
+    transform: translateY(-2px);
+    box-shadow: 0px 6px 12px rgba(220, 38, 38, 0.4);
 }

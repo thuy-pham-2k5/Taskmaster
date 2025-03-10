@@ -36,24 +36,6 @@ body {
     align-items: center;
 }
 
-.topic {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    padding: 5px 10px;
-    border-radius: 5px;
-    background-color: #174A7E;
-}
-
-.topic:hover {
-    background-color: #123A5E;
-}
-
-.topic img {
-    margin-left: 5px;
-    height: 16px;
-}
-
 button {
     background-color: #FFD700;
     color: #000;
