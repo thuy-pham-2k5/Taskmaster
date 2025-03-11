@@ -219,6 +219,12 @@
         align-items: center;
     }
 
+    .input-search::placeholder {
+        color: #dcd8d8; /* Màu placeholder (xám nhạt) */
+        font-style: italic; /* Làm nghiêng chữ */
+        opacity: 1; /* Đảm bảo độ rõ nét */
+    }
+
     @media screen {
         .backup-list {
             display: none;
