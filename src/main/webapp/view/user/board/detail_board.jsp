@@ -47,8 +47,71 @@
                     </div>
                 </div>
             </c:forEach>
+            <div  class="container-list">
+                <div id="inputAddNewList" class="detail-list">
+                    <div class="enter_add_list">
+                        <div class="input_add_list">
+                            <input type="text" name="inputName" placeholder="Nhập tên danh sách...">
+                        </div>
+                        <div class="action_add_list">
+                            <button id="addNewList">Thêm danh sách</button>
+                            <img src="/images/black_closed.png" alt="closed.png" onclick="showAndClosed('inputAddNewList', 'openAddNewList')">
+                        </div>
+                    </div>
+                </div>
+                <div  id="openAddNewList" class="detail-list" style="background: rgb(141 176 210 / 35%);">
+                    <div class="btn_add_list" onclick="showAndClosed('openAddNewList', 'inputAddNewList')">
+                        <button>
+                            <img src="/images/add.png"/>
+                            Thêm danh sách khác
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </main>
+<script>
+    function setupAutoHide(idHidden, idReplacement) {
+        document.addEventListener("click", function (event) {
+            let div = document.getElementById(idHidden);
+            if (div.style.display === "block" && !div.contains(event.target)) {
+                div.style.display = "none";
+                if (idReplacement !== null) {
+                    document.getElementById(idReplacement).style.display = 'block';
+                }
+            }
+        });
+    }
+
+    function showAndClosed(idClosed, idShow) {
+        event.stopPropagation();
+        document.getElementById(idClosed).style.display = "none";
+        let showElement = document.getElementById(idShow);
+        showElement.style.display = "block";
+
+        let input = showElement.querySelector("input");
+        if (input) {
+            setTimeout(() => input.focus(), 50);
+        }
+    }
+
+    setupAutoHide('inputAddNewList', 'openAddNewList');
+
+    $(document).on("click", "#addNewList", function() {
+        console.log("Name Board: " + $(this).val());
+        const selectedValue = $(this).val();
+        $.get(`/group_home?action=sortType&option=` + selectedValue, function(responseJson) {
+            const $listBoards = $("#listBoards");
+            $listBoards.empty();
+            $.each(responseJson, function(index, board) {
+                $("<div>").addClass("workspaceTable")
+                    .append($("<label>").addClass("title_bar").text(board.title))
+                    .appendTo($listBoards);
+            });
+        });
+    });
+
+</script>
 </body>
 </html>

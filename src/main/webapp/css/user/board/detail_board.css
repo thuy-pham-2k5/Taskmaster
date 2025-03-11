@@ -30,7 +30,7 @@ main {
 }
 
 .board_title {
-    padding: 0 10px ;
+    padding: 0 10px;
 }
 
 .lists {
@@ -106,6 +106,19 @@ main {
     background: #d5dde4;
 }
 
+.btn_add_list {
+    padding: 12px;
+}
+
+.btn_add_list button {
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+    border: 0;
+    background: none;
+}
+
+.btn_add_list button img,
 .btn_add_task button img {
     width: 20px;
     height: 20px;
@@ -113,5 +126,49 @@ main {
 }
 
 .input_add_task {
+    display: none;
+}
+
+.input_add_list input {
+    height: 32px;
+    background: none;
+    border-radius: 5px;
+    width: 100%;
+    font-size: 15px;
+    padding-left: 10px;
+    border: 3px solid #FFFFFF;
+}
+
+.input_add_list input:focus {
+    border: 3px solid #FFFFFF;
+    outline: none;
+}
+
+input::placeholder {
+    color: white;
+    font-size: 15px;
+}
+
+.action_add_list {
+    display: flex;
+    align-items: center;
+    margin-top: 7px;
+}
+
+.action_add_list button {
+    padding: 5px 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 0;
+    background: #1c5c95;
+    color: white;
+    font-size: 17px;
+}
+
+.enter_add_list {
+    padding: 10px;
+}
+
+#inputAddNewList {
     display: none;
 }
