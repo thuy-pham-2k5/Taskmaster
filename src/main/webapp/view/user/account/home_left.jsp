@@ -5,9 +5,8 @@
     .position-home-left {
         width: 260px;
         position: sticky;
-        top: 48px;
         left: 0;
-        height: calc(100vh - 50px);
+        height: calc(100% - 50px);
     }
 
     .home-left {
