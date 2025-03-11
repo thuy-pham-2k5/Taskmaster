@@ -72,13 +72,9 @@
             color: #dcdcdc;
         }
 
-        .workspace-description {
-            margin: 15px 0;
-            font-size: 16px;
-        }
-
         .delete-workspace {
             margin-top: 20px;
+            padding-left: 44px;
         }
     </style>
 </head>
@@ -111,7 +107,9 @@
                             </h2>
                             <span>${groupInfo.visibility}</span>
                         </div>
-                        <p id="content">${groupInfo.description}</p>
+                    </div>
+                    <div>
+                    <p style="padding-left: 25px" id="content">${groupInfo.description}</p>
                     </div>
                 </div>
             </div>

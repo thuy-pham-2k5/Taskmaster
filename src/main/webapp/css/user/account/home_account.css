@@ -551,3 +551,76 @@
 }
 
 
+
+
+
+#homeRight {
+    padding: 20px;
+    background-color: #2C68A5;
+    color: white;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.board-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.board-item {
+    width: 150px;
+    background-color: white;
+    color: black;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.board-item img {
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.board-item p {
+    margin-top: 5px;
+    font-size: 0.9em;
+}
+
+.board-item-red {
+    background-color: #D32F2F;
+    color: white;
+}
+
+.workspace-container, .guest-workspace {
+    margin-top: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.workspace-options a {
+    margin-right: 10px;
+    color: white;
+    text-decoration: none;
+}
+
+.view-all-closed-boards {
+    background-color: white;
+    color: black;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+    text-align: center;
+    display: block;
+    margin-top: 20px;
+}

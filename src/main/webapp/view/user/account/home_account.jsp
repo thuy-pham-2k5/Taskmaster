@@ -54,7 +54,71 @@
                 </div>
             </nav>
             <div id="homeRight">
+                <div class="section">
+                    <h2>⭐ Bảng đánh dấu sao</h2>
+                    <div class="board-list">
+                        <c:forEach items="${starredBoards}" var="board">
+                            <div class="board-item">
+                                <img src="${board.imageUrl}" alt="Board Image">
+                                <p>${board.title}</p>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>⏳ Đã xem gần đây</h2>
+                    <div class="board-list">
+                        <c:forEach items="${recentBoards}" var="board">
+                            <div class="board-item">
+                                <img src="${board.imageUrl}" alt="Board Image">
+                                <p>${board.title}</p>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>Các Không gian làm việc của bạn</h2>
+                    <c:forEach items="${myWorkspaces}" var="workspace">
+                        <div class="workspace-container">
+                            <h3>${workspace.name}</h3>
+                            <div class="workspace-options">
+                                <a href="/workspace?groupId=${workspace.id}&view=board">📋 Bảng</a>
+                                <a href="/workspace?groupId=${workspace.id}&view=members">👥 Thành viên (${workspace.memberCount})</a>
+                                <a href="/workspace?groupId=${workspace.id}&view=settings">⚙️ Cài đặt</a>
+                            </div>
+                            <div class="board-list">
+                                <c:forEach items="${workspace.boards}" var="board">
+                                    <div class="board-item">
+                                        <img src="${board.imageUrl}" alt="Board Image">
+                                        <p>${board.title}</p>
+                                    </div>
+                                </c:forEach>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </div>
+
+                <div class="section">
+                    <h2>Các Không gian làm việc khách</h2>
+                    <c:forEach items="${guestWorkspaces}" var="workspace">
+                        <div class="guest-workspace">
+                            <h3>🏠 ${workspace.owner}</h3>
+                            <div class="board-list">
+                                <c:forEach items="${workspace.boards}" var="board">
+                                    <div class="board-item board-item-red">
+                                        <p>${board.title}</p>
+                                    </div>
+                                </c:forEach>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </div>
+
+                <button class="view-all-closed-boards">Xem tất cả các bảng đã đóng</button>
             </div>
+
         </div>
     </div>
 </div>
@@ -78,4 +142,8 @@
             }
         });
     });
+    document.querySelector(".view-all-closed-boards").addEventListener("click", function() {
+        window.location.href = "/account_home?action=showClosedBoards";
+    });
+
 </script>

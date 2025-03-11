@@ -34,6 +34,7 @@
 }
 
 .workspace-info p {
+    padding-left: 23px;
     margin: 5px 0;
     font-size: 14px;
 }
