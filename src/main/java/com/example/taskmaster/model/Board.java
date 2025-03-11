@@ -6,6 +6,8 @@ public class Board {
     private int backgroundId;
     private String backgroundLink;
     private int status, groupId;
+    private String groupName;
+    private boolean starredBoard;
 
     public Board(int boardId, String title, int backgroundId, String backgroundLink, int status, int groupId) {
         this.boardId = boardId;
@@ -16,10 +18,19 @@ public class Board {
         this.groupId = groupId;
     }
 
-    public Board(String title, int backgroundId, int groupId) {
+    public Board(int boardId, String title, String backgroundLink, int groupId, String groupName, boolean starredBoard) { // link bảng trong Gần đây, Đã đánh dấu sao, ...
+        this.boardId = boardId;
         this.title = title;
-        this.backgroundId = backgroundId;
+        this.backgroundLink = backgroundLink;
         this.groupId = groupId;
+        this.groupName = groupName;
+        this.starredBoard = starredBoard;
+    }
+
+    public Board(int boardId, String title, int status) {
+        this.boardId = boardId;
+        this.title = title;
+        this.status = status;
     }
 
     @Override
@@ -80,5 +91,21 @@ public class Board {
 
     public void setGroupId(int groupId) {
         this.groupId = groupId;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
+
+    public boolean isStarredBoard() {
+        return starredBoard;
+    }
+
+    public void setStarredBoard(boolean starredBoard) {
+        this.starredBoard = starredBoard;
     }
 }
