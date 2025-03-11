@@ -195,4 +195,8 @@ public class GroupService implements IGroupService {
             throw new RuntimeException(e);
         }
     }
+
+    public void deleteMember(int userId, int groupId) {
+
+    }
 }
