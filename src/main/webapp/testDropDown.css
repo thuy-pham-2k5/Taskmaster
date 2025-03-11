@@ -1,5 +1,6 @@
 .backup-list {
     display: flex;
+    flex-direction: column;
 }
 
 .dropdown-img {
@@ -21,7 +22,7 @@
     position: absolute;
     padding: 12px;
     background-color: #1d71bc;
-    min-width: 292px;
+    width: 300px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
     z-index: 9999;

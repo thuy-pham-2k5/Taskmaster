@@ -1,6 +1,8 @@
 package com.example.taskmaster.controller.user.group;
 
 import com.example.taskmaster.model.User;
+import com.example.taskmaster.service.user.BoardService;
+import com.example.taskmaster.service.user.IBoardService;
 import com.example.taskmaster.service.user.IUserService;
 import com.example.taskmaster.service.user.UserService;
 
@@ -15,6 +17,7 @@ import java.util.List;
 @WebServlet (value = "/group_member")
 public class GroupMemberServlet extends HttpServlet {
     IUserService userService = new UserService();
+    IBoardService boardService = new BoardService();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
@@ -40,6 +43,7 @@ public class GroupMemberServlet extends HttpServlet {
         List<User> members = userService.getAllMemberGroup(groupId);
         List<User> guests = userService.getAllGuestGroup(groupId);
         List<User> requests = userService.getAllRequestToJoinGroup(groupId);
+        req.setAttribute("boards", boardService.getAllBoardInGroup(groupId, true));
         req.setAttribute("members", members);
         req.setAttribute("guests", guests);
         req.setAttribute("requests", requests);

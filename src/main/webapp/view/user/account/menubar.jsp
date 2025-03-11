@@ -1,9 +1,13 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <meta charset="UTF-8">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Italianno&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 <style>
     body {
         margin: 0;
@@ -12,8 +16,9 @@
     .parent {
         display: flex;
         padding: 8px;
-        background: #3FB5CC;
+        background: #3179ba;
         user-select: none;
+        border-bottom: 0.1px solid white;
     }
 
     .child-1 {
@@ -37,7 +42,7 @@
         border: 0;
         border-radius: 5px;
         font-size: 17px;
-        background: #007f99;
+        background: #0d599d;
         color: white;
         white-space: nowrap;
         transition: background-color 0.3s ease;
@@ -280,9 +285,9 @@
                     <img src="/images/list.png" alt="dropdown.png" class="dropdown-img">
                 </button>
                 <div class="dropdown-content" id="workspace">
-                    <a href="#">Tùy chọn 1</a>
-                    <a href="#">Tùy chọn 2</a>
-                    <a href="#">Tùy chọn 3</a>
+                    <c:forEach items="${groups}" var="group">
+                        <a href="/account_home?action=showGroupHomeView&groupId=${group.groupId}">${group.title}</a>
+                    </c:forEach>
                 </div>
             </div>
             <div class="dropdown-menubar">
@@ -369,7 +374,7 @@
             <div class="dropdown-menubar">
                 <button class="create-new-one" onclick="toggleDropdownMenubar('create-new', this)">
                     <label>Tạo mới</label>
-                    <img class="img-menubar" src="/images/add.png" alt="plus.png" style="margin: auto">
+                    <img class="img-menubar" src="/images/plus.png" alt="plus.png" style="margin: auto">
                 </button>
                 <div class="dropdown-content" id="create-new">
                     <p>Tạo bảng</p>
@@ -398,9 +403,9 @@
                     <a>Thẻ</a>
                     <a>Cài đặt</a>
                     <hr>
-                    <a>Tạo Không gian làm việc</a>
+                    <a href="group_home?action=showCreateGroup">Tạo Không gian làm việc</a>
                     <hr>
-                    <a>Đăng xuất</a>
+                    <a href="javascript:void(0);" id="logoutBtn">Đăng xuất</a>
                 </div>
             </div>
         </div>
@@ -408,92 +413,77 @@
 </div>
 
 <script>
-    function toggleDropdownMenubar(dataId, button) {
-        let dropdown = document.getElementById(dataId);
 
-        // Đóng tất cả dropdown khác và xóa class active của tất cả button
-        document.querySelectorAll(".dropdown-content").forEach(menu => {
-            if (menu.id !== dataId) {
+    function toggleDropdownMenubar(boardId, img) {
+        let dropdown = document.getElementById(`dropdown-${boardId}`);
+
+        // Đóng tất cả dropdown khác trước khi mở
+        document.querySelectorAll(".dropdown-content-leave-board").forEach(menu => {
+            if (menu.id !== `dropdown-${boardId}`) {
                 menu.style.display = "none";
             }
         });
-        document.querySelectorAll(".dropdown-menubar button").forEach(btn => {
-            if (btn !== button) {
-                btn.classList.remove("active");
+
+        // Xóa class active khỏi tất cả icon khác
+        document.querySelectorAll(".dropdown-menubar-leave-board img").forEach(imgEl => {
+            if (imgEl !== img) {
+                imgEl.classList.remove("active");
             }
         });
 
-        // Kiểm tra trạng thái dropdown và toggle active class
+        // Kiểm tra và hiển thị dropdown đúng vị trí
         if (dropdown.style.display === "block") {
             dropdown.style.display = "none";
-            button.classList.remove("active"); // Xóa active khi đóng dropdown
+            img.classList.remove("active");
         } else {
             dropdown.style.display = "block";
-            button.classList.add("active"); // Thêm active khi mở dropdown
+            img.classList.add("active");
 
-            let rect = dropdown.getBoundingClientRect();
-            let windowWidth = window.innerWidth;
-
-            if (rect.left < 0) {
-                dropdown.style.left = "0px";
-                dropdown.style.right = "auto";
-            } else if (rect.right > windowWidth) {
-                dropdown.style.left = "auto";
-                dropdown.style.right = "0px";
-            }
+            // Căn chỉnh vị trí dropdown ngay dưới icon
+            let rect = img.getBoundingClientRect();
+            dropdown.style.position = "absolute";
+            dropdown.style.left = rect.left + "px";
+            dropdown.style.top = (rect.bottom + window.scrollY) + "px";
         }
     }
 
-    // Ẩn tất cả dropdown khi click ra ngoài
+    // Ẩn dropdown khi click ra ngoài
     window.onclick = function (event) {
-        let button = event.target.closest(".dropdown-menubar button"); // Tìm button cha nếu có
-        let dropdownContent = event.target.closest(".dropdown-content"); // Tìm dropdown đang chứa phần tử click vào
+        let img = event.target.closest(".dropdown-menubar-leave-board img");
+        let dropdownContent = event.target.closest(".dropdown-content-leave-board");
 
-        if (!button && !dropdownContent) { // Nếu không phải button hoặc phần tử trong dropdown
-            document.querySelectorAll(".dropdown-content").forEach(menu => {
+        if (!img && !dropdownContent) {
+            document.querySelectorAll(".dropdown-content-leave-board").forEach(menu => {
                 menu.style.display = "none";
             });
-            document.querySelectorAll(".dropdown-menubar button").forEach(btn => {
-                btn.classList.remove("active");
+            document.querySelectorAll(".dropdown-menubar-leave-board img").forEach(imgEl => {
+                imgEl.classList.remove("active");
             });
         }
     };
 
     function toggleDisplayMenubar(event, id, link) {
-        event.stopPropagation(); // Ngăn chặn sự kiện click lan lên window
-
+        event.stopPropagation();
         let dropdown = document.getElementById(id);
-
-        // Ẩn dropdown cha của thẻ a được nhấn
-        let parentDropdown = link.closest(".dropdown-content");
-        if (parentDropdown) {
-            parentDropdown.style.display = "none";
-        }
-
-        // Ẩn tất cả các dropdown khác
-        document.querySelectorAll(".dropdown-content").forEach(div => {
-            if (div.id !== id) {
-                div.style.display = "none";
-            }
-        });
-
-        // Toggle hiển thị dropdown con
+        let parentDropdown = link.closest(".dropdown-content-leave-board");
+        if (parentDropdown) parentDropdown.style.display = "none";
         dropdown.style.display = (dropdown.style.display === "block") ? "none" : "block";
     }
 
     function goBack(event, currentId, needId) {
-        event.stopPropagation(); // Ngăn sự kiện click lan lên window
-        document.getElementById(currentId).style.display = "none"; // Ẩn dropdown hiện tại
-        document.getElementById(needId).style.display = "block"; // Hiển thị lại dropdown chính
+        event.stopPropagation();
+        document.getElementById(currentId).style.display = "none";
+        document.getElementById(needId).style.display = "block";
     }
 
     function closeDropdown(event) {
         event.stopPropagation();
-        document.querySelectorAll(".dropdown-content").forEach(menu => {
+        document.querySelectorAll(".dropdown-content-leave-board").forEach(menu => {
             if (menu.style.display === "block") {
                 menu.style.display = "none";
             }
         });
     }
+
 </script>
 

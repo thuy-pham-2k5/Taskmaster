@@ -1,3 +1,7 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
 header {
     position: sticky;
     top: 0;
@@ -99,7 +103,7 @@ main {
     padding: 16px 32px;
 }
 
-.content {
+.board_lists {
     display: flex;
     flex-direction: column;
     margin: 0;
@@ -157,7 +161,6 @@ ul li:hover {
 }
 
 ul li a {
-    font-size: 20px;
     background-color: transparent;
 }
 
@@ -223,4 +226,73 @@ button {
 
 .request-section h2{
     margin: 0px;
+}
+
+
+
+
+
+
+/* Định dạng hộp xác nhận */
+.confirm-box {
+    display: none; /* Ẩn mặc định */
+    position: absolute;
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 12px;
+    width: 250px; /* Giới hạn chiều rộng */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    z-index: 1000;
+    font-size: 14px;
+    text-align: center;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    opacity: 0;
+    transform: translateY(-10px); /* Ẩn dần dần từ trên xuống */
+}
+
+/* Định vị modal ngay bên dưới nút */
+.user-button-change {
+    position: relative; /* Để modal hiển thị chính xác */
+}
+
+/* Khi hiển thị modal */
+.confirm-box.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0); /* Trượt xuống nhẹ nhàng */
+    background-color: #8a939d;
+}
+
+/* Nút trong modal */
+.confirm-box button {
+    margin-top: 10px;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+/* Nút "Có" - Màu đỏ */
+.confirm-box .confirm-remove {
+    background-color: #e74c3c;
+    color: white;
+    margin: 0px;
+}
+
+/* Nút "Hủy" - Màu xám */
+.confirm-box .cancel-remove {
+    background-color: #bdc3c7;
+    color: white;
+   margin: 8px;
+}
+
+/* Hiệu ứng hover */
+.confirm-box .confirm-remove:hover {
+    background-color: #c0392b;
+}
+
+.confirm-box .cancel-remove:hover {
+    background-color: #95a5a6;
 }

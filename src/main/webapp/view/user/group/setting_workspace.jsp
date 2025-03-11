@@ -51,7 +51,7 @@
 <div class="container">
     <div class="main-content">
         <div class="child-content-1">
-            <jsp:include page="../group/home_left.jsp"/>
+            <jsp:include page="../account/home_left.jsp"/>
         </div>
 
         <div class="child-content-2">

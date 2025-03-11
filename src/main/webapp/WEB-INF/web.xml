@@ -6,5 +6,6 @@
     <welcome-file-list>
         <welcome-file>authenticate</welcome-file>
 <!--        <welcome-file>testDropDown.jsp</welcome-file>-->
+<!--        <welcome-file>view/user/account/menubar.jsp</welcome-file>-->
     </welcome-file-list>
 </web-app>
