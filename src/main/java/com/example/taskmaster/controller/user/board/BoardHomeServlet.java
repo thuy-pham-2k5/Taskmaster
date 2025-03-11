@@ -1,9 +1,11 @@
 package com.example.taskmaster.controller.user.board;
 
+import com.example.taskmaster.model.Column;
 import com.example.taskmaster.model.Group;
 import com.example.taskmaster.model.Task;
 import com.example.taskmaster.model.User;
 import com.example.taskmaster.service.user.*;
+import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -59,9 +61,12 @@ public class BoardHomeServlet extends HttpServlet {
         req.setAttribute("boards", boardService.getAllBoardInGroup(groupId, true));
         req.setAttribute("boardDetail", boardService.getBoardById(boardId));
         req.setAttribute("boardId", boardId);
-        req.setAttribute("columns", columnService.getAllColumn(boardId));
+        List<Column> columns = columnService.getAllColumn(boardId);
         Map<Integer, List<Task>> tasks = taskService.getAllTask(taskService.getAllColumnId(boardId));
-        req.setAttribute("tasks", tasks);
+        String columnsJson = new Gson().toJson(columns);
+        String tasksJson = new Gson().toJson(tasks);
+        req.setAttribute("columns", columnsJson);
+        req.setAttribute("tasks", tasksJson);
         req.getRequestDispatcher("/view/user/board/detail_board.jsp").forward(req, resp);
     }
 }
