@@ -10,6 +10,9 @@ public interface IGroupService {
     void updateGroup (int groupId, Group group);
     void deleteGroup (int groupId);
     Group getGroupInfoByTitleAndDescription (String title, String description);
+
+    void leaveMember(int userId, int groupId, int roleId);
+
     void inviteMember (int userId, int groupId, int roleId);
     List<Group> getTitleGroupByUserId(int user_id);
 }

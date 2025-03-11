@@ -1,15 +1,12 @@
 package com.example.taskmaster.service.user;
 
 import com.example.taskmaster.database.ConnectDatabase;
-import com.example.taskmaster.model.Column;
 import com.example.taskmaster.model.Task;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
-import java.util.regex.Pattern;
 
 public class TaskService implements ITaskService {
     @Override
@@ -32,7 +29,6 @@ public class TaskService implements ITaskService {
     public Map<Integer, List<Task>> getAllTask(List<Integer> columnIds) {
         Map<Integer, List<Task>> taskMap = new HashMap<>();
         if (columnIds.isEmpty()) return taskMap; // Tránh SQL lỗi nếu danh sách rỗng
-
         String placeholders = String.join(",", Collections.nCopies(columnIds.size(), "?"));
         String query = "SELECT * FROM tasks WHERE list_id IN (" + placeholders + ")";
 

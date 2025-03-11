@@ -2,7 +2,17 @@ package com.example.taskmaster.model;
 
 public class Group {
     private int groupId;
-    private String title, linkWeb, description, visibility;
+    private String short_title, title, linkWeb, description, visibility;
+
+
+    public Group(int groupId, String short_title, String title, String linkWeb, String description, String visibility) {
+        this.groupId = groupId;
+        this.short_title = short_title;
+        this.title = title;
+        this.linkWeb = linkWeb;
+        this.description = description;
+        this.visibility = visibility;
+    }
 
     public Group(int groupId, String title, String linkWeb, String description, String visibility) {
         this.groupId = groupId;
@@ -17,11 +27,12 @@ public class Group {
         this.title = title;
     }
 
-    public Group(String title, String link_web, String description, String visibility) {
+    public Group(String short_title, String title, String link_web, String description) {
+        this.short_title = short_title;
         this.title = title;
         this.linkWeb = link_web;
         this.description = description;
-        this.visibility = visibility;
+
     }
 
     public Group(String title, String description) {
@@ -29,11 +40,7 @@ public class Group {
         this.description = description;
     }
 
-    public Group(String title, String linkWeb, String description) {
-        this.title = title;
-        this.linkWeb = linkWeb;
-        this.description = description;
-    }
+
 
     @Override
     public String toString() {
@@ -71,6 +78,14 @@ public class Group {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getShort_title() {
+        return short_title;
+    }
+
+    public void setShort_title(String short_title) {
+        this.short_title = short_title;
     }
 
     public void setDescription(String description) {

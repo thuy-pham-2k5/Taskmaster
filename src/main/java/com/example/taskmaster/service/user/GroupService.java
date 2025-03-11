@@ -18,11 +18,12 @@ public class GroupService implements IGroupService {
             preparedStatement.setInt(1, groupId);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
+                String short_title = resultSet.getString(2);
                 String title = resultSet.getString(3);
                 String linkWeb = resultSet.getString(4);
                 String description = resultSet.getString(5);
                 String visibility = resultSet.getString(6);
-                group = new Group(groupId, title, linkWeb, description, visibility);
+                group = new Group(groupId, short_title, title, linkWeb, description, visibility);
             }
             return group;
         } catch (SQLException e) {
@@ -50,6 +51,19 @@ public class GroupService implements IGroupService {
             throw new RuntimeException(e);
         }
     }
+
+@Override
+public void leaveMember(int userId, int groupId, int roleId) {
+    String query = "DELETE FROM user_group_relationships WHERE user_id = ? AND group_id = ? AND role_id = ?";
+    try (Connection connection = ConnectDatabase.getConnection()) {
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1, userId);
+        preparedStatement.setInt(2, groupId);
+        preparedStatement.executeUpdate();
+    } catch (SQLException e) {
+        throw new RuntimeException(e);
+    }
+}
 
     @Override
     public void inviteMember(int userId, int groupId, int roleId) {
@@ -171,13 +185,15 @@ public class GroupService implements IGroupService {
 
     @Override
     public void updateGroup(int groupId, Group group) {
-        String query = "UPDATE `groups` SET `title` = ?, `link_web` = ?, `description` = ? WHERE `group_id` = ?;";
+        String query = "UPDATE `groups` SET short_title = ?, `title` = ?, `link_web` = ?, `description` = ? WHERE `group_id` = ?;";
         try (Connection connection = ConnectDatabase.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, group.getTitle());
-            preparedStatement.setString(2, group.getLinkWeb());
-            preparedStatement.setString(3, group.getDescription());
-            preparedStatement.setInt(4, groupId);
+            preparedStatement.setString(1, group.getShort_title());
+            preparedStatement.setString(2, group.getTitle());
+            preparedStatement.setString(3, group.getLinkWeb());
+            preparedStatement.setString(4, group.getDescription());
+            preparedStatement.setInt(5, groupId);
+
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
