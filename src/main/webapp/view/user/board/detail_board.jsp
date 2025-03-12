@@ -93,31 +93,73 @@
         }
     })
 
-    document.getElementById("addNewTask").addEventListener("click", function () {
-        addNewTask();
+    document.addEventListener("click", function (event) {
+        if (event.target.tagName === "BUTTON" && event.target.classList.contains("addNewTask")) {
+            addNewTask(event);
+            console.log(tasks);
+        }
     })
-    document.getElementById("titleNewTask").addEventListener("keydown", function (event) {
-        if (event.key === "Enter")
-            addNewTask();
+    document.addEventListener("keydown", function (event) {
+        if (event.target.tagName === "INPUT" && event.target.name === "inputNameTask" && event.key === "Enter") {
+            addNewTask(event);
+        }
     })
-    function addNewTask (titleTask, columnId) {
-        $.ajax({
-            type: "POST",
-            url: "/board_home?action=addNewTask",
-            data: {
-                nameTask: titleTask,
-                columnId: columnId
-            },
-            dataType: "json",
-            success: function (response) {
-                console.log("Du lieu task nhan duoc:", response)
-                if (response) {
-                    let newTask = {
+    function addNewTask (event) {
+        let parentDiv = event.target.closest(".add_task");
+        let inputField = parentDiv.querySelector("input[name=inputNameTask]");
+        let titleTask = inputField.value;
 
-                    }
-                }
-            }
-        })
+        if (titleTask === null || titleTask === "") {
+            return;
+        }
+
+        let columnId = inputField.dataset.column;
+        console.log("Id cua column cha:", columnId);
+        let newTask = {
+            taskId: 99,
+            title: titleTask,
+            description: null,
+            columnId: columnId,
+            position: 6
+        }
+
+        if (!tasks[columnId]) {
+            tasks[columnId] = [];
+        }
+
+        tasks[columnId].push(newTask);
+
+        let bigParentDiv = event.target.closest(".detail-list");
+        let listTask = bigParentDiv?.querySelector(".list-task");
+        let newTaskHtml = document.createElement("li");
+        newTaskHtml.classList.add("task");
+        newTaskHtml.setAttribute("data-task", "99");
+        newTaskHtml.setAttribute("data-position", "6");
+        newTaskHtml.textContent = titleTask;
+
+        if (listTask === null) {
+            return;
+        }
+
+        listTask.appendChild(newTaskHtml);
+        inputField.value = "";
+        // $.ajax({
+        //     type: "POST",
+        //     url: "/board_home?action=addNewTask",
+        //     data: {
+        //         nameTask: titleTask,
+        //         columnId: columnId
+        //     },
+        //     dataType: "json",
+        //     success: function (response) {
+        //         console.log("Du lieu task nhan duoc:", response)
+        //         if (response) {
+        //             let newTask = {
+        //
+        //             }
+        //         }
+        //     }
+        // })
     }
 
     // gửi ajax khi tạo cột mới
@@ -183,7 +225,7 @@
         // Lặp qua các column
         const boardHtml = columns.map(column => {
             const taskList = Object.values(tasks || {}).flat().filter(task => task.columnId === column.columnId);
-            const taskListHtml = taskList.map(task => `<li class="task">` + task.title + `</li>`).join('');
+            const taskListHtml = taskList.map(task => `<li class="task" data-task="` + task.taskId + `" data-position="` + task.position + `">` + task.title + `</li>`).join('');
             return repeatColumnAndTask(column, taskListHtml);
         });
         listsContainer.innerHTML = boardHtml.join('');
@@ -199,7 +241,7 @@
 
     function repeatColumnAndTask (column, tasks) {
         return '<div class="container-list">' +
-                    '<div class="detail-list">' +
+                    '<div class="detail-list" data-column="' + column.columnId +'">' +
                         '<div class="title-list">' +
                             '<h2>' + column.name + '</h2>' +
                         '</div>' +
@@ -216,10 +258,10 @@
                             '<div id="inputAddTask_' + column.columnId + '" class="input_add_task">' +
                                 '<div class="enter_add_task">' +
                                     '<div class="input_add_list">' +
-                                        '<input id="titleNewTask_' + column.columnId + '" type="text" name="inputNameTask" placeholder="Nhập tên danh sách...">' +
+                                        '<input data-column="' + column.columnId + '" type="text" name="inputNameTask" placeholder="Nhập tên danh sách...">' +
                                     '</div>' +
                                     '<div class="action_add_list">' +
-                                        '<button id="addNewTask">Thêm thẻ</button>' +
+                                        '<button class="addNewTask">Thêm thẻ</button>' +
                                             '<img src="/images/black_closed.png" alt="closed.png" onclick="showAndClosed(\'inputAddTask_' + column.columnId + '\', \'openAddTask_' + column.columnId + '\')">' +
                                     '</div>' +
                                 '</div>' +
