@@ -80,8 +80,8 @@
 </script>
 
 <script defer>
-    let columns = ${columns};
-    let tasks = ${tasks};
+    let columns = JSON.parse('${columns}');
+    let tasks = JSON.parse('${tasks}');
     console.log("Columns", columns);
     console.log("Tasks", tasks);
 
