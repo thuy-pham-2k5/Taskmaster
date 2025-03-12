@@ -58,17 +58,17 @@ public class TaskService implements ITaskService {
 
     // Thêm Task vào cột.
     @Override
-    public Task createTask(String title, String description, int listId) {
-        String query = "{call createNewTask (?, ?, ?)}";
+    public Task createTask(String title, int listId) {
+        String query = "{call createNewTask (?, ?)}";
         try (Connection connection = ConnectDatabase.getConnection()) {
             CallableStatement callableStatement = connection.prepareCall(query);
             callableStatement.setInt(3, listId);
             callableStatement.setString(1, title);
-            callableStatement.setString(2, description);
             ResultSet resultSet = callableStatement.executeQuery();
             if (resultSet.next()) {
                 int taskId = resultSet.getInt(1);
-                int position = resultSet.getInt(2);
+                int position = resultSet.getInt(4);
+                String description = resultSet.getString(3);
                 return new Task(taskId, title, description, listId, position);
             }
             return null;
@@ -90,7 +90,6 @@ public class TaskService implements ITaskService {
         }
     }
 
-    
 }
 
 

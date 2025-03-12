@@ -41,7 +41,7 @@ public class ColumnService implements IColumnService {
             ResultSet resultSet = callableStatement.executeQuery();
             if (resultSet.next()) {
                 int columnId = resultSet.getInt(1);
-                int position = resultSet.getInt(2);
+                int position = resultSet.getInt(4);
                 return new Column(columnId, name, boardId, position);
             }
             return null;
