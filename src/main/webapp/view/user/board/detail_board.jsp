@@ -95,7 +95,7 @@
             const taskListHtml = taskList.map(task => `<li class="task">` + task.title + `</li>`).join('');
             return repeatColumnAndTask(column, taskListHtml);
         });
-        listsContainer.innerHTML = boardHtml;
+        listsContainer.innerHTML = boardHtml.join('');
     }
 
     function repeatColumnAndTask (column, tasks) {
