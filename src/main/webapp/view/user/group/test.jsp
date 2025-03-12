@@ -150,39 +150,146 @@
                     </c:forEach>
                 </ol>
                 <div class="add_task">
-                    <div class="btn_add_task">
+                    <div id="openAddTask_${column.columnId}" class="btn_add_task" onclick="showAndClosed('openAddTask_${column.columnId}', 'inputAddTask_${column.columnId}')">
                         <button>
                             <img src="/images/add.png"/>
                             Thêm thẻ
                         </button>
                     </div>
-                    <div class="input_add_task"></div>
+                    <div id="inputAddTask_${column.columnId}" class="input_add_task">
+                        <div class="enter_add_task">
+                            <div class="input_add_list">
+                                <input type="text" name="inputName" placeholder="Nhập tên danh sách...">
+                            </div>
+                            <div class="action_add_list">
+                                <button id="addNewTask">Thêm thẻ</button>
+                                <img src="/images/black_closed.png" alt="closed.png" onclick="showAndClosed('inputAddTask_${column.columnId}', 'openAddTask_${column.columnId}')">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </c:forEach>
-    <div class="container-list">
-        <div id="inputAddNewList" class="detail-list">
-            <div class="enter_add_list">
-                <div class="input_add_list">
-                    <input type="text" name="inputName" placeholder="Nhập tên danh sách...">
-                </div>
-                <div class="action_add_list">
-                    <button id="addNewList">Thêm danh sách</button>
-                    <img src="/images/black_closed.png" alt="closed.png"
-                         onclick="showAndClosed('inputAddNewList', 'openAddNewList')">
-                </div>
-            </div>
-        </div>
-        <div id="openAddNewList" class="detail-list" style="background: rgb(141 176 210 / 35%);">
-            <div class="btn_add_list" onclick="showAndClosed('openAddNewList', 'inputAddNewList')">
-                <button>
-                    <img src="/images/add.png"/>
-                    Thêm danh sách khác
-                </button>
-            </div>
-        </div>
-    </div>
 </div>
 </body>
 </html>
+
+<script>
+    const listsContainer = document.querySelector('.lists');
+
+    // Hàm cập nhật một cột duy nhất thay vì render lại toàn bộ
+    function updateColumnUI(column) {
+        const existingColumn = document.querySelector(`[data-column-id="${column.columnId}"]`);
+        if (existingColumn) {
+            existingColumn.querySelector('.title-list h2').textContent = column.name;
+        } else {
+            listsContainer.insertAdjacentHTML('beforeend', repeatColumnAndTask(column, ''));
+        }
+    }
+
+    // Hàm cập nhật một task duy nhất
+    function updateTaskUI(task) {
+        const columnContainer = document.querySelector(`[data-column-id="${task.columnId}"] .list-task`);
+        if (columnContainer) {
+            const existingTask = columnContainer.querySelector(`[data-task-id="${task.taskId}"]`);
+            if (existingTask) {
+                existingTask.textContent = task.title;
+            } else {
+                columnContainer.insertAdjacentHTML('beforeend', `<li class="task" data-task-id="${task.taskId}">${task.title}</li>`);
+            }
+        }
+    }
+
+    // Tạo Proxy theo dõi columns
+    const columns = new Proxy([], {
+        set(target, property, value) {
+            target[property] = value;
+            console.log("Columns updated:", target);
+            if (!isNaN(property)) {
+                updateColumnUI(value);
+            }
+            return true;
+        },
+        deleteProperty(target, property) {
+            const columnId = target[property].columnId;
+            const columnElement = document.querySelector(`[data-column-id="${columnId}"]`);
+            if (columnElement) columnElement.remove();
+            delete target[property];
+            console.log("Column deleted:", target);
+            return true;
+        }
+    });
+
+    // Tạo Proxy theo dõi tasks
+    const tasks = new Proxy({}, {
+        set(target, columnId, taskList) {
+            target[columnId] = taskList;
+            console.log("Tasks updated:", target);
+            document.querySelector(`[data-column-id="${columnId}"] .list-task`).innerHTML =
+                taskList.map(task => `<li class="task" data-task-id="${task.taskId}">${task.title}</li>`).join('');
+            return true;
+        },
+        deleteProperty(target, columnId) {
+            delete target[columnId];
+            console.log("Tasks deleted:", target);
+            const columnContainer = document.querySelector(`[data-column-id="${columnId}"] .list-task`);
+            if (columnContainer) columnContainer.innerHTML = '';
+            return true;
+        }
+    });
+
+    // Hàm tạo HTML cho cột
+    function repeatColumnAndTask(column, tasksHtml) {
+        return `<div class="container-list" data-column-id="${column.columnId}">
+                <div class="detail-list">
+                    <div class="title-list">
+                        <h2>${column.name}</h2>
+                    </div>
+                    <ol class="list-task">${tasksHtml}</ol>
+                    <div class="add_task">
+                        <div class="btn_add_task">
+                            <button>
+                                <img src="/images/add.png"/>
+                                Thêm thẻ
+                            </button>
+                        </div>
+                        <div class="input_add_task"></div>
+                    </div>
+                </div>
+            </div>`;
+    }
+
+    // Thêm cột mới (tự động cập nhật UI)
+    function addNewColumn(newColumn) {
+        columns.push(newColumn);
+    }
+
+    // Thêm task mới vào cột (tự động cập nhật UI)
+    function addNewTask(newTask) {
+        if (!tasks[newTask.columnId]) {
+            tasks[newTask.columnId] = [];
+        }
+        tasks[newTask.columnId].push(newTask);
+    }
+
+    // Xóa cột
+    function deleteColumn(columnId) {
+        const index = columns.findIndex(c => c.columnId === columnId);
+        if (index !== -1) {
+            delete columns[index];
+        }
+    }
+
+    // Xóa task
+    function deleteTask(taskId, columnId) {
+        if (tasks[columnId]) {
+            tasks[columnId] = tasks[columnId].filter(task => task.taskId !== taskId);
+        }
+    }
+
+    // Khi DOM load xong, hiển thị dữ liệu ban đầu
+    document.addEventListener('DOMContentLoaded', () => {
+        columns.forEach(column => updateColumnUI(column));
+    });
+</script>
