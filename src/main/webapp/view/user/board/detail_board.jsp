@@ -4,6 +4,7 @@
 <head>
     <title>Chi tiết bảng</title>
     <link rel="stylesheet" href="/css/user/board/detail_board.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <header>
@@ -74,8 +75,10 @@
 </script>
 
 <script defer>
+    let boardId = ${boardDetail.boardId};
     let columns = JSON.parse('${columns}');
     let tasks = JSON.parse('${tasks}');
+    console.log(boardId);
     console.log("Columns", columns);
     console.log("Tasks", tasks);
 
@@ -90,29 +93,6 @@
         }
     })
 
-    // thêm cột mới vào danh sách
-    document.getElementById("addNewList").addEventListener("click", function () {
-        addNewColumn();
-    })
-    document.getElementById("titleNewColumn").addEventListener("keydown", function (event) {
-        if (event.key === "Enter")
-            addNewColumn();
-    })
-    function addNewColumn () {
-        let inputField = document.getElementById("titleNewColumn");
-        let columnName = inputField.value.trim();
-        if (columnName === "") {
-            return;
-        }
-        let newColumn = {
-            columnId: 999,
-            name: columnName
-        };
-        columns.push(newColumn);
-        inputField.value="";
-        inputField.focus();
-    }
-
     document.getElementById("addNewTask").addEventListener("click", function () {
         addNewTask();
     })
@@ -120,70 +100,81 @@
         if (event.key === "Enter")
             addNewTask();
     })
-    function addNewTask () {
-        let inputField = document.getElementById("titleNewTask");
-        let taskName = inputField.value.trim();
-        if (taskName === "") {
-            return;
-        }
-        let newTask = {
-            columnId: 999,
+    function addNewTask (titleTask, columnId) {
+        $.ajax({
+            type: "POST",
+            url: "/board_home?action=addNewTask",
+            data: {
+                nameTask: titleTask,
+                columnId: columnId
+            },
+            dataType: "json",
+            success: function (response) {
+                console.log("Du lieu task nhan duoc:", response)
+                if (response) {
+                    let newTask = {
 
-            name: taskName
-        };
-        tasks.push(newColumn);
-        inputField.value="";
-        inputField.focus();
+                    }
+                }
+            }
+        })
     }
 
-    <%--$(document).ready(function () {--%>
-    <%--    $("#addNewList").on("click", addNewColumn);--%>
-    <%--    $("#titleNewColumn").on("keydown", function (event) {--%>
-    <%--        if (event.key === "Enter") {--%>
-    <%--            addNewColumn();--%>
-    <%--        }--%>
-    <%--    });--%>
+    // gửi ajax khi tạo cột mới
+    $(document).ready(function () {
+        $("#addNewList").on("click", addNewColumn);
+        $("#titleNewColumn").on("keydown", function (event) {
+            if (event.key === "Enter") {
+                addNewColumn();
+            }
+        });
 
-    <%--    function addNewColumn() {--%>
-    <%--        let inputField = $("#titleNewColumn");--%>
-    <%--        let columnName = inputField.val().trim();--%>
+        function addNewColumn() {
+            let inputField = $("#titleNewColumn");
+            let columnName = inputField.val().trim();
 
-    <%--        if (columnName === "") {--%>
-    <%--            alert("Tên danh sách không thể để trống");--%>
-    <%--            return;--%>
-    <%--        }--%>
+            if (columnName === "") {
+                alert("Tên danh sách không thể để trống");
+                return;
+            }
 
-    <%--        // Gửi dữ liệu lên Servlet--%>
-    <%--        $.ajax({--%>
-    <%--            type: "POST",--%>
-    <%--            url: "/board_home?action=addNewColumn",  // Đổi thành URL Servlet của bạn--%>
-    <%--            data: {--%>
-    <%--                boardId: ${boardDetail.boardId},--%>
-    <%--                columnName: columnName--%>
-    <%--            },--%>
-    <%--            dataType: "json",--%>
-    <%--            success: function (response) {--%>
-    <%--                if (response.success) {--%>
-    <%--                    let newColumn = {--%>
-    <%--                        columnId: response.columnId, // Nhận từ Servlet--%>
-    <%--                        name: columnName--%>
-    <%--                    };--%>
+            if (typeof boardId === "undefined" || boardId === null || boardId === "") {
+                alert("Lỗi: boardId không tồn tại!");
+                return;
+            }
 
-    <%--                    columns.push(newColumn);--%>
-    <%--                    inputField.val("");--%>
-    <%--                    inputField.focus();--%>
-    <%--                } else {--%>
-    <%--                    alert("Không thể thêm danh sách, thử lại sau!");--%>
-    <%--                }--%>
-    <%--            },--%>
-    <%--            error: function () {--%>
-    <%--                alert("Lỗi kết nối đến server!");--%>
-    <%--            }--%>
-    <%--        });--%>
-    <%--    }--%>
-    <%--});--%>
-
-
+            // Gửi dữ liệu lên Servlet
+            $.ajax({
+                type: "POST",
+                url: "/board_home?action=addNewColumn",
+                data: {
+                    boardId: boardId,
+                    columnName: columnName
+                },
+                dataType: "json",
+                success: function (response) {
+                    console.log("Du lieu nhan duoc tu servlet:", response)
+                    if (response) {
+                        let newColumn = {
+                            columnId: response.columnId,
+                            name: response.name,
+                            boardId: response.boardId,
+                            position: response.position
+                        };
+                        console.log("New column", newColumn);
+                        columns.push(newColumn);
+                        inputField.val("");
+                        inputField.focus();
+                    } else {
+                        alert("Không thể thêm danh sách, thử lại sau!");
+                    }
+                },
+                error: function () {
+                    alert("Lỗi kết nối đến server!");
+                }
+            });
+        }
+    });
 
     function renderBoard(columns, tasks) {
         const listsContainer = document.querySelector('.lists'); // Container để chứa các cột
@@ -225,7 +216,7 @@
                             '<div id="inputAddTask_' + column.columnId + '" class="input_add_task">' +
                                 '<div class="enter_add_task">' +
                                     '<div class="input_add_list">' +
-                                        '<input id="titleNewTask_' + column.columnId + '" type="text" name="inputName" placeholder="Nhập tên danh sách...">' +
+                                        '<input id="titleNewTask_' + column.columnId + '" type="text" name="inputNameTask" placeholder="Nhập tên danh sách...">' +
                                     '</div>' +
                                     '<div class="action_add_list">' +
                                         '<button id="addNewTask">Thêm thẻ</button>' +

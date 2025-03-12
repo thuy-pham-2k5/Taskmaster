@@ -157,7 +157,7 @@ public class BoardService implements IBoardService {
     }
 
     @Override
-    public void closeBoard(int boardId) {
+    public void closeBoard(int boardId){
 
     }
 }

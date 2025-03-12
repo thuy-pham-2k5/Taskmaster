@@ -28,21 +28,27 @@ public class BoardHomeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
+        System.out.println(action);
         if (action == null) action = "";
         switch (action) {
             case "addNewColumn":
+                System.out.println("nhan request");
                 addNewColumnInLists (req, resp);
                 break;
             default:
-
                 break;
         }
     }
 
-    private void addNewColumnInLists(HttpServletRequest req, HttpServletResponse resp) {
-        String boardId = req.getParameter("boardId");
+    private void addNewColumnInLists(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        int boardId = Integer.parseInt(req.getParameter("boardId"));
         String title = req.getParameter("columnName");
-
+        Column column = columnService.addNewColumnInBoard(boardId, title);
+        String columnJson = new Gson().toJson(column);
+        System.out.println(columnJson);
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        resp.getWriter().write(columnJson);
     }
 
     @Override
