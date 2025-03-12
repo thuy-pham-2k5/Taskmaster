@@ -2,11 +2,9 @@ package com.example.taskmaster.service.user;
 
 import com.example.taskmaster.database.ConnectDatabase;
 import com.example.taskmaster.model.Column;
+import com.example.taskmaster.model.Group;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,14 +32,19 @@ public class ColumnService implements IColumnService {
 
     // Thêm cột vào bảng.
     @Override
-    public void addNewColumnInBoard(Column column) {
-        String query = "INSERT INTO lists (name, board_id, position) VALUES (?, ?, ?);";
+    public Column addNewColumnInBoard(int boardId, String name) {
+        String query = "{call createNewList (?, ?)}";
         try (Connection connection = ConnectDatabase.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, column.getName());
-            preparedStatement.setInt(2, column.getBoardId());
-            preparedStatement.setInt(3, column.getPosition());
-            preparedStatement.executeQuery();
+            CallableStatement callableStatement = connection.prepareCall(query);
+            callableStatement.setInt(1, boardId);
+            callableStatement.setString(2, name);
+            ResultSet resultSet = callableStatement.executeQuery();
+            if (resultSet.next()) {
+                int columnId = resultSet.getInt(1);
+                int position = resultSet.getInt(2);
+                return new Column(columnId, name, boardId, position);
+            }
+            return null;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
