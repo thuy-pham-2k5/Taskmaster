@@ -19,46 +19,6 @@
         </div>
         <div class="content_detail_board_parent">
             <div class="lists">
-                <c:forEach items="${columns}" var="column">
-                    <div class="container-list">
-                        <div class="detail-list">
-                            <div class="title-list">
-                                <h2>${column.name}</h2>
-                            </div>
-                            <ol class="list-task">
-                                <c:forEach items="${tasks}" var="entry">
-                                    <c:set var="key" value="${entry.key}"/>
-                                    <c:set var="taskList" value="${entry.value}"/>
-                                    <c:if test="${column.columnId==key}">
-                                        <c:forEach var="task" items="${taskList}">
-                                            <li class="task">${task.title}</li>
-                                        </c:forEach>
-                                    </c:if>
-                                </c:forEach>
-                            </ol>
-                            <div class="add_task">
-                                <div id="openAddTask_${column.columnId}" class="btn_add_task" onclick="showAndClosed('openAddTask_${column.columnId}', 'inputAddTask_${column.columnId}')">
-                                    <button>
-                                        <img src="/images/add.png"/>
-                                        Thêm thẻ
-                                    </button>
-                                </div>
-                                <div id="inputAddTask_${column.columnId}" class="input_add_task">
-                                    <div class="enter_add_task">
-                                        <div class="input_add_list">
-                                            <input type="text" name="inputName" placeholder="Nhập tên danh sách...">
-                                        </div>
-                                        <div class="action_add_list">
-                                            <button id="addNewTask">Thêm thẻ</button>
-                                            <img src="/images/black_closed.png" alt="closed.png"
-                                                 onclick="showAndClosed('inputAddTask_${column.columnId}', 'openAddTask_${column.columnId}')">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </c:forEach>
             </div>
             <div class="container-list">
                 <div id="inputAddNewList" class="detail-list">
@@ -120,10 +80,10 @@
 </script>
 
 <script defer>
-    let columns = JSON.parse('<c:out value="${columns}" escapeXml="false"/>');
-    let tasks = JSON.parse('<c:out value="${tasks}" escapeXml="false"/>');
-    console.log(columns);
-    console.log(tasks);
+    let columns = ${columns};
+    let tasks = ${tasks};
+    console.log("Columns", columns);
+    console.log("Tasks", tasks);
 
     function renderBoard(columns, tasks) {
         const listsContainer = document.querySelector('.lists'); // Container để chứa các cột

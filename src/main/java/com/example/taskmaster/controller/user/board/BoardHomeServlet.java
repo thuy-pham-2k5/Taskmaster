@@ -63,10 +63,10 @@ public class BoardHomeServlet extends HttpServlet {
         req.setAttribute("boardId", boardId);
         List<Column> columns = columnService.getAllColumn(boardId);
         Map<Integer, List<Task>> tasks = taskService.getAllTask(taskService.getAllColumnId(boardId));
-//        String columnsJson = new Gson().toJson(columns);
-//        String tasksJson = new Gson().toJson(tasks);
-        req.setAttribute("columns", columns);
-        req.setAttribute("tasks", tasks);
+        String columnsJson = new Gson().toJson(columns);
+        String tasksJson = new Gson().toJson(tasks);
+        req.setAttribute("columns", columnsJson);
+        req.setAttribute("tasks", tasksJson);
         req.getRequestDispatcher("/view/user/board/detail_board.jsp").forward(req, resp);
     }
 }
