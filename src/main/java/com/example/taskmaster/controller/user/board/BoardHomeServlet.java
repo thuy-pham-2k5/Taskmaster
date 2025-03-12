@@ -24,6 +24,27 @@ public class BoardHomeServlet extends HttpServlet {
     BoardService boardService = new BoardService();
     IColumnService columnService = new ColumnService();
     ITaskService taskService = new TaskService();
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String action = req.getParameter("action");
+        if (action == null) action = "";
+        switch (action) {
+            case "addNewColumn":
+                addNewColumnInLists (req, resp);
+                break;
+            default:
+
+                break;
+        }
+    }
+
+    private void addNewColumnInLists(HttpServletRequest req, HttpServletResponse resp) {
+        String boardId = req.getParameter("boardId");
+        String title = req.getParameter("columnName");
+
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");

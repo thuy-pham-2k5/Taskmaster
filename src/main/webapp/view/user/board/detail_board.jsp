@@ -24,7 +24,7 @@
                 <div id="inputAddNewList" class="detail-list">
                     <div class="enter_add_list">
                         <div class="input_add_list">
-                            <input type="text" name="inputName" placeholder="Nhập tên danh sách...">
+                            <input id="titleNewColumn" type="text" name="inputName" placeholder="Nhập tên danh sách...">
                         </div>
                         <div class="action_add_list">
                             <button id="addNewList">Thêm danh sách</button>
@@ -71,12 +71,6 @@
     }
 
     setupAutoHide('inputAddNewList', 'openAddNewList');
-    document.querySelectorAll("[id^='inputAddTask_']").forEach(element => {
-        let idHidden = element.id;
-        let idReplacement = idHidden.replace("inputAddTask_", "openAddTask_");
-        setupAutoHide(idHidden, idReplacement);
-    });
-
 </script>
 
 <script defer>
@@ -84,6 +78,112 @@
     let tasks = JSON.parse('${tasks}');
     console.log("Columns", columns);
     console.log("Tasks", tasks);
+
+    columns = new Proxy(columns, {
+        set(target, property, value) {
+            target[property] = value;
+            console.log("Columns updated: ", target);
+            if (!isNaN(property)) {
+                renderBoard(columns, tasks);
+            }
+            return true;
+        }
+    })
+
+    // thêm cột mới vào danh sách
+    document.getElementById("addNewList").addEventListener("click", function () {
+        addNewColumn();
+    })
+    document.getElementById("titleNewColumn").addEventListener("keydown", function (event) {
+        if (event.key === "Enter")
+            addNewColumn();
+    })
+    function addNewColumn () {
+        let inputField = document.getElementById("titleNewColumn");
+        let columnName = inputField.value.trim();
+        if (columnName === "") {
+            return;
+        }
+        let newColumn = {
+            columnId: 999,
+            name: columnName
+        };
+        columns.push(newColumn);
+        inputField.value="";
+        inputField.focus();
+    }
+
+    document.getElementById("addNewTask").addEventListener("click", function () {
+        addNewTask();
+    })
+    document.getElementById("titleNewTask").addEventListener("keydown", function (event) {
+        if (event.key === "Enter")
+            addNewTask();
+    })
+    function addNewTask () {
+        let inputField = document.getElementById("titleNewTask");
+        let taskName = inputField.value.trim();
+        if (taskName === "") {
+            return;
+        }
+        let newTask = {
+            columnId: 999,
+
+            name: taskName
+        };
+        tasks.push(newColumn);
+        inputField.value="";
+        inputField.focus();
+    }
+
+    <%--$(document).ready(function () {--%>
+    <%--    $("#addNewList").on("click", addNewColumn);--%>
+    <%--    $("#titleNewColumn").on("keydown", function (event) {--%>
+    <%--        if (event.key === "Enter") {--%>
+    <%--            addNewColumn();--%>
+    <%--        }--%>
+    <%--    });--%>
+
+    <%--    function addNewColumn() {--%>
+    <%--        let inputField = $("#titleNewColumn");--%>
+    <%--        let columnName = inputField.val().trim();--%>
+
+    <%--        if (columnName === "") {--%>
+    <%--            alert("Tên danh sách không thể để trống");--%>
+    <%--            return;--%>
+    <%--        }--%>
+
+    <%--        // Gửi dữ liệu lên Servlet--%>
+    <%--        $.ajax({--%>
+    <%--            type: "POST",--%>
+    <%--            url: "/board_home?action=addNewColumn",  // Đổi thành URL Servlet của bạn--%>
+    <%--            data: {--%>
+    <%--                boardId: ${boardDetail.boardId},--%>
+    <%--                columnName: columnName--%>
+    <%--            },--%>
+    <%--            dataType: "json",--%>
+    <%--            success: function (response) {--%>
+    <%--                if (response.success) {--%>
+    <%--                    let newColumn = {--%>
+    <%--                        columnId: response.columnId, // Nhận từ Servlet--%>
+    <%--                        name: columnName--%>
+    <%--                    };--%>
+
+    <%--                    columns.push(newColumn);--%>
+    <%--                    inputField.val("");--%>
+    <%--                    inputField.focus();--%>
+    <%--                } else {--%>
+    <%--                    alert("Không thể thêm danh sách, thử lại sau!");--%>
+    <%--                }--%>
+    <%--            },--%>
+    <%--            error: function () {--%>
+    <%--                alert("Lỗi kết nối đến server!");--%>
+    <%--            }--%>
+    <%--        });--%>
+    <%--    }--%>
+    <%--});--%>
+
+
 
     function renderBoard(columns, tasks) {
         const listsContainer = document.querySelector('.lists'); // Container để chứa các cột
@@ -95,7 +195,15 @@
             const taskListHtml = taskList.map(task => `<li class="task">` + task.title + `</li>`).join('');
             return repeatColumnAndTask(column, taskListHtml);
         });
-        listsContainer.innerHTML = boardHtml;
+        listsContainer.innerHTML = boardHtml.join('');
+        setTimeout(() => {
+            setupAutoHide('inputAddNewList', 'openAddNewList');
+            document.querySelectorAll("[id^='inputAddTask_']").forEach(element => {
+                let idHidden = element.id;
+                let idReplacement = idHidden.replace("inputAddTask_", "openAddTask_");
+                setupAutoHide(idHidden, idReplacement);
+            });
+        }, 0);
     }
 
     function repeatColumnAndTask (column, tasks) {
@@ -117,7 +225,7 @@
                             '<div id="inputAddTask_' + column.columnId + '" class="input_add_task">' +
                                 '<div class="enter_add_task">' +
                                     '<div class="input_add_list">' +
-                                        '<input type="text" name="inputName" placeholder="Nhập tên danh sách...">' +
+                                        '<input id="titleNewTask_' + column.columnId + '" type="text" name="inputName" placeholder="Nhập tên danh sách...">' +
                                     '</div>' +
                                     '<div class="action_add_list">' +
                                         '<button id="addNewTask">Thêm thẻ</button>' +
