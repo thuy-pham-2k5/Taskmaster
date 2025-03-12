@@ -76,6 +76,4 @@ public class ColumnService implements IColumnService {
             throw new RuntimeException(e);
         }
     }
-
-
 }

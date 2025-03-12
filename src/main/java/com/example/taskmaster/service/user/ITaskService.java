@@ -10,7 +10,7 @@ import java.util.Map;
 public interface ITaskService {
     List<Integer> getAllColumnId (int boardId);
     Map<Integer, List<Task>> getAllTask (List<Integer> columnIds);
-    void createTask (Task task);
+    Task createTask (String title, String description, int listId);
     void deleteTask (int taskId);
 
 }

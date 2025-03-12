@@ -4,10 +4,7 @@ import com.example.taskmaster.database.ConnectDatabase;
 import com.example.taskmaster.model.Column;
 import com.example.taskmaster.model.Task;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -61,15 +58,20 @@ public class TaskService implements ITaskService {
 
     // Thêm Task vào cột.
     @Override
-    public void createTask(Task task) {
-        String query = "INSERT INTO tasks (title, description, list_id, position) VALUES (?, ?, ?, ?);";
+    public Task createTask(String title, String description, int listId) {
+        String query = "{call createNewTask (?, ?, ?)}";
         try (Connection connection = ConnectDatabase.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, task.getTitle());
-            preparedStatement.setString(2, task.getDescription());
-            preparedStatement.setInt(3, task.getColumnId());
-            preparedStatement.setInt(4, task.getPosition());
-            preparedStatement.executeQuery();
+            CallableStatement callableStatement = connection.prepareCall(query);
+            callableStatement.setInt(3, listId);
+            callableStatement.setString(1, title);
+            callableStatement.setString(2, description);
+            ResultSet resultSet = callableStatement.executeQuery();
+            if (resultSet.next()) {
+                int taskId = resultSet.getInt(1);
+                int position = resultSet.getInt(2);
+                return new Task(taskId, title, description, listId, position);
+            }
+            return null;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -88,7 +90,7 @@ public class TaskService implements ITaskService {
         }
     }
 
-
+    
 }
 
 
