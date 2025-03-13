@@ -116,7 +116,6 @@ public class GroupHomeServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
         String action = request.getParameter("action");
-        System.out.println(action);
         if (action == null)
             action = "";
         switch (action) {
@@ -142,14 +141,14 @@ public class GroupHomeServlet extends HttpServlet {
     }
 
     private void switchToBoardView(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String boardId = request.getParameter("boardId");
-        response.sendRedirect("board_home?boardId=" + boardId);
+        request.getSession().setAttribute("boardId", request.getParameter("boardId"));
+        response.sendRedirect("board_home");
     }
 
     private void sortTypeListBoards(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Board> boards;
         String sortType = request.getParameter("option");
-        int groupId = (Integer) request.getSession().getAttribute("groupId");
+        int groupId = Integer.parseInt((String) request.getSession().getAttribute("groupId"));
         if (sortType.equals("option1")) {
             boards = boardService.getAllBoardInGroup(groupId, true);
         } else {

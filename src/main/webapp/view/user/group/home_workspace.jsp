@@ -12,7 +12,7 @@
     <script src="https://unpkg.com/sweet-modal/dist/min/jquery.sweet-modal.min.js"></script>
 </head>
 <body>
-<div>
+<div style="height: 100%;">
     <div class="menubar-home-workspace">
         <jsp:include page="../account/menubar.jsp"/>
     </div>
@@ -107,7 +107,7 @@
                     <div id="listBoards" class="card-container">
                         <c:forEach var="board" items="${boards}">
                             <div style=" background-color: #0D599D; " class="workspaceTable">
-                                <button class="titleBoardWorkspace">${board.title}</button>
+                                <a href="/group_home?action=boardView&boardId=${board.boardId}"><button class="titleBoardWorkspace">${board.title}</button></a>
                             </div>
                         </c:forEach>
                     </div>

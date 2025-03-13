@@ -1,12 +1,12 @@
 package com.example.taskmaster.service.user;
 
 import com.example.taskmaster.database.ConnectDatabase;
+import com.example.taskmaster.model.Column;
 import com.example.taskmaster.model.Task;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
+import java.sql.*;
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class TaskService implements ITaskService {
     @Override
@@ -29,6 +29,7 @@ public class TaskService implements ITaskService {
     public Map<Integer, List<Task>> getAllTask(List<Integer> columnIds) {
         Map<Integer, List<Task>> taskMap = new HashMap<>();
         if (columnIds.isEmpty()) return taskMap; // Tránh SQL lỗi nếu danh sách rỗng
+
         String placeholders = String.join(",", Collections.nCopies(columnIds.size(), "?"));
         String query = "SELECT * FROM tasks WHERE list_id IN (" + placeholders + ")";
 
@@ -54,6 +55,41 @@ public class TaskService implements ITaskService {
             throw new RuntimeException(e);
         }
     }
+
+    // Thêm Task vào cột.
+    @Override
+    public Task createTask(String title, int listId) {
+        String query = "{call createNewTask (?, ?)}";
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            CallableStatement callableStatement = connection.prepareCall(query);
+            callableStatement.setInt(2, listId);
+            callableStatement.setString(1, title);
+            ResultSet resultSet = callableStatement.executeQuery();
+            if (resultSet.next()) {
+                int taskId = resultSet.getInt(1);
+                int position = resultSet.getInt(5);
+                String description = resultSet.getString(3);
+                return new Task(taskId, title, description, listId, position);
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // xóa Task khỏi cột.
+    @Override
+    public void deleteTask(int taskId) {
+        String query = "delete from tasks where list_id = ?";
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, taskId);
+            preparedStatement.executeQuery();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
 
 
