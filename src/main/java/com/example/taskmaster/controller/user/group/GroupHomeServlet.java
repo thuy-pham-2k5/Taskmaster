@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +40,6 @@ public class GroupHomeServlet extends HttpServlet {
                 createNewGroup(request, response);
                 break;
             case "editInfoGroup":
-                System.out.println("hekkeo");
                 editInfoGroup(request, response);
                 break;
             case "inviteMember":
@@ -60,25 +60,41 @@ public class GroupHomeServlet extends HttpServlet {
     }
 
     private void editInfoGroup(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
         HttpSession session = request.getSession();
-        int groupId = Integer.parseInt(session.getAttribute("groupId").toString());
-        String title = request.getParameter("title");
-        String short_title = request.getParameter("short_title");
-        String description = request.getParameter("description");
-        System.out.println(groupId);
-        System.out.println(title);
-        System.out.println(short_title);
-        System.out.println(description);
-        groupService.updateGroup(groupId, new Group(short_title, title, "https://trello.com/b/KX3U0lwT/backlog-sprint", description));
-        // Lấy lại dữ liệu mới từ database
-        Group updatedGroup = groupService.getGroupInfoById(groupId);
 
-        // Cập nhật lại session với dữ liệu mới
-        session.setAttribute("groupInfo", updatedGroup);
+        try {
+            int groupId = Integer.parseInt(session.getAttribute("groupId").toString());
+            String title = request.getParameter("title");
+            String short_title = request.getParameter("short_title");
+            String description = request.getParameter("description");
 
-        // Chuyển hướng về trang chính
-        response.sendRedirect("/group_home");
+            System.out.println("Group ID: " + groupId);
+            System.out.println("Title: " + title);
+            System.out.println("Short Title: " + short_title);
+            System.out.println("Description: " + description);
+
+            // Cập nhật dữ liệu nhóm
+            groupService.updateGroup(groupId, new Group(short_title, title, "https://trello.com/b/KX3U0lwT/backlog-sprint", description));
+
+            // Lấy lại dữ liệu mới từ database
+            Group updatedGroup = groupService.getGroupInfoById(groupId);
+
+            // Cập nhật lại session với dữ liệu mới
+            session.setAttribute("groupInfo", updatedGroup);
+
+            // Tạo phản hồi JSON
+            PrintWriter out = response.getWriter();
+            out.print("{\"success\": true, \"title\": \"" + updatedGroup.getTitle() + "\", \"short_title\": \"" + updatedGroup.getShort_title() + "\", \"description\": \"" + updatedGroup.getDescription() + "\"}");
+            out.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.getWriter().print("{\"success\": false, \"message\": \"Có lỗi xảy ra khi cập nhật nhóm!\"}");
+        }
     }
+
 
     protected void createNewGroup(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();

@@ -7,7 +7,6 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/user/group/homeWorkspace.css">
     <script src="/js/user/group/home_workspace.js" defer></script>
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/sweet-modal/dist/min/jquery.sweet-modal.min.css">
     <script src="https://unpkg.com/sweet-modal/dist/min/jquery.sweet-modal.min.js"></script>
@@ -46,25 +45,27 @@
                 </div>
                 <!-- Phần chỉnh sửa, Ẩn mặc định -->
 
-                <div id="edit_frame">
-                    <form action="/group_home?action=editInfoGroup&groupId=${groupInfo.groupId}" method="post">
+
+
+                <div id="edit_frame" style="display: none;">
+                    <form id="editGroupForm" method="post">
                         <label>🏢 Tên không gian làm việc</label>
-                        <input name="title" type="text" id="groupNameInput" style="margin-bottom: 20px"
-                               value="${groupInfo.title}">
+                        <input name="title" type="text" id="groupNameInput" style="margin-bottom: 20px" value="${groupInfo.title}">
 
                         <label>🔠 Tên ngắn gọn</label>
-                        <input name="short_title" type="text" id="shortNameInput" style="margin-bottom: 20px"
-                               value="${groupInfo.short_title}">
+                        <input name="short_title" type="text" id="shortNameInput" style="margin-bottom: 20px" value="${groupInfo.short_title}">
 
                         <label>📝 Mô tả (tùy chỉnh)</label>
                         <textarea name="description" id="groupDescInput">${groupInfo.description}</textarea>
 
                         <div class="button-group">
                             <button class="save-btn" type="submit">Lưu</button>
-                            <button class="cancel-btn" onclick="cancelEdit()">Hủy</button>
+                            <button type="button" class="cancel-btn close">Hủy</button>
                         </div>
                     </form>
                 </div>
+
+
 
 
                 <c:if test="${roleIdUser == 3}">
@@ -121,25 +122,88 @@
 </div>
 
 <script>
+
+    window.onload = function () {
+        // Lắng nghe sự kiện click vào nút "Chỉnh sửa"
+        document.querySelector(".img-edit-group").addEventListener("click", showEditModal);
+
+        // Xử lý khi nhấn nút "Hủy"
+        document.querySelector(".cancel-btn").addEventListener("click", hideEditModal);
+
+        // Xử lý khi nhấn nút "Lưu"
+        document.querySelector(".save-btn").addEventListener("click", saveEditGroup);
+
+        // Lưu dữ liệu gốc trước khi chỉnh sửa
+        saveOriginalData();
+    };
+
+    let originalData = {}; // Đối tượng lưu trữ dữ liệu ban đầu
+
+    // Lưu dữ liệu ban đầu trước khi chỉnh sửa
+    function saveOriginalData() {
+        originalData.title = document.getElementById("groupNameInput").value;
+        originalData.short_title = document.getElementById("shortNameInput").value;
+        originalData.description = document.getElementById("groupDescInput").value;
+    }
+
+    // Khi mở modal, ẩn thành phần trước và hiển thị modal
     function showEditModal() {
-        // Ẩn div information và hiển thị div edit_frame
-        document.getElementById("information").style.display = "none";
-        document.getElementById("edit_frame").style.display = "block";
-
+        document.getElementById("edit_frame").style.display = "block"; // Hiển thị modal chỉnh sửa
+        document.getElementById("edit_frame").previousElementSibling.style.display = "none"; // Ẩn phần tử trước modal
     }
 
-    function saveChanges() {
+    // Khi nhấn "Hủy", khôi phục dữ liệu cũ và ẩn modal
+    function hideEditModal() {
+        document.getElementById("groupNameInput").value = originalData.title;
+        document.getElementById("shortNameInput").value = originalData.short_title;
+        document.getElementById("groupDescInput").value = originalData.description;
 
-        // Quay về trạng thái hiển thị ban đầu
-        document.getElementById("edit_frame").style.display = "none";
-        document.getElementById("information").style.display = "block";
+        document.getElementById("edit_frame").style.display = "none"; // Ẩn modal
+        document.getElementById("edit_frame").previousElementSibling.style.display = "block"; // Hiển thị phần tử trước modal
     }
 
-    function cancelEdit() {
-        // Hủy chỉnh sửa, quay về ban đầu
-        document.getElementById("edit_frame").style.display = "none";
-        document.getElementById("information").style.display = "block";
+    // Gửi dữ liệu bằng AJAX khi nhấn "Lưu"
+    function saveEditGroup(event) {
+        event.preventDefault(); // Ngăn form gửi request mặc định
+
+        let groupId = new URLSearchParams(window.location.search).get("groupId");
+        let title = document.getElementById("groupNameInput").value.trim();
+        let short_title = document.getElementById("shortNameInput").value.trim();
+        let description = document.getElementById("groupDescInput").value.trim();
+
+        let formData = new FormData();
+        formData.append("groupId", groupId);
+        formData.append("title", title);
+        formData.append("short_title", short_title);
+        formData.append("description", description);
+
+        fetch("/group_home?action=editInfoGroup", {
+            method: "POST",
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Cập nhật lại dữ liệu gốc
+                    saveOriginalData();
+
+                    // Cập nhật UI với dữ liệu mới
+                    document.querySelector(".group-title-display").innerText = data.title;
+                    document.querySelector(".group-short-title-display").innerText = data.short_title;
+                    document.querySelector(".group-description-display").innerText = data.description;
+
+                    // Ẩn modal sau khi lưu thành công
+                    hideEditModal();
+                } else {
+                    alert("Có lỗi xảy ra khi lưu. Vui lòng thử lại!");
+                }
+            })
+            .catch(error => console.error("Lỗi khi gửi dữ liệu:", error));
     }
+
+
+
+
 
     document.getElementById("logoutBtn").addEventListener("click", function () {
         Swal.fire({

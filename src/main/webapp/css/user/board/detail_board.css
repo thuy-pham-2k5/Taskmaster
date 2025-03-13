@@ -83,8 +83,26 @@ main {
     border-radius: 7px;
     padding: 8px;
     margin: 8px 0 4px 0;
-    white-space: break-spaces;
     overflow-wrap: anywhere;
+}
+
+.task button{
+    text-align: left;
+    height: auto;
+    width: 235px;
+    padding: 0px;
+    margin: 0px;
+    border: none;
+    background-color: #d5dde4;
+}
+
+#title_task_info{
+    width: 100%;
+}
+
+#block{
+    color: white;
+    font-size: 20px;
 }
 
 .add_task {
@@ -115,3 +133,381 @@ main {
 .input_add_task {
     display: none;
 }
+
+
+
+     /* Style cho modal */
+ .modal {
+     display: none;
+     position: fixed;
+     z-index: 1000;
+     left: 0;
+     top: 0;
+     width: 100%;
+     height: 100%;
+     background-color: rgba(0, 0, 0, 0.5);
+ }
+
+
+ .modal-content{
+     position: fixed;
+     z-index: 1000;
+     left: 50%;
+     top: 50%;
+     transform: translate(-50%, -50%);
+     height: auto;
+     width: 800px;
+     background: #54789b;
+     border-radius: 8px;
+     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+     padding: 20px;
+ }
+
+/* Header Task */
+#header_task {
+    display: flex;
+    align-items: center; /* Căn giữa theo chiều dọc */
+    justify-content: space-between;
+    gap: 5px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+
+}
+
+#header_task input {
+    color: white;
+    padding: 0px 10px;
+    height: 40px;
+    font-size: 23px;
+    font-weight: bold;
+    width: 100%;
+    border: none;
+    background: transparent;
+}
+
+#header_task:focus-within input {
+    border: 2px solid white; /* Màu viền khi bấm vào nút */
+    border-radius: 5px;
+    outline: none;
+}
+
+
+#header_task p {
+    margin: 10px 0px 0px 12px;
+    font-size: 14px;
+    color: white;
+}
+
+.status {
+    font-weight: bold;
+    color: #1effde;
+}
+
+/* Content Task */
+#content_task {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+/* Navigation Task */
+#navigation_task {
+    flex: 3;
+}
+
+
+
+#expire_task{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+#navigation_task section {
+    margin-bottom: 10px;
+}
+
+#navigation_task p {
+    color: white;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.member-icons, .labels span, .works_together {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.comment_task .icon {
+    width: 34px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0079bf;
+    color: white;
+    border-radius: 50%;
+    font-weight: bold;
+}
+
+.member-icons .icon {
+    width: 33px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0079bf;
+    color: white;
+    border-radius: 50%;
+    font-weight: bold;
+}
+
+.member-icons button{
+    font-size: 18px;
+    height: 30px;
+    width: 30px;
+    border: none;
+    background: #ddd;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.works_together button{
+    font-size: 18px;
+    height: 30px;
+    width: 30px;
+    border: none;
+    background: #ddd;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#description_display {
+    background-color: #314d67eb;
+    color: #e3ded4;
+    outline: none;
+    font-size: 15px;
+    min-height: 82px;
+    padding: 8px;
+    border: 1px solid darkgray;
+    border-radius: 4px;
+    resize: none;
+}
+
+#description_textarea{
+    background-color: #fafafa;
+    font-family: Arial, sans-serif;
+    outline: none;
+    font-size: 15px;
+    width: 100%;
+    min-height: 150px;
+    padding: 8px;
+    border: 1px solid #0de3cb;
+    border-radius: 3px;
+    resize: none;
+}
+
+/* Tools Task */
+#tools_task {
+    flex: 1;
+    margin: 22px 0px 0px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5px;
+}
+
+#tools_task button {
+    padding-left: 25px;
+    width: 100%;
+    height: 35px;
+    margin-bottom: 15px;
+    background: #0079bf;
+    color: white;
+    font-weight: bold;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#tools_task button:hover {
+    background: #005f8a;
+}
+
+/* Đưa navigation_task và tools_task trên cùng một hàng */
+#content_task {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.due-date span{
+    color: white;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    border-radius: 4px;
+    align-content: center;
+    background-color: #A2A2A2;
+    width: 105px;
+    height: 30px;
+}
+
+.works_together span{
+    color: white;
+    justify-content: center;
+    display: flex;
+    border-radius: 4px;
+    background-color: #138254;
+    width: 134px;
+    height: 30px;
+}
+
+
+#tools_task button i {
+    color: white; /* Đảm bảo icon màu trắng */
+}
+
+
+.comment_task {
+    margin-top: 30px;
+    display: flex;
+}
+
+
+.comment_task input{
+    color: white;
+    background-color: #314d67eb;
+    margin-left: 5px;
+    border: 1px solid darkgray;
+    padding-left: 10px;
+    height: 30px;
+    border-radius: 4px;
+    width: 100%;
+    outline: none;
+}
+
+.description_task {
+    margin-top: 55px;
+}
+
+
+.hidden{
+    display: none;
+}
+
+.buttons_description{
+    margin-top: 10px;
+}
+
+.save_description_button{
+    cursor: pointer;
+    border-radius: 3px;
+    border: none;
+    outline: none;
+    background-color: #1cb2e3;
+    height: 28px;
+    width: 70px;
+    color: white;
+}
+
+.cancel_description_button{
+    cursor: pointer;
+    border-radius: 3px;
+    border: none;
+    outline: none;
+    background-color: #a6a4a4;
+    height: 28px;
+    width: 70px;
+    color: white;
+}
+
+
+.save_description_button,
+.cancel_description_button {
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.save_description_button:hover::before {
+    content: "\f0c7"; /* FontAwesome icon for save */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+}
+
+.cancel_description_button:hover::before {
+    content: "\f2ed"; /* FontAwesome icon for trash */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+}
+
+.save_description_button:hover{
+    color: white;
+    background: #007bff;
+    margin-left: 3px;
+}
+
+.cancel_description_button:hover{
+    color: white;
+    background: #d71010;
+}
+
+.comment_task {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.comment_task i {
+    color: #c0c5cc;
+    font-weight: bold;
+
+
+}
+
+.comment_input_container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+
+.comment_input_container input:focus {
+    border-color: #007bff;
+}
+
+.send_comment_button {
+    position: absolute;
+    right: 3px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #007bff;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+.send_comment_button:hover {
+    color: #0056b3;
+}
+
+
+#date_picker {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+#comment_input::placeholder {
+    color: #d5d5d5; /* Đổi màu thành đỏ cam */
+    font-style: italic; /* Chữ in nghiêng */
+    opacity: 1; /* Đảm bảo màu hiển thị rõ ràng */
+}
+
