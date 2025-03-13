@@ -5,9 +5,8 @@
     .position-home-left {
         width: 260px;
         position: sticky;
-        top: 48px;
         left: 0;
-        height: calc(100vh - 50px);
+        height: calc(100% - 50px);
     }
 
     .home-left {
@@ -247,7 +246,7 @@
                         <ul class="hl-list-boards-ul">
                             <c:forEach items="${boards}" var="board">
                                 <li>
-                                    <a href="board_home?boardId=${board.boardId}">${board.title}</a>
+                                    <a href="group_home?action=boardView&boardId=${board.boardId}">${board.title}</a>
                                     <img src="/images/ellipsis.png" alt="closed-board"/>
                                 </li>
                             </c:forEach>

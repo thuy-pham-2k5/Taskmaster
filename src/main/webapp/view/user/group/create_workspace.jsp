@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="/css/user/group/build_workspace.css">
 </head>
 <body>
-<a href="/group_home"><img style="width: 50px; height: 50px" src="https://png.pngtree.com/png-vector/20230311/ourmid/pngtree-logout-arrow-line-icon-vector-png-image_6644097.png"></a>
-<div id="workspaceContainer">
+
+
     <div id="workspaceContent">
         <!-- Form nhập thông tin -->
         <form action="/group_home?action=createGroup" method="post" id="workspaceForm">
@@ -37,9 +37,10 @@
 
         <!-- Hình ảnh minh họa -->
         <div id="workspaceImage">
-            <img src="https://png.pngtree.com/png-vector/20220708/ourmid/pngtree-calendar-with-selected-date-png-image_5811645.png" alt="Lịch làm việc">
+            <a href="/group_home"><img style="width: 50px; height: 50px" src="https://png.pngtree.com/png-vector/20230311/ourmid/pngtree-logout-arrow-line-icon-vector-png-image_6644097.png"></a>
+            <img class="schedule" src="https://png.pngtree.com/png-vector/20220708/ourmid/pngtree-calendar-with-selected-date-png-image_5811645.png" alt="Lịch làm việc">
         </div>
     </div>
-</div>
+
 </body>
 </html>

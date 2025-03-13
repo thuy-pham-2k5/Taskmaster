@@ -15,7 +15,7 @@
 <div>
     <jsp:include page="menubar.jsp"/>
 </div>
-<div>
+<div style="background: #3179ba; height: calc(100% - 50px);">
     <div class="body">
         <div class="container">
             <nav id="homeLeft">

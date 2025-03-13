@@ -1,9 +1,179 @@
 body {
     font-family: Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 header {
     position: sticky;
     top: 0;
     z-index: 1000;
+}
+
+main {
+    width: 100%;
+    display: flex;
+    flex: 1;
+    background: #3179ba;
+}
+
+.home-right {
+    width: calc(100% - 260px);
+    display: flex;
+    flex-direction: column;
+}
+
+.title-bar {
+    padding: 12px;
+}
+
+.board_title {
+    padding: 0 10px;
+}
+
+.lists {
+    display: flex;
+    /*flex: 1;*/
+}
+
+.container-list {
+    width: 272px;
+    aspect-ratio: 3 / 1;
+    margin: 6px;
+    padding: 6px;
+}
+
+.detail-list {
+    background: #8db0d2;
+    border-radius: 15px;
+}
+
+.title-list {
+    padding: 15px 15px 0 15px;
+}
+
+.title-list h2 {
+    margin: 0;
+    font-size: 19px;
+}
+
+.list-task {
+    scrollbar-color: #d8d8d8 #00000026;
+    scrollbar-width: thin;
+    list-style-type: none;
+    padding: 0 10px;
+    min-height: 0;
+    height: fit-content;
+    overflow-y: auto;
+    max-height: calc(100% - 123px);
+    margin-bottom: 0;
+}
+
+.task {
+    background: #d5dde4;
+    border: 0;
+    font-size: 18px;
+    border-radius: 7px;
+    padding: 8px;
+    margin: 8px 0 4px 0;
+    white-space: break-spaces;
+    overflow-wrap: anywhere;
+}
+
+.add_task {
+    padding: 4px 10px 10px 10px;
+}
+
+.btn_add_task button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background: none;
+    border: 0;
+    font-size: 18px;
+    border-radius: 9px;
+    padding: 8px;
+}
+
+.btn_add_task button:hover {
+    background: #d5dde4;
+}
+
+.btn_add_list {
+    padding: 12px;
+}
+
+.btn_add_list button {
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+    border: 0;
+    background: none;
+}
+
+.btn_add_list button img,
+.btn_add_task button img {
+    width: 20px;
+    height: 20px;
+    margin-right: 6px;
+}
+
+.input_add_task {
+    display: none;
+}
+
+.input_add_list input {
+    height: 32px;
+    background: none;
+    border-radius: 5px;
+    width: 100%;
+    font-size: 15px;
+    padding-left: 10px;
+    border: 3px solid #FFFFFF;
+}
+
+.input_add_list input:focus {
+    border: 3px solid #FFFFFF;
+    outline: none;
+}
+
+input::placeholder {
+    color: white;
+    font-size: 15px;
+}
+
+.action_add_list {
+    display: flex;
+    align-items: center;
+    margin-top: 7px;
+}
+
+.action_add_list button {
+    padding: 5px 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 0;
+    background: #1c5c95;
+    color: white;
+    font-size: 17px;
+}
+
+.enter_add_list {
+    padding: 10px;
+}
+
+#inputAddNewList {
+    display: none;
+    cursor: pointer;
+}
+
+.content_detail_board_parent {
+    scrollbar-color: #d8d8d8 #00000026;
+    margin: 12px 0 0 0;
+    overflow-x: auto;
+    display: flex;
+    flex: 1;
+    overflow-y: hidden;
 }

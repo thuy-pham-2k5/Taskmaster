@@ -14,7 +14,7 @@
 </head>
 
 <body>
-<div>
+<div style="height: 100%;">
     <div class="menubar-home-workspace">
         <jsp:include page="../account/menubar.jsp"/>
     </div>
@@ -33,7 +33,9 @@
                             <div class="group-info-detail">
                                 <h2>
                                     ${groupInfo.title}
-                                    <button style="background: none; border: 0"><img class="img-edit-group" src="/images/edit.png" onclick="showEditModal()">
+                                    <button style="background: none; border: 0"><img class="img-edit-group"
+                                                                                     src="/images/edit.png"
+                                                                                     onclick="showEditModal()">
                                     </button>
                                 </h2>
                                 <span>${groupInfo.visibility}</span>
@@ -42,21 +44,30 @@
                         </div>
                         <p id="content">${groupInfo.description}</p>
                     </div>
+                </div>
+                <!-- Phần chỉnh sửa, Ẩn mặc định -->
 
-                    <!-- Phần chỉnh sửa, Ẩn mặc định -->
-                    <div id="edit_frame">
+                <div id="edit_frame">
+                    <form action="/group_home?action=editInfoGroup&groupId=${groupInfo.groupId}" method="post">
                         <label>🏢 Tên không gian làm việc</label>
-                        <input type="text" id="groupNameInput" style="margin-bottom: 20px" value="${groupInfo.title}">
+                        <input name="title" type="text" id="groupNameInput" style="margin-bottom: 20px"
+                               value="${groupInfo.title}">
+
+                        <label>🔠 Tên ngắn gọn</label>
+                        <input name="short_title" type="text" id="shortNameInput" style="margin-bottom: 20px"
+                               value="${groupInfo.short_title}">
 
                         <label>📝 Mô tả (tùy chỉnh)</label>
-                        <textarea id="groupDescInput">${groupInfo.description}</textarea>
+                        <textarea name="description" id="groupDescInput">${groupInfo.description}</textarea>
 
                         <div class="button-group">
-                            <button class="save-btn" onclick="saveEditGroup()">Lưu</button>
+                            <button class="save-btn" type="submit">Lưu</button>
                             <button class="cancel-btn" onclick="cancelEdit()">Hủy</button>
                         </div>
-                    </div>
+                    </form>
                 </div>
+
+
                 <c:if test="${roleIdUser == 3}">
                     <div id="addAccount">
                         <button style="background-color: #1B5B94; padding: 10px;cursor: pointer;border-radius: 5px;align-items: center;height: 35px;justify-content: space-around;display: flex;width: 285px;border: none;"
@@ -96,7 +107,7 @@
                     <div id="listBoards" class="card-container">
                         <c:forEach var="board" items="${boards}">
                             <div style=" background-color: #0D599D; " class="workspaceTable">
-                                <button class="titleBoardWorkspace">${board.title}</button>
+                                <a href="/group_home?action=boardView&boardId=${board.boardId}"><button class="titleBoardWorkspace">${board.title}</button></a>
                             </div>
                         </c:forEach>
                     </div>
@@ -114,13 +125,9 @@
         document.getElementById("information").style.display = "none";
         document.getElementById("edit_frame").style.display = "block";
 
-        // Copy nội dung cũ vào input
-        document.getElementById("editInput").value = document.getElementById("groupName").textContent;
     }
 
     function saveChanges() {
-        // Cập nhật nội dung mới
-        document.getElementById("groupName").textContent = document.getElementById("editInput").value;
 
         // Quay về trạng thái hiển thị ban đầu
         document.getElementById("edit_frame").style.display = "none";
