@@ -5,6 +5,8 @@
     <title>Chi tiết bảng</title>
     <link rel="stylesheet" href="/css/user/board/detail_board.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 <body>
 <header>
@@ -45,6 +47,7 @@
             </div>
         </div>
     </div>
+
 </main>
 <script>
     function setupAutoHide(idHidden, idReplacement) {
@@ -72,7 +75,11 @@
     }
 
     setupAutoHide('inputAddNewList', 'openAddNewList');
+
+
 </script>
+
+
 
 <script defer>
     let boardId = ${boardDetail.boardId};
@@ -82,16 +89,6 @@
     console.log("Columns", columns);
     console.log("Tasks", tasks);
 
-    // columns = new Proxy(columns, {
-    //     set(target, property, value) {
-    //         target[property] = value;
-    //         console.log("Columns updated: ", target);
-    //         if (!isNaN(property)) {
-    //             renderBoard(columns, tasks);
-    //         }
-    //         return true;
-    //     }
-    // })
 
     document.addEventListener("click", function (event) {
         if (event.target.tagName === "BUTTON" && event.target.classList.contains("addNewTask")) {
@@ -233,6 +230,9 @@
             });
         }, 0);
     }
+
+
+
 
     function repeatColumnAndTask(column, tasks) {
         return '<div class="container-list">' +
