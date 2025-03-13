@@ -11,7 +11,7 @@ public interface IBoardService {
     Board getBoardById (int boardId);
     void saveTimestampToBoard (int userId, int boardId);
     void changeStarredBoard (int userId, int boardId, boolean starred);
-
+    List<Board> sortBoardByTime(int groupId, boolean sortType);
     List<Board> searchBoardsByName(int groupId, String keyword);
 
     List<Board> getAllBoardClosedInGroup(int groupId);

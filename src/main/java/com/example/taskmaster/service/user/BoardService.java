@@ -86,6 +86,11 @@ public class BoardService implements IBoardService {
     }
 
     @Override
+    public List<Board> sortBoardByTime(int groupId, boolean sortType) {
+        return null;
+    }
+
+    @Override
     public List<Board> searchBoardsByName(int groupId, String keyword) {
         String query = "select * from boards left join board_backgrounds on boards.background_id = board_backgrounds.background_id where boards.group_id =  ? and boards.status = 1 and boards.title like concat('%', ? , '%');";
         List<Board> boards = new ArrayList<>();
