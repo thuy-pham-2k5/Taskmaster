@@ -13,7 +13,7 @@
     <script src="https://unpkg.com/sweet-modal/dist/min/jquery.sweet-modal.min.js"></script>
 </head>
 <body>
-<div>
+<div style="height: 100%;">
     <div class="menubar-home-workspace">
         <jsp:include page="../account/menubar.jsp"/>
     </div>
