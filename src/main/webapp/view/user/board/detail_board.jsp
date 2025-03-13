@@ -60,8 +60,11 @@
 
 
 <!-- Task Modal -->
+
+
+
 <div id="taskModal">
-    <div class="modal-content" >
+    <div class="modal_content" >
         <div id="header_task">
             <div id="title_task_info">
                 <input id="modalTaskTitle" type="text" name="title_task" value="Tiêu đề Task"/>
@@ -169,6 +172,30 @@
         document.getElementById("description_display").classList.remove("hidden");
         document.getElementById("description_edit").classList.add("hidden");
     }
+
+
+    document.getElementById("open_calendar").addEventListener("click", function () {
+        document.getElementById("date_picker").showPicker(); // Hiển thị bộ chọn ngày
+    });
+
+    document.getElementById("date_picker").addEventListener("change", function () {
+        let selectedDate = new Date(this.value);
+
+        // Lấy ngày, tháng, năm từ đối tượng Date
+        let day = selectedDate.getDate();
+        let month = selectedDate.getMonth() + 1; // Tháng trong JS bắt đầu từ 0
+        let year = selectedDate.getFullYear();
+
+        // Định dạng thành "dd/mm/yyyy"
+        let formattedDate = (day < 10 ? "0" : "") + day + "/" +
+            (month < 10 ? "0" : "") + month + "/" + year;
+
+        // Cập nhật vào phần "Ngày hết hạn"
+        document.getElementById("selected_date").textContent = formattedDate;
+    });
+
+
+
 
 
 

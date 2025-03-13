@@ -189,30 +189,48 @@ input::placeholder {
 
 
 
-
 #taskModal {
     display: none; /* Ẩn mặc định */
     position: fixed;
+background: rgba(0, 0, 0, 0.5);
+    position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); /* Căn giữa modal */
-    height: auto;
-    width: 800px;
-    background: #355d83;
+    transform: translate(-50%, -50%);
+    height: 100%;
+    width: 100%;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
     z-index: 1001;
 }
 
+
+.modal_content{
+    height: auto;
+    border-radius: 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    width: 800px;
+    background-color: #355d83;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    pointer-events: auto;
+    background-clip: padding-box;
+    outline: 0;
+}
+
+
+
+
 /* Header Task */
-.modal-content #header_task {
+#header_task {
     display: flex;
     align-items: center; /* Căn giữa theo chiều dọc */
-    justify-content: space-between; /* Đưa dấu "x" sang bên phải */
-    border-radius: 5px;
-    position: relative;
-    flex-direction: column;
+    justify-content: space-between;
     gap: 5px;
     padding-bottom: 10px;
     border-bottom: 1px solid #ddd;
@@ -238,7 +256,7 @@ input::placeholder {
 
 
 #header_task p {
-    margin: 5px 0px 0px 12px;
+    margin: 10px 0px 0px 12px;
     font-size: 14px;
     color: white;
 }
@@ -363,6 +381,7 @@ input::placeholder {
     align-items: center;
     border-radius: 5px;
 }
+
 #tools_task button {
     padding-left: 25px;
     width: 100%;
@@ -537,4 +556,84 @@ input::placeholder {
     color: #007bff;
     font-size: 18px;
     transition: color 0.3s ease;
+}
+
+.send_comment_button:hover {
+    color: #0056b3;
+}
+
+
+#date_picker {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+#comment_input::placeholder {
+    color: #d5d5d5; /* Đổi màu thành đỏ cam */
+    font-style: italic; /* Chữ in nghiêng */
+    opacity: 1; /* Đảm bảo màu hiển thị rõ ràng */
+}
+
+.input_add_list input {
+    height: 32px;
+    background: none;
+    border-radius: 5px;
+    width: 100%;
+    font-size: 15px;
+    padding-left: 10px;
+    border: 3px solid #FFFFFF;
+}
+
+.input_add_list input:focus {
+    border: 3px solid #FFFFFF;
+    outline: none;
+}
+
+input::placeholder {
+    color: white;
+    font-size: 15px;
+}
+
+.action_add_list {
+    display: flex;
+    align-items: center;
+    margin-top: 7px;
+}
+
+.action_add_list button {
+    padding: 5px 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 0;
+    background: #1c5c95;
+    color: white;
+    font-size: 17px;
+}
+
+.enter_add_list {
+    padding: 10px;
+}
+
+#inputAddNewList {
+    display: none;
+    cursor: pointer;
+}
+
+.content_detail_board_parent {
+    scrollbar-color: #d8d8d8 #00000026;
+    margin: 12px 0 0 0;
+    overflow-x: auto;
+    display: flex;
+    flex: 1;
+    overflow-y: hidden;
+}
+
+
+#title_task_info{
+    width: 100%;
+}
+
+#block{
+    font-size: 20px;
+    color: white;
 }
