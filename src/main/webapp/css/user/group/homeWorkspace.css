@@ -424,6 +424,18 @@ body {
     margin-left: 5px;
 }
 
+.container {
+    height: calc(100% - 50px);
+}
+
+#openModalButton {
+    width: fit-content;
+    padding: 6px 12px;
+    border-radius: 5px;
+    border: 0;
+    font-size: 16px;
+}
+
 
 /* Màn hình lớn (PC) */
 @media (min-width: 1025px) {
