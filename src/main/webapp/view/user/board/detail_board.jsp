@@ -47,9 +47,13 @@
     </div>
     <div class="db-dropdown-action-task" id="operationList">
         <ul class="db-dropdown-lists">
-            <li class="db-dropdown-action">Option 1</li>
-            <li class="db-dropdown-action">Option 2</li>
-            <li class="db-dropdown-action">Option 3</li>
+            <li class="db-dropdown-action">Thêm thẻ</li>
+            <li class="db-dropdown-action">Sao chép danh sách</li>
+            <li class="db-dropdown-action">Di chuyển danh sách</li>
+            <li class="db-dropdown-action">Sắp xếp theo...</li>
+            <li class="db-dropdown-action">Theo dõi</li>
+            <li class="db-dropdown-action">Xóa danh sách</li>
+            <li class="db-dropdown-action">Xóa tất cả thẻ trong danh sách</li>
         </ul>
     </div>
 </main>
@@ -269,16 +273,29 @@
     });
 </script>
 <script defer>
+    // mở thao tác cột
     $(document).on("click", ".openOperationList", function (event) {
+        let openDropdown = $(this);
         let dropdown = $("#operationList");
-        dropdown.toggle();
-        let rect = this.getBoundingClientRect();
-        dropdown.css({
-            left: rect.left + "px",
-            top: rect.bottom - 10 + "px"
-        });
+        updateDropdownPosition(openDropdown, dropdown);
+
+        $('.content_detail_board_parent').scroll(function () {
+            if (dropdown.is(":visible")) {
+                updateDropdownPosition(openDropdown, dropdown);
+            }
+        })
         event.stopPropagation();
     });
+
+    function updateDropdownPosition(openDropdown, dropdown) {
+        const offset = openDropdown.offset();
+        dropdown.css({
+            left: offset.left + "px",
+            top: offset.top + openDropdown.outerHeight() + "px",
+            display: "block"
+        });
+    }
+
     $(document).on("click", function (event) {
         if (!$(event.target).closest(".openOperationList, #operationList").length) {
             $("#operationList").hide();

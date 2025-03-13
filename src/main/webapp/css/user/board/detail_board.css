@@ -201,7 +201,10 @@ input::placeholder {
 }
 
 .db-dropdown-lists {
-    /*width: inherit;*/
+    list-style-type: none;
+}
+.db-dropdown-lists:hover {
+    background-color: chocolate;
 }
 
 .db-dropdown-action {
