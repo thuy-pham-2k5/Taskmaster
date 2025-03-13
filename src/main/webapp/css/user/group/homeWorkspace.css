@@ -276,13 +276,20 @@ body {
 }
 
 #workspaces {
-    margin-left: 74px;
-    margin-right: 74px;
-    margin-top: 15px;
+    margin: 15px 74px;
     display: flex;
     flex-direction: column;
     gap: 25px;
     box-shadow: 0 -1px 0 0 #fff;
+}
+
+#openModalButton {
+    border-radius: 5px;
+    cursor: pointer;
+    width: fit-content;
+    padding: 6px 12px;
+    border: 0;
+    font-size: 16px;
 }
 
 
