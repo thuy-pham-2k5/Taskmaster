@@ -1,6 +1,7 @@
 package com.example.taskmaster.service.user;
 
 import com.example.taskmaster.database.ConnectDatabase;
+import com.example.taskmaster.model.Board;
 import com.example.taskmaster.model.Group;
 
 import java.security.SecureRandom;
@@ -30,6 +31,28 @@ public class GroupService implements IGroupService {
         }
     }
 
+@Override
+    public List<Board> getStarredOrRecentBoards(int userId, String type) {
+        List<Board> boardList = new ArrayList<>();
+        String sql = "{call getRecentOrStarredBoardsByUserId (?, ?)}";
+
+        try (Connection conn = ConnectDatabase.getConnection();
+             CallableStatement callableStatement = conn.prepareCall(sql)) {
+            callableStatement.setInt(1, userId);
+            callableStatement.setString(2, type);
+            ResultSet rs = callableStatement.executeQuery();
+            while (rs.next()) {
+                int boardId = rs.getInt("board_id");
+                String title = rs.getString("board_title");
+                String backgroundLink = rs.getString("image_link");
+                int groupId = rs.getInt("group_id");
+                boardList.add(new Board(boardId, title, backgroundLink, groupId));
+            }
+            return boardList;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     @Override
     public Group getGroupInfoByTitleAndDescription(String title, String description) {
         String query = "select * from `groups` where title = ? and description = ?";

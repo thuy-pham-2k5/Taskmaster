@@ -1,7 +1,8 @@
 .body {
     width: 100%;
     background-color: #3179BA;
-    height: auto;
+    height: 100%;
+
 }
 
 .container {
@@ -111,7 +112,7 @@
     height: 15%;
 }
 
-#homeRight{
+#homeRight {
     flex: 1;
     background-color: #3179BA;
     width: 80%;
@@ -134,7 +135,7 @@
     height: 40px;
 }
 
-#homeLeft .represent{
+#homeLeft .represent {
     font-size: 23px;
     color: white;
     font-weight: bold;
@@ -203,6 +204,7 @@
     width: 100%;
     margin-bottom: 10px;
 }
+
 .dropbtn {
     background-color: #3179BA;
     color: white;
@@ -269,24 +271,25 @@
     border-radius: 8px;
 }
 
-#group p{
+#group p {
     font-size: 40px;
     color: white;
     font-weight: bold;
 }
 
-#groupName{
+#groupName {
     font-size: 23px;
     color: white;
     margin-left: 10px;
 }
-#content{
+
+#content {
     font-size: 15px;
     width: 650px;
     color: #e8e2e2;
 }
 
-#group-info{
+#group-info {
     align-items: center;
     padding-top: 50px;
     padding-bottom: 50px;
@@ -296,7 +299,7 @@
 
 }
 
-#addAcount button{
+#addAcount button {
     width: 275px;
     border: none;
     height: 30px;
@@ -305,12 +308,12 @@
     cursor: pointer;
 }
 
-#sortAndSearch{
+#sortAndSearch {
     display: flex;
     justify-content: space-between;
 }
 
-#workspaces{
+#workspaces {
     margin-left: 74px;
     margin-right: 74px;
     margin-top: 30px;
@@ -319,7 +322,7 @@
     gap: 25px;
 }
 
-#mySelect{
+#mySelect {
     margin-top: 15px;
     border-radius: 5px;
     border-color: white;
@@ -328,15 +331,7 @@
     background-color: #3179BA;
 }
 
-#searchTable input{
-    margin-top: 15px;
-    border-radius: 5px;
-    border-color: white;
-    height: 35px;
-    color: white;
-    background-color: #3179BA;
-}
-#searchTable button{
+#searchTable input {
     margin-top: 15px;
     border-radius: 5px;
     border-color: white;
@@ -345,7 +340,16 @@
     background-color: #3179BA;
 }
 
-#search input::placeholder{
+#searchTable button {
+    margin-top: 15px;
+    border-radius: 5px;
+    border-color: white;
+    height: 35px;
+    color: white;
+    background-color: #3179BA;
+}
+
+#search input::placeholder {
     padding-left: 5px;
 }
 
@@ -362,12 +366,14 @@
     padding: 10px;
 
 }
-.card-container{
+
+.card-container {
     display: flex;
     flex-wrap: wrap;
     flex: 1 1 400px;
     gap: 5px;
 }
+
 .create-board-btn {
     background-color: #007bff; /* Màu xanh dương */
     color: white; /* Chữ màu trắng */
@@ -393,10 +399,10 @@
 .workspaceTable {
     margin: auto;
     display: inline-block; /* Cho phép div mở rộng theo nội dung */
-    width: auto;            /* Chiều rộng tự giãn theo nội dung */
-    min-width: 100px;       /* Đảm bảo không quá nhỏ */
-    max-width: 100%;        /* Không vượt quá khung cha */
-    word-wrap: break-word;  /* Xuống dòng khi hết chỗ */
+    width: auto; /* Chiều rộng tự giãn theo nội dung */
+    min-width: 100px; /* Đảm bảo không quá nhỏ */
+    max-width: 100%; /* Không vượt quá khung cha */
+    word-wrap: break-word; /* Xuống dòng khi hết chỗ */
     overflow-wrap: break-word;
     background-color: #0D599D;
     padding: 30px 50px;
@@ -405,7 +411,7 @@
     margin-top: 15px;
 }
 
-#workspaceTable button{
+#workspaceTable button {
     border: none;
     border-radius: 10px;
     width: 177px;
@@ -416,7 +422,7 @@
     cursor: pointer;
 }
 
-#viewOffTable{
+#viewOffTable {
     border-color: white;
     border-radius: 3px;
     height: 25px;
@@ -427,12 +433,12 @@
 }
 
 
-#workspaceList p{
+#workspaceList p {
     font-size: 17px;
 }
 
 
-.edit_group_pen{
+.edit_group_pen {
     width: 30px;
     height: 25px;
     margin-left: 5px;
@@ -494,6 +500,7 @@
         height: 25px;
         font-size: 13px; /* Giảm kích thước chữ của nút */
     }
+
     .container {
         flex-direction: column;
     }
@@ -551,12 +558,9 @@
 }
 
 
-
-
-
 #homeRight {
     padding: 20px;
-    background-color: #2C68A5;
+    background-color: #3179BA;
     color: white;
 }
 
@@ -615,12 +619,25 @@ h2 {
 }
 
 .view-all-closed-boards {
-    background-color: white;
-    color: black;
-    padding: 10px;
+    background-color: #0079bf; /* Màu xanh đặc trưng của Trello */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
     border-radius: 5px;
-    width: 100%;
-    text-align: center;
-    display: block;
-    margin-top: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: block; /* Để căn giữa */
+    margin: 20px auto;
 }
+
+.view-all-closed-boards:hover {
+    background-color: #005f8c; /* Màu xanh đậm hơn khi hover */
+    transform: scale(1.05);
+}
+
+.view-all-closed-boards:active {
+    transform: scale(0.98);
+}
+

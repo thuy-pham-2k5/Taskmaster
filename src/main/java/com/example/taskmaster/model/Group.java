@@ -12,6 +12,8 @@ public class Group {
         this.visibility = visibility;
     }
 
+
+
     public Group(int groupId, String title) {
         this.groupId = groupId;
         this.title = title;

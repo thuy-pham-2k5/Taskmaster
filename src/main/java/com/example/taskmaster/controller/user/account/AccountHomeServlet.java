@@ -1,5 +1,6 @@
 package com.example.taskmaster.controller.user.account;
 
+import com.example.taskmaster.model.Board;
 import com.example.taskmaster.model.Group;
 import com.example.taskmaster.model.User;
 import com.example.taskmaster.service.user.GroupService;
@@ -36,6 +37,10 @@ public class AccountHomeServlet extends HttpServlet {
         }
     }
 
+    private void showStarredBoards(HttpServletRequest req, HttpServletResponse resp) {
+        HttpSession session = req.getSession();
+
+    }
     private void showSettingViewInGroupHome(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession();
         int groupId = Integer.parseInt(req.getParameter("groupId"));
@@ -64,7 +69,14 @@ public class AccountHomeServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         List<Group> titleGroupList = groupService.getTitleGroupByUserId(user.getUserId());
+        List<Board> recentBoards = groupService.getStarredOrRecentBoards(user.getUserId(), "recent");
+        List<Board> starredBoards = groupService.getStarredOrRecentBoards(user.getUserId(), "starred");
+        System.out.println(titleGroupList);
+        System.out.println(recentBoards);
+        System.out.println(starredBoards);
         session.setAttribute("groups", titleGroupList);
+        session.setAttribute("recentBoards", recentBoards);
+        session.setAttribute("starredBoards", starredBoards);
         request.getRequestDispatcher("view/user/account/home_account.jsp").forward(request, response);
     }
 }

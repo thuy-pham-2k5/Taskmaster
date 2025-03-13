@@ -21,4 +21,5 @@ public interface IBoardService {
     boolean deleteBoard( int boardId) throws SQLException;
 
     void closeBoard(int boardId);
+
 }
