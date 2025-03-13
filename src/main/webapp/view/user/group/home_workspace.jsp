@@ -101,7 +101,7 @@
                     <div id="listBoards" class="card-container">
                         <c:forEach var="board" items="${boards}">
                             <div style=" background-color: #0D599D; " class="workspaceTable">
-                                <button class="titleBoardWorkspace">${board.title}</button>
+                                <a href="/group_home?action=boardView&boardId=${board.boardId}"><button class="titleBoardWorkspace">${board.title}</button></a>
                             </div>
                         </c:forEach>
                     </div>

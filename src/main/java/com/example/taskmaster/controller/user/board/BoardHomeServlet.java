@@ -67,7 +67,7 @@ public class BoardHomeServlet extends HttpServlet {
     }
 
     private void starredBoardByBoardId(HttpServletRequest req, HttpServletResponse resp) {
-        int boardId = Integer.parseInt(req.getParameter("boardId"));
+        int boardId = Integer.parseInt((String) req.getSession().getAttribute("boardId"));
         User user = (User) req.getSession().getAttribute("user");
         boolean boardStarredStatus = Boolean.parseBoolean(req.getParameter("boardStarredStatus"));
         boardService.changeStarredBoard(user.getUserId(), boardId, boardStarredStatus);
@@ -75,7 +75,7 @@ public class BoardHomeServlet extends HttpServlet {
 
     private void setTimestampToBoard(HttpServletRequest req) {
         User user = (User) req.getSession().getAttribute("user");
-        int boardId = Integer.parseInt(req.getParameter("boardId"));
+        int boardId = Integer.parseInt((String) req.getSession().getAttribute("boardId"));
         boardService.saveTimestampToBoard(user.getUserId(), boardId);
     }
 
@@ -83,11 +83,10 @@ public class BoardHomeServlet extends HttpServlet {
     private void showDetailBoard(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         int groupId = Integer.parseInt((String) session.getAttribute("groupId"));
-        int boardId = Integer.parseInt(req.getParameter("boardId"));
+        int boardId = Integer.parseInt((String) session.getAttribute("boardId"));
         req.setAttribute("groupInfo", groupService.getGroupInfoById(groupId));
         req.setAttribute("boards", boardService.getAllBoardInGroup(groupId, true));
         req.setAttribute("boardDetail", boardService.getBoardById(boardId));
-        req.setAttribute("boardId", boardId);
         List<Column> columns = columnService.getAllColumn(boardId);
         Map<Integer, List<Task>> tasks = taskService.getAllTask(taskService.getAllColumnId(boardId));
         String columnsJson = new Gson().toJson(columns);
