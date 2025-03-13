@@ -2,6 +2,10 @@ body {
     font-family: Arial, sans-serif;
 }
 
+.container {
+    height: calc(100% - 50px);
+}
+
 .menubar-home-workspace {
     position: sticky;
     top: 0;
@@ -132,11 +136,13 @@ body {
 }
 
 #homeRight {
+    scrollbar-color: #fff6 #00000026;
+    scrollbar-width: thin;
     flex: 1;
     background-color: #3179BA;
     min-height: 620px; /* Đảm bảo chiều cao tối thiểu */
     height: auto; /* Tự động mở rộng theo nội dung */
-    overflow: hidden; /* Ngăn chặn phần tử con tràn ra ngoài */
+    overflow-y: auto; /* Ngăn chặn phần tử con tràn ra ngoài */
 
 }
 
@@ -324,14 +330,14 @@ body {
     display: flex;
     flex-wrap: wrap; /* Cho phép các phần tử tự động xuống dòng */
     justify-content: flex-start; /* Căn các phần tử sang bên trái */
-    gap: 15px; /* Tạo khoảng cách giữa các phần tử */
+    gap: 16px; /* Tạo khoảng cách giữa các phần tử */
 }
 
 .card-container {
     display: flex;
     flex-wrap: wrap;
     flex: 1 1 400px;
-    gap: 5px;
+    gap: 16px;
     width: calc(20% - 20px);
 }
 
@@ -542,6 +548,7 @@ body {
 
 /* Khung chính */
 #edit_frame {
+    margin-right: 160px;
     width: 380px;
     display: none; /* Ẩn mặc định */
     background-color: #3179BA; /* Màu xanh đậm hơn */
