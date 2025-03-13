@@ -45,7 +45,15 @@
             </div>
         </div>
     </div>
+    <div class="db-dropdown-action-task">
+        <ul class="db-dropdown-lists" id="dropdownMenu">
+            <li class="db-dropdown-action">Option 1</li>
+            <li class="db-dropdown-action">Option 2</li>
+            <li class="db-dropdown-action">Option 3</li>
+        </ul>
+    </div>
 </main>
+
 <script>
     function setupAutoHide(idHidden, idReplacement) {
         document.addEventListener("click", function (event) {
@@ -73,7 +81,6 @@
 
     setupAutoHide('inputAddNewList', 'openAddNewList');
 </script>
-
 <script defer>
     let boardId = ${boardDetail.boardId};
     let columns = JSON.parse('${columns}');
@@ -81,17 +88,6 @@
     console.log(boardId);
     console.log("Columns", columns);
     console.log("Tasks", tasks);
-
-    // columns = new Proxy(columns, {
-    //     set(target, property, value) {
-    //         target[property] = value;
-    //         console.log("Columns updated: ", target);
-    //         if (!isNaN(property)) {
-    //             renderBoard(columns, tasks);
-    //         }
-    //         return true;
-    //     }
-    // })
 
     document.addEventListener("click", function (event) {
         if (event.target.tagName === "BUTTON" && event.target.classList.contains("addNewTask")) {
@@ -239,6 +235,7 @@
             '<div class="detail-list" data-column="' + column.columnId + '">' +
             '<div class="title-list">' +
             '<h2>' + column.name + '</h2>' +
+            '<img src="/images/ellipsis_black.png" alt="closed-board"/>' +
             '</div>' +
             '<ol class="list-task">' +
             tasks +
@@ -269,6 +266,9 @@
     document.addEventListener('DOMContentLoaded', () => {
         renderBoard(columns, tasks);
     });
+</script>
+<script>
+
 </script>
 </body>
 </html>

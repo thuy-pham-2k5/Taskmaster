@@ -27,6 +27,8 @@ main {
 
 .title-bar {
     padding: 12px;
+    font-size: 22px;
+    color: white;
 }
 
 .board_title {
@@ -52,11 +54,20 @@ main {
 
 .title-list {
     padding: 15px 15px 0 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .title-list h2 {
     margin: 0;
     font-size: 19px;
+}
+
+.title-list img {
+    width: 20px;
+    height: 20px;
+    margin: 0 0 0 15px;
 }
 
 .list-task {
@@ -176,4 +187,19 @@ input::placeholder {
     display: flex;
     flex: 1;
     overflow-y: hidden;
+}
+
+.db-dropdown-action-task {
+    position: absolute;
+    display: none; /* Ẩn mặc định */
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    min-width: 120px;
+    list-style: none;
+    padding: 5px 0;
+}
+
+.db-dropdown-action {
+    /*width: inherit;*/
 }
