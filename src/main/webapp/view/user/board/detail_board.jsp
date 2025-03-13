@@ -46,14 +46,17 @@
         </div>
     </div>
     <div class="db-dropdown-action-task" id="operationList">
+        <div>
+            <h4>Thao tác</h4>
+        </div>
         <ul class="db-dropdown-lists">
-            <li class="db-dropdown-action">Thêm thẻ</li>
-            <li class="db-dropdown-action">Sao chép danh sách</li>
-            <li class="db-dropdown-action">Di chuyển danh sách</li>
-            <li class="db-dropdown-action">Sắp xếp theo...</li>
-            <li class="db-dropdown-action">Theo dõi</li>
-            <li class="db-dropdown-action">Xóa danh sách</li>
-            <li class="db-dropdown-action">Xóa tất cả thẻ trong danh sách</li>
+            <li class="db-dropdown-action"><button>Thêm thẻ</button></li>
+            <li class="db-dropdown-action"><button>Sao chép danh sách</button></li>
+            <li class="db-dropdown-action"><button>Di chuyển danh sách</button></li>
+            <li class="db-dropdown-action"><button>Sắp xếp theo...</button></li>
+            <li class="db-dropdown-action"><button>Theo dõi</button></li>
+            <li class="db-dropdown-action"><button>Xóa danh sách</button></li>
+            <li class="db-dropdown-action"><button>Xóa tất cả thẻ trong danh sách</button></li>
         </ul>
     </div>
 </main>
@@ -281,6 +284,7 @@
 
         $('.content_detail_board_parent').scroll(function () {
             if (dropdown.is(":visible")) {
+                openDropdown.addClass("active");
                 updateDropdownPosition(openDropdown, dropdown);
             }
         })

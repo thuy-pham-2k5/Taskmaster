@@ -63,11 +63,18 @@ main {
     margin: 0;
     font-size: 19px;
 }
-
-.title-list img {
+.openOperationList {
     width: 20px;
     height: 20px;
     margin: 0 0 0 15px;
+    border-radius: 5px;
+    padding: 2px 5px;
+    cursor: pointer;
+}
+
+.openOperationList:active,
+.openOperationList:hover {
+    background: #c6d0d9;
 }
 
 .list-task {
@@ -197,20 +204,37 @@ input::placeholder {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     min-width: 120px;
     list-style: none;
-    padding: 5px 0;
+    border-radius: 10px;
 }
 
 .db-dropdown-lists {
     list-style-type: none;
+    margin: 0;
+    padding: 0 0 10px 0;}
+
+.db-dropdown-action-task div {
+    display: flex;
+    margin: 4px 8px;
+    justify-content: center;
+    padding: 10px 0;
 }
-.db-dropdown-lists:hover {
-    background-color: chocolate;
+
+.db-dropdown-action-task div h4 {
+    margin: 0;
 }
 
 .db-dropdown-action {
-    /*width: inherit;*/
+    cursor: pointer;
 }
 
-.openOperationList {
-    cursor: pointer;
+.db-dropdown-action:hover {
+    background-color: #d4e4f3;
+}
+
+.db-dropdown-action button {
+    margin: 4px 8px;
+    border: 0;
+    background: none;
+    padding: 10px;
+    font-size: 15px;
 }
