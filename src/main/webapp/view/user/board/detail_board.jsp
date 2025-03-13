@@ -45,8 +45,8 @@
             </div>
         </div>
     </div>
-    <div class="db-dropdown-action-task">
-        <ul class="db-dropdown-lists" id="dropdownMenu">
+    <div class="db-dropdown-action-task" id="operationList">
+        <ul class="db-dropdown-lists">
             <li class="db-dropdown-action">Option 1</li>
             <li class="db-dropdown-action">Option 2</li>
             <li class="db-dropdown-action">Option 3</li>
@@ -208,7 +208,8 @@
             }
         });
     }
-
+</script>
+<script>
     function renderBoard(columns, tasks) {
         const listsContainer = document.querySelector('.lists'); // Container để chứa các cột
         listsContainer.innerHTML = ''; // Reset nội dung trước khi render mới
@@ -235,7 +236,7 @@
             '<div class="detail-list" data-column="' + column.columnId + '">' +
             '<div class="title-list">' +
             '<h2>' + column.name + '</h2>' +
-            '<img src="/images/ellipsis_black.png" alt="closed-board"/>' +
+            '<img class="openOperationList" src="/images/ellipsis_black.png" alt="closed-board"/>' +
             '</div>' +
             '<ol class="list-task">' +
             tasks +
@@ -267,8 +268,22 @@
         renderBoard(columns, tasks);
     });
 </script>
-<script>
-
+<script defer>
+    $(document).on("click", ".openOperationList", function (event) {
+        let dropdown = $("#operationList");
+        dropdown.toggle();
+        let rect = this.getBoundingClientRect();
+        dropdown.css({
+            left: rect.left + "px",
+            top: rect.bottom - 10 + "px"
+        });
+        event.stopPropagation();
+    });
+    $(document).on("click", function (event) {
+        if (!$(event.target).closest(".openOperationList, #operationList").length) {
+            $("#operationList").hide();
+        }
+    });
 </script>
 </body>
 </html>

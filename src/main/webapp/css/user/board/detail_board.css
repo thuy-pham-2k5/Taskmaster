@@ -200,6 +200,14 @@ input::placeholder {
     padding: 5px 0;
 }
 
+.db-dropdown-lists {
+    /*width: inherit;*/
+}
+
 .db-dropdown-action {
     /*width: inherit;*/
+}
+
+.openOperationList {
+    cursor: pointer;
 }
