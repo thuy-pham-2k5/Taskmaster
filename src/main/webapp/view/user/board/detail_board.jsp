@@ -82,16 +82,16 @@
     console.log("Columns", columns);
     console.log("Tasks", tasks);
 
-    columns = new Proxy(columns, {
-        set(target, property, value) {
-            target[property] = value;
-            console.log("Columns updated: ", target);
-            if (!isNaN(property)) {
-                renderBoard(columns, tasks);
-            }
-            return true;
-        }
-    })
+    // columns = new Proxy(columns, {
+    //     set(target, property, value) {
+    //         target[property] = value;
+    //         console.log("Columns updated: ", target);
+    //         if (!isNaN(property)) {
+    //             renderBoard(columns, tasks);
+    //         }
+    //         return true;
+    //     }
+    // })
 
     document.addEventListener("click", function (event) {
         if (event.target.tagName === "BUTTON" && event.target.classList.contains("addNewTask")) {
@@ -104,7 +104,8 @@
             addNewTask(event);
         }
     })
-    function addNewTask (event) {
+
+    function addNewTask(event) {
         let parentDiv = event.target.closest(".add_task");
         let inputField = parentDiv.querySelector("input[name=inputNameTask]");
         let titleTask = inputField.value;
@@ -115,108 +116,102 @@
 
         let columnId = inputField.dataset.column;
         console.log("Id cua column cha:", columnId);
-        let newTask = {
-            taskId: 99,
-            title: titleTask,
-            description: null,
-            columnId: columnId,
-            position: 6
+
+        $.ajax({
+            type: "POST",
+            url: "/board_home?action=addNewTask",
+            data: {
+                nameTask: titleTask,
+                columnId: columnId
+            },
+            dataType: "json",
+            success: function (task) {
+                console.log("Du lieu task nhan duoc:", task)
+                if (task) {
+                    let newTask = {
+                        taskId: task.taskId,
+                        title: task,
+                        columnId: columnId,
+                        position: task.position
+                    }
+
+                    if (!tasks[columnId]) {
+                        tasks[columnId] = [];
+                    }
+
+                    tasks[columnId].push(newTask);
+
+                    let bigParentDiv = event.target.closest(".detail-list");
+                    let listTask = bigParentDiv?.querySelector(".list-task");
+                    let newTaskHtml = document.createElement("li");
+                    newTaskHtml.classList.add("task");
+                    newTaskHtml.setAttribute("data-task", task.taskId);
+                    newTaskHtml.setAttribute("data-position", task.position);
+                    newTaskHtml.textContent = titleTask;
+
+                    if (listTask === null) {
+                        return;
+                    }
+
+                    listTask.appendChild(newTaskHtml);
+                    inputField.value = "";
+                }
+            }
+        })
+    }
+
+    $("#addNewList").on("click", addNewColumn);
+    $("#titleNewColumn").on("keydown", function (event) {
+        if (event.key === "Enter") {
+            addNewColumn();
         }
+    });
 
-        if (!tasks[columnId]) {
-            tasks[columnId] = [];
-        }
+    function addNewColumn() {
+        let inputField = $("#titleNewColumn");
+        let columnName = inputField.val().trim();
 
-        tasks[columnId].push(newTask);
-
-        let bigParentDiv = event.target.closest(".detail-list");
-        let listTask = bigParentDiv?.querySelector(".list-task");
-        let newTaskHtml = document.createElement("li");
-        newTaskHtml.classList.add("task");
-        newTaskHtml.setAttribute("data-task", "99");
-        newTaskHtml.setAttribute("data-position", "6");
-        newTaskHtml.textContent = titleTask;
-
-        if (listTask === null) {
+        if (columnName === "") {
+            alert("Tên danh sách không thể để trống");
             return;
         }
 
-        listTask.appendChild(newTaskHtml);
-        inputField.value = "";
-        // $.ajax({
-        //     type: "POST",
-        //     url: "/board_home?action=addNewTask",
-        //     data: {
-        //         nameTask: titleTask,
-        //         columnId: columnId
-        //     },
-        //     dataType: "json",
-        //     success: function (response) {
-        //         console.log("Du lieu task nhan duoc:", response)
-        //         if (response) {
-        //             let newTask = {
-        //
-        //             }
-        //         }
-        //     }
-        // })
-    }
+        if (typeof boardId === "undefined" || boardId === null || boardId === "") {
+            alert("Lỗi: boardId không tồn tại!");
+            return;
+        }
 
-    // gửi ajax khi tạo cột mới
-    $(document).ready(function () {
-        $("#addNewList").on("click", addNewColumn);
-        $("#titleNewColumn").on("keydown", function (event) {
-            if (event.key === "Enter") {
-                addNewColumn();
+        // Gửi dữ liệu lên Servlet
+        $.ajax({
+            type: "POST",
+            url: "/board_home?action=addNewColumn",
+            data: {
+                boardId: boardId,
+                columnName: columnName
+            },
+            dataType: "json",
+            success: function (column) {
+                console.log("Du lieu nhan duoc tu servlet:", column)
+                if (column) {
+                    let newColumn = {
+                        columnId: column.columnId,
+                        name: column.name,
+                        boardId: column.boardId,
+                        position: column.position
+                    };
+                    console.log("New column", newColumn);
+                    columns.push(newColumn);
+                    inputField.val("");
+                    inputField.focus();
+
+                    let lists = document.querySelector('.lists');
+                    let newListHtml = repeatColumnAndTask(column, "");
+                    console.log(newListHtml)
+                    lists.insertAdjacentHTML("beforeend", newListHtml);
+                }
             }
         });
-
-        function addNewColumn() {
-            let inputField = $("#titleNewColumn");
-            let columnName = inputField.val().trim();
-
-            if (columnName === "") {
-                alert("Tên danh sách không thể để trống");
-                return;
-            }
-
-            if (typeof boardId === "undefined" || boardId === null || boardId === "") {
-                alert("Lỗi: boardId không tồn tại!");
-                return;
-            }
-
-            // Gửi dữ liệu lên Servlet
-            $.ajax({
-                type: "POST",
-                url: "/board_home?action=addNewColumn",
-                data: {
-                    boardId: boardId,
-                    columnName: columnName
-                },
-                dataType: "json",
-                success: function (response) {
-                    console.log("Du lieu nhan duoc tu servlet:", response)
-                    if (response) {
-                        let newColumn = {
-                            columnId: response.columnId,
-                            name: response.name,
-                            boardId: response.boardId,
-                            position: response.position
-                        };
-                        console.log("New column", newColumn);
-                        columns.push(newColumn);
-                        inputField.val("");
-                        inputField.focus();
-                    } else {
-                        alert("Không thể thêm danh sách, thử lại sau!");
-                    }
-                },
-                error: function () {
-                    alert("Lỗi kết nối đến server!");
-                }
-            });
-        }
-    });
+    }
 
     function renderBoard(columns, tasks) {
         const listsContainer = document.querySelector('.lists'); // Container để chứa các cột
@@ -239,36 +234,36 @@
         }, 0);
     }
 
-    function repeatColumnAndTask (column, tasks) {
+    function repeatColumnAndTask(column, tasks) {
         return '<div class="container-list">' +
-                    '<div class="detail-list" data-column="' + column.columnId +'">' +
-                        '<div class="title-list">' +
-                            '<h2>' + column.name + '</h2>' +
-                        '</div>' +
-                        '<ol class="list-task">' +
-                            tasks +
-                        '</ol>' +
-                        '<div class="add_task">' +
-                            '<div id="openAddTask_' + column.columnId + '" class="btn_add_task" onclick="showAndClosed(\'openAddTask_' + column.columnId + '\', \'inputAddTask_' + column.columnId + '\')">' +
-                                '<button>' +
-                                    '<img src="/images/add.png"/>' +
-                                    'Thêm thẻ' +
-                                '</button>' +
-                            '</div>' +
-                            '<div id="inputAddTask_' + column.columnId + '" class="input_add_task">' +
-                                '<div class="enter_add_task">' +
-                                    '<div class="input_add_list">' +
-                                        '<input data-column="' + column.columnId + '" type="text" name="inputNameTask" placeholder="Nhập tên danh sách...">' +
-                                    '</div>' +
-                                    '<div class="action_add_list">' +
-                                        '<button class="addNewTask">Thêm thẻ</button>' +
-                                            '<img src="/images/black_closed.png" alt="closed.png" onclick="showAndClosed(\'inputAddTask_' + column.columnId + '\', \'openAddTask_' + column.columnId + '\')">' +
-                                    '</div>' +
-                                '</div>' +
-                            '</div>' +
-                        '</div>' +
-                    '</div>' +
-                '</div>';
+            '<div class="detail-list" data-column="' + column.columnId + '">' +
+            '<div class="title-list">' +
+            '<h2>' + column.name + '</h2>' +
+            '</div>' +
+            '<ol class="list-task">' +
+            tasks +
+            '</ol>' +
+            '<div class="add_task">' +
+            '<div id="openAddTask_' + column.columnId + '" class="btn_add_task" onclick="showAndClosed(\'openAddTask_' + column.columnId + '\', \'inputAddTask_' + column.columnId + '\')">' +
+            '<button>' +
+            '<img src="/images/add.png"/>' +
+            'Thêm thẻ' +
+            '</button>' +
+            '</div>' +
+            '<div id="inputAddTask_' + column.columnId + '" class="input_add_task">' +
+            '<div class="enter_add_task">' +
+            '<div class="input_add_list">' +
+            '<input data-column="' + column.columnId + '" type="text" name="inputNameTask" placeholder="Nhập tên danh sách...">' +
+            '</div>' +
+            '<div class="action_add_list">' +
+            '<button class="addNewTask">Thêm thẻ</button>' +
+            '<img src="/images/black_closed.png" alt="closed.png" onclick="showAndClosed(\'inputAddTask_' + column.columnId + '\', \'openAddTask_' + column.columnId + '\')">' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>';
     }
 
     document.addEventListener('DOMContentLoaded', () => {

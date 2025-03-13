@@ -28,16 +28,27 @@ public class BoardHomeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
-        System.out.println(action);
         if (action == null) action = "";
         switch (action) {
+            case "addNewTask":
+                addNewTaskInTasks (req, resp);
+                break;
             case "addNewColumn":
-                System.out.println("nhan request");
                 addNewColumnInLists (req, resp);
                 break;
             default:
                 break;
         }
+    }
+
+    private void addNewTaskInTasks(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String title = req.getParameter("nameTask");
+        int columnId = Integer.parseInt(req.getParameter("columnId"));
+        Task task = taskService.createTask(title, columnId);
+        String taskJson = new Gson().toJson(task);
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        resp.getWriter().write(taskJson);
     }
 
     private void addNewColumnInLists(HttpServletRequest req, HttpServletResponse resp) throws IOException {

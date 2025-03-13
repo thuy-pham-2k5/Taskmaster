@@ -32,7 +32,9 @@
                             <div class="group-info-detail">
                                 <h2>
                                     ${groupInfo.title}
-                                    <button style="background: none; border: 0"><img class="img-edit-group" src="/images/edit.png" onclick="showEditModal()">
+                                    <button style="background: none; border: 0"><img class="img-edit-group"
+                                                                                     src="/images/edit.png"
+                                                                                     onclick="showEditModal()">
                                     </button>
                                 </h2>
                                 <span>${groupInfo.visibility}</span>
@@ -43,13 +45,16 @@
                     </div>
                 </div>
                 <!-- Phần chỉnh sửa, Ẩn mặc định -->
-                <form action="/group_home?action=editInfoGroup&groupId=${groupInfo.groupId}" method="post">
-                    <div id="edit_frame">
+
+                <div id="edit_frame">
+                    <form action="/group_home?action=editInfoGroup&groupId=${groupInfo.groupId}" method="post">
                         <label>🏢 Tên không gian làm việc</label>
-                        <input name="title" type="text" id="groupNameInput" style="margin-bottom: 20px" value="${groupInfo.title}">
+                        <input name="title" type="text" id="groupNameInput" style="margin-bottom: 20px"
+                               value="${groupInfo.title}">
 
                         <label>🔠 Tên ngắn gọn</label>
-                        <input name="short_title" type="text" id="shortNameInput" style="margin-bottom: 20px" value="${groupInfo.short_title}">
+                        <input name="short_title" type="text" id="shortNameInput" style="margin-bottom: 20px"
+                               value="${groupInfo.short_title}">
 
                         <label>📝 Mô tả (tùy chỉnh)</label>
                         <textarea name="description" id="groupDescInput">${groupInfo.description}</textarea>
@@ -58,8 +63,8 @@
                             <button class="save-btn" type="submit">Lưu</button>
                             <button class="cancel-btn" onclick="cancelEdit()">Hủy</button>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
 
 
                 <c:if test="${roleIdUser == 3}">
