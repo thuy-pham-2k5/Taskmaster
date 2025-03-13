@@ -246,7 +246,7 @@
                         <ul class="hl-list-boards-ul">
                             <c:forEach items="${boards}" var="board">
                                 <li>
-                                    <a href="board_home?boardId=${board.boardId}">${board.title}</a>
+                                    <a href="group_home?action=boardView&boardId=${board.boardId}">${board.title}</a>
                                     <img src="/images/ellipsis.png" alt="closed-board"/>
                                 </li>
                             </c:forEach>

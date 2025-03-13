@@ -2,6 +2,10 @@ body {
     font-family: Arial, sans-serif;
 }
 
+.container {
+    height: calc(100% - 50px);
+}
+
 .menubar-home-workspace {
     position: sticky;
     top: 0;
@@ -132,11 +136,13 @@ body {
 }
 
 #homeRight {
+    scrollbar-color: #fff6 #00000026;
+    scrollbar-width: thin;
     flex: 1;
     background-color: #3179BA;
     min-height: 620px; /* Đảm bảo chiều cao tối thiểu */
     height: auto; /* Tự động mở rộng theo nội dung */
-    overflow: hidden; /* Ngăn chặn phần tử con tràn ra ngoài */
+    overflow-y: auto; /* Ngăn chặn phần tử con tràn ra ngoài */
 
 }
 
@@ -270,13 +276,20 @@ body {
 }
 
 #workspaces {
-    margin-left: 74px;
-    margin-right: 74px;
-    margin-top: 15px;
+    margin: 15px 74px;
     display: flex;
     flex-direction: column;
     gap: 25px;
     box-shadow: 0 -1px 0 0 #fff;
+}
+
+#openModalButton {
+    border-radius: 5px;
+    cursor: pointer;
+    width: fit-content;
+    padding: 6px 12px;
+    border: 0;
+    font-size: 16px;
 }
 
 
