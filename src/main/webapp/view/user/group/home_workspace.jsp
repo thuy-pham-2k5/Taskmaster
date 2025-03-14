@@ -63,7 +63,7 @@
 
                         <div class="button-group">
                             <button onclick="saveEditGroup(event)" class="save-btn" type="submit">Lưu</button>
-                            <button class="cancel-btn" onclick="cancelEdit()">Hủy</button>
+                            <button type="button" class="cancel_btn" onclick="cancelEdit()">Hủy</button>
                         </div>
                     </form>
                 </div>
@@ -125,8 +125,6 @@
 </div>
 
 <script>
-
-
     function cancelEdit() {
         // Hủy chỉnh sửa, quay về ban đầu
         document.getElementById("edit_frame").style.display = "none";
