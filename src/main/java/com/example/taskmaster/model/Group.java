@@ -4,6 +4,7 @@ public class Group {
     private int groupId;
     private String short_title, title, linkWeb, description, visibility;
 
+    public Group () {};
 
     public Group(int groupId, String short_title, String title, String linkWeb, String description, String visibility) {
         this.groupId = groupId;

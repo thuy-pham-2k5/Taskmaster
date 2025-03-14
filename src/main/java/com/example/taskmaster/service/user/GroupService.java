@@ -7,7 +7,9 @@ import com.example.taskmaster.model.Group;
 import java.security.SecureRandom;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GroupService implements IGroupService {
     @Override
@@ -31,7 +33,7 @@ public class GroupService implements IGroupService {
         }
     }
 
-@Override
+    @Override
     public List<Board> getStarredOrRecentBoards(int userId, String type) {
         List<Board> boardList = new ArrayList<>();
         String sql = "{call getRecentOrStarredBoardsByUserId (?, ?)}";
@@ -53,6 +55,7 @@ public class GroupService implements IGroupService {
             throw new RuntimeException(e);
         }
     }
+
     @Override
     public Group getGroupInfoByTitleAndDescription(String title, String description) {
         String query = "select * from `groups` where title = ? and description = ?";
@@ -221,13 +224,47 @@ public class GroupService implements IGroupService {
 
     public void deleteMemberFromGroup(int userId, int groupId) {
         String query = "delete from 'user_group_relationships' where user_id = ? and group_id = ?";
-        try(Connection connection = ConnectDatabase.getConnection()){
+        try (Connection connection = ConnectDatabase.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, userId);
             preparedStatement.setInt(2, groupId);
             preparedStatement.executeUpdate();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+
+
+    // Lấy role của user trong từng nhóm
+    public Map<Group, List<Board>> getBoardsInGroupWithRole(int userId, int roleType) throws SQLException {
+        Map<Group, List<Board>> accessMap = new HashMap<>();
+        String sql = "{CALL getBoardsInGroupWithRole(?, ?)}";
+
+        try (Connection connection = ConnectDatabase.getConnection();
+             CallableStatement callableStatement = connection.prepareCall(sql)) {
+            callableStatement.setInt(1, userId);
+            callableStatement.setInt(2, roleType);
+            ResultSet resultSet = callableStatement.executeQuery();
+
+            while (resultSet.next()) {
+                int groupId = resultSet.getInt("group_id");
+                String groupTitle = resultSet.getString("group_title");
+                int boardId = resultSet.getInt("board_id");
+                String boardTitle = resultSet.getString("board_title");
+                String imageLink = resultSet.getString("image_link");
+
+                // Tạo đối tượng Group
+                Group group = new Group(groupId, groupTitle);
+
+                // Nếu nhóm chưa có trong map, thêm vào
+                accessMap.putIfAbsent(group, new ArrayList<>());
+
+                // Thêm board vào danh sách của group
+                accessMap.get(group).add(new Board(boardId, boardTitle, imageLink));
+            }
+        }
+        return accessMap;
+    }
+
 }
+
