@@ -134,10 +134,11 @@ body {
 #homeRight {
     flex: 1;
     background-color: #3179BA;
-    min-height: 620px; /* Đảm bảo chiều cao tối thiểu */
-    height: auto; /* Tự động mở rộng theo nội dung */
-    overflow: hidden; /* Ngăn chặn phần tử con tràn ra ngoài */
-
+    min-height: 620px;
+    height: auto;
+    overflow-y: auto;
+    scrollbar-color: #fff6 #00000026;
+    scrollbar-width: thin;
 }
 
 
@@ -422,6 +423,18 @@ body {
     width: 30px;
     height: 25px;
     margin-left: 5px;
+}
+
+.container {
+    height: calc(100% - 50px);
+}
+
+#openModalButton {
+    width: fit-content;
+    padding: 6px 12px;
+    border-radius: 5px;
+    border: 0;
+    font-size: 16px;
 }
 
 

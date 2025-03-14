@@ -62,12 +62,12 @@ public class  TaskService implements ITaskService {
         String query = "{call createNewTask (?, ?)}";
         try (Connection connection = ConnectDatabase.getConnection()) {
             CallableStatement callableStatement = connection.prepareCall(query);
-            callableStatement.setInt(3, listId);
+            callableStatement.setInt(2, listId);
             callableStatement.setString(1, title);
             ResultSet resultSet = callableStatement.executeQuery();
             if (resultSet.next()) {
                 int taskId = resultSet.getInt(1);
-                int position = resultSet.getInt(4);
+                int position = resultSet.getInt(5);
                 String description = resultSet.getString(3);
                 return new Task(taskId, title, description, listId, position);
             }

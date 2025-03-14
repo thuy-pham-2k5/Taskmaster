@@ -65,14 +65,35 @@ public class BoardServlet extends HttpServlet {
     public void createBoard(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html; charset=UTF-8");
+
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
-        int groupId = (Integer) session.getAttribute("groupId");
+        int groupId = Integer.parseInt((String) session.getAttribute("groupId"));
         System.out.println(groupId);
+
+        // Lấy giá trị của ảnh đã chọn hoặc link ảnh tùy chỉnh
+        String selectedImageLink = req.getParameter("selectedWallpaper");
+        if (selectedImageLink == null || selectedImageLink.isEmpty()) {
+            selectedImageLink = req.getParameter("selectedImage");
+        }
+
+        System.out.println("Ảnh được chọn: " + selectedImageLink);
+
         String boardName = req.getParameter("title");
-        boardService.createBoard(user.getUserId(), boardName, groupId);
-        resp.sendRedirect("/group_home");
+
+        if (boardName == null || boardName.trim().isEmpty()) {
+            resp.getWriter().println("Tiêu đề bảng không được để trống.");
+            return;
+        }
+
+        if (selectedImageLink == null || selectedImageLink.trim().isEmpty()) {
+            selectedImageLink = "https://default-image.com/default.jpg"; // Ảnh mặc định nếu không chọn gì
+        }
+
+        boardService.createBoard(user.getUserId(), boardName, groupId, selectedImageLink);
+        resp.sendRedirect("group_home");
     }
+
 
     private void deleteBoardById(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
