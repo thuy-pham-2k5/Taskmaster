@@ -10,7 +10,7 @@ import java.sql.*;
 import java.util.*;
 import java.util.regex.Pattern;
 
-public class TaskService implements ITaskService {
+public class  TaskService implements ITaskService {
     @Override
     public List<Integer> getAllColumnId(int boardId) {
         List<Integer> columnIds = new ArrayList<>();

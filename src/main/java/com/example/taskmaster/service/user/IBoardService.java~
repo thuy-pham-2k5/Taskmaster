@@ -14,7 +14,7 @@ public interface IBoardService {
     List<Board> sortBoardByTime(int groupId, boolean sortType);
     List<Board> searchBoardsByName(int groupId, String keyword);
     List<Board> getAllBoardClosedInGroup(int groupId);
-    void createBoard(int userId, String boardTitle, int groupId, String backgroundLink);
+    void createBoard(int userId, String boardTitle, int groupId);
     boolean deleteBoard( int boardId) throws SQLException;
     void closeBoard(int boardId);
     int checkBoardBackground(String backgroundLink);

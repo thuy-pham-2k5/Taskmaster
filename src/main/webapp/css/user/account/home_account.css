@@ -6,8 +6,9 @@
 
 .container {
     display: flex;
-    min-height: 90vh;
+    min-height: 100%;
     margin: 0 50px 0 50px;
+    height: auto;
 }
 
 #header {
