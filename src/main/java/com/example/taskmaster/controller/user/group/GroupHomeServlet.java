@@ -60,24 +60,30 @@ public class GroupHomeServlet extends HttpServlet {
     }
 
     private void editInfoGroup(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
         HttpSession session = request.getSession();
-        int groupId = Integer.parseInt(session.getAttribute("groupId").toString());
-        String title = request.getParameter("title");
-        String short_title = request.getParameter("short_title");
-        String description = request.getParameter("description");
-        System.out.println(groupId);
-        System.out.println(title);
-        System.out.println(short_title);
-        System.out.println(description);
-        groupService.updateGroup(groupId, new Group(short_title, title, "https://trello.com/b/KX3U0lwT/backlog-sprint", description));
-        // Lấy lại dữ liệu mới từ database
-        Group updatedGroup = groupService.getGroupInfoById(groupId);
 
-        // Cập nhật lại session với dữ liệu mới
-        session.setAttribute("groupInfo", updatedGroup);
+        try {
+            int groupId = Integer.parseInt(session.getAttribute("groupId").toString());
+            String title = request.getParameter("title");
+            String short_title = request.getParameter("short_title");
+            String description = request.getParameter("description");
 
-        // Chuyển hướng về trang chính
-        response.sendRedirect("/group_home");
+
+            // Cập nhật dữ liệu nhóm
+            groupService.updateGroup(groupId, new Group(short_title, title, "https://trello.com/b/KX3U0lwT/backlog-sprint", description));
+
+            // Lấy lại dữ liệu mới từ database
+            Group updatedGroup = groupService.getGroupInfoById(groupId);
+            session.setAttribute("groupInfo", updatedGroup);
+            String groupJson = new Gson().toJson(updatedGroup);
+            response.getWriter().write(groupJson);
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.getWriter().print("{\"success\": false, \"message\": \"Có lỗi xảy ra khi cập nhật nhóm!\"}");
+        }
     }
 
     protected void createNewGroup(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
