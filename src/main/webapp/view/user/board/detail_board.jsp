@@ -50,13 +50,27 @@
             <h4>Thao tác</h4>
         </div>
         <ul class="db-dropdown-lists">
-            <li class="db-dropdown-action"><button>Thêm thẻ</button></li>
-            <li class="db-dropdown-action"><button>Sao chép danh sách</button></li>
-            <li class="db-dropdown-action"><button>Di chuyển danh sách</button></li>
-            <li class="db-dropdown-action"><button>Sắp xếp theo...</button></li>
-            <li class="db-dropdown-action"><button>Theo dõi</button></li>
-            <li class="db-dropdown-action"><button>Xóa danh sách</button></li>
-            <li class="db-dropdown-action"><button>Xóa tất cả thẻ trong danh sách</button></li>
+            <li id="operation-addTask" class="db-dropdown-action">
+                <button>Thêm thẻ</button>
+            </li>
+            <li id="operation-copyList" class="db-dropdown-action">
+                <button>Sao chép danh sách</button>
+            </li>
+            <li id="operation-moveList" class="db-dropdown-action">
+                <button>Di chuyển danh sách</button>
+            </li>
+            <li id="operation-sortType" class="db-dropdown-action">
+                <button>Sắp xếp theo...</button>
+            </li>
+            <li id="operation-track" class="db-dropdown-action">
+                <button>Theo dõi</button>
+            </li>
+            <li id="operation-deleteList" class="db-dropdown-action">
+                <button>Xóa danh sách</button>
+            </li>
+            <li id="operation-deleteAllTask" class="db-dropdown-action">
+                <button>Xóa tất cả thẻ trong danh sách</button>
+            </li>
         </ul>
     </div>
 </main>
@@ -276,6 +290,7 @@
     });
 </script>
 <script defer>
+    let currentOpenOperationList = null;
     // mở thao tác cột
     $(document).on("click", ".openOperationList", function (event) {
         let openDropdown = $(this);
@@ -288,6 +303,8 @@
                 updateDropdownPosition(openDropdown, dropdown);
             }
         })
+        currentOpenOperationList = openDropdown;
+        console.log(currentOpenOperationList);
         event.stopPropagation();
     });
 
@@ -302,8 +319,53 @@
 
     $(document).on("click", function (event) {
         if (!$(event.target).closest(".openOperationList, #operationList").length) {
-            $("#operationList").hide();
+            hideDropdown();
         }
+    });
+    function hideDropdown() {
+        $("#operationList").hide();
+    }
+
+</script>
+<script>
+    document.querySelectorAll(".db-dropdown-action").forEach(item => {
+        item.addEventListener("click", function () {
+            if (currentOpenOperationList) {
+                let parentContainer = currentOpenOperationList.closest(".detail-list").get(0); // Lấy thẻ cha chứa button
+                let columnData = Number(parentContainer.dataset.column);
+                console.log("Thẻ cha của button này có ID: " + columnData);
+                if (item.id === "operation-deleteList") {
+                    $.ajax({
+                        type: "POST",
+                        url: "/board_home?action=deleteColumn",
+                        data: {
+                            columnId: columnData
+                        },
+                        dataType: "json",
+                        success: function (response) {
+                            if (response === true) {
+                                const indexColumn = columns.findIndex(c => c.id === columnData);
+                                columns.splice(indexColumn, 1);
+                                if (tasks.hasOwnProperty(columnData)) {
+                                    delete tasks[columnData];
+                                }
+                                let removeElement = currentOpenOperationList.closest(".container-list");
+                                if (removeElement) {
+                                    removeElement.remove();
+                                }
+                                hideDropdown();
+                                alert("Xóa cột thành công");
+                            } else {
+                                alert("Xóa cột thất bại")
+                            }
+                        },
+                        error: function(error) {
+                            console.log("Lỗi AJAX:", error);
+                        }
+                    })
+                }
+            }
+        })
     });
 </script>
 </body>
