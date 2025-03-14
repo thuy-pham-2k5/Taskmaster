@@ -97,7 +97,7 @@
 
                                             <div class="confirm-box">
                                                 <p>Bạn có chắc muốn loại bỏ ${user.fullName}?</p>
-                                                <button class="confirm-remove">Có</button>
+                                                <button class="confirm-remove" onclick="deleteMember(${user.userId})">Có</button>
                                                 <button class="cancel-remove">Hủy</button>
                                             </div>
 
