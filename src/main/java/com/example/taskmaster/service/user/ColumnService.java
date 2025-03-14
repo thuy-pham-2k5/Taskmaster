@@ -1,6 +1,7 @@
 package com.example.taskmaster.service.user;
 
 import com.example.taskmaster.database.ConnectDatabase;
+import com.example.taskmaster.model.Board;
 import com.example.taskmaster.model.Column;
 import com.example.taskmaster.model.Group;
 
@@ -52,12 +53,13 @@ public class ColumnService implements IColumnService {
 
     // Đóng cột có trong bảng.
     @Override
-    public void deleteColumnInBoard(int columnId) {
+    public boolean deleteColumnInBoard(int columnId) {
         String query = "delete from lists where list_id = ?";
         try (Connection connection = ConnectDatabase.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, columnId);
-            preparedStatement.executeQuery();
+            int success = preparedStatement.executeUpdate();
+            return success > 0;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
