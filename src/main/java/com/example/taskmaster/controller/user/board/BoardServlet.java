@@ -2,6 +2,8 @@ package com.example.taskmaster.controller.user.board;
 
 import com.example.taskmaster.model.User;
 import com.example.taskmaster.service.user.BoardService;
+import com.google.gson.Gson;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -99,29 +101,12 @@ public class BoardServlet extends HttpServlet {
 
 
     private void deleteBoardById(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        try {
-            // Lấy boardId từ request
-            String boardIdParam = req.getParameter("boardId");
-            if (boardIdParam == null || boardIdParam.isEmpty()) {
-                resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Board ID is required.");
-                return;
-            }
-
-            int boardId = Integer.parseInt(boardIdParam);
-            // Xóa board
-            boolean isDeleted = boardService.deleteBoard(boardId);
-            if (!isDeleted) {
-                resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to delete board.");
-                return;
-            }
-            // Xóa thành công -> Chuyển hướng về trang group_home
-            resp.sendRedirect("group_home");
-
-        } catch (NumberFormatException e) {
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid Board ID.");
-        } catch (Exception e) {
-            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An unexpected error occurred.");
-        }
+        int boardId = Integer.parseInt(req.getParameter("boardId"));
+        boolean success = boardService.deleteBoard(boardId);
+        String successJson  = new Gson().toJson(success);
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        resp.getWriter().write(successJson);
     }
 
 }
