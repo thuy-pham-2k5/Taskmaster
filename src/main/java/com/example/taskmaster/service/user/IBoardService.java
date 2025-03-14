@@ -12,14 +12,17 @@ public interface IBoardService {
     void saveTimestampToBoard (int userId, int boardId);
     void changeStarredBoard (int userId, int boardId, boolean starred);
 
+    List<Board> sortBoardByTime(int groupId, boolean sortType);
+
     List<Board> searchBoardsByName(int groupId, String keyword);
 
     List<Board> getAllBoardClosedInGroup(int groupId);
 
-    void createBoard(int userId, String boardTitle, int groupId);
+     void createBoard(int userId, String boardTitle, int groupId, String backgroundLink);
 
     boolean deleteBoard( int boardId) throws SQLException;
 
     void closeBoard(int boardId);
 
+    int checkBoardBackground(String backgroundLink);
 }

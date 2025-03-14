@@ -126,7 +126,7 @@
 <%--                    <c:forEach items="${groups}" var="group">--%>
 <%--                        <c:if test="${group.accessType eq 'guest_workspace'}">--%>
 <%--                            <div class="guest-workspace">--%>
-<%--                                <h3>${group.title}</h3>--%>
+<%--                                <h3>${group.title}</h3>--%>git
 <%--                                <div class="board-list">--%>
 <%--                                    <div class="board-item board-item-red">--%>
 <%--                                        <p>Chỉ có quyền xem nội dung</p>--%>
