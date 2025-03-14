@@ -99,6 +99,11 @@ main {
     margin: 8px 0 4px 0;
     white-space: break-spaces;
     overflow-wrap: anywhere;
+    cursor: pointer;
+}
+
+.close {
+    cursor: pointer;
 }
 
 .add_task {

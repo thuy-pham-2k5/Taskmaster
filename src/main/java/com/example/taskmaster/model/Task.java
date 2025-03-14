@@ -5,7 +5,8 @@ public class Task {
     private String title, description;
     private int columnId;
     private String columnName;
-        private int position;
+    private int position;
+    private String dueTime;
 
     public Task(int taskId, String title, String description, int columnId, int position) {
         this.taskId = taskId;
@@ -15,13 +16,14 @@ public class Task {
         this.position = position;
     }
 
-    public Task(int taskId, String title, String description, int columnId, String columnName, int position) {
+    public Task(int taskId, String title, String description, int columnId, String columnName, int position, String dueTime) {
         this.taskId = taskId;
         this.title = title;
         this.description = description;
         this.columnId = columnId;
         this.columnName = columnName;
         this.position = position;
+        this.dueTime = dueTime;
     }
 
     @Override
@@ -33,6 +35,7 @@ public class Task {
                 ", columnId=" + columnId +
                 ", columnName='" + columnName + '\'' +
                 ", position=" + position +
+                ", dueTime='" + dueTime + '\'' +
                 '}';
     }
 
@@ -82,5 +85,13 @@ public class Task {
 
     public void setColumnName(String columnName) {
         this.columnName = columnName;
+    }
+
+    public String getDueTime() {
+        return dueTime;
+    }
+
+    public void setDueTime(String dueTime) {
+        this.dueTime = dueTime;
     }
 }

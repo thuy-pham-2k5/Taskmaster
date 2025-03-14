@@ -2,7 +2,9 @@ package com.example.taskmaster.service.user;
 
 import com.example.taskmaster.database.ConnectDatabase;
 import com.example.taskmaster.model.Column;
+import com.example.taskmaster.model.DetailTask;
 import com.example.taskmaster.model.Task;
+import jdk.vm.ci.code.site.Call;
 
 import java.sql.*;
 import java.util.*;
@@ -51,6 +53,36 @@ public class  TaskService implements ITaskService {
                 }
             }
             return taskMap;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public Map<Task, List<DetailTask>> getDetailTask(int taskId) {
+        String query = "{call getDetailTask(?)}";
+        Map<Task, List<DetailTask>> detailTask = new HashMap<>();
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            CallableStatement callableStatement = connection.prepareCall(query);
+            callableStatement.setInt(1, taskId);
+            ResultSet resultSet = callableStatement.executeQuery();
+            while (resultSet.next()) {
+                String titleTask = resultSet.getString("title");
+                String description = resultSet.getString("description");
+                int listId = resultSet.getInt("list_id");
+                String listName = resultSet.getString("name");
+                int position = resultSet.getInt("position");
+                String dueTime = resultSet.getString("due_time");
+                Task task = new Task(taskId, titleTask, description, listId, listName, position, dueTime);
+                detailTask.putIfAbsent(task, new ArrayList<>());
+                int userId = resultSet.getInt("user_id");
+                String fullName = resultSet.getString("full_name");
+                String colorLabel = resultSet.getString("color_label");
+                String nameLabel = resultSet.getString("name_label");
+                boolean isFollowing = resultSet.getBoolean("is_following");
+                detailTask.get(task).add(new DetailTask(userId, fullName, isFollowing, colorLabel, nameLabel));
+            }
+            return detailTask;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
