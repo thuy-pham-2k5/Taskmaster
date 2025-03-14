@@ -239,6 +239,8 @@ body {
 }
 
 .group-title {
+    color: white;
+    background: linear-gradient(180deg, #006644, #4bce97);
     width: 60px;
     height: 60px;
     border: 0;
@@ -247,12 +249,10 @@ body {
 }
 
 .group-info-detail {
+    display: flex;
+    padding-bottom: 15px;
     margin: auto 0;
     color: white;
-}
-
-.group-info-detail h2 {
-    margin: 0;
 }
 
 #addAcount button {
@@ -584,6 +584,18 @@ body {
     box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+#shortNameInput{
+    margin-top: 4px;
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #a0bbdc;
+    border-radius: 8px;
+    font-size: 15px;
+    background-color: #6494c4;
+    color: #1E293B;
+    box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
 #groupNameInput:focus,
 #groupDescInput:focus,
 #shortNameInput:focus{
@@ -640,4 +652,29 @@ body {
     background-color: #DC2626;
     transform: translateY(-2px);
     box-shadow: 0px 6px 12px rgba(220, 38, 38, 0.4);
+}
+
+
+
+
+.group-info-detail h2 {
+    margin: 0; /* Xóa khoảng cách mặc định */
+    font-size: 24px; /* Tùy chỉnh kích thước */
+    flex-grow: 1; /* Cho phép `h2` mở rộng để đẩy button sang phải */
+}
+
+.group-info-detail button {
+    background: none;
+    border: 0;
+    cursor: pointer;
+}
+
+#main_info span{
+    color: white;
+}
+#main_info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* Khoảng cách giữa các hàng */
+    margin-left: 15px;
 }
