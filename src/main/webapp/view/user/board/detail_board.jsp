@@ -154,13 +154,20 @@
     let task = null;
     $(".task").on("click", function () {
         let taskId = $(this).data('task');
-        getInfoTask();
+        getInfoTask(taskId);
         openTaskModal(task)
     })
-    function getInfoTask () {
+    function getInfoTask (taskId) {
         $.ajax({
             type: "POST",
-            url: "/board_home?action=get"
+            url: "/board_home?action=getInfoTask",
+            data: {
+                taskId: taskId
+            },
+            dataType: "json",
+            success: function (task) {
+
+            }
         })
     }
     // Hiển thị modal task với thông tin từ task
@@ -383,7 +390,7 @@
         // Lặp qua các column
         const boardHtml = columns.map(column => {
             const taskList = Object.values(tasks || {}).flat().filter(task => task.columnId === column.columnId);
-            const taskListHtml = taskList.map(task => `<li class="task" data-task="` + task.taskId + `" data-position="` + task.position + `">` + task.title + `</li>`).join('');
+            const taskListHtml = taskList.map(task => `<li onclick="openTaskModal({ title: 'Tiêu đề Task', status: 'To Do', description: 'Mô tả task'})" class="task" data-task="` + task.taskId + `" data-position="` + task.position + `">` + task.title + `</li>`).join('');
             return repeatColumnAndTask(column, taskListHtml);
         });
         listsContainer.innerHTML = boardHtml.join('');
