@@ -364,6 +364,34 @@
                         }
                     })
                 }
+                else if (item.id === "operation-deleteAllTask") {
+                    $.ajax({
+                        type: "POST",
+                        url: "board_home?action=deleteAllTaskInColumn",
+                        data: {
+                            columnId: columnData
+                        },
+                        dataType: "json",
+                        success: function (message) {
+                            if (message === true) {
+                                if (tasks.hasOwnProperty(columnData)) {
+                                    delete tasks[columnData];
+                                    console.log(tasks)
+                                }
+                                let removeParentElement = currentOpenOperationList.closest(".detail-list");
+                                let removeElement = $(removeParentElement).children(".list-task");
+                                removeElement.empty();
+                                hideDropdown();
+                                alert("Xóa tất cả thẻ trong danh sách thành công");
+                            } else {
+                                alert("Xóa tất cả thẻ trong danh sách thất bại")
+                            }
+                        },
+                        error: function (error) {
+                        console.log("Loi ajax:", error)
+                    }
+                    })
+                }
             }
         })
     });
