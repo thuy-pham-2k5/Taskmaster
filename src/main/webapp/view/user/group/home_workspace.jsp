@@ -7,7 +7,6 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/user/group/homeWorkspace.css">
     <script src="/js/user/group/home_workspace.js" defer></script>
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/sweet-modal/dist/min/jquery.sweet-modal.min.css">
     <script src="https://unpkg.com/sweet-modal/dist/min/jquery.sweet-modal.min.js"></script>
@@ -32,9 +31,7 @@
                             <div class="group-info-detail">
                                 <h2>
                                     ${groupInfo.title}
-                                    <button style="background: none; border: 0"><img class="img-edit-group"
-                                                                                     src="/images/edit.png"
-                                                                                     onclick="showEditModal()">
+                                    <button style="background: none; border: 0"><img class="img-edit-group" src="/images/edit.png" onclick="showEditModal()">
                                     </button>
                                 </h2>
                                 <span>${groupInfo.visibility}</span>
@@ -106,7 +103,9 @@
                     <div id="listBoards" class="card-container">
                         <c:forEach var="board" items="${boards}">
                             <div style=" background-color: #0D599D; " class="workspaceTable">
-                                <a href="/group_home?action=boardView&boardId=${board.boardId}"><button class="titleBoardWorkspace">${board.title}</button></a>
+                                <a href="/group_home?action=boardView&boardId=${board.boardId}">
+                                    <button class="titleBoardWorkspace">${board.title}</button>
+                                </a>
                             </div>
                         </c:forEach>
                     </div>
