@@ -335,66 +335,76 @@
                 let columnData = Number(parentContainer.dataset.column);
                 console.log("Thẻ cha của button này có ID: " + columnData);
                 if (item.id === "operation-deleteList") {
-                    $.ajax({
-                        type: "POST",
-                        url: "/board_home?action=deleteColumn",
-                        data: {
-                            columnId: columnData
-                        },
-                        dataType: "json",
-                        success: function (response) {
-                            if (response === true) {
-                                const indexColumn = columns.findIndex(c => c.id === columnData);
-                                columns.splice(indexColumn, 1);
-                                if (tasks.hasOwnProperty(columnData)) {
-                                    delete tasks[columnData];
-                                }
-                                let removeElement = currentOpenOperationList.closest(".container-list");
-                                if (removeElement) {
-                                    removeElement.remove();
-                                }
-                                hideDropdown();
-                                alert("Xóa cột thành công");
-                            } else {
-                                alert("Xóa cột thất bại")
-                            }
-                        },
-                        error: function(error) {
-                            console.log("Lỗi AJAX:", error);
-                        }
-                    })
+                    deleteList(columnData)
                 }
                 else if (item.id === "operation-deleteAllTask") {
-                    $.ajax({
-                        type: "POST",
-                        url: "board_home?action=deleteAllTaskInColumn",
-                        data: {
-                            columnId: columnData
-                        },
-                        dataType: "json",
-                        success: function (message) {
-                            if (message === true) {
-                                if (tasks.hasOwnProperty(columnData)) {
-                                    delete tasks[columnData];
-                                    console.log(tasks)
-                                }
-                                let removeParentElement = currentOpenOperationList.closest(".detail-list");
-                                let removeElement = $(removeParentElement).children(".list-task");
-                                removeElement.empty();
-                                hideDropdown();
-                                alert("Xóa tất cả thẻ trong danh sách thành công");
-                            } else {
-                                alert("Xóa tất cả thẻ trong danh sách thất bại")
-                            }
-                        },
-                        error: function (error) {
-                        console.log("Loi ajax:", error)
-                    }
-                    })
+                    deleteAllTask(columnData);
                 }
             }
         })
     });
+    function deleteList (columnData) {
+        $.ajax({
+            type: "POST",
+            url: "/board_home?action=deleteColumn",
+            data: {
+                columnId: columnData
+            },
+            dataType: "json",
+            success: function (response) {
+                let notification;
+                if (response === true) {
+                    const indexColumn = columns.findIndex(c => c.id === columnData);
+                    columns.splice(indexColumn, 1);
+                    if (tasks.hasOwnProperty(columnData)) {
+                        delete tasks[columnData];
+                    }
+                    let removeElement = currentOpenOperationList.closest(".container-list");
+                    if (removeElement) {
+                        removeElement.remove();
+                    }
+                    hideDropdown();
+                    notification = "Xóa cột thành công";
+                } else {
+                    notification = "Xóa cột thất bại";
+                }
+                alert(notification)
+            },
+            error: function(error) {
+                console.log("Lỗi AJAX:", error);
+            }
+        })
+    }
+    function deleteAllTask (columnData) {
+        $.ajax({
+            type: "POST",
+            url: "board_home?action=deleteAllTaskInColumn",
+            data: {
+                columnId: columnData
+            },
+            dataType: "json",
+            success: function (message) {
+                let notification;
+                if (message === true) {
+                    if (tasks.hasOwnProperty(columnData)) {
+                        delete tasks[columnData];
+                        console.log(tasks)
+                    }
+                    let removeParentElement = currentOpenOperationList.closest(".detail-list");
+                    let removeElement = $(removeParentElement).children(".list-task");
+                    removeElement.empty();
+                    hideDropdown();
+                    notification = "Xóa tất cả thẻ trong danh sách thành công";
+                } else {
+                    notification = "Xóa tất cả thẻ trong danh sách thất bại";
+                }
+                alert(notification)
+            },
+            error: function (error) {
+                console.log("Loi ajax:", error)
+            }
+        })
+    }
 </script>
 </body>
 </html>
