@@ -6,9 +6,6 @@
     <link rel="stylesheet" href="/css/user/board/detail_board.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
@@ -50,21 +47,38 @@
             </div>
         </div>
     </div>
-
-
-
-
-
+    <div class="db-dropdown-action-task" id="operationList">
+        <div>
+            <h4>Thao tác</h4>
+        </div>
+        <ul class="db-dropdown-lists">
+            <li id="operation-addTask" class="db-dropdown-action">
+                <button>Thêm thẻ</button>
+            </li>
+            <li id="operation-copyList" class="db-dropdown-action">
+                <button>Sao chép danh sách</button>
+            </li>
+            <li id="operation-moveList" class="db-dropdown-action">
+                <button>Di chuyển danh sách</button>
+            </li>
+            <li id="operation-sortType" class="db-dropdown-action">
+                <button>Sắp xếp theo...</button>
+            </li>
+            <li id="operation-track" class="db-dropdown-action">
+                <button>Theo dõi</button>
+            </li>
+            <li id="operation-deleteList" class="db-dropdown-action">
+                <button>Xóa danh sách</button>
+            </li>
+            <li id="operation-deleteAllTask" class="db-dropdown-action">
+                <button>Xóa tất cả thẻ trong danh sách</button>
+            </li>
+        </ul>
+    </div>
 </main>
-
-
-
 <!-- Task Modal -->
-
-
-
 <div id="taskModal">
-    <div class="modal_content" >
+    <div class="modal_content">
         <div id="header_task">
             <div id="title_task_info">
                 <input id="modalTaskTitle" type="text" name="title_task" value="Tiêu đề Task"/>
@@ -127,7 +141,8 @@
                 <button><i class="fas fa-tags"></i> Nhãn</button>
                 <button><i class="fas fa-tasks"></i> Việc cần làm</button>
                 <button><i class="fas fa-archive"></i> Lưu trữ</button>
-                <section style="background-color: #0079bf; width: 100%; height: 30px; border-radius: 5px;" class="date-picker-section">
+                <section style="background-color: #0079bf; width: 100%; height: 30px; border-radius: 5px;"
+                         class="date-picker-section">
                     <button id="open_calendar"><i class="fas fa-calendar-alt"></i> Ngày</button>
                     <input type="date" id="date_picker">
                 </section>
@@ -135,9 +150,26 @@
         </div>
     </div>
 </div>
-
-
 <script>
+    let task = null;
+    $(".task").on("click", function () {
+        let taskId = $(this).data('task');
+        getInfoTask(taskId);
+        openTaskModal(task)
+    })
+    function getInfoTask (taskId) {
+        $.ajax({
+            type: "POST",
+            url: "/board_home?action=getInfoTask",
+            data: {
+                taskId: taskId
+            },
+            dataType: "json",
+            success: function (task) {
+
+            }
+        })
+    }
     // Hiển thị modal task với thông tin từ task
     function openTaskModal(task) {
         document.getElementById("modalTaskTitle").value = task.title;
@@ -194,15 +226,6 @@
         document.getElementById("selected_date").textContent = formattedDate;
     });
 
-
-
-
-
-
-
-
-
-
     function setupAutoHide(idHidden, idReplacement) {
         document.addEventListener("click", function (event) {
             let div = document.getElementById(idHidden);
@@ -231,9 +254,6 @@
 
 
 </script>
-
-
-
 <script defer>
     let boardId = ${boardDetail.boardId};
     let columns = JSON.parse('${columns}');
@@ -241,7 +261,6 @@
     console.log(boardId);
     console.log("Columns", columns);
     console.log("Tasks", tasks);
-
 
     document.addEventListener("click", function (event) {
         if (event.target.tagName === "BUTTON" && event.target.classList.contains("addNewTask")) {
@@ -362,7 +381,8 @@
             }
         });
     }
-
+</script>
+<script>
     function renderBoard(columns, tasks) {
         const listsContainer = document.querySelector('.lists'); // Container để chứa các cột
         listsContainer.innerHTML = ''; // Reset nội dung trước khi render mới
@@ -370,7 +390,7 @@
         // Lặp qua các column
         const boardHtml = columns.map(column => {
             const taskList = Object.values(tasks || {}).flat().filter(task => task.columnId === column.columnId);
-            const taskListHtml = taskList.map(task => `<li  onclick="openTaskModal({ title: 'Tiêu đề Task', status: 'To Do', description: 'Mô tả task', dueDate: '2025-03-15' })" class="task" data-task="` + task.taskId + `" data-position="` + task.position + `">` + task.title + `</li>`).join('');
+            const taskListHtml = taskList.map(task => `<li onclick="openTaskModal({ title: 'Tiêu đề Task', status: 'To Do', description: 'Mô tả task'})" class="task" data-task="` + task.taskId + `" data-position="` + task.position + `">` + task.title + `</li>`).join('');
             return repeatColumnAndTask(column, taskListHtml);
         });
         listsContainer.innerHTML = boardHtml.join('');
@@ -385,13 +405,12 @@
     }
 
 
-
-
     function repeatColumnAndTask(column, tasks) {
         return '<div class="container-list">' +
             '<div class="detail-list" data-column="' + column.columnId + '">' +
             '<div class="title-list">' +
             '<h2>' + column.name + '</h2>' +
+            '<img class="openOperationList" src="/images/ellipsis_black.png" alt="closed-board"/>' +
             '</div>' +
             '<ol class="list-task">' +
             tasks +
@@ -422,6 +441,125 @@
     document.addEventListener('DOMContentLoaded', () => {
         renderBoard(columns, tasks);
     });
+</script>
+<script defer>
+    let currentOpenOperationList = null;
+    // mở thao tác cột
+    $(document).on("click", ".openOperationList", function (event) {
+        let openDropdown = $(this);
+        let dropdown = $("#operationList");
+        updateDropdownPosition(openDropdown, dropdown);
+
+        $('.content_detail_board_parent').scroll(function () {
+            if (dropdown.is(":visible")) {
+                openDropdown.addClass("active");
+                updateDropdownPosition(openDropdown, dropdown);
+            }
+        })
+        currentOpenOperationList = openDropdown;
+        console.log(currentOpenOperationList);
+        event.stopPropagation();
+    });
+
+    function updateDropdownPosition(openDropdown, dropdown) {
+        const offset = openDropdown.offset();
+        dropdown.css({
+            left: offset.left + "px",
+            top: offset.top + openDropdown.outerHeight() + "px",
+            display: "block"
+        });
+    }
+
+    $(document).on("click", function (event) {
+        if (!$(event.target).closest(".openOperationList, #operationList").length) {
+            hideDropdown();
+        }
+    });
+
+    function hideDropdown() {
+        $("#operationList").hide();
+    }
+
+</script>
+<script>
+    document.querySelectorAll(".db-dropdown-action").forEach(item => {
+        item.addEventListener("click", function () {
+            if (currentOpenOperationList) {
+                let parentContainer = currentOpenOperationList.closest(".detail-list").get(0); // Lấy thẻ cha chứa button
+                let columnData = Number(parentContainer.dataset.column);
+                console.log("Thẻ cha của button này có ID: " + columnData);
+                if (item.id === "operation-deleteList") {
+                    deleteList(columnData)
+                } else if (item.id === "operation-deleteAllTask") {
+                    deleteAllTask(columnData);
+                }
+            }
+        })
+    });
+
+    function deleteList(columnData) {
+        $.ajax({
+            type: "POST",
+            url: "/board_home?action=deleteColumn",
+            data: {
+                columnId: columnData
+            },
+            dataType: "json",
+            success: function (response) {
+                let notification;
+                if (response === true) {
+                    const indexColumn = columns.findIndex(c => c.id === columnData);
+                    columns.splice(indexColumn, 1);
+                    if (tasks.hasOwnProperty(columnData)) {
+                        delete tasks[columnData];
+                    }
+                    let removeElement = currentOpenOperationList.closest(".container-list");
+                    if (removeElement) {
+                        removeElement.remove();
+                    }
+                    hideDropdown();
+                    notification = "Xóa cột thành công";
+                } else {
+                    notification = "Xóa cột thất bại";
+                }
+                alert(notification)
+            },
+            error: function (error) {
+                console.log("Lỗi AJAX:", error);
+            }
+        })
+    }
+
+    function deleteAllTask(columnData) {
+        $.ajax({
+            type: "POST",
+            url: "board_home?action=deleteAllTaskInColumn",
+            data: {
+                columnId: columnData
+            },
+            dataType: "json",
+            success: function (message) {
+                let notification;
+                if (message === true) {
+                    if (tasks.hasOwnProperty(columnData)) {
+                        delete tasks[columnData];
+                        console.log(tasks)
+                    }
+                    let removeParentElement = currentOpenOperationList.closest(".detail-list");
+                    let removeElement = $(removeParentElement).children(".list-task");
+                    removeElement.empty();
+                    hideDropdown();
+                    notification = "Xóa tất cả thẻ trong danh sách thành công";
+                } else {
+                    notification = "Xóa tất cả thẻ trong danh sách thất bại";
+                }
+                alert(notification)
+            },
+            error: function (error) {
+                console.log("Loi ajax:", error)
+            }
+        })
+    }
 </script>
 </body>
 </html>

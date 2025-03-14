@@ -27,6 +27,8 @@ main {
 
 .title-bar {
     padding: 12px;
+    font-size: 22px;
+    color: white;
 }
 
 .board_title {
@@ -52,11 +54,28 @@ main {
 
 .title-list {
     padding: 15px 15px 0 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .title-list h2 {
     margin: 0;
     font-size: 19px;
+}
+
+.openOperationList {
+    width: 20px;
+    height: 20px;
+    margin: 0 0 0 15px;
+    border-radius: 5px;
+    padding: 2px 5px;
+    cursor: pointer;
+}
+
+.openOperationList:active,
+.openOperationList:hover {
+    background: #c6d0d9;
 }
 
 .list-task {
@@ -80,6 +99,11 @@ main {
     margin: 8px 0 4px 0;
     white-space: break-spaces;
     overflow-wrap: anywhere;
+    cursor: pointer;
+}
+
+.close {
+    cursor: pointer;
 }
 
 .add_task {
@@ -178,22 +202,54 @@ input::placeholder {
     overflow-y: hidden;
 }
 
+.db-dropdown-action-task {
+    position: absolute;
+    display: none; /* Ẩn mặc định */
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    min-width: 120px;
+    list-style: none;
+    border-radius: 10px;
+}
 
+.db-dropdown-lists {
+    list-style-type: none;
+    margin: 0;
+    padding: 0 0 10px 0;
+}
 
+.db-dropdown-action-task div {
+    display: flex;
+    margin: 4px 8px;
+    justify-content: center;
+    padding: 10px 0;
+}
 
+.db-dropdown-action-task div h4 {
+    margin: 0;
+}
 
+.db-dropdown-action {
+    cursor: pointer;
+}
 
+.db-dropdown-action:hover {
+    background-color: #d4e4f3;
+}
 
-
-
-
-
+.db-dropdown-action button {
+    margin: 4px 8px;
+    border: 0;
+    background: none;
+    padding: 10px;
+    font-size: 15px;
+}
 
 #taskModal {
     display: none; /* Ẩn mặc định */
     position: fixed;
-background: rgba(0, 0, 0, 0.5);
-    position: fixed;
+    background: rgba(0, 0, 0, 0.5);
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -206,7 +262,7 @@ background: rgba(0, 0, 0, 0.5);
 }
 
 
-.modal_content{
+.modal_content {
     height: auto;
     border-radius: 10px;
     top: 50%;
@@ -222,8 +278,6 @@ background: rgba(0, 0, 0, 0.5);
     background-clip: padding-box;
     outline: 0;
 }
-
-
 
 
 /* Header Task */
@@ -280,8 +334,7 @@ background: rgba(0, 0, 0, 0.5);
 }
 
 
-
-#expire_task{
+#expire_task {
     display: flex;
     justify-content: space-between;
 }
@@ -327,7 +380,7 @@ background: rgba(0, 0, 0, 0.5);
     font-weight: bold;
 }
 
-.member-icons button{
+.member-icons button {
     font-size: 18px;
     height: 30px;
     width: 30px;
@@ -337,7 +390,7 @@ background: rgba(0, 0, 0, 0.5);
     border-radius: 5px;
 }
 
-.works_together button{
+.works_together button {
     font-size: 18px;
     height: 30px;
     width: 30px;
@@ -359,7 +412,7 @@ background: rgba(0, 0, 0, 0.5);
     resize: none;
 }
 
-#description_textarea{
+#description_textarea {
     background-color: #fafafa;
     font-family: Arial, sans-serif;
     outline: none;
@@ -409,7 +462,7 @@ background: rgba(0, 0, 0, 0.5);
     gap: 10px;
 }
 
-.due-date span{
+.due-date span {
     color: white;
     justify-content: center;
     text-align: center;
@@ -422,7 +475,7 @@ background: rgba(0, 0, 0, 0.5);
     height: 30px;
 }
 
-.works_together span{
+.works_together span {
     color: white;
     justify-content: center;
     display: flex;
@@ -444,7 +497,7 @@ background: rgba(0, 0, 0, 0.5);
 }
 
 
-.comment_task input{
+.comment_task input {
     color: white;
     background-color: #314d67eb;
     margin-left: 5px;
@@ -461,15 +514,15 @@ background: rgba(0, 0, 0, 0.5);
 }
 
 
-.hidden{
+.hidden {
     display: none;
 }
 
-.buttons_description{
+.buttons_description {
     margin-top: 10px;
 }
 
-.save_description_button{
+.save_description_button {
     cursor: pointer;
     border-radius: 3px;
     border: none;
@@ -480,7 +533,7 @@ background: rgba(0, 0, 0, 0.5);
     color: white;
 }
 
-.cancel_description_button{
+.cancel_description_button {
     cursor: pointer;
     border-radius: 3px;
     border: none;
@@ -511,13 +564,13 @@ background: rgba(0, 0, 0, 0.5);
     font-weight: 900;
 }
 
-.save_description_button:hover{
+.save_description_button:hover {
     color: white;
     background: #007bff;
     margin-left: 3px;
 }
 
-.cancel_description_button:hover{
+.cancel_description_button:hover {
     color: white;
     background: #d71010;
 }
@@ -568,6 +621,7 @@ background: rgba(0, 0, 0, 0.5);
     opacity: 0;
     pointer-events: none;
 }
+
 #comment_input::placeholder {
     color: #d5d5d5; /* Đổi màu thành đỏ cam */
     font-style: italic; /* Chữ in nghiêng */
@@ -629,11 +683,11 @@ input::placeholder {
 }
 
 
-#title_task_info{
+#title_task_info {
     width: 100%;
 }
 
-#block{
+#block {
     font-size: 20px;
     color: white;
 }

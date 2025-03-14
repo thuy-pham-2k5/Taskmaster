@@ -162,5 +162,42 @@
         </div>
     </div>
 </div>
+
+
+<div class="container-list">
+    <div class="detail-list" data-column=${column.columnId}>
+        <div class="title-list">
+            <h2>${column.name}</h2>
+        </div>
+        <ol class="list-task">
+            ${tasks}
+        </ol>
+        <div class="add_task">
+            <div id="openAddTask_${column.columnId}" class="btn_add_task"
+                 onclick="showAndClosed('openAddTask_${column.columnId}', 'inputAddTask_${column.columnId}')">
+                <button>
+                    <img src="/images/add.png"/>
+                    Thêm thẻ
+                </button>
+            </div>
+            <div id="inputAddTask_' + column.columnId + '" class="input_add_task">
+                <div class="enter_add_task">
+                    <div class="input_add_list">
+                        <input data-column="' + column.columnId + '" type="text" name="inputNameTask"
+                               placeholder="Nhập tên danh sách...">
+                    </div>
+                    <div class="action_add_list">
+                        <button class="addNewTask">Thêm thẻ</button>
+                        <img src="/images/black_closed.png" alt="closed.png"
+                             onclick="showAndClosed('inputAddTask_${column.columnId}', 'openAddTask_${column.columnId}')">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
+
+
+

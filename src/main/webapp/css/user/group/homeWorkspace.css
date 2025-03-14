@@ -59,7 +59,7 @@ body {
 
 .topic {
     border-radius: 4px;
-    height: 30px;
+    height: 30px;-
     display: flex;
     align-items: center;
     gap: 8px;
@@ -87,7 +87,6 @@ body {
 }
 
 /* Chữ Taskmaster */
-
 #logo p {
     font-size: 25px;
     color: white;
@@ -100,6 +99,7 @@ body {
     display: flex;
     background: #3179ba;
 }
+
 
 .board {
     display: flex;
@@ -134,12 +134,11 @@ body {
 #homeRight {
     flex: 1;
     background-color: #3179BA;
-    min-height: 620px; /* Đảm bảo chiều cao tối thiểu */
-    height: auto; /* Tự động mở rộng theo nội dung */
-    overflow: hidden; /* Ngăn chặn phần tử con tràn ra ngoài */
-
+    height: auto;
+    overflow-y: auto;
+    scrollbar-color: #fff6 #00000026;
+    scrollbar-width: thin;
 }
-
 
 #accountSearchNotification {
     width: 690px;
@@ -154,7 +153,6 @@ body {
     width: 40px;
     height: 40px;
 }
-
 
 #homeLeft #workspace {
     border: none;
@@ -171,14 +169,12 @@ body {
     font-weight: bold;
 }
 
-
 #workspaceName {
     display: flex;
     align-items: center;
     gap: 10px;
     border-bottom: 2px solid gray;
 }
-
 
 .represent {
     font-size: 25px;
@@ -270,9 +266,7 @@ body {
 }
 
 #workspaces {
-    margin-left: 74px;
-    margin-right: 74px;
-    margin-top: 15px;
+    margin: 15px 74px;
     display: flex;
     flex-direction: column;
     gap: 25px;
