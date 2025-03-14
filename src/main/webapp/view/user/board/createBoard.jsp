@@ -172,7 +172,7 @@
             <div class="board-modal-header">
                 <h1>Tạo bảng</h1>
                 <button class="close-button-add-form">
-                    <a style="text-decoration: none; color: white" href="">&times;</a>
+                    <a style="text-decoration: none; color: white" href="board?action=back">&times;</a>
                 </button>
             </div>
             <div id="action-form-add-board">

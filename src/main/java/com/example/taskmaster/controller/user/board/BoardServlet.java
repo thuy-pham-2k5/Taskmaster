@@ -34,6 +34,9 @@ public class BoardServlet extends HttpServlet {
                 break;
             case "deleteBoard":
                 req.getRequestDispatcher("/view/user/board/deleteBoard.jsp").forward(req, resp);
+            case "back":
+                resp.sendRedirect("group_home");
+                break;
             default:
                 break;
         }
