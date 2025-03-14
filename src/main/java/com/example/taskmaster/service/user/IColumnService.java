@@ -7,6 +7,6 @@ import java.util.List;
 public interface IColumnService {
     List<Column> getAllColumn(int boardId);
     Column addNewColumnInBoard (int boardId, String name);
-    void deleteColumnInBoard (int columnId);
+    boolean deleteColumnInBoard (int columnId);
     void updateColumnNameInBoard (int columnId, String name);
 }

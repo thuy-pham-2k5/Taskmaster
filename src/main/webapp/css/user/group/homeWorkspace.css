@@ -134,10 +134,11 @@ body {
 #homeRight {
     flex: 1;
     background-color: #3179BA;
-    min-height: 620px; /* Đảm bảo chiều cao tối thiểu */
-    height: auto; /* Tự động mở rộng theo nội dung */
-    overflow: hidden; /* Ngăn chặn phần tử con tràn ra ngoài */
-
+    min-height: 620px;
+    height: auto;
+    overflow-y: auto;
+    scrollbar-color: #fff6 #00000026;
+    scrollbar-width: thin;
 }
 
 
@@ -270,9 +271,7 @@ body {
 }
 
 #workspaces {
-    margin-left: 74px;
-    margin-right: 74px;
-    margin-top: 15px;
+    margin: 15px 74px;
     display: flex;
     flex-direction: column;
     gap: 25px;

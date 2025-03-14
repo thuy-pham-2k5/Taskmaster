@@ -79,17 +79,30 @@ public class TaskService implements ITaskService {
 
     // xóa Task khỏi cột.
     @Override
-    public void deleteTask(int taskId) {
-        String query = "delete from tasks where list_id = ?";
+    public boolean deleteTask(int taskId) {
+        String query = "delete from tasks where task_id= ?";
         try (Connection connection = ConnectDatabase.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, taskId);
-            preparedStatement.executeQuery();
+            int success = preparedStatement.executeUpdate();
+            return success > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public boolean deleteAllTaskInColumn(int columnId) {
+        String query = "delete from tasks where list_id = ?";
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, columnId);
+            int success = preparedStatement.executeUpdate();
+            return success > 0;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
 }
-
 

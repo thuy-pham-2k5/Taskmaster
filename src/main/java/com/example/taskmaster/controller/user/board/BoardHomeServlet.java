@@ -36,9 +36,34 @@ public class BoardHomeServlet extends HttpServlet {
             case "addNewColumn":
                 addNewColumnInLists (req, resp);
                 break;
+            case "deleteColumn":
+                deleteColumnInLists (req, resp);
+                break;
+            case "deleteAllTaskInColumn":
+                deleteAllTaskInColumn (req, resp);
+                break;
             default:
                 break;
         }
+    }
+
+    private void deleteAllTaskInColumn(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        int columnId = Integer.parseInt(req.getParameter("columnId"));
+        boolean success = taskService.deleteAllTaskInColumn(columnId);
+        String messageJson = new Gson().toJson(success);
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        resp.getWriter().write(messageJson);
+    }
+
+    private void deleteColumnInLists(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        int columnId = Integer.parseInt(req.getParameter("columnId"));
+        System.out.println("Column id: " + columnId);
+        boolean success = columnService.deleteColumnInBoard(columnId);
+        String messageJson = new Gson().toJson(success);
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        resp.getWriter().write(messageJson);
     }
 
     private void addNewTaskInTasks(HttpServletRequest req, HttpServletResponse resp) throws IOException {
