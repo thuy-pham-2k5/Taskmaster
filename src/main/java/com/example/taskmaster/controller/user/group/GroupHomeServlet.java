@@ -92,12 +92,10 @@ public class GroupHomeServlet extends HttpServlet {
         String title = request.getParameter("title");
         String description = request.getParameter("description");
         groupService.createGroup(new Group(title, description), user.getUserId());
-        Group group = groupService.getGroupInfoByTitleAndDescription(title, description);
-        int roleId = userService.getRoleUserInGroup(user.getUserId(), group.getGroupId());
+        Group group = groupService.getGroupInfoByShortTitle(null);
         session.setAttribute("groupId", group.getGroupId());
-        request.setAttribute("roleIdUser", roleId);
-        request.setAttribute("groupInfo", group);
-        request.getRequestDispatcher("/view/user/group/home_workspace.jsp").forward(request, response);
+        session.setAttribute("groupInfo", group);
+        response.sendRedirect("/group_home");
     }
 
     @Override

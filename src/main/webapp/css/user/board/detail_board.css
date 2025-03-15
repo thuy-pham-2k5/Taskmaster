@@ -92,14 +92,18 @@ main {
 
 .task {
     background: #d5dde4;
-    border: 0;
+    border: 2px solid #d5dde4;
     font-size: 18px;
     border-radius: 7px;
     padding: 8px;
     margin: 8px 0 4px 0;
-    white-space: break-spaces;
-    overflow-wrap: anywhere;
+    white-space: normal;
+    overflow-wrap: break-word;
     cursor: pointer;
+}
+
+.task:hover {
+    border: 2px solid #388bff;
 }
 
 .close {
