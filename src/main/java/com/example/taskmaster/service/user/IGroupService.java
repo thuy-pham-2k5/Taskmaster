@@ -9,7 +9,7 @@ public interface IGroupService {
     void createGroup(Group group, int userId);
     void updateGroup (int groupId, Group group);
     void deleteGroup (int groupId);
-    Group getGroupInfoByTitleAndDescription (String title, String description);
+    Group getGroupInfoByShortTitle(String shortTitle);
     void inviteMember (int userId, int groupId, int roleId);
     List<Group> getTitleGroupByUserId(int user_id);
     void deleteMemberFromGroup(int userId, int groupId);
