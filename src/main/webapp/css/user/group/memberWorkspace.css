@@ -28,8 +28,9 @@ input::placeholder {
 }
 
 .content-member-workspace {
+    margin-top: 0;
+    flex: 1;
     background-color: #3179BA;
-    flex-grow: 1;
     min-height: 100vh;
     height: auto;
 }
@@ -42,8 +43,12 @@ input::placeholder {
     justify-content: space-between;
 }
 
-.group-info {
+.group-info-top {
     display: flex;
+}
+
+.group-info-bottom {
+    color: white;
 }
 
 .group-info-logo {
@@ -106,12 +111,6 @@ input::placeholder {
     max-width: 1250px;
     margin: 0 auto;
     padding: 16px 32px;
-}
-
-.board_lists {
-    display: flex;
-    flex-direction: column;
-    margin: 0;
 }
 
 .header-content {
@@ -188,7 +187,7 @@ button {
 }
 
 .member-section h2{
-    margin: 0px;
+    margin: 0;
 }
 
 .user-general-info {
@@ -225,18 +224,13 @@ button {
 
 
 .guest-section h2{
-    margin: 0px;
+    margin: 0;
 }
 
 
 .request-section h2{
-    margin: 0px;
+    margin: 0;
 }
-
-
-
-
-
 
 /* Định dạng hộp xác nhận */
 .confirm-box {
@@ -246,7 +240,7 @@ button {
     border: 1px solid #ccc;
     padding: 12px;
     width: 250px; /* Giới hạn chiều rộng */
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
     z-index: 1000;
     font-size: 14px;
@@ -283,7 +277,7 @@ button {
 .confirm-box .confirm-remove {
     background-color: #e74c3c;
     color: white;
-    margin: 0px;
+    margin: 0;
 }
 
 /* Nút "Hủy" - Màu xám */

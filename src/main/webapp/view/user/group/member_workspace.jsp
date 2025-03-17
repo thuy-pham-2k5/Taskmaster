@@ -14,19 +14,24 @@
     <div class="home-left">
         <jsp:include page="../account/home_left.jsp"/>
     </div>
-    <div class="content-member-workspace" style="margin-top: 0; flex: 1;">
+    <div class="content-member-workspace">
         <div class="group-general-info">
             <div class="group-info">
-                <div class="group-info-logo">
-                    <button class="group-title">T</button>
+                <div class="group-info-top">
+                    <div class="group-info-logo">
+                        <button class="group-title">T</button>
+                    </div>
+                    <div class="group-info-detail">
+                        <h2>
+                            ${groupInfo.title}
+                            <button style="background: none; border: 0"><img class="img-edit-group" src="/images/edit.png">
+                            </button>
+                        </h2>
+                        <span>${groupInfo.visibility}</span>
+                    </div>
                 </div>
-                <div class="group-info-detail">
-                    <h2>
-                        ${groupInfo.title}
-                        <button style="background: none; border: 0"><img class="img-edit-group" src="/images/edit.png">
-                        </button>
-                    </h2>
-                    <span>${groupInfo.visibility}</span>
+                <div class="group-info-bottom">
+                        <p>${groupInfo.description}</p>
                 </div>
             </div>
             <div class="group-invite-member">
@@ -51,8 +56,6 @@
                             <li id="request" onclick="toggleDisplay('request')"><a>Yêu cầu tham gia</a></li>
                         </ul>
                     </div>
-
-
 
 
                     <%--nội dung bên phải--%>
@@ -97,7 +100,9 @@
 
                                             <div class="confirm-box">
                                                 <p>Bạn có chắc muốn loại bỏ ${user.fullName}?</p>
-                                                <button class="confirm-remove" onclick="deleteMember(${user.userId})">Có</button>
+                                                <button class="confirm-remove" onclick="deleteMember(${user.userId})">
+                                                    Có
+                                                </button>
                                                 <button class="cancel-remove">Hủy</button>
                                             </div>
 
@@ -105,7 +110,6 @@
                                     </div>
                                 </c:forEach>
                             </div>
-
 
 
                             <div class="guest-section" style="display: none;">
@@ -123,7 +127,7 @@
                                                 <button>Thêm vào không gian làm việc</button>
                                             </a>
                                             <a href="/group_member?action=delete&userId=${user.userId}">
-                                                <button >Loại bỏ</button>
+                                                <button>Loại bỏ</button>
                                             </a>
 
 
@@ -136,7 +140,6 @@
                                     </div>
                                 </c:forEach>
                             </div>
-
 
 
                             <div class="request-section" style="display: none;">
@@ -164,7 +167,6 @@
                                     </div>
                                 </c:forEach>
                             </div>
-
 
 
                         </div>
@@ -239,17 +241,6 @@
             }
         });
     });
-
-
-
-
-
-
-
-
-
-
-
 
 
     let currentButtonId = "member"; // Đặt member là mặc định
