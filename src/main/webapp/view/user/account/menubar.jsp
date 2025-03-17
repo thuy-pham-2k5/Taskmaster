@@ -286,7 +286,8 @@
         </a>
         <div class="basic-list">
             <div class="dropdown-menubar">
-                <button class="button-hover button-menubar basic-list-1" onclick="toggleDropdownMenubar('workspace', this)">
+                <button class="button-hover button-menubar basic-list-1"
+                        onclick="toggleDropdownMenubar('workspace', this)">
                     Các không gian làm việc
                     <img src="/images/list.png" alt="dropdown.png" class="dropdown-img">
                 </button>
@@ -297,7 +298,8 @@
                 </div>
             </div>
             <div class="dropdown-menubar">
-                <button class="button-hover button-menubar basic-list-2" onclick="toggleDropdownMenubar('recent', this)">
+                <button class="button-hover button-menubar basic-list-2"
+                        onclick="toggleDropdownMenubar('recent', this)">
                     Gần đây
                     <img src="/images/list.png" alt="dropdown.png" class="dropdown-img">
                 </button>
@@ -327,18 +329,22 @@
                 </button>
                 <div>
                     <div class="dropdown-content" id="add">
-                        <a id="link-add-workspace" onclick="toggleDisplayMenubar(event, 'add-workspace', this)">Các không gian làm việc</a>
+                        <a id="link-add-workspace" onclick="toggleDisplayMenubar(event, 'add-workspace', this)">Các
+                            không gian làm việc</a>
                         <a id="link-add-recent" onclick="toggleDisplayMenubar(event, 'add-recent', this)">Gần đây</a>
-                        <a id="link-add-stars" onclick="toggleDisplayMenubar(event, 'add-stars', this)">Đã đánh dấu sao</a>
+                        <a id="link-add-stars" onclick="toggleDisplayMenubar(event, 'add-stars', this)">Đã đánh dấu
+                            sao</a>
                     </div>
                     <div class="dropdown-content" id="add-workspace">
                         <div style="display: flex; justify-content: space-between; margin-bottom: 15px">
                             <button style="background: none; border: 0; transform: rotate(90deg);">
-                                <img src="/images/list.png" onclick="goBack(event, 'add-workspace', 'add')" alt="back.png" style="width: 15px;">
+                                <img src="/images/list.png" onclick="goBack(event, 'add-workspace', 'add')"
+                                     alt="back.png" style="width: 15px;">
                             </button>
                             <span style="color: white; font-weight: bold">Các không gian làm việc</span>
                             <button style="background: none; border: 0;">
-                                <img src="/images/closed.png" onclick="closeDropdown(event)" alt="back.png" style="width: 20px;">
+                                <img src="/images/closed.png" onclick="closeDropdown(event)" alt="back.png"
+                                     style="width: 20px;">
                             </button>
                         </div>
                         <c:forEach items="${groups}" var="group">
@@ -348,11 +354,13 @@
                     <div class="dropdown-content" id="add-recent">
                         <div style="display: flex; justify-content: space-between; margin-bottom: 15px">
                             <button style="background: none; border: 0; transform: rotate(90deg);">
-                                <img src="/images/list.png" onclick="goBack(event, 'add-recent', 'add')" alt="back.png" style="width: 15px;">
+                                <img src="/images/list.png" onclick="goBack(event, 'add-recent', 'add')" alt="back.png"
+                                     style="width: 15px;">
                             </button>
                             <span style="color: white; font-weight: bold">Gần đây</span>
                             <button style="background: none; border: 0;">
-                                <img src="/images/closed.png" onclick="closeDropdown(event)" alt="back.png" style="width: 20px;">
+                                <img src="/images/closed.png" onclick="closeDropdown(event)" alt="back.png"
+                                     style="width: 20px;">
                             </button>
                         </div>
                         <a>Tùy chọn 3</a>
@@ -361,11 +369,13 @@
                     <div class="dropdown-content" id="add-stars">
                         <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
                             <button style="background: none; border: 0; transform: rotate(90deg);">
-                                <img src="/images/list.png" onclick="goBack(event, 'add-stars', 'add')" alt="back.png" style="width: 15px;">
+                                <img src="/images/list.png" onclick="goBack(event, 'add-stars', 'add')" alt="back.png"
+                                     style="width: 15px;">
                             </button>
                             <span style="color: white; font-weight: bold">Đã đánh dấu sao</span>
                             <button style="background: none; border: 0;">
-                                <img src="/images/closed.png" onclick="closeDropdown(event)" alt="back.png" style="width: 20px;">
+                                <img src="/images/closed.png" onclick="closeDropdown(event)" alt="back.png"
+                                     style="width: 20px;">
                             </button>
                         </div>
                         <a>Tùy chọn 5</a>
@@ -527,7 +537,9 @@
 
             if (!clickedButton && !clickedDropdown) {
                 hideDropdown(dropdownSelector);
-                document.querySelectorAll(buttonSelector).forEach(btn => btn.classList.remove("active"));
+                if (buttonSelector && document.querySelectorAll(buttonSelector).length > 1) {
+                    document.querySelectorAll(buttonSelector).forEach(btn => btn.classList.remove("active"));
+                }
             }
         });
     }

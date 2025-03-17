@@ -450,7 +450,9 @@
         let dropdown = $("#operationList");
 
         if (currentOpenOperationBoard) {
+            currentOpenOperationBoard.removeClass("dropdown-open");
             hideDropdown("#operationBoard");
+            currentOpenOperationBoard = null;
         }
 
         updateDropdownPosition(openDropdown, dropdown);
