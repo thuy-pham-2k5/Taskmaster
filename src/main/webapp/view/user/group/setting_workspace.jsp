@@ -3,9 +3,7 @@
 <html>
 <head>
     <title>Cài đặt Không gian làm việc</title>
-    <link rel="stylesheet" href="/css/user/group/setting_workspace.css">
-    <link rel="stylesheet" href="/css/user/group/header.css">
-
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/user/group/setting_workspace.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/sweet-modal/dist/min/jquery.sweet-modal.min.css">
     <script src="https://unpkg.com/sweet-modal/dist/min/jquery.sweet-modal.min.js"></script>
@@ -14,7 +12,7 @@
         .modal {
             display: none;
             position: fixed;
-            z-index: 1;
+            z-index: 2000;
             left: 0;
             top: 0;
             width: 100%;
@@ -43,38 +41,52 @@
 <body>
 
 <!-- Sidebar -->
-<div class="sidebar">
+<header>
     <jsp:include page="../account/menubar.jsp"/>
-</div>
+</header>
 
-<!-- Container chính -->
-<div class="container">
-    <div class="main-content">
-        <div class="child-content-1">
-            <jsp:include page="../account/home_left.jsp"/>
-        </div>
-
-        <div class="child-content-2">
-            <div class="workspace-header">
-                <img src="https://via.placeholder.com/50" alt="Logo">
-                <div class="workspace-info">
-                    <h2>Quản lý công việc Taskmaster</h2>
-                    <c:forEach items="${groups}" var="group">
-                        <p><strong>${group.title}</strong></p>
-                        <p>${group.description}</p>
-                    </c:forEach>
+<main>
+    <div class="home-left">
+        <jsp:include page="../account/home_left.jsp"/>
+    </div>
+    <div class="content-member-workspace">
+        <div class="group-general-info">
+            <div class="group-info">
+                <div class="group-info-top">
+                    <div class="group-info-logo">
+                        <button class="group-title">T</button>
+                    </div>
+                    <div class="group-info-detail">
+                        <h2>
+                            ${groupInfo.title}
+                            <button style="background: none; border: 0"><img class="img-edit-group" src="/images/edit.png">
+                            </button>
+                        </h2>
+                        <span>${groupInfo.visibility}</span>
+                    </div>
+                </div>
+                <div class="group-info-bottom">
+                    <p>${groupInfo.description}</p>
                 </div>
             </div>
-
-            <!-- Nút xóa không gian làm việc -->
-            <div>
-                <a id="deleteWorkspaceBtn" style="color: red; text-decoration: underline;">
-                    Xóa không gian làm việc này
+            <div class="group-invite-member">
+                <button>
+                    <img src="/images/add_account.png" alt="add_member.png">
+                    Mời các thành viên không gian làm việc
+                </button>
+            </div>
+        </div>
+        <hr class="horizontally-divide-content">
+        <div class="content-container">
+            <div class="delete-workspace">
+                <a id="deleteWorkspaceBtn">
+                    Xóa không gian làm việc này ?
                 </a>
             </div>
         </div>
     </div>
-</div>
+</main>
+
 
 <!-- Modal xác nhận xóa -->
 <div id="deleteWorkspaceModal" class="modal">

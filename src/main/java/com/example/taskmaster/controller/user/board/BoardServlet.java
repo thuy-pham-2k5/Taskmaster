@@ -2,6 +2,8 @@ package com.example.taskmaster.controller.user.board;
 
 import com.example.taskmaster.model.User;
 import com.example.taskmaster.service.user.BoardService;
+import com.google.gson.Gson;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,6 +36,9 @@ public class BoardServlet extends HttpServlet {
                 break;
             case "deleteBoard":
                 req.getRequestDispatcher("/view/user/board/deleteBoard.jsp").forward(req, resp);
+            case "back":
+                resp.sendRedirect("group_home");
+                break;
             default:
                 break;
         }
@@ -65,39 +70,39 @@ public class BoardServlet extends HttpServlet {
     public void createBoard(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html; charset=UTF-8");
+
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
         int groupId = (Integer) session.getAttribute("groupId");
-        System.out.println(groupId);
+        String selectedImageLink = req.getParameter("selectedWallpaper");
+        if (selectedImageLink == null || selectedImageLink.isEmpty()) {
+            selectedImageLink = req.getParameter("selectedImage");
+        }
+        System.out.println("Ảnh được chọn: " + selectedImageLink);
+
         String boardName = req.getParameter("title");
-        boardService.createBoard(user.getUserId(), boardName, groupId);
-        resp.sendRedirect("/group_home");
+
+        if (boardName == null || boardName.trim().isEmpty()) {
+            resp.getWriter().println("Tiêu đề bảng không được để trống.");
+            return;
+        }
+
+        if (selectedImageLink == null || selectedImageLink.trim().isEmpty()) {
+            selectedImageLink = "https://default-image.com/default.jpg"; // Ảnh mặc định nếu không chọn gì
+        }
+
+        boardService.createBoard(user.getUserId(), boardName, groupId, selectedImageLink);
+        resp.sendRedirect("group_home");
     }
 
+
     private void deleteBoardById(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        try {
-            // Lấy boardId từ request
-            String boardIdParam = req.getParameter("boardId");
-            if (boardIdParam == null || boardIdParam.isEmpty()) {
-                resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Board ID is required.");
-                return;
-            }
-
-            int boardId = Integer.parseInt(boardIdParam);
-            // Xóa board
-            boolean isDeleted = boardService.deleteBoard(boardId);
-            if (!isDeleted) {
-                resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to delete board.");
-                return;
-            }
-            // Xóa thành công -> Chuyển hướng về trang group_home
-            resp.sendRedirect("group_home");
-
-        } catch (NumberFormatException e) {
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid Board ID.");
-        } catch (Exception e) {
-            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An unexpected error occurred.");
-        }
+        int boardId = Integer.parseInt(req.getParameter("boardId"));
+        boolean success = boardService.deleteBoard(boardId);
+        String successJson  = new Gson().toJson(success);
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        resp.getWriter().write(successJson);
     }
 
 }

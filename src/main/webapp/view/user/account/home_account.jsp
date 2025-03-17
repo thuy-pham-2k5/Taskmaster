@@ -15,7 +15,7 @@
 <div>
     <jsp:include page="menubar.jsp"/>
 </div>
-<div>
+<div style="background: #3179ba; height: calc(100% - 50px);">
     <div class="body">
         <div class="container">
             <nav id="homeLeft">
@@ -27,8 +27,8 @@
                                 href="">Trang chủ</a></li>
                     </ul>
                 </div>
+                <hr style="color: white">
                 <div id="groupList">
-                    <hr style="color: white">
                     <ul class="title">Các Không gian làm việc</ul>
                     <c:forEach items="${groups}" var="group">
                         <div class="dropdown-container-group">

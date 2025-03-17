@@ -7,13 +7,12 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/user/group/homeWorkspace.css">
     <script src="/js/user/group/home_workspace.js" defer></script>
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/sweet-modal/dist/min/jquery.sweet-modal.min.css">
     <script src="https://unpkg.com/sweet-modal/dist/min/jquery.sweet-modal.min.js"></script>
 </head>
 <body>
-<div>
+<div style="height: 100%;">
     <div class="menubar-home-workspace">
         <jsp:include page="../account/menubar.jsp"/>
     </div>
@@ -29,14 +28,17 @@
                             <div class="group-info-logo">
                                 <button class="group-title">${groupInfo.title.substring(0,1).toUpperCase()}</button>
                             </div>
-                            <div class="group-info-detail">
-                                <h2>
-                                    ${groupInfo.title}
+                            <div id="main_info">
+                                <div class="group-info-detail">
+                                    <h2 id="titleGroup">
+                                        ${groupInfo.title}
+
+                                    </h2>
                                     <button style="background: none; border: 0"><img class="img-edit-group"
                                                                                      src="/images/edit.png"
                                                                                      onclick="showEditModal()">
                                     </button>
-                                </h2>
+                                </div>
                                 <span>${groupInfo.visibility}</span>
                             </div>
                             <br>
@@ -60,8 +62,8 @@
                         <textarea name="description" id="groupDescInput">${groupInfo.description}</textarea>
 
                         <div class="button-group">
-                            <button class="save-btn" type="submit">Lưu</button>
-                            <button class="cancel-btn" onclick="cancelEdit()">Hủy</button>
+                            <button onclick="saveEditGroup(event)" class="save-btn" type="submit">Lưu</button>
+                            <button type="button" class="cancel_btn" onclick="cancelEdit()">Hủy</button>
                         </div>
                     </form>
                 </div>
@@ -106,7 +108,9 @@
                     <div id="listBoards" class="card-container">
                         <c:forEach var="board" items="${boards}">
                             <div style=" background-color: #0D599D; " class="workspaceTable">
-                                <button class="titleBoardWorkspace">${board.title}</button>
+                                <a href="/group_home?action=boardView&boardId=${board.boardId}">
+                                    <button class="titleBoardWorkspace">${board.title}</button>
+                                </a>
                             </div>
                         </c:forEach>
                     </div>
@@ -121,6 +125,13 @@
 </div>
 
 <script>
+    function cancelEdit() {
+        // Hủy chỉnh sửa, quay về ban đầu
+        document.getElementById("edit_frame").style.display = "none";
+        document.getElementById("information").style.display = "block";
+    }
+
+
     function showEditModal() {
         // Ẩn div information và hiển thị div edit_frame
         document.getElementById("information").style.display = "none";
@@ -128,18 +139,36 @@
 
     }
 
-    function saveChanges() {
+    // Gửi dữ liệu bằng AJAX khi nhấn "Lưu"
+    function saveEditGroup(event) {
+        event.preventDefault(); // Ngăn form gửi request mặc định
 
-        // Quay về trạng thái hiển thị ban đầu
-        document.getElementById("edit_frame").style.display = "none";
-        document.getElementById("information").style.display = "block";
+        let title = document.getElementById("groupNameInput").value.trim();
+        let short_title = document.getElementById("shortNameInput").value.trim();
+        let description = document.getElementById("groupDescInput").value.trim();
+
+
+        $.ajax({
+            type: "POST",
+            url: "/group_home?action=editInfoGroup",
+            data: {
+                title: title,
+                short_title: short_title,
+                description: description
+            },
+            dataType: "json",
+            success: function (group) {
+
+                document.getElementById("titleGroup").innerText = group.title;
+                document.getElementById("shortNameInput").innerText = group.title;
+                document.getElementById("content").innerText = group.description;
+                cancelEdit();
+            }
+        })
+
     }
 
-    function cancelEdit() {
-        // Hủy chỉnh sửa, quay về ban đầu
-        document.getElementById("edit_frame").style.display = "none";
-        document.getElementById("information").style.display = "block";
-    }
+
 
     document.getElementById("logoutBtn").addEventListener("click", function () {
         Swal.fire({
@@ -175,6 +204,7 @@
 
                 let deleteButton = document.createElement("button");
                 deleteButton.className = "delete-button";
+                deleteButton.dataset.boardId = String(board.boardId);
                 deleteButton.textContent = "Xóa";
                 deleteButton.onclick = function () {
                     deleteProduct(board.boardId);
@@ -221,6 +251,30 @@
             listBoards.appendChild(boardDiv);
         });
     }
+
+    $('.delete-button').on("click", function (event) {
+        let deleteButton = $(this);
+        let deleteButtonId = deleteButton.attr("id"); // Sửa lỗi lấy ID
+        console.log("Delete Button:", deleteButton);
+        console.log("Delete Button ID:", deleteButtonId);
+
+        $.ajax({
+            type: "POST",
+            url: "/board?action=deleteBoard",
+            data: { boardId: deleteButtonId },
+            dataType: "json",
+            success: function (message) {
+                if (message === true) {
+                    let parentDiv = deleteButton.closest('.product-container');
+                    parentDiv.remove();
+                    alert("Xóa bảng thành công")
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("Lỗi khi xóa:", error);
+            }
+        });
+    });
 
 </script>
 </body>

@@ -26,7 +26,7 @@ public class GroupSettingServlet extends HttpServlet {
     }
 
     private void deleteGroupById(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        int groupId = Integer.parseInt((String) req.getSession().getAttribute("groupId"));
+        int groupId = (Integer) req.getSession().getAttribute("groupId");
         groupService.deleteGroup(groupId);
         resp.sendRedirect("/account_home");
     }
@@ -46,7 +46,7 @@ public class GroupSettingServlet extends HttpServlet {
     }
 
     private void showGroupSetting(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int groupId = Integer.parseInt((String) req.getSession().getAttribute("groupId"));
+        int groupId = (Integer) req.getSession().getAttribute("groupId");
         req.setAttribute("boards", boardService.getAllBoardInGroup(groupId, true));
         req.getRequestDispatcher("/view/user/group/setting_workspace.jsp").forward(req, resp);
     }

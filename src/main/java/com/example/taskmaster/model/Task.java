@@ -3,7 +3,10 @@ package com.example.taskmaster.model;
 public class Task {
     private int taskId;
     private String title, description;
-    private int columnId, position;
+    private int columnId;
+    private String columnName;
+    private int position;
+    private String dueTime;
 
     public Task(int taskId, String title, String description, int columnId, int position) {
         this.taskId = taskId;
@@ -13,14 +16,26 @@ public class Task {
         this.position = position;
     }
 
+    public Task(int taskId, String title, String description, int columnId, String columnName, int position, String dueTime) {
+        this.taskId = taskId;
+        this.title = title;
+        this.description = description;
+        this.columnId = columnId;
+        this.columnName = columnName;
+        this.position = position;
+        this.dueTime = dueTime;
+    }
+
     @Override
     public String toString() {
         return "Task{" +
                 "taskId=" + taskId +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", listId=" + columnId +
+                ", columnId=" + columnId +
+                ", columnName='" + columnName + '\'' +
                 ", position=" + position +
+                ", dueTime='" + dueTime + '\'' +
                 '}';
     }
 
@@ -62,5 +77,21 @@ public class Task {
 
     public void setPosition(int position) {
         this.position = position;
+    }
+
+    public String getColumnName() {
+        return columnName;
+    }
+
+    public void setColumnName(String columnName) {
+        this.columnName = columnName;
+    }
+
+    public String getDueTime() {
+        return dueTime;
+    }
+
+    public void setDueTime(String dueTime) {
+        this.dueTime = dueTime;
     }
 }

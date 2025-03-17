@@ -2,6 +2,7 @@ package com.example.taskmaster.service.user;
 
 import com.example.taskmaster.database.ConnectDatabase;
 import com.example.taskmaster.model.Board;
+import com.example.taskmaster.model.Task;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -86,6 +87,29 @@ public class BoardService implements IBoardService {
     }
 
     @Override
+    public List<Board> sortBoardByTime(int groupId, boolean sortType) {
+        String query = "{call GetBoardsByTime(?, ?)}";
+        List<Board> boards = new ArrayList<>();
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            CallableStatement callableStatement = connection.prepareCall(query);
+            callableStatement.setInt(1, groupId);
+            callableStatement.setString(2, sortType ? "1" : "0");
+            ResultSet resultSet = callableStatement.executeQuery();
+            while (resultSet.next()) {
+                int boardId = resultSet.getInt(1);
+                String title = resultSet.getString(2);
+                int backgroundId = resultSet.getInt(3);
+                String backgroundLink = resultSet.getString(8);
+                int status = resultSet.getInt(5);
+                boards.add(new Board(boardId, title, backgroundId, backgroundLink, status, groupId));
+            }
+            return boards;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public List<Board> searchBoardsByName(int groupId, String keyword) {
         String query = "select * from boards left join board_backgrounds on boards.background_id = board_backgrounds.background_id where boards.group_id =  ? and boards.status = 1 and boards.title like concat('%', ? , '%');";
         List<Board> boards = new ArrayList<>();
@@ -130,13 +154,14 @@ public class BoardService implements IBoardService {
         }
     }
 
-    public void createBoard(int userId, String boardTitle, int groupId) {
-        String query = "{call createNewBoard (?, ?, ?)}";
-        try (Connection connection = ConnectDatabase.getConnection();) {
+    public void createBoard(int userId, String boardTitle, int groupId, String backgroundLink) {
+        String query = "{call createNewBoard (?, ?, ?, ?)}";
+        try (Connection connection = ConnectDatabase.getConnection()) {
             CallableStatement callableStatement = connection.prepareCall(query);
             callableStatement.setInt(1, userId);
             callableStatement.setString(2, boardTitle);
             callableStatement.setInt(3, groupId);
+            callableStatement.setString(4, backgroundLink);
             callableStatement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -157,8 +182,24 @@ public class BoardService implements IBoardService {
     }
 
     @Override
-    public void closeBoard(int boardId) {
+    public void closeBoard(int boardId){
 
+    }
+
+    @Override
+    public int checkBoardBackground(String backgroundLink) {
+        String query = "{call GetOrInsertBackground (?)}";
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            CallableStatement callableStatement = connection.prepareCall(query);
+            callableStatement.setString(1, backgroundLink);
+            ResultSet resultSet = callableStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+            return 1;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
 
