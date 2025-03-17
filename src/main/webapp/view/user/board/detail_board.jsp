@@ -478,8 +478,8 @@
 
     $(document).on("click", function (event) {
         if (!$(event.target).closest(".openOperationList, #operationList").length) {
-            currentOpenOperationList = null;
             hideDropdown("#operationList");
+            currentOpenOperationList = null;
         }
     });
 

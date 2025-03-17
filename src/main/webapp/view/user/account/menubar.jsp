@@ -470,21 +470,6 @@
         }
     }
 
-    // Ẩn tất cả dropdown khi click ra ngoài
-    window.onclick = function (event) {
-        let button = event.target.closest(".dropdown-menubar button"); // Tìm button cha nếu có
-        let dropdownContent = event.target.closest(".dropdown-content"); // Tìm dropdown đang chứa phần tử click vào
-
-        if (!button && !dropdownContent) { // Nếu không phải button hoặc phần tử trong dropdown
-            document.querySelectorAll(".dropdown-content").forEach(menu => {
-                menu.style.display = "none";
-            });
-            document.querySelectorAll(".dropdown-menubar button").forEach(btn => {
-                btn.classList.remove("active");
-            });
-        }
-    };
-
     function toggleDisplayMenubar(event, id, link) {
         event.stopPropagation(); // Ngăn chặn sự kiện click lan lên window
 
@@ -520,6 +505,35 @@
                 menu.style.display = "none";
             }
         });
+    }
+
+    $(document).on("click", function (event) {
+        if (!$(event.target).closest(".dropdown-menubar button, .dropdown-content").length) {
+            document.querySelectorAll(".dropdown-content").forEach(menu => {
+                menu.style.display = "none";
+            });
+            document.querySelectorAll(".dropdown-menubar button").forEach(btn => {
+                btn.classList.remove("active");
+            });
+        }
+    });
+
+    handleGlobalDropdownClick(".dropdown-menubar button", ".dropdown-content");
+
+    function handleGlobalDropdownClick(buttonSelector, dropdownSelector) {
+        document.addEventListener("click", function (event) {
+            let clickedButton = event.target.closest(buttonSelector);
+            let clickedDropdown = event.target.closest(dropdownSelector);
+
+            if (!clickedButton && !clickedDropdown) {
+                hideDropdown(dropdownSelector);
+                document.querySelectorAll(buttonSelector).forEach(btn => btn.classList.remove("active"));
+            }
+        });
+    }
+
+    function hideDropdown(idHidden) {
+        $(idHidden).hide();
     }
 </script>
 

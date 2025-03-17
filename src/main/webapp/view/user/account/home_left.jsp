@@ -362,8 +362,4 @@
             currentOpenOperationBoard = null;
         }
     });
-
-    function hideDropdown(idHidden) {
-        $(idHidden).hide();
-    }
 </script>
