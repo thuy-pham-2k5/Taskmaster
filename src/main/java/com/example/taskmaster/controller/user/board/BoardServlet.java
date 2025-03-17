@@ -78,15 +78,11 @@ public class BoardServlet extends HttpServlet {
         if (selectedImageLink == null || selectedImageLink.isEmpty()) {
             selectedImageLink = req.getParameter("selectedImage");
         }
-        System.out.println("Ảnh được chọn: " + selectedImageLink);
-
         String boardName = req.getParameter("title");
-
         if (boardName == null || boardName.trim().isEmpty()) {
             resp.getWriter().println("Tiêu đề bảng không được để trống.");
             return;
         }
-
         if (selectedImageLink == null || selectedImageLink.trim().isEmpty()) {
             selectedImageLink = "https://default-image.com/default.jpg"; // Ảnh mặc định nếu không chọn gì
         }
