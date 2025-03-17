@@ -106,8 +106,8 @@ public class GroupHomeServlet extends HttpServlet {
             case "sortType":
                 sortTypeListBoards(request, response);
                 break;
-            case "memberView":
-                response.sendRedirect("/group_member");
+            case "showCreateGroup":
+                response.sendRedirect("/view/user/group/create_workspace.jsp");
                 break;
             default:
                 showGroupInfo(request, response);
