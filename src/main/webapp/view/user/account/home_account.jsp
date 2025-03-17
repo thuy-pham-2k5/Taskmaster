@@ -1,3 +1,4 @@
+<%@ page import="com.google.gson.Gson" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -54,14 +55,106 @@
                 </div>
             </nav>
             <div id="homeRight">
+                <c:if test="${not empty starredBoards}">
+                    <div class="section">
+                        <h2>⭐ Bảng đánh dấu sao</h2>
+                        <div class="board-list">
+                            <c:forEach items="${starredBoards}" var="board">
+                                <a href="/group_home?action=boardView&boardId=${board.boardId}&groupId=${board.groupId}">
+                                    <div class="board-item">
+                                        <img src="${board.backgroundLink}" alt="Board Image">
+                                        <p>${board.title}</p>
+                                    </div>
+                                </a>
+                            </c:forEach>
+                        </div>
+                    </div>
+                </c:if>
+
+                <div class="section">
+                    <h2>⏳ Đã xem gần đây</h2>
+                    <div class="board-list">
+                        <c:forEach items="${recentBoards}" var="board">
+                            <a href="/group_home?action=boardView&boardId=${board.boardId}&groupId=${board.groupId}">
+                                <div class="board-item">
+                                    <img src="${board.backgroundLink}" alt="Board Image">
+                                    <p>${board.title}</p>
+                                </div>
+                            </a>
+                        </c:forEach>
+                    </div>
+                </div>
+
+<%--                <div class="section">--%>
+<%--                    <h2>Các Không gian làm việc của bạn</h2>--%>
+<%--                    <c:forEach items="${groups}" var="group">--%>
+<%--                        <c:set var="key" value="${group.key}"/>--%>
+<%--                        <c:set var="value" value="${group.value}"/>--%>
+<%--                            <div class="workspace-container">--%>
+<%--                                <h3>${key.title}</h3>--%>
+<%--                                <div class="workspace-options">--%>
+<%--                                    <a href="/account_home?action=showGroupHomeView&groupId=${group.groupId}">--%>
+<%--                                        <img src="/images/table.png" alt="Bảng"--%>
+<%--                                             style="width: 16px; height: 16px; margin-right: 5px;">--%>
+<%--                                        Bảng--%>
+<%--                                    </a>--%>
+<%--                                    <a href="/account_home?action=showMemberViewInGroupHome&groupId=${group.groupId}">--%>
+<%--                                        <img src="/images/account.png" alt="Thành viên"--%>
+<%--                                             style="width: 16px; height: 16px; margin-right: 5px;">--%>
+<%--                                        Thành viên--%>
+<%--                                    </a>--%>
+<%--                                    <a href="/account_home?action=showSettingViewInGroupHome&groupId=${group.groupId}">--%>
+<%--                                        <img src="/images/setting.png" alt="Cài đặt"--%>
+<%--                                             style="width: 16px; height: 16px; margin-right: 5px;">--%>
+<%--                                        Cài đặt--%>
+<%--                                    </a>--%>
+<%--                                </div>--%>
+<%--                            </div>--%>
+<%--                        <div class="board-list">--%>
+<%--                            <c:forEach items="${value}" var="board">--%>
+<%--                                <a href="/group_home?action=boardView&boardId=${board.boardId}&groupId=${board.groupId}">--%>
+<%--                                    <div class="board-item">--%>
+<%--                                        <img src="${board.backgroundLink}" alt="Board Image">--%>
+<%--                                        <p>${board.title}</p>--%>
+<%--                                    </div>--%>
+<%--                                </a>--%>
+<%--                            </c:forEach>--%>
+<%--                        </div>--%>
+<%--                    </c:forEach>--%>
+
+<%--                    <h2>Các Không gian làm việc khách</h2>--%>
+<%--                    <c:forEach items="${groups}" var="group">--%>
+<%--                        <c:if test="${group.accessType eq 'guest_workspace'}">--%>
+<%--                            <div class="guest-workspace">--%>
+<%--                                <h3>${group.title}</h3>--%>git
+<%--                                <div class="board-list">--%>
+<%--                                    <div class="board-item board-item-red">--%>
+<%--                                        <p>Chỉ có quyền xem nội dung</p>--%>
+<%--                                    </div>--%>
+<%--                                </div>--%>
+<%--                            </div>--%>
+<%--                        </c:if>--%>
+<%--                    </c:forEach>--%>
+
+
+                    <button id="openModalButton">Xem các bảng đã đóng</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+
 </body>
 </html>
 
 <script>
+    let groups = "${groups}";
+    console.log(groups);
+    let recentBoard = "${recentBoards}";
+    console.log(recentBoard);
+    let starredBoards = "${starredBoards}";
+    console.log(starredBoards);
     document.getElementById("logoutBtn").addEventListener("click", function () {
         Swal.fire({
             title: "Xác nhận đăng xuất",
@@ -77,5 +170,32 @@
                 window.location.href = "/logout"; // Chuyển hướng đến trang đăng xuất
             }
         });
+    });
+    document.querySelector("#openModalButton").addEventListener("click", function () {
+        window.location.href = "/account_home?action=showClosedBoards";
+    });
+
+
+    let closedBoards = <%= new Gson().toJson(request.getAttribute("closedBoards")) %>;
+
+    $(document).ready(function () {
+        $('#openModalButton').click(function () {
+            let contentHtml = '';
+
+            closedBoards.forEach(board => {
+                contentHtml += `
+            <div class="product-container">
+                <label class="product-label">${board.title}</label>
+                <button class="delete-button" onclick="deleteProduct(${board.boardId})">Xóa</button>
+            </div>
+        `;
+            });
+
+            $.sweetModal({
+                title: 'Các bảng đã đóng',
+                content: contentHtml
+            });
+        });
+
     });
 </script>

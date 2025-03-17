@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://unpkg.com/sweet-modal/dist/min/jquery.sweet-modal.min.css">
     <script src="https://unpkg.com/sweet-modal/dist/min/jquery.sweet-modal.min.js"></script>
 </head>
+
 <body>
 <div style="height: 100%;">
     <div class="menubar-home-workspace">
@@ -120,8 +121,6 @@
             </div>
         </div>
     </div>
-</div>
-</div>
 </div>
 
 <script>

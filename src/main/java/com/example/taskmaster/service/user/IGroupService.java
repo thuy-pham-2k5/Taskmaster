@@ -1,8 +1,11 @@
 package com.example.taskmaster.service.user;
 
+import com.example.taskmaster.model.Board;
 import com.example.taskmaster.model.Group;
 
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 public interface IGroupService {
     Group getGroupInfoById (int groupId);
@@ -10,10 +13,13 @@ public interface IGroupService {
     void updateGroup (int groupId, Group group);
     void deleteGroup (int groupId);
 
-    void leaveMember(int userId, int groupId, int roleId);
+    List<Board> getStarredOrRecentBoards(int userId, String type);
 
-    Group getGroupInfoByShortTitle(String shortTitle);
+    Group getGroupInfoByTitleAndDescription (String title, String description);
     void inviteMember (int userId, int groupId, int roleId);
     List<Group> getTitleGroupByUserId(int user_id);
     void deleteMemberFromGroup(int userId, int groupId);
+
+
+    public Map<Group, List<Board>> getBoardsInGroupWithRole(int userId, int roleType) throws SQLException;
 }
