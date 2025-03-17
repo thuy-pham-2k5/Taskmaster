@@ -63,7 +63,7 @@
 
                         <div class="button-group">
                             <button onclick="saveEditGroup(event)" class="save-btn" type="submit">Lưu</button>
-                            <button class="cancel-btn" onclick="cancelEdit()">Hủy</button>
+                            <button type="button" class="cancel-btn" onclick="cancelEdit()">Hủy</button>
                         </div>
                     </form>
                 </div>
@@ -162,6 +162,7 @@
             success: function (group) {
 
                 document.getElementById("titleGroup").innerText = group.title;
+                document.getElementById("titleGroupHomeLeft").innerText = group.title;
                 document.getElementById("shortNameInput").innerText = group.title;
                 document.getElementById("content").innerText = group.description;
                 cancelEdit();

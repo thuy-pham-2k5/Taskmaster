@@ -39,7 +39,6 @@ public class GroupHomeServlet extends HttpServlet {
                 createNewGroup(request, response);
                 break;
             case "editInfoGroup":
-                System.out.println("hekkeo");
                 editInfoGroup(request, response);
                 break;
             case "inviteMember":
@@ -72,6 +71,10 @@ public class GroupHomeServlet extends HttpServlet {
             String description = request.getParameter("description");
 
 
+            System.out.println(groupId);
+            System.out.println(title);
+            System.out.println(short_title);
+            System.out.println(description);
             // Cập nhật dữ liệu nhóm
             groupService.updateGroup(groupId, new Group(short_title, title, "https://trello.com/b/KX3U0lwT/backlog-sprint", description));
 
@@ -114,12 +117,6 @@ public class GroupHomeServlet extends HttpServlet {
                 break;
             case "sortType":
                 sortTypeListBoards(request, response);
-                break;
-            case "memberView":
-                response.sendRedirect("/group_member");
-                break;
-            case "settingView":
-                response.sendRedirect("/group_setting");
                 break;
             case "showCreateGroup":
                 response.sendRedirect("/view/user/group/create_workspace.jsp");
