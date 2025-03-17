@@ -27,8 +27,8 @@
                                 href="">Trang chủ</a></li>
                     </ul>
                 </div>
+                <hr style="color: white">
                 <div id="groupList">
-                    <hr style="color: white">
                     <ul class="title">Các Không gian làm việc</ul>
                     <c:forEach items="${groups}" var="group">
                         <div class="dropdown-container-group">
