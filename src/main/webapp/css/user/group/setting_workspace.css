@@ -1,18 +1,22 @@
 .main-content {
     display: flex;
-    background-color: #b3e5fc;
     border-radius: 10px;;
     width: 100%;
+    height: 100%;
 
     }
 
 .child-content-1 {
     width: 260px;
+    background-color: #3179ba;
 }
 
 .child-content-2 {
     flex: 1;
     background-color: #3179ba;
+        height: auto;  /* Để nội dung mở rộng theo kích thước */
+        min-height: 100vh;  /* Đảm bảo chiều cao tối thiểu bằng với trang */
+        overflow: visible; /
 }
 .workspace-header {
     display: flex;
