@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GroupService implements IGroupService {
+    public static String newShortTitle = null;
+
     @Override
     public Group getGroupInfoById(int groupId) {
         String query = "select * from `groups` where group_id = ?";
@@ -32,18 +34,39 @@ public class GroupService implements IGroupService {
     }
 
     @Override
-    public Group getGroupInfoByTitleAndDescription(String title, String description) {
-        String query = "select * from `groups` where title = ? and description = ?";
+    public void createGroup(Group group, int userId) {
+        String query = "{call createNewGroup (?, ?, ?, ?)}";
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            CallableStatement callableStatement = connection.prepareCall(query);
+            callableStatement.setInt(1, userId);
+            callableStatement.setString(2, group.getTitle());
+            newShortTitle = createNewShortTitle(group.getTitle());
+            callableStatement.setString(3, newShortTitle);
+            callableStatement.setString(4, group.getDescription());
+            callableStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public Group getGroupInfoByShortTitle(String shortTitle) {
+        String query = "select * from `groups` where short_title = ?";
         Group group = null;
         try (Connection connection = ConnectDatabase.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, title);
-            preparedStatement.setString(2, description);
+            if (shortTitle != null) {
+                preparedStatement.setString(1, shortTitle);
+            } else {
+                preparedStatement.setString(1, newShortTitle);
+            }
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 int groupId = resultSet.getInt(1);
-                String linkWeb = resultSet.getString(3);
-                String visibility = resultSet.getString(5);
+                String title = resultSet.getString(3);
+                String linkWeb = resultSet.getString(4);
+                String description = resultSet.getString(5);
+                String visibility = resultSet.getString(6);
                 group = new Group(groupId, title, linkWeb, description, visibility);
             }
             return group;
@@ -82,21 +105,6 @@ public class GroupService implements IGroupService {
                 titleGroupList.add(group);
             }
             return titleGroupList;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public void createGroup(Group group, int userId) {
-        String query = "{call createNewGroup (?, ?, ?, ?)}";
-        try (Connection connection = ConnectDatabase.getConnection()) {
-            CallableStatement callableStatement = connection.prepareCall(query);
-            callableStatement.setInt(1, userId);
-            callableStatement.setString(2, group.getTitle());
-            callableStatement.setString(3, createNewShortTitle(group.getTitle()));
-            callableStatement.setString(4, group.getDescription());
-            callableStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -201,12 +209,12 @@ public class GroupService implements IGroupService {
 
     public void deleteMemberFromGroup(int userId, int groupId) {
         String query = "delete from 'user_group_relationships' where user_id = ? and group_id = ?";
-        try(Connection connection = ConnectDatabase.getConnection()){
+        try (Connection connection = ConnectDatabase.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, userId);
             preparedStatement.setInt(2, groupId);
             preparedStatement.executeUpdate();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }

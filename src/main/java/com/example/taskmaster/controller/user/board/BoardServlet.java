@@ -2,6 +2,8 @@ package com.example.taskmaster.controller.user.board;
 
 import com.example.taskmaster.model.User;
 import com.example.taskmaster.service.user.BoardService;
+import com.google.gson.Gson;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -71,24 +73,16 @@ public class BoardServlet extends HttpServlet {
 
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
-        int groupId = Integer.parseInt((String) session.getAttribute("groupId"));
-        System.out.println(groupId);
-
-        // Lấy giá trị của ảnh đã chọn hoặc link ảnh tùy chỉnh
+        int groupId = (Integer) session.getAttribute("groupId");
         String selectedImageLink = req.getParameter("selectedWallpaper");
         if (selectedImageLink == null || selectedImageLink.isEmpty()) {
             selectedImageLink = req.getParameter("selectedImage");
         }
-
-        System.out.println("Ảnh được chọn: " + selectedImageLink);
-
         String boardName = req.getParameter("title");
-
         if (boardName == null || boardName.trim().isEmpty()) {
             resp.getWriter().println("Tiêu đề bảng không được để trống.");
             return;
         }
-
         if (selectedImageLink == null || selectedImageLink.trim().isEmpty()) {
             selectedImageLink = "https://default-image.com/default.jpg"; // Ảnh mặc định nếu không chọn gì
         }
@@ -99,29 +93,12 @@ public class BoardServlet extends HttpServlet {
 
 
     private void deleteBoardById(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        try {
-            // Lấy boardId từ request
-            String boardIdParam = req.getParameter("boardId");
-            if (boardIdParam == null || boardIdParam.isEmpty()) {
-                resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Board ID is required.");
-                return;
-            }
-
-            int boardId = Integer.parseInt(boardIdParam);
-            // Xóa board
-            boolean isDeleted = boardService.deleteBoard(boardId);
-            if (!isDeleted) {
-                resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to delete board.");
-                return;
-            }
-            // Xóa thành công -> Chuyển hướng về trang group_home
-            resp.sendRedirect("group_home");
-
-        } catch (NumberFormatException e) {
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid Board ID.");
-        } catch (Exception e) {
-            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An unexpected error occurred.");
-        }
+        int boardId = Integer.parseInt(req.getParameter("boardId"));
+        boolean success = boardService.deleteBoard(boardId);
+        String successJson  = new Gson().toJson(success);
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        resp.getWriter().write(successJson);
     }
 
 }

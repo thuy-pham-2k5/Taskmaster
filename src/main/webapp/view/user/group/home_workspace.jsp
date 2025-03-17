@@ -63,6 +63,7 @@
 
                         <div class="button-group">
                             <button onclick="saveEditGroup(event)" class="save-btn" type="submit">Lưu</button>
+
                             <button type="button" class="cancel-btn" onclick="cancelEdit()">Hủy</button>
                         </div>
                     </form>
@@ -125,8 +126,6 @@
 </div>
 
 <script>
-
-
     function cancelEdit() {
         // Hủy chỉnh sửa, quay về ban đầu
         document.getElementById("edit_frame").style.display = "none";
@@ -207,6 +206,7 @@
 
                 let deleteButton = document.createElement("button");
                 deleteButton.className = "delete-button";
+                deleteButton.dataset.boardId = String(board.boardId);
                 deleteButton.textContent = "Xóa";
                 deleteButton.onclick = function () {
                     deleteProduct(board.boardId);
@@ -253,6 +253,30 @@
             listBoards.appendChild(boardDiv);
         });
     }
+
+    $('.delete-button').on("click", function (event) {
+        let deleteButton = $(this);
+        let deleteButtonId = deleteButton.attr("id"); // Sửa lỗi lấy ID
+        console.log("Delete Button:", deleteButton);
+        console.log("Delete Button ID:", deleteButtonId);
+
+        $.ajax({
+            type: "POST",
+            url: "/board?action=deleteBoard",
+            data: { boardId: deleteButtonId },
+            dataType: "json",
+            success: function (message) {
+                if (message === true) {
+                    let parentDiv = deleteButton.closest('.product-container');
+                    parentDiv.remove();
+                    alert("Xóa bảng thành công")
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("Lỗi khi xóa:", error);
+            }
+        });
+    });
 
 </script>
 </body>

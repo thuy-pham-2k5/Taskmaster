@@ -22,13 +22,13 @@ public class AccountHomeServlet extends HttpServlet {
         if (action == null) action = "";
         switch (action) {
             case "showSettingViewInGroupHome":
-                showSettingViewInGroupHome (req, resp);
+                redirectToPage (req, resp, "group_setting");
                 break;
             case "showMemberViewInGroupHome":
-                showMemberViewInGroupHome (req, resp);
+                redirectToPage (req, resp, "group_member");
                 break;
             case "showGroupHomeView":
-                showGroupHomeViewById (req, resp);
+                redirectToPage (req, resp, "group_home");
                 break;
             default:
                 getAllTitleGroup(req, resp);
@@ -36,28 +36,12 @@ public class AccountHomeServlet extends HttpServlet {
         }
     }
 
-    private void showSettingViewInGroupHome(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    private void redirectToPage(HttpServletRequest req, HttpServletResponse resp, String namePage) throws IOException {
         HttpSession session = req.getSession();
         int groupId = Integer.parseInt(req.getParameter("groupId"));
-        session.setAttribute("groupId", req.getParameter("groupId"));
+        session.setAttribute("groupId", groupId);
         session.setAttribute("groupInfo", groupService.getGroupInfoById(groupId));
-        resp.sendRedirect("group_home?action=settingView");
-    }
-
-    private void showMemberViewInGroupHome(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        HttpSession session = req.getSession();
-        int groupId = Integer.parseInt(req.getParameter("groupId"));
-        session.setAttribute("groupId", req.getParameter("groupId"));
-        session.setAttribute("groupInfo", groupService.getGroupInfoById(groupId));
-        resp.sendRedirect("group_home?action=memberView");
-    }
-
-    private void showGroupHomeViewById(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        HttpSession session = req.getSession();
-        int groupId = Integer.parseInt(req.getParameter("groupId"));
-        session.setAttribute("groupId", req.getParameter("groupId"));
-        session.setAttribute("groupInfo", groupService.getGroupInfoById(groupId));
-        resp.sendRedirect("group_home");
+        resp.sendRedirect(namePage);
     }
 
     private void getAllTitleGroup(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
