@@ -39,7 +39,7 @@ public class GroupMemberServlet extends HttpServlet {
     }
 
     private void showGroupMember(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int groupId = Integer.parseInt((String) req.getSession().getAttribute("groupId"));
+        int groupId = (Integer) req.getSession().getAttribute("groupId");
         List<User> members = userService.getAllMemberGroup(groupId);
         List<User> guests = userService.getAllGuestGroup(groupId);
         List<User> requests = userService.getAllRequestToJoinGroup(groupId);

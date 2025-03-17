@@ -92,12 +92,12 @@
 
 /* Tiêu đề "Các Không gian làm việc" */
 .title {
-    font-size: 16px;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
     margin-top: 10px;
     margin-bottom: 10px;
-    color: #d3d9df;
+    color: #ffffff;
     padding-left: 15px;
-    letter-spacing: -0.5px;
 }
 
 #workspaceList {
@@ -193,10 +193,11 @@
 #groupList {
     width: 100%;
     height: auto;
-    justify-content: right;
-    max-height: calc(100vh - 200px);
+    max-height: calc(100vh - 190px);
     overflow-y: auto;
     overflow-x: hidden;
+    scrollbar-color: #fff6 #00000026;
+    scrollbar-width: thin;
 }
 
 /* Định dạng dropdown */
@@ -214,8 +215,8 @@
     width: 100%;
     font-size: 16px;
     display: flex;
-    justify-content: space-between; /* Đưa mũi tên sát phải */
-    align-items: center; /* Căn giữa theo chiều dọc */
+    align-items: center;
+    text-align: left;
 }
 
 .dropbtn:hover {
@@ -226,7 +227,8 @@
 /* Định dạng mũi tên */
 .dropbtn .arrow {
     font-size: 14px;
-    margin-left: auto; /* Đẩy mũi tên sang phải */
+    margin-left: auto;
+    padding-left: 10px;
 }
 
 /* Dropdown menu (ẩn mặc định) */
@@ -444,15 +446,6 @@
 @media (min-width: 1025px) {
     .container {
         flex-direction: row;
-    }
-}
-
-@media (max-width: 1024px) {
-    .container, #homeRight, #headerTopic, #accountSearchNotification {
-        width: 100%;
-        height: auto;
-        flex-direction: column;
-        justify-content: center;
     }
 }
 

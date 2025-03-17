@@ -73,15 +73,11 @@ public class BoardServlet extends HttpServlet {
 
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
-        int groupId = Integer.parseInt((String) session.getAttribute("groupId"));
-        System.out.println(groupId);
-
-        // Lấy giá trị của ảnh đã chọn hoặc link ảnh tùy chỉnh
+        int groupId = (Integer) session.getAttribute("groupId");
         String selectedImageLink = req.getParameter("selectedWallpaper");
         if (selectedImageLink == null || selectedImageLink.isEmpty()) {
             selectedImageLink = req.getParameter("selectedImage");
         }
-
         System.out.println("Ảnh được chọn: " + selectedImageLink);
 
         String boardName = req.getParameter("title");
