@@ -27,10 +27,28 @@ public class Board {
         this.starredBoard = starredBoard;
     }
 
+    public Board(int boardId, String title, String backgroundLink, int groupId) {
+        this.boardId = boardId;
+        this.title = title;
+        this.backgroundLink = backgroundLink;
+        this.groupId = groupId;
+    }
+
     public Board(int boardId, String title, int status) {
         this.boardId = boardId;
         this.title = title;
         this.status = status;
+    }
+
+    public Board(int boardId,String title, String backgroundLink) {
+        this.boardId = boardId;
+        this.title = title;
+        this.backgroundLink = backgroundLink;
+
+    }
+
+    public Board() {
+
     }
 
     @Override

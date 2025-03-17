@@ -3,7 +3,8 @@
 <html>
 <head>
     <title>Cài đặt Không gian làm việc</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/user/group/setting_workspace.css">
+    <link rel="stylesheet" href="/css/user/group/setting_workspace.css">
+    <link rel="stylesheet" href="/css/user/group/header.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/sweet-modal/dist/min/jquery.sweet-modal.min.css">
     <script src="https://unpkg.com/sweet-modal/dist/min/jquery.sweet-modal.min.js"></script>
@@ -12,7 +13,7 @@
         .modal {
             display: none;
             position: fixed;
-            z-index: 2000;
+            z-index: 1;
             left: 0;
             top: 0;
             width: 100%;
@@ -35,58 +36,95 @@
         }
         .btn-danger { background-color: red; color: white; }
         .btn-close { background-color: gray; color: white; }
-        #errorMessage { color: red; display: none; }
+
+        /* Style cho phần thông tin nhóm */
+        .group-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #3179ba;
+            padding: 20px;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .group-info-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background-color: white;
+            color: black;
+            font-size: 24px;
+            font-weight: bold;
+            border-radius: 10px;
+        }
+
+        .group-info-detail h2 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .group-info-detail span {
+            font-size: 16px;
+            color: #dcdcdc;
+        }
+
+        .delete-workspace {
+            margin-top: 20px;
+            padding-left: 44px;
+        }
     </style>
 </head>
 <body>
 
 <!-- Sidebar -->
-<header>
+<div class="sidebar">
     <jsp:include page="../account/menubar.jsp"/>
-</header>
+</div>
 
-<main>
-    <div class="home-left">
-        <jsp:include page="../account/home_left.jsp"/>
-    </div>
-    <div class="content-member-workspace">
-        <div class="group-general-info">
-            <div class="group-info">
-                <div class="group-info-top">
-                    <div class="group-info-logo">
-                        <button class="group-title">T</button>
-                    </div>
-                    <div class="group-info-detail">
-                        <h2>
-                            ${groupInfo.title}
-                            <button style="background: none; border: 0"><img class="img-edit-group" src="/images/edit.png">
-                            </button>
-                        </h2>
-                        <span>${groupInfo.visibility}</span>
-                    </div>
-                </div>
-                <div class="group-info-bottom">
-                    <p>${groupInfo.description}</p>
-                </div>
-            </div>
-            <div class="group-invite-member">
-                <button>
-                    <img src="/images/add_account.png" alt="add_member.png">
-                    Mời các thành viên không gian làm việc
-                </button>
-            </div>
+<!-- Container chính -->
+<div class="container">
+    <div class="main-content">
+        <div class="child-content-1">
+            <jsp:include page="../account/home_left.jsp" />
         </div>
-        <hr class="horizontally-divide-content">
-        <div class="content-container">
+
+        <div class="child-content-2">
+            <!-- Phần tiêu đề không gian làm việc -->
+            <div class="workspace-header">
+                <div class="workspace-info">
+                    <div class="group-info">
+                        <div class="group-info-logo">
+                            ${groupInfo.title.substring(0,1).toUpperCase()}
+                        </div>
+                        <div class="group-info-detail">
+                            <h2>
+                                ${groupInfo.title}
+                                <button style="background: none; border: 0"></button>
+                            </h2>
+                            <span>${groupInfo.visibility}</span>
+                        </div>
+                    </div>
+                    <div>
+                    <p style="padding-left: 25px" id="content">${groupInfo.description}</p>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- Nút xóa không gian làm việc -->
             <div class="delete-workspace">
-                <a id="deleteWorkspaceBtn">
-                    Xóa không gian làm việc này ?
+                <a id="deleteWorkspaceBtn" style="color: #FF8C00; text-decoration: none;">
+                    Xóa không gian làm việc này?
                 </a>
             </div>
         </div>
     </div>
-</main>
-
+</div>
 
 <!-- Modal xác nhận xóa -->
 <div id="deleteWorkspaceModal" class="modal">
@@ -96,6 +134,7 @@
         <button class="btn btn-close" onclick="closeDeleteModal()">Hủy</button>
     </div>
 </div>
+
 </body>
 <script>
     document.getElementById("deleteWorkspaceBtn").addEventListener("click", function () {
