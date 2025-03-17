@@ -415,11 +415,7 @@
         </div>
     </div>
 </div>
-
 <script>
-
-
-
     document.getElementById("logoutBtn").addEventListener("click", function () {
         Swal.fire({
             title: "Xác nhận đăng xuất",
@@ -436,6 +432,7 @@
             }
         });
     });
+
 
     function toggleDropdownMenubar(dataId, button) {
         let dropdown = document.getElementById(dataId);

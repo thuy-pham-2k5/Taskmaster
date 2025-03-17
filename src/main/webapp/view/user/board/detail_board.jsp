@@ -448,6 +448,11 @@
     $(document).on("click", ".openOperationList", function (event) {
         let openDropdown = $(this);
         let dropdown = $("#operationList");
+
+        if (currentOpenOperationBoard) {
+            hideDropdown("#operationBoard");
+        }
+
         updateDropdownPosition(openDropdown, dropdown);
 
         $('.content_detail_board_parent').scroll(function () {
@@ -463,6 +468,7 @@
 
     function updateDropdownPosition(openDropdown, dropdown) {
         const offset = openDropdown.offset();
+        console.log(offset.left, " ", offset.top);
         dropdown.css({
             left: offset.left + "px",
             top: offset.top + openDropdown.outerHeight() + "px",
@@ -472,13 +478,10 @@
 
     $(document).on("click", function (event) {
         if (!$(event.target).closest(".openOperationList, #operationList").length) {
-            hideDropdown();
+            currentOpenOperationList = null;
+            hideDropdown("#operationList");
         }
     });
-
-    function hideDropdown() {
-        $("#operationList").hide();
-    }
 
 </script>
 <script>
