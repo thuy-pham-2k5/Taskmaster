@@ -116,7 +116,8 @@ public class GroupHomeServlet extends HttpServlet {
     }
 
     private void switchToBoardView(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        request.getSession().setAttribute("boardId", request.getParameter("boardId"));
+        int boardId = Integer.parseInt(request.getParameter("boardId"));
+        request.getSession().setAttribute("boardId", boardId);
         response.sendRedirect("board_home");
     }
 
