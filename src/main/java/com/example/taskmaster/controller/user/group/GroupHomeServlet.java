@@ -39,7 +39,6 @@ public class GroupHomeServlet extends HttpServlet {
                 createNewGroup(request, response);
                 break;
             case "editInfoGroup":
-                System.out.println("hekkeo");
                 editInfoGroup(request, response);
                 break;
             case "inviteMember":
@@ -53,45 +52,50 @@ public class GroupHomeServlet extends HttpServlet {
     private void inviteMemberInGroup(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String email = request.getParameter("email");
         User user = authenticateService.getUserByEmail(email);
-        HttpSession session = request.getSession();
-        int groupId = (int) session.getAttribute("groupId");
+        int groupId = (Integer) request.getSession().getAttribute("groupId");
         groupService.inviteMember(user.getUserId(), groupId, 4);
         response.sendRedirect("/group_home");
     }
 
     private void editInfoGroup(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
         HttpSession session = request.getSession();
-        int groupId = Integer.parseInt(session.getAttribute("groupId").toString());
-        String title = request.getParameter("title");
-        String short_title = request.getParameter("short_title");
-        String description = request.getParameter("description");
-        System.out.println(groupId);
-        System.out.println(title);
-        System.out.println(short_title);
-        System.out.println(description);
-        groupService.updateGroup(groupId, new Group(short_title, title, "https://trello.com/b/KX3U0lwT/backlog-sprint", description));
-        // Lấy lại dữ liệu mới từ database
-        Group updatedGroup = groupService.getGroupInfoById(groupId);
 
-        // Cập nhật lại session với dữ liệu mới
-        session.setAttribute("groupInfo", updatedGroup);
+        try {
+            int groupId = (Integer) session.getAttribute("groupId");
+            String title = request.getParameter("title");
+            String short_title = request.getParameter("short_title");
+            String description = request.getParameter("description");
 
-        // Chuyển hướng về trang chính
-        response.sendRedirect("/group_home");
+            System.out.println(groupId);
+            System.out.println(title);
+            System.out.println(short_title);
+            System.out.println(description);
+            // Cập nhật dữ liệu nhóm
+            groupService.updateGroup(groupId, new Group(short_title, title, "https://trello.com/b/KX3U0lwT/backlog-sprint", description));
+
+            // Lấy lại dữ liệu mới từ database
+            Group updatedGroup = groupService.getGroupInfoById(groupId);
+            session.setAttribute("groupInfo", updatedGroup);
+            String groupJson = new Gson().toJson(updatedGroup);
+            response.getWriter().write(groupJson);
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.getWriter().print("{\"success\": false, \"message\": \"Có lỗi xảy ra khi cập nhật nhóm!\"}");
+        }
     }
 
     protected void createNewGroup(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
+        User user = (User) request.getSession().getAttribute("user");
         String title = request.getParameter("title");
         String description = request.getParameter("description");
         groupService.createGroup(new Group(title, description), user.getUserId());
-        Group group = groupService.getGroupInfoByTitleAndDescription(title, description);
-        int roleId = userService.getRoleUserInGroup(user.getUserId(), group.getGroupId());
-        session.setAttribute("groupId", group.getGroupId());
-        request.setAttribute("roleIdUser", roleId);
-        request.setAttribute("groupInfo", group);
-        request.getRequestDispatcher("/view/user/group/home_workspace.jsp").forward(request, response);
+        Group group = groupService.getGroupInfoByShortTitle(null);
+        request.getSession().setAttribute("groupId", group.getGroupId());
+        request.getSession().setAttribute("groupInfo", group);
+        response.sendRedirect("/group_home");
     }
 
     @Override
@@ -100,7 +104,6 @@ public class GroupHomeServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
         String action = request.getParameter("action");
-        System.out.println(action);
         if (action == null)
             action = "";
         switch (action) {
@@ -109,12 +112,6 @@ public class GroupHomeServlet extends HttpServlet {
                 break;
             case "sortType":
                 sortTypeListBoards(request, response);
-                break;
-            case "memberView":
-                response.sendRedirect("/group_member");
-                break;
-            case "settingView":
-                response.sendRedirect("/group_setting");
                 break;
             case "showCreateGroup":
                 response.sendRedirect("/view/user/group/create_workspace.jsp");
@@ -126,8 +123,9 @@ public class GroupHomeServlet extends HttpServlet {
     }
 
     private void switchToBoardView(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String boardId = request.getParameter("boardId");
-        response.sendRedirect("board_home?boardId=" + boardId);
+        int boardId = Integer.parseInt(request.getParameter("boardId"));
+        request.getSession().setAttribute("boardId", boardId);
+        response.sendRedirect("board_home");
     }
 
     private void sortTypeListBoards(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -149,7 +147,7 @@ public class GroupHomeServlet extends HttpServlet {
     private void showGroupInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        int groupId = Integer.parseInt(session.getAttribute("groupId").toString());
+        int groupId = Integer.parseInt(session.getAttribute("groupId").toString()) ;
         int roleId = userService.getRoleUserInGroup(user.getUserId(), groupId);
         request.setAttribute("roleIdUser", roleId);
         request.setAttribute("boards", boardService.getAllBoardInGroup(groupId, true));

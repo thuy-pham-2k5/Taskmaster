@@ -159,8 +159,8 @@ public class BoardService implements IBoardService {
             CallableStatement callableStatement = connection.prepareCall(query);
             callableStatement.setInt(1, userId);
             callableStatement.setString(2, boardTitle);
-            callableStatement.setInt(3, groupId);
-            callableStatement.setString(4, backgroundLink);
+            callableStatement.setInt(4, groupId);
+            callableStatement.setString(3, backgroundLink);
             callableStatement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

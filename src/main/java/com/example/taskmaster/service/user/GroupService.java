@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 public class GroupService implements IGroupService {
+    public static String newShortTitle = null;
     @Override
     public Group getGroupInfoById(int groupId) {
         String query = "select * from `groups` where group_id = ?";
@@ -21,11 +22,12 @@ public class GroupService implements IGroupService {
             preparedStatement.setInt(1, groupId);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
+                String short_title = resultSet.getString(2);
                 String title = resultSet.getString(3);
                 String linkWeb = resultSet.getString(4);
                 String description = resultSet.getString(5);
                 String visibility = resultSet.getString(6);
-                group = new Group(groupId, title, linkWeb, description, visibility);
+                group = new Group(groupId,short_title, title, linkWeb, description, visibility);
             }
             return group;
         } catch (SQLException e) {
@@ -197,13 +199,15 @@ public class GroupService implements IGroupService {
 
     @Override
     public void updateGroup(int groupId, Group group) {
-        String query = "UPDATE `groups` SET `title` = ?, `link_web` = ?, `description` = ? WHERE `group_id` = ?;";
+        String query =" UPDATE `groups` SET short_title = ?, `title` = ?, `link_web` = ?, `description` = ? WHERE `group_id` = ?";
         try (Connection connection = ConnectDatabase.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, group.getTitle());
-            preparedStatement.setString(2, group.getLinkWeb());
-            preparedStatement.setString(3, group.getDescription());
-            preparedStatement.setInt(4, groupId);
+            preparedStatement.setString(1, group.getShort_title());
+            preparedStatement.setString(2, group.getTitle());
+            preparedStatement.setString(3, group.getLinkWeb());
+            preparedStatement.setString(4, group.getDescription());
+            preparedStatement.setInt(5, groupId);
+            System.out.println(group.getShort_title() + group.getTitle() +  group.getLinkWeb()+ group.getDescription());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -264,6 +268,32 @@ public class GroupService implements IGroupService {
             }
         }
         return accessMap;
+    }
+
+    @Override
+    public Group getGroupInfoByShortTitle(String shortTitle) {
+        String query = "select * from `groups` where short_title = ?";
+        Group group = null;
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            if (shortTitle != null) {
+                preparedStatement.setString(1, shortTitle);
+            } else {
+                preparedStatement.setString(1, newShortTitle);
+            }
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                int groupId = resultSet.getInt(1);
+                String title = resultSet.getString(3);
+                String linkWeb = resultSet.getString(4);
+                String description = resultSet.getString(5);
+                String visibility = resultSet.getString(6);
+                group = new Group(groupId, title, linkWeb, description, visibility);
+            }
+            return group;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

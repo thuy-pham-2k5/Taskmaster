@@ -89,7 +89,7 @@ public class AccountHomeServlet extends HttpServlet {
         int groupId = Integer.parseInt(req.getParameter("groupId"));
         session.setAttribute("groupId", req.getParameter("groupId"));
         session.setAttribute("groupInfo", groupService.getGroupInfoById(groupId));
-        resp.sendRedirect("group_home");
+        resp.sendRedirect("/group_home");
     }
 
     private void getAllTitleGroup(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

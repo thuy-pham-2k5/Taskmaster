@@ -22,4 +22,6 @@ public interface IGroupService {
 
 
     public Map<Group, List<Board>> getBoardsInGroupWithRole(int userId, int roleType) throws SQLException;
+
+    Group getGroupInfoByShortTitle(String shortTitle);
 }

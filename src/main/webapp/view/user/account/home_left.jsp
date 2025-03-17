@@ -66,6 +66,13 @@
     }
 
     .group-info-text span a {
+
+        display: inline-block;
+        max-width: 160px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 20px;
         color: white;
     }
 
@@ -202,6 +209,7 @@
         display: none;
         margin: 0 0 0 15px;
     }
+
 </style>
 
 <div class="position-home-left">
@@ -212,8 +220,8 @@
                     <a class="group-logo-link" href="group_home">${groupInfo.title.substring(0,1).toUpperCase()}</a>
                 </div>
                 <div class="group-info-text">
-                    <span style="line-height: 20px"><a href="group_home">${groupInfo.title}</a></span>
-                    <p>Riêng tư</p>
+                    <span style="line-height: 20px"><a id="titleGroupHomeLeft" href="group_home">${groupInfo.title}</a></span>
+                    <p>${groupInfo.visibility}</p>
                 </div>
                 <button class="closed-home-left">
                     <img class="hl-img" src="/images/list.png" alt="closed-menu.png">

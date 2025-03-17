@@ -1,12 +1,15 @@
 .body {
+    min-height: 100%;
     width: 100%;
     background-color: #3179BA;
+    height: auto;
 }
 
 .container {
     display: flex;
-    min-height: 90vh;
+    min-height: 100%;
     margin: 0 50px 0 50px;
+    height: auto;
 }
 
 #header {
@@ -79,10 +82,10 @@
 #homeLeft {
     margin: 40px 0 0;
     padding: 0 16px;
-    height: auto;
+    width: 25%;
+    max-width: 280px;
     overflow: hidden;
     background-color: #3179BA;
-    justify-content: center;
     unicode-bidi: isolate;
     display: block;
     overflow-y: auto;
@@ -90,11 +93,12 @@
 
 /* Tiêu đề "Các Không gian làm việc" */
 .title {
-    font-size: 15px;
-    font-weight: bold;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
     margin-top: 10px;
     margin-bottom: 10px;
-    color: white;
+    color: #ffffff;
+    padding-left: 15px;
 }
 
 #workspaceList {
@@ -110,7 +114,7 @@
     height: 15%;
 }
 
-#homeRight {
+#homeRight{
     flex: 1;
     background-color: #3179BA;
     width: 80%;
@@ -133,7 +137,7 @@
     height: 40px;
 }
 
-#homeLeft .represent {
+.represent{
     font-size: 23px;
     color: white;
     font-weight: bold;
@@ -190,10 +194,11 @@
 #groupList {
     width: 100%;
     height: auto;
-    justify-content: right;
-    max-height: calc(100vh - 200px);
+    max-height: calc(100vh - 190px);
     overflow-y: auto;
     overflow-x: hidden;
+    scrollbar-color: #fff6 #00000026;
+    scrollbar-width: thin;
 }
 
 /* Định dạng dropdown */
@@ -202,7 +207,6 @@
     width: 100%;
     margin-bottom: 10px;
 }
-
 .dropbtn {
     background-color: #3179BA;
     color: white;
@@ -212,8 +216,8 @@
     width: 100%;
     font-size: 16px;
     display: flex;
-    justify-content: space-between; /* Đưa mũi tên sát phải */
-    align-items: center; /* Căn giữa theo chiều dọc */
+    align-items: center;
+    text-align: left;
 }
 
 .dropbtn:hover {
@@ -224,7 +228,8 @@
 /* Định dạng mũi tên */
 .dropbtn .arrow {
     font-size: 14px;
-    margin-left: auto; /* Đẩy mũi tên sang phải */
+    margin-left: auto;
+    padding-left: 10px;
 }
 
 /* Dropdown menu (ẩn mặc định) */
@@ -241,6 +246,10 @@
 
 /* Khi có class "show", dropdown sẽ hiển thị */
 .dropdown-content-group.show {
+    border-right: none;
+    border-left: none;
+    border-top: none;
+    border-bottom: 1px solid #c4c3c3;
     display: block;
 }
 
@@ -269,25 +278,24 @@
     border-radius: 8px;
 }
 
-#group p {
+#group p{
     font-size: 40px;
     color: white;
     font-weight: bold;
 }
 
-#groupName {
+#groupName{
     font-size: 23px;
     color: white;
     margin-left: 10px;
 }
-
-#content {
+#content{
     font-size: 15px;
     width: 650px;
     color: #e8e2e2;
 }
 
-#group-info {
+#group-info{
     align-items: center;
     padding-top: 50px;
     padding-bottom: 50px;
@@ -297,7 +305,7 @@
 
 }
 
-#addAcount button {
+#addAcount button{
     width: 275px;
     border: none;
     height: 30px;
@@ -306,12 +314,12 @@
     cursor: pointer;
 }
 
-#sortAndSearch {
+#sortAndSearch{
     display: flex;
     justify-content: space-between;
 }
 
-#workspaces {
+#workspaces{
     margin-left: 74px;
     margin-right: 74px;
     margin-top: 30px;
@@ -320,7 +328,7 @@
     gap: 25px;
 }
 
-#mySelect {
+#mySelect{
     margin-top: 15px;
     border-radius: 5px;
     border-color: white;
@@ -329,7 +337,15 @@
     background-color: #3179BA;
 }
 
-#searchTable input {
+#searchTable input{
+    margin-top: 15px;
+    border-radius: 5px;
+    border-color: white;
+    height: 35px;
+    color: white;
+    background-color: #3179BA;
+}
+#searchTable button{
     margin-top: 15px;
     border-radius: 5px;
     border-color: white;
@@ -338,16 +354,7 @@
     background-color: #3179BA;
 }
 
-#searchTable button {
-    margin-top: 15px;
-    border-radius: 5px;
-    border-color: white;
-    height: 35px;
-    color: white;
-    background-color: #3179BA;
-}
-
-#search input::placeholder {
+#search input::placeholder{
     padding-left: 5px;
 }
 
@@ -364,14 +371,12 @@
     padding: 10px;
 
 }
-
-.card-container {
+.card-container{
     display: flex;
     flex-wrap: wrap;
     flex: 1 1 400px;
     gap: 5px;
 }
-
 .create-board-btn {
     background-color: #007bff; /* Màu xanh dương */
     color: white; /* Chữ màu trắng */
@@ -397,10 +402,10 @@
 .workspaceTable {
     margin: auto;
     display: inline-block; /* Cho phép div mở rộng theo nội dung */
-    width: auto; /* Chiều rộng tự giãn theo nội dung */
-    min-width: 100px; /* Đảm bảo không quá nhỏ */
-    max-width: 100%; /* Không vượt quá khung cha */
-    word-wrap: break-word; /* Xuống dòng khi hết chỗ */
+    width: auto;            /* Chiều rộng tự giãn theo nội dung */
+    min-width: 100px;       /* Đảm bảo không quá nhỏ */
+    max-width: 100%;        /* Không vượt quá khung cha */
+    word-wrap: break-word;  /* Xuống dòng khi hết chỗ */
     overflow-wrap: break-word;
     background-color: #0D599D;
     padding: 30px 50px;
@@ -409,7 +414,7 @@
     margin-top: 15px;
 }
 
-#workspaceTable button {
+#workspaceTable button{
     border: none;
     border-radius: 10px;
     width: 177px;
@@ -420,7 +425,7 @@
     cursor: pointer;
 }
 
-#viewOffTable {
+#viewOffTable{
     border-color: white;
     border-radius: 3px;
     height: 25px;
@@ -431,78 +436,25 @@
 }
 
 
-#workspaceList p {
+#workspaceList p{
     font-size: 17px;
 }
 
 
-.edit_group_pen {
+.edit_group_pen{
     width: 30px;
     height: 25px;
     margin-left: 5px;
 }
 
 
-/* Màn hình lớn (PC) */
 @media (min-width: 1025px) {
     .container {
         flex-direction: row;
     }
 }
 
-/* Máy tính bảng (màn hình từ 768px đến 1024px) */
-@media (max-width: 1024px) {
-    .container {
-        flex-direction: column;
-    }
-
-    #homeLeft {
-        width: 100%;
-        height: auto;
-    }
-
-    #homeRight {
-        width: 100%;
-        height: auto;
-    }
-
-    #headerTopic {
-        width: 100%;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    #accountSearchNotification {
-        width: 100%;
-        justify-content: center;
-    }
-}
-
-/* Điện thoại (màn hình nhỏ hơn 768px) */
-@media screen and (max-width: 768px) {
-
-    #header {
-        height: 60px; /* Giảm chiều cao header */
-    }
-
-    #logo p {
-        font-size: 18px; /* Giảm kích thước chữ trong logo */
-    }
-
-    .topic {
-        font-size: 14px; /* Giảm kích thước chữ của các mục trên header */
-    }
-
-    #headerTopic button {
-        width: 90px;
-        height: 25px;
-        font-size: 13px; /* Giảm kích thước chữ của nút */
-    }
-
-    .container {
-        flex-direction: column;
-    }
-
+@media (max-width: 768px) {
     #header {
         height: auto;
         flex-direction: column;
@@ -514,149 +466,28 @@
         text-align: center;
     }
 
-    #homeLeft {
-        width: 100%;
-        height: auto;
-        text-align: center;
+    #logo p {
+        font-size: 18px;
+    }
+
+    .topic {
+        font-size: 14px;
+    }
+
+    #headerTopic button {
+        width: 90px;
+        height: 25px;
+        font-size: 13px;
     }
 
     #homeRight {
-        width: 100%;
-        height: auto;
         padding: 10px;
     }
 
-    #headerTopic {
-        flex-wrap: wrap;
-        justify-content: center;
-        width: 100%;
-    }
-
-    #workspaceList div {
+    #workspaceList div, #group-info {
         flex-direction: column;
         text-align: center;
     }
-
-    #group-info {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    #addAcount button {
-        width: 100%;
-    }
-
-    #workspaceTable button {
-        width: 100%;
-    }
-
-    #viewOffTable {
-        width: 100%;
-    }
-}
-
-
-#homeRight {
-    padding: 20px;
-    background-color: #3179BA;
-    color: white;
-}
-
-.section {
-    margin-bottom: 20px;
-}
-
-h2 {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-}
-
-.board-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.board-item {
-    position: relative;
-    width: 200px;
-    height: 120px;
-    overflow: hidden;
-    border-radius: 8px;
-}
-
-.board-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: blur(2px); /* Giảm độ mờ */
-    transition: filter 0.3s ease;
-}
-
-.board-item:hover img {
-    filter: blur(0.2px); /* Giảm mờ khi hover */
-}
-
-.board-item p {
-    position: absolute;
-    top: 1px; /* Đưa chữ lên góc trên */
-    left: 6px;
-    font-size: 16px;
-    font-weight: bold;
-    color: white;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-    background: rgba(0, 0, 0, 0.3); /* Nền mờ nhẹ để dễ đọc */
-    padding: 5px 10px;
-    border-radius: 4px;
-    z-index: 2;
-}
-
-
-
-.board-item-red {
-    background-color: #D32F2F;
-    color: white;
-}
-
-.workspace-container, .guest-workspace {
-    margin-top: 10px;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-.workspace-options a {
-    margin-right: 10px;
-    color: white;
-    text-decoration: none;
-}
-
-.view-all-closed-boards {
-    background-color: #0079bf; /* Màu xanh đặc trưng của Trello */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    display: block; /* Để căn giữa */
-    margin: 20px auto;
-}
-
-.view-all-closed-boards:hover {
-    background-color: #005f8c; /* Màu xanh đậm hơn khi hover */
-    transform: scale(1.05);
-}
-
-.view-all-closed-boards:active {
-    transform: scale(0.98);
-}
-.workspace-options{
-    display: flex;
-    width: 500px;
-    justify-content: space-around;
-
 }
 
 
