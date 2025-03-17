@@ -175,7 +175,21 @@
     </div>
 </main>
 <script>
-
+    function deleteMember(userId) {
+        $.ajax({
+            type: "POST",
+            url: "/group_member",
+            data: {
+                action: "delete",
+                userId: userId
+            },
+            dataType: "json",
+            success: function (response) {
+                const userInfo = this.closest(".user-general-info");
+                userInfo.remove();
+            }
+        })
+    }
     document.addEventListener("DOMContentLoaded", function () {
         const removeButtons = document.querySelectorAll(".remove-btn");
 
