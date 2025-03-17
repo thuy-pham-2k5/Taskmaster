@@ -274,7 +274,7 @@ input::placeholder {
     transform: translate(-50%, -50%);
     padding: 20px;
     width: 800px;
-    background-color: #355d83;
+    background-color: white;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -296,7 +296,7 @@ input::placeholder {
 }
 
 #header_task input {
-    color: white;
+    color: #2d2d2d;
     padding: 0px 10px;
     height: 40px;
     font-size: 23px;
@@ -307,7 +307,7 @@ input::placeholder {
 }
 
 #header_task:focus-within input {
-    border: 2px solid white; /* Màu viền khi bấm vào nút */
+    border: 2px solid #02212c; /* Màu viền khi bấm vào nút */
     border-radius: 5px;
     outline: none;
 }
@@ -316,12 +316,12 @@ input::placeholder {
 #header_task p {
     margin: 10px 0px 0px 12px;
     font-size: 14px;
-    color: white;
+    color: #2d2d2d;
 }
 
 .status {
     font-weight: bold;
-    color: #1effde;
+    color: #1258d3;
 }
 
 /* Content Task */
@@ -349,7 +349,7 @@ input::placeholder {
 }
 
 #navigation_task p {
-    color: white;
+    color: #2d2d2d;
     font-weight: bold;
     margin-bottom: 5px;
 }
@@ -405,8 +405,8 @@ input::placeholder {
 }
 
 #description_display {
-    background-color: #314d67eb;
-    color: #e3ded4;
+    background-color: #adb2b8;
+    color: #f1eee7;
     outline: none;
     font-size: 15px;
     min-height: 82px;
@@ -424,7 +424,7 @@ input::placeholder {
     width: 100%;
     min-height: 150px;
     padding: 8px;
-    border: 1px solid #0de3cb;
+    border: 1px solid #1258d3;
     border-radius: 3px;
     resize: none;
 }
@@ -444,8 +444,8 @@ input::placeholder {
     width: 100%;
     height: 35px;
     margin-bottom: 15px;
-    background: #0079bf;
-    color: white;
+    background: #adb2b8;
+    color: #2d2d2f;
     font-weight: bold;
     border: none;
     display: flex;
@@ -456,7 +456,7 @@ input::placeholder {
 }
 
 #tools_task button:hover {
-    background: #005f8a;
+    background: #339ade;
 }
 
 /* Đưa navigation_task và tools_task trên cùng một hàng */
@@ -467,31 +467,32 @@ input::placeholder {
 }
 
 .due-date span {
-    color: white;
+    font-size: 15px;
+    color: #2d2d2d;
     justify-content: center;
     text-align: center;
     align-items: center;
     display: flex;
     border-radius: 4px;
     align-content: center;
-    background-color: #A2A2A2;
-    width: 105px;
+    background-color: #ddad59;
+    width: 115px;
     height: 30px;
 }
 
 .works_together span {
-    color: white;
+    color: #2d2d2d;
     justify-content: center;
     display: flex;
     border-radius: 4px;
-    background-color: #138254;
+    background-color: #4ae1a3;
     width: 134px;
     height: 30px;
 }
 
 
 #tools_task button i {
-    color: white; /* Đảm bảo icon màu trắng */
+    color: #2d2d2f; /* Đảm bảo icon màu trắng */
 }
 
 
@@ -503,7 +504,7 @@ input::placeholder {
 
 .comment_task input {
     color: white;
-    background-color: #314d67eb;
+    background-color: #adb2b8;
     margin-left: 5px;
     border: 1px solid darkgray;
     padding-left: 10px;
@@ -586,10 +587,8 @@ input::placeholder {
 }
 
 .comment_task i {
-    color: #c0c5cc;
+    color: #356dd0;
     font-weight: bold;
-
-
 }
 
 .comment_input_container {
@@ -693,5 +692,5 @@ input::placeholder {
 
 #block {
     font-size: 20px;
-    color: white;
+    color: #2d2d2f;
 }

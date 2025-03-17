@@ -354,7 +354,7 @@ body {
     display: flex; /* Dùng flexbox để căn giữa */
     justify-content: center; /* Căn giữa theo chiều ngang */
     align-items: center; /* Căn giữa theo chiều dọc */
-    width: 172px; /* Đặt chiều rộng cố định */
+    width: 170px; /* Đặt chiều rộng cố định */
     height: 90px; /* Đặt chiều cao cố định */
     word-wrap: break-word;
     gap: 10px; /* Tạo khoảng cách giữa các phần tử */
@@ -652,13 +652,13 @@ body {
 
 
 .group-info-detail h2 {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     max-width: 250px;
     margin: 0;
     font-size: 24px;
     flex-grow: 1;
+    word-wrap: break-word;  /* Tự động xuống dòng khi cần */
+    overflow-wrap: break-word; /* Hỗ trợ xuống dòng cho trình duyệt mới */
+    white-space: normal;  /* Cho phép xuống dòng (mặc định là nowrap với flex) */
 }
 
 .group-info-detail button {
