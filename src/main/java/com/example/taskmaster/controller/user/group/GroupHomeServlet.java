@@ -39,7 +39,6 @@ public class GroupHomeServlet extends HttpServlet {
                 createNewGroup(request, response);
                 break;
             case "editInfoGroup":
-                System.out.println("hekkeo");
                 editInfoGroup(request, response);
                 break;
             case "inviteMember":
@@ -69,7 +68,15 @@ public class GroupHomeServlet extends HttpServlet {
             String title = request.getParameter("title");
             String short_title = request.getParameter("short_title");
             String description = request.getParameter("description");
-            groupService.updateGroup(groupId, new Group(short_title, title, null, description));
+
+            System.out.println(groupId);
+            System.out.println(title);
+            System.out.println(short_title);
+            System.out.println(description);
+            // Cập nhật dữ liệu nhóm
+            groupService.updateGroup(groupId, new Group(short_title, title, "https://trello.com/b/KX3U0lwT/backlog-sprint", description));
+
+            // Lấy lại dữ liệu mới từ database
             Group updatedGroup = groupService.getGroupInfoById(groupId);
             session.setAttribute("groupInfo", updatedGroup);
             String groupJson = new Gson().toJson(updatedGroup);
