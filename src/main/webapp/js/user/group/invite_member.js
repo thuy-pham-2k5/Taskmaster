@@ -62,30 +62,10 @@ function openInviteMember() {
 }
 
 function createNewUserHtml (user) {
-    let startHtml = `<div class="user-general-info">
-       <div class="user-info">
-             <p class="user-info-name">`;
-    let middleHtml = `</p>
-             <p>`;
-    let middle2Html = `</p>
-         </div>
-         <div class="user-button-change">
-             <button>`;
-    let middle3Html = `</button>
-             <button class="remove-btn">Loại bỏ</button>
-
-
-             <div class="confirm-box">
-                 <p>Bạn có chắc muốn loại bỏ `;
-    let middle4Html = `?</p>
-                 <button class="confirm-remove" onclick="deleteMember(`;
-    let end = `)">
-                     Có
-                 </button>
-                 <button class="cancel-remove">Hủy</button>
-             </div>
-
-         </div>
-     </div>`;
-    return startHtml + user.fullName + middleHtml + user.username + middle2Html + user.roleName + middle3Html + user.fullName + middle4Html + user.userId + end;
+    let startHtml = `<div class="user-general-info"><div class="user-info"><p class="user-info-name">`;
+    let middleHtml = `</p><p>`;
+    let middle2Html = `</p></div><div class="user-button-change"><button>Thành viên</button><button class="remove-btn">Loại bỏ</button><div class="confirm-box"><p>Bạn có chắc muốn loại bỏ `;
+    let middle4Html = `?</p><button class="confirm-remove" onclick="deleteMember(`;
+    let end = `)">Có</button><button class="cancel-remove">Hủy</button></div></div></div>`;
+    return startHtml + user.fullName + middleHtml + user.username + middle2Html + user.fullName + middle4Html + user.userId + end;
 }

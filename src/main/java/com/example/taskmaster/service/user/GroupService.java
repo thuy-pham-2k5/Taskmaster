@@ -2,6 +2,7 @@ package com.example.taskmaster.service.user;
 
 import com.example.taskmaster.database.ConnectDatabase;
 import com.example.taskmaster.model.Group;
+import com.example.taskmaster.model.User;
 
 import java.security.SecureRandom;
 import java.sql.*;
@@ -12,18 +13,21 @@ public class GroupService implements IGroupService {
     public static String newShortTitle = null;
 
     @Override
-    public boolean getUserInGroupByUserId(int userId, int groupId) {
-        String query = "select * from user_group_relationships where user_id = ? and group_id = ? and role_id != 5";
+    public User getUserInGroupByUserId(int userId, int groupId) {
+        String query = "select users.user_id, users.full_name, users.username, roles.name as role_name from users join user_group_relationships on users.user_id = user_group_relationships.user_id join roles on user_group_relationships.role_id = roles.role_id where user_group_relationships.group_id = ? and user_group_relationships.user_id = ? and roles.role_id != 5";
         try (Connection connection = ConnectDatabase.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, userId);
-            preparedStatement.setInt(2, groupId);
+            preparedStatement.setInt(1, groupId);
+            preparedStatement.setInt(2, userId);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                int role = resultSet.getInt("role_id");
-                return role != 5;
-            } else
-                return false;
+                String fullName = resultSet.getString(2);
+                String username = resultSet.getString(3);
+                String roleName = resultSet.getString(4);
+                return new User(userId, fullName, username, roleName);
+            } else {
+                return null;
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

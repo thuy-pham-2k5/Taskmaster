@@ -54,12 +54,14 @@ public class GroupMemberServlet extends HttpServlet {
         Map<String, Object> info = new HashMap<>();
         String result;
         if (user != null) {
-            if (groupService.getUserInGroupByUserId(user.getUserId(), groupId)) {
+            User infoNewMember = groupService.getUserInGroupByUserId(user.getUserId(), groupId);
+            if (infoNewMember != null) {
                 result = "added";
             } else {
                 boolean success = groupService.inviteMember(user.getUserId(), groupId, 4);
+                infoNewMember = groupService.getUserInGroupByUserId(user.getUserId(), groupId);
                 result = success ? "success" : "false";
-                info.put("infoNewMember", authenticateService.getUserByEmail(email));
+                info.put("infoNewMember", infoNewMember);
             }
         } else {
             result = "not exist";
