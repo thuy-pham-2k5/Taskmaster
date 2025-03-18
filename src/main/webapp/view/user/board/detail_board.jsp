@@ -316,6 +316,9 @@
                     newTaskHtml.classList.add("task");
                     newTaskHtml.setAttribute("data-task", task.taskId);
                     newTaskHtml.setAttribute("data-position", task.position);
+                    newTaskHtml.onclick = function () {
+                        openTaskModal({ title: titleTask, status: "To Do", description: "Mô tả task" });
+                    };
                     newTaskHtml.textContent = titleTask;
 
                     if (listTask === null) {

@@ -159,7 +159,7 @@
                                             </a>
 
                                             <div class="confirm-box">
-                                                <p>Bạn có chắc muốn loại bỏ ${user.fullName}?</p>
+                                                <p style="font-size: 18px">Bạn có chắc muốn loại bỏ ${user.fullName} ?</p>
                                                 <button class="confirm-remove">Có</button>
                                                 <button class="cancel-remove">Hủy</button>
                                             </div>
@@ -186,22 +186,40 @@
                 // Lấy modal xác nhận gần nút được nhấn
                 const confirmBox = this.nextElementSibling;
 
-                // Ẩn tất cả các modal khác
+                // Ẩn tất cả các modal khác trước khi hiển thị
                 document.querySelectorAll(".confirm-box").forEach(box => {
                     if (box !== confirmBox) {
                         box.classList.remove("show");
                     }
                 });
 
-                // Hiển thị modal dưới nút "Loại bỏ"
+                // Hiển thị modal
                 confirmBox.classList.add("show");
 
-                // Xác định vị trí modal ngay dưới nút
+                // Lấy vị trí của nút và modal
                 const rect = this.getBoundingClientRect();
-                confirmBox.style.top = `${rect.bottom + window.scrollY + 45}px`; /* Hiển thị ngay dưới */
-                confirmBox.style.left = `${rect.left + window.scrollX + 45}px`; /* Canh lề theo nút */
+                const modalHeight = confirmBox.offsetHeight; // Chiều cao của modal
+                const viewportHeight = window.innerHeight; // Chiều cao cửa sổ trình duyệt
+                const spaceBelow = viewportHeight - rect.bottom; // Khoảng trống bên dưới nút
+                const spaceAbove = rect.top; // Khoảng trống phía trên nút
+
+                let top, left;
+
+                // Kiểm tra nếu không đủ không gian bên dưới, hiển thị modal phía trên
+                if (spaceBelow < modalHeight) {
+                    top = rect.bottom + window.scrollY + 47 - (modalHeight - spaceBelow);
+                } else {
+                    top = rect.bottom + window.scrollY + 47;
+                }
+
+                left = rect.left + window.scrollX + 27; // Canh chỉnh lề trái theo nút
+
+                // Đặt vị trí của modal
+                confirmBox.style.top = `${top}px`;
+                confirmBox.style.left = `${left}px`;
             });
         });
+
 
         // Xử lý nút "Hủy"
         document.querySelectorAll(".cancel-remove").forEach(cancelButton => {
