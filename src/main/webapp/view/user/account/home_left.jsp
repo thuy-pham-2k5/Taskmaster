@@ -10,12 +10,16 @@
     }
 
     .home-left {
+        min-height: 100%;
+        height: auto;
         width: 260px;
         z-index: 5;
         background: #3179ba;
     }
 
     .home-left-child {
+        min-height: 100%;
+        height: auto;
         color: white;
         width: inherit;
         position: absolute;
@@ -66,6 +70,13 @@
     }
 
     .group-info-text span a {
+
+        display: inline-block;
+        max-width: 160px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 20px;
         color: white;
     }
 
@@ -205,7 +216,6 @@
         display: none;
         margin: 0 0 0 15px;
     }
-
     .hl-dropdown-action button {
         border: 0;
         background: none;
@@ -253,15 +263,15 @@
                     <a class="group-logo-link" href="group_home">${groupInfo.title.substring(0,1).toUpperCase()}</a>
                 </div>
                 <div class="group-info-text">
-                    <span style="line-height: 20px"><a href="group_home">${groupInfo.title}</a></span>
-                    <p>Riêng tư</p>
+                    <span style="line-height: 20px"><a id="titleGroupHomeLeft" href="group_home">${groupInfo.title}</a></span>
+                    <p>${groupInfo.visibility}</p>
                 </div>
                 <button class="closed-home-left">
                     <img class="hl-img" src="/images/list.png" alt="closed-menu.png">
                 </button>
             </div>
             <div class="hl-general-info">
-                <div style="overflow-y: auto; scrollbar-color: #fff6 #00000026; scrollbar-width: thin;">
+                <div style="overflow-y: auto; scrollbar-color: #fff6 #00000026; scrollbar-width: thin; height: calc(100% - 20px);">
                     <div class="hl-group-basic-features">
                         <a href="group_home">
                             <img class="hl-img" src="/images/board.png" alt="board.png">

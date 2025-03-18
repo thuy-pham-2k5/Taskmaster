@@ -62,8 +62,9 @@
                         <textarea name="description" id="groupDescInput">${groupInfo.description}</textarea>
 
                         <div class="button-group">
-                            <button onclick="saveEditGroup(event)" class="save-btn" type="submit">Lưu</button>
-                            <button type="button" class="cancel_btn" onclick="cancelEdit()">Hủy</button>
+                            <button onclick="saveEditGroup(event)" class="save-btn" type="submit" id="save" disabled>Lưu</button>
+
+                            <button type="button" class="cancel-btn" onclick="cancelEdit()">Hủy</button>
                         </div>
                     </form>
                 </div>
@@ -107,7 +108,7 @@
                     </div>
                     <div id="listBoards" class="card-container">
                         <c:forEach var="board" items="${boards}">
-                            <div style=" background-color: #0D599D; " class="workspaceTable">
+                            <div style="background-color: #0D599D;" class="workspaceTable">
                                 <a href="/group_home?action=boardView&boardId=${board.boardId}">
                                     <button class="titleBoardWorkspace">${board.title}</button>
                                 </a>
@@ -121,10 +122,39 @@
         </div>
     </div>
 </div>
-</div>
-</div>
+
 
 <script>
+
+    // chỉnh sửa group không cho chỉnh sửa tiêu đề quá 100 ký tự
+    document.addEventListener("DOMContentLoaded", function () {
+        let nameSp = document.getElementById("groupNameInput");
+        let submitBtn = document.getElementById("save");
+
+        nameSp.addEventListener("input", function () {
+            if (this.value.length > 100) {
+                this.setCustomValidity("Bạn chỉ được nhập tối đa 100 ký tự!");
+                this.reportValidity(); // Hiển thị lỗi ngay lập tức
+                submitBtn.disabled = true;
+            } else {
+                this.setCustomValidity("");
+                submitBtn.disabled = false;
+            }
+        });
+
+        submitBtn.addEventListener("click", function (event) {
+            if (nameSp.value.length > 100) {
+                nameSp.setCustomValidity("Bạn chỉ được nhập tối đa 100 ký tự!");
+                nameSp.reportValidity(); // Hiển thị lỗi khi bấm nút
+                event.preventDefault(); // Ngăn chặn form submit nếu lỗi
+            }
+        });
+    });
+
+
+
+
+
     function cancelEdit() {
         // Hủy chỉnh sửa, quay về ban đầu
         document.getElementById("edit_frame").style.display = "none";
@@ -160,6 +190,7 @@
             success: function (group) {
 
                 document.getElementById("titleGroup").innerText = group.title;
+                document.getElementById("titleGroupHomeLeft").innerText = group.title;
                 document.getElementById("shortNameInput").innerText = group.title;
                 document.getElementById("content").innerText = group.description;
                 cancelEdit();
@@ -167,7 +198,6 @@
         })
 
     }
-
 
 
     document.getElementById("logoutBtn").addEventListener("click", function () {
@@ -261,7 +291,7 @@
         $.ajax({
             type: "POST",
             url: "/board?action=deleteBoard",
-            data: { boardId: deleteButtonId },
+            data: {boardId: deleteButtonId},
             dataType: "json",
             success: function (message) {
                 if (message === true) {

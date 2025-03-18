@@ -111,7 +111,10 @@ input::placeholder {
     max-width: 1250px;
     margin: 0 auto;
     padding: 16px 32px;
+    height: auto;
+    min-height: 0;
 }
+
 
 .header-content {
     padding-top: 16px;
@@ -236,10 +239,9 @@ button {
 .confirm-box {
     display: none; /* Ẩn mặc định */
     position: absolute;
-    background: #fff;
     border: 1px solid #ccc;
     padding: 12px;
-    width: 250px; /* Giới hạn chiều rộng */
+    width: 270px; /* Giới hạn chiều rộng */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
     z-index: 1000;
@@ -257,10 +259,11 @@ button {
 
 /* Khi hiển thị modal */
 .confirm-box.show {
+    border: none;
     display: block;
     opacity: 1;
     transform: translateY(0); /* Trượt xuống nhẹ nhàng */
-    background-color: #8a939d;
+    background-color: #296791;
 }
 
 /* Nút trong modal */
@@ -275,14 +278,18 @@ button {
 
 /* Nút "Có" - Màu đỏ */
 .confirm-box .confirm-remove {
-    background-color: #e74c3c;
+    height: 30px;
+    width: 70px;
+    background-color: #e74c3ccc;
     color: white;
     margin: 0;
 }
 
 /* Nút "Hủy" - Màu xám */
 .confirm-box .cancel-remove {
-    background-color: #bdc3c7;
+    height: 30px;
+    width: 70px;
+    background-color: #bdc3c7d4;
     color: white;
    margin: 8px;
 }

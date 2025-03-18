@@ -1,7 +1,8 @@
 .body {
+    min-height: 100%;
     width: 100%;
     background-color: #3179BA;
-    height: 100%;
+    height: auto;
 }
 
 .container {
@@ -245,6 +246,10 @@
 
 /* Khi có class "show", dropdown sẽ hiển thị */
 .dropdown-content-group.show {
+    border-right: none;
+    border-left: none;
+    border-top: none;
+    border-bottom: 1px solid #c4c3c3;
     display: block;
 }
 
