@@ -112,7 +112,7 @@ input::placeholder {
     margin: 0 auto;
     padding: 16px 32px;
     height: auto;
-    min-height: 100%;
+    min-height: 0;
 }
 
 

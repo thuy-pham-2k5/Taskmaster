@@ -271,7 +271,7 @@
                 </button>
             </div>
             <div class="hl-general-info">
-                <div style="overflow-y: auto; scrollbar-color: #fff6 #00000026; scrollbar-width: thin;">
+                <div style="overflow-y: auto; scrollbar-color: #fff6 #00000026; scrollbar-width: thin; height: calc(100% - 20px);">
                     <div class="hl-group-basic-features">
                         <a href="group_home">
                             <img class="hl-img" src="/images/board.png" alt="board.png">
