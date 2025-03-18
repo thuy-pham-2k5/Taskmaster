@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(value = "/group_member")
 public class GroupMemberServlet extends HttpServlet {
@@ -49,6 +51,7 @@ public class GroupMemberServlet extends HttpServlet {
         String email = request.getParameter("email");
         User user = authenticateService.getUserByEmail(email);
         int groupId = (Integer) request.getSession().getAttribute("groupId");
+        Map<String, Object> info = new HashMap<>();
         String result;
         if (user != null) {
             if (groupService.getUserInGroupByUserId(user.getUserId(), groupId)) {
@@ -56,11 +59,13 @@ public class GroupMemberServlet extends HttpServlet {
             } else {
                 boolean success = groupService.inviteMember(user.getUserId(), groupId, 4);
                 result = success ? "success" : "false";
+                info.put("infoNewMember", authenticateService.getUserByEmail(email));
             }
         } else {
             result = "not exist";
         }
-        String resultJson = new Gson().toJson(Collections.singletonMap("result", result));
+        info.put("result", result);
+        String resultJson = new Gson().toJson(info);
         System.out.println(resultJson);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");

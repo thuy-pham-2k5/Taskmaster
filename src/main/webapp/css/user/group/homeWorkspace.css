@@ -679,16 +679,3 @@ body {
     gap: 5px; /* Khoảng cách giữa các hàng */
     margin-left: 15px;
 }
-
-/* Mời thành viên vào không gian làm việc*/
-.popup-title {
-    text-align: left;
-    padding-left: 15px;
-    margin-left: 20px;
-}
-
-.swal-actions-right {
-    display: flex !important;
-    justify-content: flex-end !important;
-    margin-right: 31px;
-}
