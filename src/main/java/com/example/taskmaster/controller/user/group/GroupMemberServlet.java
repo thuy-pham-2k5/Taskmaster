@@ -1,10 +1,9 @@
 package com.example.taskmaster.controller.user.group;
 
 import com.example.taskmaster.model.User;
-import com.example.taskmaster.service.user.BoardService;
-import com.example.taskmaster.service.user.IBoardService;
-import com.example.taskmaster.service.user.IUserService;
-import com.example.taskmaster.service.user.UserService;
+import com.example.taskmaster.service.authenticate.AuthenticateService;
+import com.example.taskmaster.service.user.*;
+import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,30 +11,60 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
-@WebServlet (value = "/group_member")
+@WebServlet(value = "/group_member")
 public class GroupMemberServlet extends HttpServlet {
+    AuthenticateService authenticateService = new AuthenticateService();
     IUserService userService = new UserService();
     IBoardService boardService = new BoardService();
+    IGroupService groupService = new GroupService();
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
         if (action == null) action = "";
         switch (action) {
+            case "inviteMember":
+                inviteMemberInGroup(req, resp);
+                break;
             default:
                 break;
         }
     }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
-        if (action==null) action = "";
+        if (action == null) action = "";
         switch (action) {
             default:
-                showGroupMember (req, resp);
+                showGroupMember(req, resp);
                 break;
         }
+    }
+
+    private void inviteMemberInGroup(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String email = request.getParameter("email");
+        User user = authenticateService.getUserByEmail(email);
+        int groupId = (Integer) request.getSession().getAttribute("groupId");
+        String result;
+        if (user != null) {
+            if (groupService.getUserInGroupByUserId(user.getUserId(), groupId)) {
+                result = "added";
+            } else {
+                boolean success = groupService.inviteMember(user.getUserId(), groupId, 4);
+                result = success ? "success" : "false";
+            }
+        } else {
+            result = "not exist";
+        }
+        String resultJson = new Gson().toJson(Collections.singletonMap("result", result));
+        System.out.println(resultJson);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(resultJson);
     }
 
     private void showGroupMember(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -63,7 +63,9 @@
                         <textarea name="description" id="groupDescInput">${groupInfo.description}</textarea>
 
                         <div class="button-group">
-                            <button onclick="saveEditGroup(event)" class="save-btn" type="submit" id="save" disabled>Lưu</button>
+                            <button onclick="saveEditGroup(event)" class="save-btn" type="submit" id="save" disabled>
+                                Lưu
+                            </button>
 
                             <button type="button" class="cancel-btn" onclick="cancelEdit()">Hủy</button>
                         </div>
@@ -149,9 +151,6 @@
             }
         });
     });
-
-
-
 
 
     function cancelEdit() {
@@ -306,6 +305,7 @@
     });
 
 </script>
+
 <%--Mời thành viên vào không gian làm việc--%>
 <script>
     function openInviteMember() {
@@ -326,11 +326,12 @@
                 popup: ""
             },
             preConfirm: (email) => {
+                console.log(email);
                 if (!email) {
                     Swal.showValidationMessage("Vui lòng nhập email!");
                     return;
                 }
-                return fetch("/invite", {
+                return fetch("/group_member?action=inviteMember", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/x-www-form-urlencoded",
@@ -339,25 +340,28 @@
                 })
                     .then(response => response.json())
                     .then(response => {
-                        if (!response.success) {
-                            Swal.showValidationMessage("Không thể gửi lời mời.");
+                        console.log(response);
+                        if (response.result === "success") {
+                            Swal.fire({
+                                title: "Thành công!",
+                                text: "Thành viên đã được mời.",
+                                icon: "success",
+                                timer: 1500,
+                                timerProgressBar: true
+                            });
+                        } else if (response.result === "false") {
+                            Swal.showValidationMessage("Không thể gửi lời mời");
+                        } else if (response.result === "added") {
+                            Swal.showValidationMessage("Thành viên đã được thêm vào group");
+                        } else if (response.result === "not exist") {
+                            Swal.showValidationMessage("Người dùng không tồn tại");
                         }
                     })
                     .catch(() => {
                         Swal.showValidationMessage("Lỗi! Vui lòng thử lại.");
                     });
             }
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire({
-                    title: "Thành công!",
-                    text: "Thành viên đã được mời.",
-                    icon: "success",
-                    timer: 1500,
-                    timerProgressBar: true
-                });
-            }
-        });
+        })
     }
 </script>
 </body>

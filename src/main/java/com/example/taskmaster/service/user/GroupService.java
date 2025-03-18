@@ -12,6 +12,24 @@ public class GroupService implements IGroupService {
     public static String newShortTitle = null;
 
     @Override
+    public boolean getUserInGroupByUserId(int userId, int groupId) {
+        String query = "select * from user_group_relationships where user_id = ? and group_id = ? and role_id != 5";
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setInt(2, groupId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                int role = resultSet.getInt("role_id");
+                return role != 5;
+            } else
+                return false;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public Group getGroupInfoById(int groupId) {
         String query = "select * from `groups` where group_id = ?";
         Group group = null;
@@ -76,19 +94,18 @@ public class GroupService implements IGroupService {
     }
 
     @Override
-    public void inviteMember(int userId, int groupId, int roleId) {
-        String query = "INSERT INTO user_group_relationships (`user_id`, `group_id`, `role_id`) VALUES (?, ?, ?)";
+    public boolean inviteMember(int userId, int groupId, int roleId) {
+        String query = "{call inviteMemberInGroup(?, ?, ?)}";
         try (Connection connection = ConnectDatabase.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, userId);
-            preparedStatement.setInt(2, groupId);
-            preparedStatement.setInt(3, roleId);
-            preparedStatement.executeUpdate();
+            CallableStatement callableStatement = connection.prepareCall(query);
+            callableStatement.setInt(1, userId);
+            callableStatement.setInt(2, groupId);
+            callableStatement.setInt(3, roleId);
+            return callableStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-
 
     @Override
     public List<Group> getTitleGroupByUserId(int user_id) {
