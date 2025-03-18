@@ -59,8 +59,8 @@ body {
 
 .topic {
     border-radius: 4px;
-    height: 30px;-
-    display: flex;
+    height: 30px;
+    -display: flex;
     align-items: center;
     gap: 8px;
     color: white;
@@ -119,7 +119,7 @@ body {
     border-radius: 5px;
 }
 
-.board a{
+.board a {
     text-decoration: none;
     color: black;
     width: 75%;
@@ -227,8 +227,8 @@ body {
 }
 
 #group-info {
-     display: flex;
- }
+    display: flex;
+}
 
 .group-info-logo {
     margin-right: 10px;
@@ -251,13 +251,18 @@ body {
     color: white;
 }
 
-#addAcount button {
-    width: 275px;
+#btnAddAccount {
     border: none;
     height: 30px;
     background-color: #1B5B94;
     color: white;
     cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: space-around;
+    display: flex;
+    width: 285px;
 }
 
 #sortAndSearch {
@@ -545,7 +550,6 @@ body {
 }
 
 
-
 /* Khung chính */
 #edit_frame {
     margin-right: 160px;
@@ -566,7 +570,7 @@ body {
 /* Ô input và textarea */
 #groupNameInput,
 #groupDescInput,
-#shortNameInput{
+#shortNameInput {
     margin-top: 4px;
     width: 100%;
     padding: 12px;
@@ -578,7 +582,7 @@ body {
     box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-#shortNameInput{
+#shortNameInput {
     margin-top: 4px;
     width: 100%;
     padding: 12px;
@@ -592,7 +596,7 @@ body {
 
 #groupNameInput:focus,
 #groupDescInput:focus,
-#shortNameInput:focus{
+#shortNameInput:focus {
     border-color: #0EA5E9; /* Màu xanh khi focus */
     outline: none;
     box-shadow: 0px 0px 8px rgba(14, 165, 233, 0.5);
@@ -649,8 +653,6 @@ body {
 }
 
 
-
-
 .group-info-detail h2 {
     margin: 0; /* Xóa khoảng cách mặc định */
     font-size: 24px; /* Tùy chỉnh kích thước */
@@ -663,12 +665,26 @@ body {
     cursor: pointer;
 }
 
-#main_info span{
+#main_info span {
     color: white;
 }
+
 #main_info {
     display: flex;
     flex-direction: column;
     gap: 5px; /* Khoảng cách giữa các hàng */
     margin-left: 15px;
+}
+
+/* Mời thành viên vào không gian làm việc*/
+.popup-title {
+    text-align: left;
+    padding-left: 15px;
+    margin-left: 20px;
+}
+
+.swal-actions-right {
+    display: flex !important;
+    justify-content: flex-end !important;
+    margin-right: 31px;
 }

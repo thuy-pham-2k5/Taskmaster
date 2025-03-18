@@ -10,6 +10,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/sweet-modal/dist/min/jquery.sweet-modal.min.css">
     <script src="https://unpkg.com/sweet-modal/dist/min/jquery.sweet-modal.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 <div style="height: 100%;">
@@ -71,8 +72,7 @@
 
                 <c:if test="${roleIdUser == 3}">
                     <div id="addAccount">
-                        <button style="background-color: #1B5B94; padding: 10px;cursor: pointer;border-radius: 5px;align-items: center;height: 35px;justify-content: space-around;display: flex;width: 285px;border: none;"
-                                onclick="invite_member()">
+                        <button id="btnAddAccount" onclick="openInviteMember()">
                             <img style="width: 18px; height: 18px" src="/images/add_account.png" alt="">
 
                             <p style="color:white;">Mời thành viên vào không gian làm việc</p>
@@ -121,8 +121,6 @@
         </div>
     </div>
 </div>
-</div>
-</div>
 
 <script>
     function cancelEdit() {
@@ -167,7 +165,6 @@
         })
 
     }
-
 
 
     document.getElementById("logoutBtn").addEventListener("click", function () {
@@ -261,7 +258,7 @@
         $.ajax({
             type: "POST",
             url: "/board?action=deleteBoard",
-            data: { boardId: deleteButtonId },
+            data: {boardId: deleteButtonId},
             dataType: "json",
             success: function (message) {
                 if (message === true) {
@@ -276,6 +273,60 @@
         });
     });
 
+</script>
+<%--Mời thành viên vào không gian làm việc--%>
+<script>
+    function openInviteMember() {
+        Swal.fire({
+            title: '<span style="font-size: 24px; font-weight: 400;">Mời vào không gian làm việc</span>',
+            input: "email",
+            inputPlaceholder: "Nhập email...",
+            showCancelButton: true,
+            confirmButtonText: "Gửi lời mời",
+            cancelButtonText: "Hủy",
+            confirmButtonColor: "#0f60a7",
+            showLoaderOnConfirm: true,
+            customClass: {
+                title: "popup-title",
+                actions: "swal-actions-right",
+            },
+            showClass: {
+                popup: ""
+            },
+            preConfirm: (email) => {
+                if (!email) {
+                    Swal.showValidationMessage("Vui lòng nhập email!");
+                    return;
+                }
+                return fetch("/invite", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: new URLSearchParams({email: email})
+                })
+                    .then(response => response.json())
+                    .then(response => {
+                        if (!response.success) {
+                            Swal.showValidationMessage("Không thể gửi lời mời.");
+                        }
+                    })
+                    .catch(() => {
+                        Swal.showValidationMessage("Lỗi! Vui lòng thử lại.");
+                    });
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Thành công!",
+                    text: "Thành viên đã được mời.",
+                    icon: "success",
+                    timer: 1500,
+                    timerProgressBar: true
+                });
+            }
+        });
+    }
 </script>
 </body>
 </html>
