@@ -159,7 +159,7 @@
                                             </a>
 
                                             <div class="confirm-box">
-                                                <p>Bạn có chắc muốn loại bỏ ${user.fullName}?</p>
+                                                <p style="font-size: 18px">Bạn có chắc muốn loại bỏ ${user.fullName} ?</p>
                                                 <button class="confirm-remove">Có</button>
                                                 <button class="cancel-remove">Hủy</button>
                                             </div>
@@ -198,8 +198,8 @@
 
                 // Xác định vị trí modal ngay dưới nút
                 const rect = this.getBoundingClientRect();
-                confirmBox.style.top = `${rect.bottom + window.scrollY + 45}px`; /* Hiển thị ngay dưới */
-                confirmBox.style.left = `${rect.left + window.scrollX + 45}px`; /* Canh lề theo nút */
+                confirmBox.style.top = `${rect.bottom + window.scrollY + 47}px`; /* Hiển thị ngay dưới */
+                confirmBox.style.left = `${rect.left + window.scrollX + 27}px`; /* Canh lề theo nút */
             });
         });
 

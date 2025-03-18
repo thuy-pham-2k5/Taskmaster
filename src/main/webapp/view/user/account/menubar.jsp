@@ -286,7 +286,8 @@
         </a>
         <div class="basic-list">
             <div class="dropdown-menubar">
-                <button class="button-hover button-menubar basic-list-1" onclick="toggleDropdownMenubar('workspace', this)">
+                <button class="button-hover button-menubar basic-list-1"
+                        onclick="toggleDropdownMenubar('workspace', this)">
                     Các không gian làm việc
                     <img src="/images/list.png" alt="dropdown.png" class="dropdown-img">
                 </button>
@@ -297,7 +298,8 @@
                 </div>
             </div>
             <div class="dropdown-menubar">
-                <button class="button-hover button-menubar basic-list-2" onclick="toggleDropdownMenubar('recent', this)">
+                <button class="button-hover button-menubar basic-list-2"
+                        onclick="toggleDropdownMenubar('recent', this)">
                     Gần đây
                     <img src="/images/list.png" alt="dropdown.png" class="dropdown-img">
                 </button>
@@ -327,18 +329,22 @@
                 </button>
                 <div>
                     <div class="dropdown-content" id="add">
-                        <a id="link-add-workspace" onclick="toggleDisplayMenubar(event, 'add-workspace', this)">Các không gian làm việc</a>
+                        <a id="link-add-workspace" onclick="toggleDisplayMenubar(event, 'add-workspace', this)">Các
+                            không gian làm việc</a>
                         <a id="link-add-recent" onclick="toggleDisplayMenubar(event, 'add-recent', this)">Gần đây</a>
-                        <a id="link-add-stars" onclick="toggleDisplayMenubar(event, 'add-stars', this)">Đã đánh dấu sao</a>
+                        <a id="link-add-stars" onclick="toggleDisplayMenubar(event, 'add-stars', this)">Đã đánh dấu
+                            sao</a>
                     </div>
                     <div class="dropdown-content" id="add-workspace">
                         <div style="display: flex; justify-content: space-between; margin-bottom: 15px">
                             <button style="background: none; border: 0; transform: rotate(90deg);">
-                                <img src="/images/list.png" onclick="goBack(event, 'add-workspace', 'add')" alt="back.png" style="width: 15px;">
+                                <img src="/images/list.png" onclick="goBack(event, 'add-workspace', 'add')"
+                                     alt="back.png" style="width: 15px;">
                             </button>
                             <span style="color: white; font-weight: bold">Các không gian làm việc</span>
                             <button style="background: none; border: 0;">
-                                <img src="/images/closed.png" onclick="closeDropdown(event)" alt="back.png" style="width: 20px;">
+                                <img src="/images/closed.png" onclick="closeDropdown(event)" alt="back.png"
+                                     style="width: 20px;">
                             </button>
                         </div>
                         <c:forEach items="${groups}" var="group">
@@ -348,11 +354,13 @@
                     <div class="dropdown-content" id="add-recent">
                         <div style="display: flex; justify-content: space-between; margin-bottom: 15px">
                             <button style="background: none; border: 0; transform: rotate(90deg);">
-                                <img src="/images/list.png" onclick="goBack(event, 'add-recent', 'add')" alt="back.png" style="width: 15px;">
+                                <img src="/images/list.png" onclick="goBack(event, 'add-recent', 'add')" alt="back.png"
+                                     style="width: 15px;">
                             </button>
                             <span style="color: white; font-weight: bold">Gần đây</span>
                             <button style="background: none; border: 0;">
-                                <img src="/images/closed.png" onclick="closeDropdown(event)" alt="back.png" style="width: 20px;">
+                                <img src="/images/closed.png" onclick="closeDropdown(event)" alt="back.png"
+                                     style="width: 20px;">
                             </button>
                         </div>
                         <a>Tùy chọn 3</a>
@@ -361,11 +369,13 @@
                     <div class="dropdown-content" id="add-stars">
                         <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
                             <button style="background: none; border: 0; transform: rotate(90deg);">
-                                <img src="/images/list.png" onclick="goBack(event, 'add-stars', 'add')" alt="back.png" style="width: 15px;">
+                                <img src="/images/list.png" onclick="goBack(event, 'add-stars', 'add')" alt="back.png"
+                                     style="width: 15px;">
                             </button>
                             <span style="color: white; font-weight: bold">Đã đánh dấu sao</span>
                             <button style="background: none; border: 0;">
-                                <img src="/images/closed.png" onclick="closeDropdown(event)" alt="back.png" style="width: 20px;">
+                                <img src="/images/closed.png" onclick="closeDropdown(event)" alt="back.png"
+                                     style="width: 20px;">
                             </button>
                         </div>
                         <a>Tùy chọn 5</a>
@@ -415,11 +425,7 @@
         </div>
     </div>
 </div>
-
 <script>
-
-
-
     document.getElementById("logoutBtn").addEventListener("click", function () {
         Swal.fire({
             title: "Xác nhận đăng xuất",
@@ -436,6 +442,7 @@
             }
         });
     });
+
 
     function toggleDropdownMenubar(dataId, button) {
         let dropdown = document.getElementById(dataId);
@@ -473,21 +480,6 @@
         }
     }
 
-    // Ẩn tất cả dropdown khi click ra ngoài
-    window.onclick = function (event) {
-        let button = event.target.closest(".dropdown-menubar button"); // Tìm button cha nếu có
-        let dropdownContent = event.target.closest(".dropdown-content"); // Tìm dropdown đang chứa phần tử click vào
-
-        if (!button && !dropdownContent) { // Nếu không phải button hoặc phần tử trong dropdown
-            document.querySelectorAll(".dropdown-content").forEach(menu => {
-                menu.style.display = "none";
-            });
-            document.querySelectorAll(".dropdown-menubar button").forEach(btn => {
-                btn.classList.remove("active");
-            });
-        }
-    };
-
     function toggleDisplayMenubar(event, id, link) {
         event.stopPropagation(); // Ngăn chặn sự kiện click lan lên window
 
@@ -523,6 +515,37 @@
                 menu.style.display = "none";
             }
         });
+    }
+
+    $(document).on("click", function (event) {
+        if (!$(event.target).closest(".dropdown-menubar button, .dropdown-content").length) {
+            document.querySelectorAll(".dropdown-content").forEach(menu => {
+                menu.style.display = "none";
+            });
+            document.querySelectorAll(".dropdown-menubar button").forEach(btn => {
+                btn.classList.remove("active");
+            });
+        }
+    });
+
+    handleGlobalDropdownClick(".dropdown-menubar button", ".dropdown-content");
+
+    function handleGlobalDropdownClick(buttonSelector, dropdownSelector) {
+        document.addEventListener("click", function (event) {
+            let clickedButton = event.target.closest(buttonSelector);
+            let clickedDropdown = event.target.closest(dropdownSelector);
+
+            if (!clickedButton && !clickedDropdown) {
+                hideDropdown(dropdownSelector);
+                if (buttonSelector && document.querySelectorAll(buttonSelector).length > 1) {
+                    document.querySelectorAll(buttonSelector).forEach(btn => btn.classList.remove("active"));
+                }
+            }
+        });
+    }
+
+    function hideDropdown(idHidden) {
+        $(idHidden).hide();
     }
 </script>
 
