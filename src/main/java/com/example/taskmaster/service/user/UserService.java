@@ -28,7 +28,7 @@ public class UserService implements IUserService {
 
     @Override
     public List<User> getAllMemberGroup(int groupId) {
-        String query = "select users.user_id, users.full_name, users.username, roles.name as role_name from users join user_group_relationships on users.user_id = user_group_relationships.user_id join roles on user_group_relationships.role_id = roles.role_id where user_group_relationships.group_id = ? and roles.role_id = 3 or roles.role_id = 4";
+        String query = "select users.user_id, users.full_name, users.username, roles.name as role_name from users join user_group_relationships on users.user_id = user_group_relationships.user_id join roles on user_group_relationships.role_id = roles.role_id where user_group_relationships.group_id = ? and (roles.role_id = 3 or roles.role_id = 4)";
         List<User> users = new ArrayList<>();
         try (Connection connection = ConnectDatabase.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);

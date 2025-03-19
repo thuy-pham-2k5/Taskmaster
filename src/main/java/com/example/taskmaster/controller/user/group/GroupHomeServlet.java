@@ -41,20 +41,9 @@ public class GroupHomeServlet extends HttpServlet {
             case "editInfoGroup":
                 editInfoGroup(request, response);
                 break;
-            case "inviteMember":
-                inviteMemberInGroup(request, response);
-                break;
             default:
                 break;
         }
-    }
-
-    private void inviteMemberInGroup(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String email = request.getParameter("email");
-        User user = authenticateService.getUserByEmail(email);
-        int groupId = (Integer) request.getSession().getAttribute("groupId");
-        groupService.inviteMember(user.getUserId(), groupId, 4);
-        response.sendRedirect("/group_home");
     }
 
     private void editInfoGroup(HttpServletRequest request, HttpServletResponse response) throws IOException {

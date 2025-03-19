@@ -6,6 +6,8 @@
     <title>Title</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/user/group/homeWorkspace.css">
+    <link rel="stylesheet" href="/css/user/group/invite_member.css">
+    <script src="/js/user/group/invite_member.js" defer></script>
     <script src="/js/user/group/home_workspace.js" defer></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/sweet-modal/dist/min/jquery.sweet-modal.min.css">
@@ -63,7 +65,9 @@
                         <textarea name="description" id="groupDescInput">${groupInfo.description}</textarea>
 
                         <div class="button-group">
-                            <button onclick="saveEditGroup(event)" class="save-btn" type="submit" id="save" disabled>Lưu</button>
+                            <button onclick="saveEditGroup(event)" class="save-btn" type="submit" id="save" disabled>
+                                Lưu
+                            </button>
 
                             <button type="button" class="cancel-btn" onclick="cancelEdit()">Hủy</button>
                         </div>
@@ -149,9 +153,6 @@
             }
         });
     });
-
-
-
 
 
     function cancelEdit() {
@@ -305,60 +306,6 @@
         });
     });
 
-</script>
-<%--Mời thành viên vào không gian làm việc--%>
-<script>
-    function openInviteMember() {
-        Swal.fire({
-            title: '<span style="font-size: 24px; font-weight: 400;">Mời vào không gian làm việc</span>',
-            input: "email",
-            inputPlaceholder: "Nhập email...",
-            showCancelButton: true,
-            confirmButtonText: "Gửi lời mời",
-            cancelButtonText: "Hủy",
-            confirmButtonColor: "#0f60a7",
-            showLoaderOnConfirm: true,
-            customClass: {
-                title: "popup-title",
-                actions: "swal-actions-right",
-            },
-            showClass: {
-                popup: ""
-            },
-            preConfirm: (email) => {
-                if (!email) {
-                    Swal.showValidationMessage("Vui lòng nhập email!");
-                    return;
-                }
-                return fetch("/invite", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded",
-                    },
-                    body: new URLSearchParams({email: email})
-                })
-                    .then(response => response.json())
-                    .then(response => {
-                        if (!response.success) {
-                            Swal.showValidationMessage("Không thể gửi lời mời.");
-                        }
-                    })
-                    .catch(() => {
-                        Swal.showValidationMessage("Lỗi! Vui lòng thử lại.");
-                    });
-            }
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire({
-                    title: "Thành công!",
-                    text: "Thành viên đã được mời.",
-                    icon: "success",
-                    timer: 1500,
-                    timerProgressBar: true
-                });
-            }
-        });
-    }
 </script>
 </body>
 </html>
