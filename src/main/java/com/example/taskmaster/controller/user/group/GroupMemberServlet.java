@@ -43,7 +43,7 @@ public class GroupMemberServlet extends HttpServlet {
     private void deleteMemberGroup(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         int groupId = (Integer) req.getSession().getAttribute("groupId");
         int userId = Integer.parseInt(req.getParameter("userId"));
-        userService.deleteMemberInGroup(userId, groupId);
+        groupService.deleteMemberInGroup(userId, groupId);
         resp.setStatus(HttpServletResponse.SC_OK);
     }
 

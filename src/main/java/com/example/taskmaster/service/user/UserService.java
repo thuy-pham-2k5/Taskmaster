@@ -95,18 +95,4 @@ public class UserService implements IUserService {
             throw new RuntimeException(e);
         }
     }
-
-    @Override
-    public void deleteMemberInGroup(int userId, int groupId) {
-        String query ="{CALL RemoveUserFromGroup(?, ?)}";
-        try(Connection connection = ConnectDatabase.getConnection()){
-            CallableStatement callableStatement = connection.prepareCall(query);
-            callableStatement.setInt(1, userId);
-            callableStatement.setInt(2, groupId);
-            callableStatement.execute();
-        }catch (Exception e){
-            e.getMessage();
-        }
-
-    }
 }

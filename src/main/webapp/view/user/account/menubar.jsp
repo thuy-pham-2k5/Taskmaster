@@ -443,31 +443,6 @@
         });
     });
 
-    function setupAutoHide(idHidden, idReplacement) {
-        let divHidden = document.getElementById(idHidden);
-        let divReplacement = document.getElementById(idReplacement);
-
-        // Hiển thị dropdown cần thay thế
-        if (divReplacement) {
-            divReplacement.style.display = "block";
-        }
-
-        // Ẩn dropdown cũ
-        if (divHidden) {
-            divHidden.style.display = "none";
-        }
-
-        // Xử lý khi bấm ra ngoài dropdown
-        setTimeout(() => {
-            document.addEventListener("click", function handleClickOutside(event) {
-                if (!divReplacement.contains(event.target)) {
-                    divReplacement.style.display = "none";
-                    document.removeEventListener("click", handleClickOutside);
-                }
-            });
-        }, 100);
-    }
-
     function toggleDropdownMenubar(dataId, button) {
         let dropdown = document.getElementById(dataId);
 

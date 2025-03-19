@@ -215,11 +215,13 @@
         display: none;
         margin: 0 0 0 15px;
     }
+
     .hl-dropdown-action button {
         border: 0;
         background: none;
         padding: 10px;
         font-size: 15px;
+        text-align: left;
     }
 
     .hl-dropdown-action-board {
@@ -260,7 +262,37 @@
     .hl-dropdown-content div h4 {
         display: flex;
         justify-content: center;
-        margin: 15px 0;
+        margin: 0;
+    }
+
+    .hl-dropdown-content-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 8px;
+    }
+
+    .img-action-board {
+        width: 18px;
+        height: 18px;
+        padding: 5px;
+        cursor: pointer;
+    }
+
+    .img-action-board:hover {
+        border-radius: 5px;
+        background-color: rgba(117, 114, 114, 0.5);
+    }
+
+    .hl-dropdown-option {
+        background: red;
+        width: 100%;
+        text-align: center;
+        margin: 0 12px;
+        border-radius: 5px;
+        color: white;
+        padding: 8px;
+        border: 0;
     }
 </style>
 
@@ -322,48 +354,59 @@
 </div>
 <div class="hl-dropdown-action-board" id="operationBoard">
     <div class="hl-dropdown-content" id="hl-action-board-main">
-        <div>
+        <div class="hl-dropdown-content-title" style="display: block">
             <h4>Thao tác</h4>
         </div>
         <ul class="hl-dropdown-lists">
-            <li id="operation-addTask" class="hl-dropdown-action">
-                <button onclick="setupAutoHide('hl-action-board-main', 'hl-action-board-leave-board')">Rời khỏi bảng</button>
+            <li onclick="openActionBoard(event, 'hl-action-board-main', 'hl-leave-board')" id="operation-addTask"
+                class="hl-dropdown-action">
+                <button data-action="board">Rời khỏi bảng</button>
             </li>
-            <li id="operation-copyList" class="hl-dropdown-action">
-                <button onclick="setupAutoHide('hl-action-board-main', 'hl-action-board-close-board')">Đóng bảng</button>
-            </li>
-        </ul>
-    </div>
-    <div class="hl-dropdown-content"  id="hl-action-board-close-board">
-        <div>
-            <h4>Thao tác</h4>
-        </div>
-        <ul class="hl-dropdown-lists">
-            <li  class="hl-dropdown-action">
-                <button>The nao</button>
-            </li>
-            <li  class="hl-dropdown-action">
+            <li data-action="board" onclick="openActionBoard(event, 'hl-action-board-main', 'hl-close-board')"
+                id="operation-copyList" class="hl-dropdown-action">
                 <button>Đóng bảng</button>
             </li>
         </ul>
     </div>
-    <div class="hl-dropdown-content" id="hl-action-board-leave-board">
-        <div>
-            <h4>Thao tác</h4>
+
+    <div class="hl-dropdown-content" id="hl-close-board">
+        <div class="hl-dropdown-content-title">
+            <img src="/images/black_back.png" onclick="openActionBoard(event, 'hl-close-board', 'hl-action-board-main')"
+                 alt="back.png" class="img-action-board">
+            <h4>Đóng bảng?</h4>
+            <img src="/images/black_closed.png" onclick="closedActionBoard(event, 'operationBoard')"
+                 alt="back.png" class="img-action-board">
         </div>
         <ul class="hl-dropdown-lists">
             <li class="hl-dropdown-action">
-                <button>Ok</button>
+                <button>Bạn có thể tìm và mở lại các bảng đã đóng ở cuối trang chủ không gian làm việc</button>
             </li>
+            <li style="display: flex; justify-content: center;">
+                <button class="hl-dropdown-option">Đóng bảng</button>
+            </li>
+        </ul>
+    </div>
+
+    <div class="hl-dropdown-content" id="hl-leave-board">
+        <div class="hl-dropdown-content-title">
+            <img src="/images/black_back.png" onclick="openActionBoard(event, 'hl-leave-board', 'hl-action-board-main')"
+                 alt="back.png" class="img-action-board">
+            <h4>Bạn muốn rời khỏi bảng?</h4>
+            <img src="/images/black_closed.png" onclick="closedActionBoard(event, 'operationBoard')"
+                 alt="back.png" class="img-action-board">
+        </div>
+        <ul class="hl-dropdown-lists">
             <li class="hl-dropdown-action">
-                <button>Đóng bảng</button>
+                <button>Bạn sẽ bị loại bỏ khỏi toàn bộ thẻ trong bảng này</button>
+            </li>
+            <li style="display: flex; justify-content: center;">
+                <button class="hl-dropdown-option">Rời bỏ</button>
             </li>
         </ul>
     </div>
 </div>
 
 <script>
-
     let currentOpenOperationBoard = null;
 
     $(document).on("click", ".openOperationBoard", function (event) {
@@ -396,7 +439,7 @@
         const offset = openDropdown.offset();
         dropdown.css({
             left: offset.left + "px",
-            top: offset.top + openDropdown.outerHeight() + "px",
+            top: offset.top + openDropdown.outerHeight() + 10 + "px",
             display: "block"
         });
     }
@@ -408,9 +451,25 @@
             if (currentOpenOperationBoard) {
                 currentOpenOperationBoard.removeClass("dropdown-open");
             }
+            console.log(currentOpenOperationBoard);
             currentOpenOperationBoard = null;
         }
     });
 </script>
-<script>
+<script defer>
+    function closedActionBoard (event, currentId) {
+        openActionBoard(event, currentId, null);
+        console.log(currentOpenOperationBoard);
+        currentOpenOperationBoard.removeClass("dropdown-open");
+        openActionBoard(event, 'hl-close-board', 'hl-action-board-main');
+        openActionBoard(event, 'hl-leave-board', 'hl-action-board-main')
+    }
+
+    function openActionBoard(event, currentId, needId) {
+        event.stopPropagation();
+        document.getElementById(currentId).style.display = "none";
+        if (needId!=null) {
+            document.getElementById(needId).style.display = "block";
+        }
+    }
 </script>
