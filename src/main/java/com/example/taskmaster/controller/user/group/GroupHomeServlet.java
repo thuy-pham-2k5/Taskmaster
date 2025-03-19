@@ -138,6 +138,7 @@ public class GroupHomeServlet extends HttpServlet {
         User user = (User) session.getAttribute("user");
         int groupId = (Integer) session.getAttribute("groupId");
         int roleId = userService.getRoleUserInGroup(user.getUserId(), groupId);
+        session.setAttribute("boardJoined", boardService.getAllBoardInGroupJoined(groupId, user.getUserId()));
         request.setAttribute("roleIdUser", roleId);
         request.setAttribute("boards", boardService.getAllBoardInGroup(groupId, true));
         request.setAttribute("closedBoards", boardService.getAllBoardClosedInGroup(groupId));

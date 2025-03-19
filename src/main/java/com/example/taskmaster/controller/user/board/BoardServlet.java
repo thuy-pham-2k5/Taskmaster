@@ -60,11 +60,32 @@ public class BoardServlet extends HttpServlet {
             case "deleteBoard":
                 deleteBoardById(req, resp);
                 break;
-            case "task":
+            case "closeBoard":
+                closeBoardById(req, resp);
                 break;
-            case "board":
+            case "leaveBoard":
+                leaveBoardById (req, resp);
+                break;
+            default:
                 break;
         }
+    }
+
+    private void leaveBoardById(HttpServletRequest req, HttpServletResponse resp) {
+        User user = (User) req.getSession().getAttribute("user");
+        int boardId = Integer.parseInt(req.getParameter("boardId"));
+        System.out.println(boardId);
+        System.out.println(user);
+        boardService.leaveBoardById(boardId, user.getUserId());
+        System.out.println("ok chu");
+        resp.setStatus(HttpServletResponse.SC_OK);
+    }
+
+    private void closeBoardById(HttpServletRequest req, HttpServletResponse resp) {
+        int boardId = Integer.parseInt(req.getParameter("boardId"));
+        System.out.println(boardId);
+        boardService.changeStatusBoard(boardId, false);
+        resp.setStatus(HttpServletResponse.SC_OK);
     }
 
     public void createBoard(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -95,7 +116,7 @@ public class BoardServlet extends HttpServlet {
     private void deleteBoardById(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         int boardId = Integer.parseInt(req.getParameter("boardId"));
         boolean success = boardService.deleteBoard(boardId);
-        String successJson  = new Gson().toJson(success);
+        String successJson = new Gson().toJson(success);
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
         resp.getWriter().write(successJson);

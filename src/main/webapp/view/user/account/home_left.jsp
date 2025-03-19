@@ -337,8 +337,8 @@
                             </div>
                         </div>
                         <ul class="hl-list-boards-ul">
-                            <c:forEach items="${boards}" var="board">
-                                <li>
+                            <c:forEach items="${boardJoined}" var="board">
+                                <li data-board="${board.boardId}">
                                     <a href="group_home?action=boardView&boardId=${board.boardId}">
                                             ${board.title}
                                         <img class="openOperationBoard" src="/images/ellipsis.png" alt="closed-board"/>
@@ -378,11 +378,11 @@
                  alt="back.png" class="img-action-board">
         </div>
         <ul class="hl-dropdown-lists">
-            <li class="hl-dropdown-action">
+            <li class="hl-dropdown-action" style="pointer-events: none">
                 <button>Bạn có thể tìm và mở lại các bảng đã đóng ở cuối trang chủ không gian làm việc</button>
             </li>
             <li style="display: flex; justify-content: center;">
-                <button class="hl-dropdown-option">Đóng bảng</button>
+                <button class="hl-dropdown-option" id="close-board">Đóng bảng</button>
             </li>
         </ul>
     </div>
@@ -396,11 +396,11 @@
                  alt="back.png" class="img-action-board">
         </div>
         <ul class="hl-dropdown-lists">
-            <li class="hl-dropdown-action">
+            <li class="hl-dropdown-action" style="pointer-events: none">
                 <button>Bạn sẽ bị loại bỏ khỏi toàn bộ thẻ trong bảng này</button>
             </li>
             <li style="display: flex; justify-content: center;">
-                <button class="hl-dropdown-option">Rời bỏ</button>
+                <button class="hl-dropdown-option" id="leave-board">Rời bỏ</button>
             </li>
         </ul>
     </div>
@@ -451,11 +451,14 @@
             if (currentOpenOperationBoard) {
                 currentOpenOperationBoard.removeClass("dropdown-open");
             }
-            console.log(currentOpenOperationBoard);
+            openActionBoard(event, 'hl-close-board', 'hl-action-board-main');
+            openActionBoard(event, 'hl-leave-board', 'hl-action-board-main')
             currentOpenOperationBoard = null;
         }
     });
 </script>
+
+<%--giao diện các thao tác của bảng--%>
 <script defer>
     function closedActionBoard (event, currentId) {
         openActionBoard(event, currentId, null);
@@ -471,5 +474,58 @@
         if (needId!=null) {
             document.getElementById(needId).style.display = "block";
         }
+    }
+
+    $("#close-board").on("click", function () {
+        let parentDiv = currentOpenOperationBoard.closest("li");
+        showAlert("Bạn có chắc chắn muốn đóng bảng?")
+            .then((result) => {
+                if (result.isConfirmed) {
+                    handleActionBoard(parentDiv.data("board"), "close");
+                }
+            })
+    })
+
+    $("#leave-board").on("click", function () {
+        let parentDiv = currentOpenOperationBoard.closest("li");
+        showAlert("Bạn có chắc chắn muốn rời khỏi bảng không?")
+            .then((result) => {
+                if (result.isConfirmed) {
+                    handleActionBoard(parentDiv.data("board"), "leave");
+                }
+            })
+    })
+    function showAlert(text) {
+        return Swal.fire({
+            title: "Xác nhận",
+            text: text,
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonText: "Có",
+            confirmButtonColor: "#1170c4",
+            cancelButtonText: "Hủy"
+        });
+    }
+    function handleActionBoard (boardId, typeAction) {
+        let url = typeAction === "close" ? "/board?action=closeBoard": "/board?action=leaveBoard";
+        let title = typeAction === "close" ? "Đã đóng bảng" : "Đã rời bảng";
+        console.log(url);
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: {
+                boardId: boardId
+            },
+            success: function (response, status, xhr) {
+                if (xhr.status === 200) {
+                    alertShowSuccess(title);
+                    console.log(currentOpenOperationBoard);
+                    $('li[data-board="' + boardId + '"]').remove();
+                }
+            },
+            error: function () {
+                console.log("Lỗi khi đóng/rời bảng!");
+            }
+        })
     }
 </script>

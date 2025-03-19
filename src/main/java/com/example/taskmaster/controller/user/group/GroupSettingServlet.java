@@ -46,7 +46,9 @@ public class GroupSettingServlet extends HttpServlet {
     }
 
     private void showGroupSetting(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        User user = (User) req.getSession().getAttribute("user");
         int groupId = (Integer) req.getSession().getAttribute("groupId");
+        req.getSession().setAttribute("boardJoined", boardService.getAllBoardInGroupJoined(groupId, user.getUserId()));
         req.setAttribute("boards", boardService.getAllBoardInGroup(groupId, true));
         req.getRequestDispatcher("/view/user/group/setting_workspace.jsp").forward(req, resp);
     }
