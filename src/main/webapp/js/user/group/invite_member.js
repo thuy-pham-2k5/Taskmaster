@@ -33,19 +33,21 @@ function openInviteMember() {
                 .then(response => {
                     console.log(response);
                     if (response.result === "success") {
-                        Swal.fire({
-                            title: "Thành công!",
-                            text: "Thành viên đã được mời.",
-                            icon: "success",
-                            timer: 1500,
-                            timerProgressBar: true
-                        });
+                        alertShowSuccess("Thành công!", "Thành viên đã được mời.");
+                        let user = response.infoNewMember;
                         let listMember = document.querySelector('#listMember');
                         if (listMember != null) {
-                            let newListHtml = createNewUserHtml(response.infoNewMember);
+                            let newListHtml = createNewUserHtml(user);
                             console.log(newListHtml);
                             listMember.insertAdjacentHTML("beforebegin", newListHtml);
                         }
+                        let guestId = document.querySelector(`[data-guestid="${user.userId}"]`);
+                        let requestId = document.querySelector(`[data-requestid="${user.userId}"]`);
+                        console.log(guestId, " ", requestId)
+                        if (guestId)
+                            guestId.remove();
+                        if (requestId)
+                            requestId.remove();
                     } else if (response.result === "false") {
                         Swal.showValidationMessage("Không thể gửi lời mời");
                     } else if (response.result === "added") {
@@ -68,4 +70,14 @@ function createNewUserHtml (user) {
     let middle4Html = `?</p><button class="confirm-remove" onclick="deleteMember(`;
     let end = `)">Có</button><button class="cancel-remove">Hủy</button></div></div></div>`;
     return startHtml + user.fullName + middleHtml + user.username + middle2Html + user.fullName + middle4Html + user.userId + end;
+}
+
+function alertShowSuccess (title, text) {
+    Swal.fire({
+        title: title,
+        text: text,
+        icon: "success",
+        timer: 1000,
+        timerProgressBar: true
+    });
 }
