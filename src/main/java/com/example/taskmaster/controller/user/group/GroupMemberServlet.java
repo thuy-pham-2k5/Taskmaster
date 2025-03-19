@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -32,10 +33,22 @@ public class GroupMemberServlet extends HttpServlet {
         String action = req.getParameter("action");
         if (action==null) action = "";
         switch (action) {
+            case "deleteMemberInGroup":
+                deleteMemberGroup(req, resp);
+                break;
             default:
                 showGroupMember (req, resp);
                 break;
         }
+    }
+
+    private void deleteMemberGroup(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        int groupId = (Integer) req.getSession().getAttribute("groupId");
+        int userId =Integer.parseInt(req.getParameter("userId"));
+        System.out.println(userId);
+        System.out.println(groupId);
+        userService.deleteMemberInGroup(userId, groupId);
+        resp.sendRedirect("/group_member");
     }
 
     private void showGroupMember(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

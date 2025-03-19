@@ -9,4 +9,5 @@ public interface IUserService {
     List<User> getAllMemberGroup (int groupId);
     List<User> getAllGuestGroup (int groupId);
     List<User> getAllRequestToJoinGroup (int groupId);
+    void deleteMemberInGroup(int userId, int groupId);
 }
