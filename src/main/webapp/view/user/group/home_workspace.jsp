@@ -20,7 +20,7 @@
         <jsp:include page="../account/menubar.jsp"/>
     </div>
     <div class="container">
-        <div id="homeLeft">
+        <div style="position: relative; height: 100%">
             <jsp:include page="../account/home_left.jsp"/>
         </div>
         <div id="homeRight">
