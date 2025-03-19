@@ -158,7 +158,12 @@ public class BoardService implements IBoardService {
 
     @Override
     public List<Board> getAllBoardClosedInGroup(int groupId) {
-        String query = "select * from boards left join board_backgrounds on boards.background_id = board_backgrounds.background_id where boards.group_id = ? and boards.status = 0 order by boards.title";
+        String query = "select b.board_id, b.title, b.background_id, bb.image_link, b.group_id, g.title\n" +
+                "from boards b\n" +
+                "join board_backgrounds bb on b.background_id = bb.background_id\n" +
+                "join user_board_relationships ubr on ubr.board_id = b.board_id\n" +
+                "join `groups` g on g.group_id = b.group_id\n" +
+                "where b.group_id = ? and b.status = 0 group by b.board_id order by max(ubr.timestamp) desc;";
         List<Board> boards = new ArrayList<>();
         try (Connection connection = ConnectDatabase.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -168,9 +173,9 @@ public class BoardService implements IBoardService {
                 int boardId = resultSet.getInt(1);
                 String title = resultSet.getString(2);
                 int backgroundId = resultSet.getInt(3);
-                String backgroundLink = resultSet.getString(8);
-                int status = resultSet.getInt(5);
-                boards.add(new Board(boardId, title, backgroundId, backgroundLink, status, groupId));
+                String backgroundLink = resultSet.getString(4);
+                String titleGroup = resultSet.getString(6);
+                boards.add(new Board(boardId, title, backgroundId, backgroundLink, groupId, titleGroup));
             }
             return boards;
         } catch (SQLException e) {

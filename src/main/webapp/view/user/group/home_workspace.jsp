@@ -220,36 +220,38 @@
     // ✅ In ra console để kiểm tra dữ liệu JSON
     let closedBoards = <%= new Gson().toJson(request.getAttribute("closedBoards")) %>;
 
-    $(document).ready(function () {
-        $('#openModalButton').click(function () {
-            let contentDiv = document.createElement("div");
+    $('#openModalButton').click(function () {
+        let contentDiv = document.createElement("div");
 
-            closedBoards.forEach(board => {
-                let productDiv = document.createElement("div");
-                productDiv.className = "product-container";
+        closedBoards.forEach(board => {
+            let productDiv = document.createElement("div");
+            productDiv.className = "product-container";
 
-                let label = document.createElement("label");
-                label.className = "product-label";
-                label.textContent = board.title;
+            let label = document.createElement("label");
+            label.className = "product-label";
+            label.textContent = board.title;
 
-                let deleteButton = document.createElement("button");
-                deleteButton.className = "delete-button";
-                deleteButton.dataset.boardId = String(board.boardId);
-                deleteButton.textContent = "Xóa";
-                deleteButton.onclick = function () {
-                    deleteProduct(board.boardId);
-                };
+            let deleteButton = document.createElement("button");
+            deleteButton.className = "delete-button";
+            deleteButton.dataset.boardId = String(board.boardId);
+            deleteButton.textContent = "Xóa";
+            deleteButton.onclick = function () {
+                deleteProduct(board.boardId);
+            };
 
-                productDiv.appendChild(label);
-                productDiv.appendChild(deleteButton);
-                contentDiv.appendChild(productDiv);
-            });
+            productDiv.appendChild(label);
+            productDiv.appendChild(deleteButton);
+            contentDiv.appendChild(productDiv);
+        });
 
-            // ✅ Hiển thị modal với nội dung vừa tạo
-            $.sweetModal({
-                title: 'Các bảng đã đóng',
-                content: $(contentDiv).html()
-            });
+        function createClosedBoard () {
+
+        }
+
+        // ✅ Hiển thị modal với nội dung vừa tạo
+        $.sweetModal({
+            title: 'Các bảng đã đóng',
+            content: $(contentDiv).html()
         });
     });
 
