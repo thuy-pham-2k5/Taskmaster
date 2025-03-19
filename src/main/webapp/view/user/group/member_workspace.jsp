@@ -101,15 +101,9 @@
                                             <button>${user.roleName}</button>
                                             <button class="remove-btn">Loại bỏ</button>
 
-
                                             <div class="confirm-box">
                                                 <p>Bạn có chắc muốn loại bỏ ${user.fullName}?</p>
-                                                <a href="/group_member?action=deleteMemberInGroup&userId=${user.userId}">
-                                                    <button class="confirm-remove">
-                                                        Có
-                                                    </button>
-                                                </a>
-
+                                                    <button data-id="${user.userId}" class="confirm-remove">Có</button>
                                                 <button class="cancel-remove">Hủy</button>
                                             </div>
 
@@ -140,7 +134,7 @@
 
                                             <div class="confirm-box">
                                                 <p>Bạn có chắc muốn loại bỏ ${user.fullName}?</p>
-                                                <button class="confirm-remove">Có</button>
+                                                <button data-id="${user.userId}" class="confirm-remove">Có</button>
                                                 <button class="cancel-remove">Hủy</button>
                                             </div>
                                         </div>
@@ -167,7 +161,7 @@
 
                                             <div class="confirm-box">
                                                 <p style="font-size: 18px">Bạn có chắc muốn loại bỏ ${user.fullName} ?</p>
-                                                <button id="confirm-remove" class="confirm-remove">Có</button>
+                                                <button data-id="${user.userId}" id="confirm-remove" class="confirm-remove">Có</button>
                                                 <button class="cancel-remove">Hủy</button>
                                             </div>
                                         </div>
@@ -234,16 +228,6 @@
             });
         });
 
-        // Xử lý nút "Có" (thực hiện xóa)
-        document.querySelectorAll(".confirm-remove").forEach(confirmButton => {
-            confirmButton.addEventListener("click", function () {
-                const userInfo = this.closest(".user-general-info");
-                userInfo.remove(); // Xóa phần tử khỏi giao diện
-
-            });
-        });
-
-
         // Ẩn modal khi click ra ngoài
         document.addEventListener("click", function (event) {
             if (!event.target.matches(".remove-btn") && !event.target.closest(".confirm-box")) {
@@ -255,6 +239,36 @@
     });
 
 
+    // Xử lý nút "Có" (thực hiện xóa)
+    document.querySelectorAll(".confirm-remove").forEach(confirmButton => {
+        confirmButton.addEventListener("click", function () {
+            const userInfo = this.closest(".user-general-info");
+            let userId = confirmButton.dataset.id;
+            console.log(userId);
+            deleteMemberFromGroup(userId);
+            userInfo.remove(); // Xóa phần tử khỏi giao diện
+        });
+    });
+
+    function deleteMemberFromGroup (userId) {
+        console.log(userId);
+        $.ajax({
+            type: "POST",
+            url: "group_member?action=deleteMemberInGroup",
+            data: {userId: userId},
+            success: function (response, status, xhr) {
+                if (xhr.status === 200) {
+                    console.log("Xóa thành viên thành công");
+                    alertShowSuccess("Thành công!", "Đã xóa thành công.");
+                }
+            },
+            error: function () {
+                console.log("Lỗi khi xóa thành viên!");
+            }
+        })
+    }
+</script>
+<script>
     let currentButtonId = "member"; // Đặt member là mặc định
 
     function toggleDisplay(buttonId) {
