@@ -52,7 +52,7 @@
                 <div class="main-content">
                     <%--nội dung bên trái--%>
                     <div class="main-content-sidebar">
-                        <ul>
+                        <ul class="mw-ul">
                             <li id="member" onclick="toggleDisplay('member')"><a>Thành viên không gian làm việc</a></li>
                             <li id="guest" onclick="toggleDisplay('guest')"><a>Khách</a></li>
                             <hr>
