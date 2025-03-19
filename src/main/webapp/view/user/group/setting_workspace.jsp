@@ -4,6 +4,8 @@
 <head>
     <title>Cài đặt Không gian làm việc</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/user/group/setting_workspace.css">
+    <link rel="stylesheet" href="/css/user/group/invite_member.css">
+    <script src="/js/user/group/invite_member.js" defer></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/sweet-modal/dist/min/jquery.sweet-modal.min.css">
     <script src="https://unpkg.com/sweet-modal/dist/min/jquery.sweet-modal.min.js"></script>
@@ -70,7 +72,7 @@
                 </div>
             </div>
             <div class="group-invite-member">
-                <button>
+                <button onclick="openInviteMember()">
                     <img src="/images/add_account.png" alt="add_member.png">
                     Mời các thành viên không gian làm việc
                 </button>

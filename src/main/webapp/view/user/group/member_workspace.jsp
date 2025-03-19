@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <title>Thành viên Không gian làm việc</title>
     <link rel="stylesheet" href="/css/user/group/memberWorkspace.css">
+    <link rel="stylesheet" href="/css/user/group/invite_member.css">
+    <script src="/js/user/group/invite_member.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <header>
@@ -35,7 +38,7 @@
                 </div>
             </div>
             <div class="group-invite-member">
-                <button>
+                <button onclick="openInviteMember()">
                     <img src="/images/add_account.png" alt="add_member.png">
                     Mời các thành viên không gian làm việc
                 </button>
@@ -49,7 +52,7 @@
                 <div class="main-content">
                     <%--nội dung bên trái--%>
                     <div class="main-content-sidebar">
-                        <ul>
+                        <ul class="mw-ul">
                             <li id="member" onclick="toggleDisplay('member')"><a>Thành viên không gian làm việc</a></li>
                             <li id="guest" onclick="toggleDisplay('guest')"><a>Khách</a></li>
                             <hr>
@@ -86,7 +89,7 @@
 
                         <hr>
                         <div>
-                            <div class="member-section">
+                            <div id="listMember" class="member-section">
                                 <c:forEach items="${members}" var="user">
                                     <div class="user-general-info">
                                         <div class="user-info">
@@ -177,7 +180,6 @@
     </div>
 </main>
 <script>
-
     document.addEventListener("DOMContentLoaded", function () {
         const removeButtons = document.querySelectorAll(".remove-btn");
 

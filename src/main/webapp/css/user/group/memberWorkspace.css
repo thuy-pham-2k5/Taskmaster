@@ -140,13 +140,13 @@ input::placeholder {
     margin: 0;
 }
 
-ul {
+.mw-ul {
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-ul li {
+.mw-ul li {
     display: list-item;
     text-align: -webkit-match-parent;
     unicode-bidi: isolate;
@@ -156,18 +156,18 @@ ul li {
     margin-bottom: 5px;
 }
 
-ul li.active {
+.mw-ul li.active {
     background-color: rgb(6 43 95 / 50%);
     color: #fff;
     border-radius: 5px;
 }
 
-ul li:hover {
+.mw-ul li:hover {
     border-radius: 5px;
     background-color: rgba(217, 217, 217, 0.5);
 }
 
-ul li a {
+.mw-ul li a {
     background-color: transparent;
 }
 

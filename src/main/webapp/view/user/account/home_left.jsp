@@ -338,7 +338,7 @@
             currentOpenOperationBoard.removeClass("dropdown-open");
         }
 
-        if (currentOpenOperationList) {
+        if (typeof currentOpenOperationList !== "undefined" && currentOpenOperationList) {
             hideDropdown("#operationList");
         }
 
