@@ -117,7 +117,7 @@
 
                             <div class="guest-section" style="display: none;">
                                 <c:forEach items="${guests}" var="user">
-                                    <div class="user-general-info">
+                                    <div data-guestId="${user.userId}" class="user-general-info">
                                         <div class="user-info">
                                             <p class="user-info-name">${user.fullName}</p>
                                             <p>${user.username}</p>
@@ -147,7 +147,7 @@
 
                             <div class="request-section" style="display: none;">
                                 <c:forEach items="${requests}" var="user">
-                                    <div class="user-general-info">
+                                    <div data-requestId="${user.userId}" class="user-general-info">
                                         <div class="user-info">
                                             <p class="user-info-name">${user.fullName}</p>
                                             <p>${user.username}</p>
@@ -163,7 +163,7 @@
 
                                             <div class="confirm-box">
                                                 <p style="font-size: 18px">Bạn có chắc muốn loại bỏ ${user.fullName} ?</p>
-                                                <button class="confirm-remove">Có</button>
+                                                <button id="confirm-remove" class="confirm-remove">Có</button>
                                                 <button class="cancel-remove">Hủy</button>
                                             </div>
                                         </div>
