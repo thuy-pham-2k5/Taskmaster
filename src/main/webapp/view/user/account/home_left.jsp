@@ -231,11 +231,7 @@
         min-width: 120px;
         list-style: none;
         border-radius: 10px;
-    }
-
-    .hl-dropdown-action-board div h4 {
-        display: flex;
-        justify-content: center;
+        padding-bottom: 10px;
     }
 
     .hl-dropdown-action {
@@ -251,6 +247,20 @@
         list-style-type: none;
         padding: 0;
         margin: 0;
+    }
+
+    #hl-action-board-main {
+        display: block;
+    }
+
+    .hl-dropdown-content {
+        display: none;
+    }
+
+    .hl-dropdown-content div h4 {
+        display: flex;
+        justify-content: center;
+        margin: 15px 0;
     }
 </style>
 
@@ -311,19 +321,49 @@
     </nav>
 </div>
 <div class="hl-dropdown-action-board" id="operationBoard">
-    <div>
-        <h4>Thao tác</h4>
+    <div class="hl-dropdown-content" id="hl-action-board-main">
+        <div>
+            <h4>Thao tác</h4>
+        </div>
+        <ul class="hl-dropdown-lists">
+            <li id="operation-addTask" class="hl-dropdown-action">
+                <button onclick="setupAutoHide('hl-action-board-main', 'hl-action-board-leave-board')">Rời khỏi bảng</button>
+            </li>
+            <li id="operation-copyList" class="hl-dropdown-action">
+                <button onclick="setupAutoHide('hl-action-board-main', 'hl-action-board-close-board')">Đóng bảng</button>
+            </li>
+        </ul>
     </div>
-    <ul class="hl-dropdown-lists">
-        <li id="operation-addTask" class="hl-dropdown-action">
-            <button>Rời khỏi bảng</button>
-        </li>
-        <li id="operation-copyList" class="hl-dropdown-action">
-            <button>Đóng bảng</button>
-        </li>
-    </ul>
+    <div class="hl-dropdown-content"  id="hl-action-board-close-board">
+        <div>
+            <h4>Thao tác</h4>
+        </div>
+        <ul class="hl-dropdown-lists">
+            <li  class="hl-dropdown-action">
+                <button>The nao</button>
+            </li>
+            <li  class="hl-dropdown-action">
+                <button>Đóng bảng</button>
+            </li>
+        </ul>
+    </div>
+    <div class="hl-dropdown-content" id="hl-action-board-leave-board">
+        <div>
+            <h4>Thao tác</h4>
+        </div>
+        <ul class="hl-dropdown-lists">
+            <li class="hl-dropdown-action">
+                <button>Ok</button>
+            </li>
+            <li class="hl-dropdown-action">
+                <button>Đóng bảng</button>
+            </li>
+        </ul>
+    </div>
 </div>
+
 <script>
+
     let currentOpenOperationBoard = null;
 
     $(document).on("click", ".openOperationBoard", function (event) {
@@ -371,4 +411,6 @@
             currentOpenOperationBoard = null;
         }
     });
+</script>
+<script>
 </script>
