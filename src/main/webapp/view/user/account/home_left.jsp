@@ -6,7 +6,6 @@
         width: 260px;
         position: sticky;
         left: 0;
-        height: calc(100% - 50px);
     }
 
     .home-left {
@@ -18,12 +17,12 @@
     }
 
     .home-left-child {
-        min-height: 100%;
+        min-height: 0;
         height: auto;
         color: white;
         width: inherit;
-        position: absolute;
-        top: 0;
+        position: fixed;
+        top: 48.8px;
         bottom: 0;
         left: 0;
         display: flex;

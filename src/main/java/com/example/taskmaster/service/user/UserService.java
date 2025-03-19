@@ -3,10 +3,7 @@ package com.example.taskmaster.service.user;
 import com.example.taskmaster.database.ConnectDatabase;
 import com.example.taskmaster.model.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,5 +91,19 @@ public class UserService implements IUserService {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void deleteMemberInGroup(int userId, int groupId) {
+        String query ="{CALL RemoveUserFromGroup(?, ?)}";
+        try(Connection connection = ConnectDatabase.getConnection()){
+            CallableStatement callableStatement = connection.prepareCall(query);
+            callableStatement.setInt(1, userId);
+            callableStatement.setInt(2, groupId);
+            callableStatement.execute();
+        }catch (Exception e){
+            e.getMessage();
+        }
+
     }
 }

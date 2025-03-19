@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/css/user/group/invite_member.css">
     <script src="/js/user/group/invite_member.js" defer></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 <body>
 <header>
@@ -103,9 +104,12 @@
 
                                             <div class="confirm-box">
                                                 <p>Bạn có chắc muốn loại bỏ ${user.fullName}?</p>
-                                                <button class="confirm-remove" onclick="deleteMember(${user.userId})">
-                                                    Có
-                                                </button>
+                                                <a href="/group_member?action=deleteMemberInGroup&userId=${user.userId}">
+                                                    <button class="confirm-remove">
+                                                        Có
+                                                    </button>
+                                                </a>
+
                                                 <button class="cancel-remove">Hủy</button>
                                             </div>
 
@@ -234,9 +238,11 @@
         document.querySelectorAll(".confirm-remove").forEach(confirmButton => {
             confirmButton.addEventListener("click", function () {
                 const userInfo = this.closest(".user-general-info");
-                userInfo.remove(); // Xóa phần tử khỏi giao diện (có thể gửi AJAX)
+                userInfo.remove(); // Xóa phần tử khỏi giao diện
+
             });
         });
+
 
         // Ẩn modal khi click ra ngoài
         document.addEventListener("click", function (event) {
