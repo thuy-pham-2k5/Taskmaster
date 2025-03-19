@@ -197,12 +197,15 @@
                                      onclick="selectWallpaper(this)">
                             </div>
                         </div>
-                        <input type="hidden" id="selectedWallpaper" name="selectedWallpaper">
+                        <input type="hidden" id="selectedImageFinal" name="selectedImageFinal">
                     </div>
                     <div>
                         <p class="board-title-form">Sử dụng ảnh khác bằng link.</p>
                         <input id="selectedImage" class="board-information-form" type="text" name="selectedImage"
-                               placeholder="Nhập link ảnh vào đây">
+                               placeholder="Nhập link ảnh vào đây"
+                               pattern="https?://.*"
+                               title="Vui lòng nhập một đường link hợp lệ (bắt đầu bằng http:// hoặc https://)">
+                        <span id="imageLinkMessage" style="font-size: 14px;"></span>
                     </div>
                     <div>
                         <p class="board-title-form">Tiêu đề bảng *</p>
@@ -220,6 +223,41 @@
 </div>
 
 <script>
+    /*Hiển thị lỗi khi nhập đờng link không đúng hợp lệ */
+    document.getElementById("selectedImage").addEventListener("input", function () {
+        let messageSpan = document.getElementById("imageLinkMessage");
+        let inputValue = this.value.trim();
+
+        if (inputValue === "") {
+            // Khi ô input trống, reset mọi thứ
+            this.style.borderColor = "";
+            messageSpan.innerHTML = "";
+            return;
+        }
+
+        if (this.validity.patternMismatch) {
+            this.style.borderColor = "red";
+            messageSpan.innerHTML = "❌ Link không hợp lệ! Phải bắt đầu bằng http:// hoặc https://";
+            messageSpan.style.color = "red";
+        } else {
+            this.style.borderColor = "green";
+            messageSpan.innerHTML = "✔ Link hợp lệ!";
+            messageSpan.style.color = "green";
+        }
+    });
+
+
+    /*Thông tin sẽ là null nếu không điền gì*/
+    document.querySelector("form").addEventListener("submit", function (event) {
+        let selectedImageFinal = document.getElementById("selectedImageFinal");
+        if (!selectedImageFinal.value.trim()) {
+            selectedImageFinal.value = null; // Đặt giá trị mặc định nếu rỗng
+        }
+    });
+
+
+
+    /*Chọn các ảnh và xử lý dấu x*/
     function selectWallpaper(img) {
         // Xóa class selected và dấu tích khỏi tất cả ảnh
         document.querySelectorAll(".wallpaper-form img").forEach(image => {
@@ -237,23 +275,47 @@
         checkmark.innerHTML = "✔";
         img.parentElement.appendChild(checkmark);
 
-        // Lưu đường dẫn ảnh vào input ẩn để gửi đi
-        document.getElementById("selectedWallpaper").value = img.src;
+        // Cập nhật giá trị vào input ẩn duy nhất
+        document.getElementById("selectedImageFinal").value = img.src;
 
-        // Xóa nội dung ô nhập link ảnh
+        // Xóa nội dung ô nhập URL (nếu có)
         document.getElementById("selectedImage").value = "";
     }
 
+
     // Khi nhập link ảnh, xóa lựa chọn ảnh có sẵn
     document.getElementById("selectedImage").addEventListener("input", function () {
-        if (this.value.trim() !== "") {
-            document.getElementById("selectedWallpaper").value = "";
+        let inputValue = this.value.trim();
+        let finalInput = document.getElementById("selectedImageFinal");
+
+        if (inputValue === "") {
+            return;
+        }
+
+        // Kiểm tra URL có hợp lệ hay không
+        if (this.validity.patternMismatch) {
+            this.style.borderColor = "red";
+            document.getElementById("imageLinkMessage").innerHTML = "❌ Link không hợp lệ!";
+            document.getElementById("imageLinkMessage").style.color = "red";
+            finalInput.value = ""; // Không lưu link không hợp lệ
+        } else {
+            this.style.borderColor = "green";
+            document.getElementById("imageLinkMessage").innerHTML = "✔ Link hợp lệ!";
+            document.getElementById("imageLinkMessage").style.color = "green";
+
+            // Lưu vào input ẩn duy nhất
+            finalInput.value = inputValue;
+
+            // Xóa lựa chọn ảnh có sẵn
             document.querySelectorAll(".wallpaper-form img").forEach(img => {
                 img.classList.remove("selected");
                 let checkmark = img.parentElement.querySelector(".checkmark");
                 if (checkmark) checkmark.remove();
             });
+
+            document.getElementById("selectedWallpaper").value = ""; // Đặt về rỗng để tránh xung đột
         }
     });
+
 </script>
 

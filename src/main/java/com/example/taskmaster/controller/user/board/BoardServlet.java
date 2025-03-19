@@ -74,27 +74,19 @@ public class BoardServlet extends HttpServlet {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
         int groupId = (Integer) session.getAttribute("groupId");
-        String selectedImageLink = req.getParameter("selectedWallpaper");
-        if (selectedImageLink == null || selectedImageLink.isEmpty()) {
-            selectedImageLink = req.getParameter("selectedImage");
+        String selectedImageLink = req.getParameter("selectedImageFinal");
+        if (selectedImageLink == null) {
+            selectedImageLink = "";
         }
-        System.out.println("Ảnh được chọn: " + selectedImageLink);
-
+        System.out.println(selectedImageLink);
         String boardName = req.getParameter("title");
-
         if (boardName == null || boardName.trim().isEmpty()) {
             resp.getWriter().println("Tiêu đề bảng không được để trống.");
             return;
         }
-
-        if (selectedImageLink == null || selectedImageLink.trim().isEmpty()) {
-            selectedImageLink = "https://default-image.com/default.jpg"; // Ảnh mặc định nếu không chọn gì
-        }
-
         boardService.createBoard(user.getUserId(), boardName, groupId, selectedImageLink);
         resp.sendRedirect("group_home");
     }
-
 
     private void deleteBoardById(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         int boardId = Integer.parseInt(req.getParameter("boardId"));

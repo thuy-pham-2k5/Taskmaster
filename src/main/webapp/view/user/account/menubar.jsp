@@ -341,11 +341,9 @@
                                 <img src="/images/closed.png" onclick="closeDropdown(event)" alt="back.png" style="width: 20px;">
                             </button>
                         </div>
-                        <a>Tùy chọn 1</a>
-                        <a>Tùy chọn 2</a>
-                        <a>Tùy chọn 3</a>
-                        <a>Tùy chọn 4</a>
-                        <a>Tùy chọn 5</a>
+                        <c:forEach items="${groups}" var="group">
+                            <a href="/account_home?action=showGroupHomeView&groupId=${group.groupId}">${group.title}</a>
+                        </c:forEach>
                     </div>
                     <div class="dropdown-content" id="add-recent">
                         <div style="display: flex; justify-content: space-between; margin-bottom: 15px">

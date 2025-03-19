@@ -652,9 +652,13 @@ body {
 
 
 .group-info-detail h2 {
-    margin: 0; /* Xóa khoảng cách mặc định */
-    font-size: 24px; /* Tùy chỉnh kích thước */
-    flex-grow: 1; /* Cho phép `h2` mở rộng để đẩy button sang phải */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 250px;
+    margin: 0;
+    font-size: 24px;
+    flex-grow: 1;
 }
 
 .group-info-detail button {
