@@ -138,6 +138,7 @@ body {
     overflow-y: auto;
     scrollbar-color: #fff6 #00000026;
     scrollbar-width: thin;
+    margin-left: 20px;
 }
 
 #accountSearchNotification {
@@ -433,120 +434,6 @@ body {
     border-radius: 5px;
     border: 0;
     font-size: 16px;
-}
-
-
-/* Màn hình lớn (PC) */
-@media (min-width: 1025px) {
-    .container {
-        flex-direction: row;
-    }
-}
-
-/* Máy tính bảng (màn hình từ 768px đến 1024px) */
-@media (max-width: 1024px) {
-    .container {
-        flex-direction: column;
-    }
-
-    #homeLeft {
-        width: 100%;
-        height: auto;
-    }
-
-    #homeRight {
-        width: 100%;
-        height: auto;
-    }
-
-    #headerTopic {
-        width: 100%;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    #accountSearchNotification {
-        width: 100%;
-        justify-content: center;
-    }
-}
-
-/* Điện thoại (màn hình nhỏ hơn 768px) */
-@media screen and (max-width: 768px) {
-
-    #header {
-        height: 60px; /* Giảm chiều cao header */
-    }
-
-    #logo p {
-        font-size: 18px; /* Giảm kích thước chữ trong logo */
-    }
-
-    .topic {
-        font-size: 14px; /* Giảm kích thước chữ của các mục trên header */
-    }
-
-    #headerTopic button {
-        width: 90px;
-        height: 25px;
-        font-size: 13px; /* Giảm kích thước chữ của nút */
-    }
-
-    .container {
-        flex-direction: column;
-    }
-
-    #header {
-        height: auto;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    #logo {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    #homeLeft {
-        width: 100%;
-        height: auto;
-        text-align: center;
-    }
-
-    #homeRight {
-        flex: 1;
-        width: 100%;
-        height: auto;
-        padding: 10px;
-    }
-
-    #headerTopic {
-        flex-wrap: wrap;
-        justify-content: center;
-        width: 100%;
-    }
-
-    #workspaceList div {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    #group-info {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    #addAcount button {
-        width: 100%;
-    }
-
-    #workspaceTable button {
-        width: 100%;
-    }
-
-    #viewOffTable {
-        width: 100%;
-    }
 }
 
 

@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/user/group/homeWorkspace.css">
     <link rel="stylesheet" href="/css/user/group/invite_member.css">
+    <link rel="stylesheet" href="/css/user/group/closed_board.css">
     <script src="/js/user/group/invite_member.js" defer></script>
     <script src="/js/user/group/home_workspace.js" defer></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -224,40 +225,47 @@
         let contentDiv = document.createElement("div");
 
         closedBoards.forEach(board => {
-            let productDiv = document.createElement("div");
-            productDiv.className = "product-container";
-
-            let label = document.createElement("label");
-            label.className = "product-label";
-            label.textContent = board.title;
-
-            let deleteButton = document.createElement("button");
-            deleteButton.className = "delete-button";
-            deleteButton.dataset.boardId = String(board.boardId);
-            deleteButton.textContent = "Xóa";
-            deleteButton.onclick = function () {
-                deleteProduct(board.boardId);
-            };
-
-            productDiv.appendChild(label);
-            productDiv.appendChild(deleteButton);
-            contentDiv.appendChild(productDiv);
+            contentDiv.appendChild(createClosedBoard(board));
         });
 
-        function createClosedBoard () {
-
+        function createClosedBoard (board) {
+            let parentDiv = document.createElement("div");
+            parentDiv.className = "closed-board-container";
+            parentDiv.dataset.board = board.boardId;
+            parentDiv.innerHTML = `
+                  <div class="closed-board-info">
+                      <img src="" alt="error.png" class="image-closed-board"/>
+                      <div>
+                          <div class="closed-board-title"></div>
+                          <div class="closed-board-group-title"></div>
+                      </div>
+                  </div>
+                  <div class="closed-board-action">
+                      <button class="open-closed-board">Mở lại</button>
+                      <button class="delete-closed-board">Xóa</button>
+                  </div>
+            `;
+            parentDiv.querySelector(".image-closed-board").src = board.backgroundLink || "error.png";
+            parentDiv.querySelector(".closed-board-title").textContent = board.title || "";
+            parentDiv.querySelector(".closed-board-group-title").textContent = board.groupName || "";
+            return parentDiv;
         }
 
         // ✅ Hiển thị modal với nội dung vừa tạo
-        $.sweetModal({
+        Swal.fire({
             title: 'Các bảng đã đóng',
-            content: $(contentDiv).html()
+            html: $(contentDiv).html(),
+            showCloseButton: true,
+            showConfirmButton: false,
+            showClass: {
+                popup: ""
+            }
         });
     });
 
-    function deleteProduct(title) {
-        // ✅ Xử lý xóa ở đây
-    }
+    $('.open-closed-board').on("click", function () {
+        let parentDiv = $(this).closest("")
+    })
 
     // ✅ Lưu danh sách sản phẩm vào JavaScript
     let boards = <%= new Gson().toJson(request.getAttribute("boards")) %>;
