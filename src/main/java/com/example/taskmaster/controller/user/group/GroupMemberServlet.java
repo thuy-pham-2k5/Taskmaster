@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
@@ -31,9 +32,19 @@ public class GroupMemberServlet extends HttpServlet {
             case "inviteMember":
                 inviteMemberInGroup(req, resp);
                 break;
+            case "deleteMemberInGroup":
+                deleteMemberGroup(req, resp);
+                break;
             default:
                 break;
         }
+    }
+
+    private void deleteMemberGroup(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        int groupId = (Integer) req.getSession().getAttribute("groupId");
+        int userId = Integer.parseInt(req.getParameter("userId"));
+        groupService.deleteMemberInGroup(userId, groupId);
+        resp.setStatus(HttpServletResponse.SC_OK);
     }
 
     @Override
@@ -74,14 +85,17 @@ public class GroupMemberServlet extends HttpServlet {
     }
 
     private void showGroupMember(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        User user = (User) req.getSession().getAttribute("user");
         int groupId = (Integer) req.getSession().getAttribute("groupId");
         List<User> members = userService.getAllMemberGroup(groupId);
         List<User> guests = userService.getAllGuestGroup(groupId);
         List<User> requests = userService.getAllRequestToJoinGroup(groupId);
-        req.setAttribute("boards", boardService.getAllBoardInGroup(groupId, true));
+        req.getSession().setAttribute("boardJoined", boardService.getAllBoardInGroupJoined(groupId, user.getUserId()));
+        req.setAttribute("boards", boardService.getAllBoardInGroup(groupId, "option1"));
         req.setAttribute("members", members);
         req.setAttribute("guests", guests);
         req.setAttribute("requests", requests);
         req.getRequestDispatcher("/view/user/group/member_workspace.jsp").forward(req, resp);
     }
 }
+

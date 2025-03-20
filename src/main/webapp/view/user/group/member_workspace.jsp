@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="/css/user/group/memberWorkspace.css">
     <link rel="stylesheet" href="/css/user/group/invite_member.css">
     <script src="/js/user/group/invite_member.js" defer></script>
+
+    <script src="/js/user/group/edit_group.js" defer></script>
+    <link rel="stylesheet" href="/css/user/group/edit_group.css">
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
@@ -19,24 +23,31 @@
     </div>
     <div class="content-member-workspace">
         <div class="group-general-info">
-            <div class="group-info">
+            <div id="information" class="group-info">
                 <div class="group-info-top">
                     <div class="group-info-logo">
                         <button class="group-title">T</button>
                     </div>
                     <div class="group-info-detail">
                         <h2>
-                            ${groupInfo.title}
-                            <button style="background: none; border: 0"><img class="img-edit-group" src="/images/edit.png">
-                            </button>
+                            <span id="titleGroup">${groupInfo.title}</span>
+                                <button style="background: none; border: 0">
+                                    <img class="img-edit-group" src="/images/edit.png" onclick="showEditModal()">
+                                </button>
                         </h2>
                         <span>${groupInfo.visibility}</span>
                     </div>
                 </div>
                 <div class="group-info-bottom">
-                        <p>${groupInfo.description}</p>
+                    <p id="content">${groupInfo.description}</p>
                 </div>
             </div>
+            <!-- Phần chỉnh sửa, Ẩn mặc định -->
+
+            <div id="edit_frame">
+                <jsp:include page="edit_group.jsp"/>
+            </div>
+
             <div class="group-invite-member">
                 <button onclick="openInviteMember()">
                     <img src="/images/add_account.png" alt="add_member.png">
@@ -85,8 +96,6 @@
                         <div>
                             <input class="input-search" placeholder="Lọc theo tên">
                         </div>
-
-
                         <hr>
                         <div>
                             <div id="listMember" class="member-section">
@@ -100,12 +109,9 @@
                                             <button>${user.roleName}</button>
                                             <button class="remove-btn">Loại bỏ</button>
 
-
                                             <div class="confirm-box">
                                                 <p>Bạn có chắc muốn loại bỏ ${user.fullName}?</p>
-                                                <button class="confirm-remove" onclick="deleteMember(${user.userId})">
-                                                    Có
-                                                </button>
+                                                <button data-id="${user.userId}" class="confirm-remove">Có</button>
                                                 <button class="cancel-remove">Hủy</button>
                                             </div>
 
@@ -117,7 +123,7 @@
 
                             <div class="guest-section" style="display: none;">
                                 <c:forEach items="${guests}" var="user">
-                                    <div class="user-general-info">
+                                    <div data-guestId="${user.userId}" class="user-general-info">
                                         <div class="user-info">
                                             <p class="user-info-name">${user.fullName}</p>
                                             <p>${user.username}</p>
@@ -129,14 +135,13 @@
                                             <a href="#">
                                                 <button>Thêm vào không gian làm việc</button>
                                             </a>
-                                            <a href="/group_member?action=delete&userId=${user.userId}">
-                                                <button>Loại bỏ</button>
-                                            </a>
+
+                                            <button class="remove-btn">Loại bỏ</button>
 
 
                                             <div class="confirm-box">
                                                 <p>Bạn có chắc muốn loại bỏ ${user.fullName}?</p>
-                                                <button class="confirm-remove">Có</button>
+                                                <button data-id="${user.userId}" class="confirm-remove">Có</button>
                                                 <button class="cancel-remove">Hủy</button>
                                             </div>
                                         </div>
@@ -147,7 +152,7 @@
 
                             <div class="request-section" style="display: none;">
                                 <c:forEach items="${requests}" var="user">
-                                    <div class="user-general-info">
+                                    <div data-requestId="${user.userId}" class="user-general-info">
                                         <div class="user-info">
                                             <p class="user-info-name">${user.fullName}</p>
                                             <p>${user.username}</p>
@@ -155,23 +160,25 @@
                                         <div class="user-button-change">
                                             <p>Đã gửi yêu cầu vào 15/3/2025</p>
                                             <a>
-                                                <button>Thêm vào không gian làm việc</button>
-                                            </a>
-                                            <a href="/group_member?action=delete&userId=${user.userId}">
-                                                <button>Loại bỏ</button>
+                                                <button data-email="${user.email}" class="btn_add_request_to_member">
+                                                    Thêm vào không gian làm việc
+                                                </button>
                                             </a>
 
+                                            <button button class="remove-btn">Loại bỏ</button>
+
                                             <div class="confirm-box">
-                                                <p style="font-size: 18px">Bạn có chắc muốn loại bỏ ${user.fullName} ?</p>
-                                                <button class="confirm-remove">Có</button>
+                                                <p style="font-size: 18px">Bạn có chắc muốn loại bỏ ${user.fullName}
+                                                    ?</p>
+                                                <button data-id="${user.userId}" id="confirm-remove"
+                                                        class="confirm-remove">Có
+                                                </button>
                                                 <button class="cancel-remove">Hủy</button>
                                             </div>
                                         </div>
                                     </div>
                                 </c:forEach>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
@@ -179,7 +186,47 @@
         </div>
     </div>
 </main>
-<script>
+<script defer>
+    $(".btn_add_request_to_member").on("click", function () {
+        let emailRequest = $(this).data("email");
+        let parent = $(this).closest(".user-general-info");
+
+        Swal.fire({
+            title: 'Bạn có chắc chắn muốn thêm người này không?',
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonText: "Chắc chắn",
+            cancelButtonText: "Hủy",
+            confirmButtonColor: "#0f60a7",
+            showLoaderOnConfirm: true,
+            showClass: {
+                popup: ""
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                return sendInviteRequest(emailRequest)
+                    .then((response) => {
+                        if (response.result === "success") {
+                            alertShowSuccess("Thành công!", "Thành viên đã được mời.");
+                            let user = response.infoNewMember;
+                            let listMember = document.querySelector('#listMember');
+                            if (listMember != null) {
+                                let newListHtml = createNewUserHtml(user);
+                                console.log(newListHtml);
+                                listMember.insertAdjacentHTML("afterbegin", newListHtml);
+                            }
+                            parent.fadeOut(300, function () {
+                                $(this).remove();
+                            });
+                        }
+                    })
+                    .catch(() => {
+                        Swal.showValidationMessage("Lỗi! Vui lòng thử lại.");
+                    });
+            }
+        })
+    })
+
     document.addEventListener("DOMContentLoaded", function () {
         const removeButtons = document.querySelectorAll(".remove-btn");
 
@@ -200,25 +247,18 @@
 
                 // Lấy vị trí của nút và modal
                 const rect = this.getBoundingClientRect();
-                const modalHeight = confirmBox.offsetHeight; // Chiều cao của modal
-                const viewportHeight = window.innerHeight; // Chiều cao cửa sổ trình duyệt
-                const spaceBelow = viewportHeight - rect.bottom; // Khoảng trống bên dưới nút
-                const spaceAbove = rect.top; // Khoảng trống phía trên nút
+                console.log(rect.top, " ", rect.left, " ", rect.bottom, " ", rect.right)
 
-                let top, left;
-
-                // Kiểm tra nếu không đủ không gian bên dưới, hiển thị modal phía trên
-                if (spaceBelow < modalHeight) {
-                    top = rect.bottom + window.scrollY + 47 - (modalHeight - spaceBelow);
+                if (this.closest(".request-section")) {
+                    confirmBox.style.top = (rect.top - 160) + "px";
                 } else {
-                    top = rect.bottom + window.scrollY + 47;
+                    confirmBox.style.top = (rect.top - 130) + "px";
                 }
+                confirmBox.style.left = (rect.left - 154) + "px";
 
-                left = rect.left + window.scrollX + 27; // Canh chỉnh lề trái theo nút
+                const test = $(confirmBox).offset();
 
-                // Đặt vị trí của modal
-                confirmBox.style.top = `${top}px`;
-                confirmBox.style.left = `${left}px`;
+                console.log(test.top, " ", test.left);
             });
         });
 
@@ -227,14 +267,6 @@
         document.querySelectorAll(".cancel-remove").forEach(cancelButton => {
             cancelButton.addEventListener("click", function () {
                 this.parentElement.classList.remove("show"); // Ẩn modal
-            });
-        });
-
-        // Xử lý nút "Có" (thực hiện xóa)
-        document.querySelectorAll(".confirm-remove").forEach(confirmButton => {
-            confirmButton.addEventListener("click", function () {
-                const userInfo = this.closest(".user-general-info");
-                userInfo.remove(); // Xóa phần tử khỏi giao diện (có thể gửi AJAX)
             });
         });
 
@@ -249,6 +281,36 @@
     });
 
 
+    // Xử lý nút "Có" (thực hiện xóa)
+    document.querySelectorAll(".confirm-remove").forEach(confirmButton => {
+        confirmButton.addEventListener("click", function () {
+            const userInfo = this.closest(".user-general-info");
+            let userId = confirmButton.dataset.id;
+            console.log(userId);
+            deleteMemberFromGroup(userId);
+            userInfo.remove();
+        });
+    });
+
+    function deleteMemberFromGroup(userId) {
+        console.log(userId);
+        $.ajax({
+            type: "POST",
+            url: "group_member?action=deleteMemberInGroup",
+            data: {userId: userId},
+            success: function (response, status, xhr) {
+                if (xhr.status === 200) {
+                    console.log("Xóa thành viên thành công");
+                    alertShowSuccess("Thành công!", "Đã xóa thành công.");
+                }
+            },
+            error: function () {
+                console.log("Lỗi khi xóa thành viên!");
+            }
+        })
+    }
+</script>
+<script>
     let currentButtonId = "member"; // Đặt member là mặc định
 
     function toggleDisplay(buttonId) {

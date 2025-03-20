@@ -226,18 +226,6 @@
         document.getElementById("selected_date").textContent = formattedDate;
     });
 
-    function setupAutoHide(idHidden, idReplacement) {
-        document.addEventListener("click", function (event) {
-            let div = document.getElementById(idHidden);
-            if (div.style.display === "block" && !div.contains(event.target)) {
-                div.style.display = "none";
-                if (idReplacement !== null) {
-                    document.getElementById(idReplacement).style.display = 'block';
-                }
-            }
-        });
-    }
-
     function showAndClosed(idClosed, idShow) {
         event.stopPropagation();
         document.getElementById(idClosed).style.display = "none";
@@ -250,9 +238,19 @@
         }
     }
 
+    function setupAutoHide(idHidden, idReplacement) {
+        document.addEventListener("click", function (event) {
+            let div = document.getElementById(idHidden);
+            if (div.style.display === "block" && !div.contains(event.target)) {
+                div.style.display = "none";
+                if (idReplacement !== null) {
+                    document.getElementById(idReplacement).style.display = 'block';
+                }
+            }
+        });
+    }
+
     setupAutoHide('inputAddNewList', 'openAddNewList');
-
-
 </script>
 <script defer>
     let boardId = ${boardDetail.boardId};

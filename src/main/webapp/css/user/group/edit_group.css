@@ -1,111 +1,101 @@
-/* Định dạng nền tối mờ khi modal hiển thị */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+/* Khung chính */
+#edit_frame {
+    margin-right: 160px;
+    width: 380px;
+    display: none; /* Ẩn mặc định */
+    background-color: #3179BA; /* Màu xanh đậm hơn */
+    padding: 24px;
+    max-width: 460px; /* Giới hạn chiều rộng */
 }
 
-
-/* Hiển thị modal khi cần */
-.modal.show {
-    visibility: visible;
-    opacity: 1;
-}
-
-/* Khung chỉnh sửa */
-#editFrame {
-    margin: auto;
-    background: #f0ebff;
-    padding: 20px;
-    width: 400px;
-    border-radius: 0px 0px 10px 10px;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
-    display: flex;
-    flex-direction: column;
-    animation: slideIn 0.3s ease-in-out;
-}
-
-/* Tiêu đề modal */
-.modal-title {
-    margin: auto;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    height: 50px;
-    width: 400px;
-    background-color: #2689e3;
-    font-size: 22px;
-    font-weight: bold;
-    color: white;
-    border-radius: 10px 10px 0 0;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-/* Nhãn */
-#editFrame label {
-    font-weight: bold;
-    margin-top: 10px;
-    color: #333;
-}
-
-/* Input và Textarea */
-#editFrame input,
-#editFrame textarea {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+/* Tiêu đề & nhãn */
+#edit_frame label {
+    color: #F1F5F9; /* Màu chữ trắng nhạt */
     font-size: 16px;
+    align-self: flex-start; /* Căn trái label */
 }
 
-/* Textarea chỉnh kích thước */
-#editFrame textarea {
-    height: 100px;
-    resize: none;
+/* Ô input và textarea */
+#groupNameInput,
+#groupDescInput,
+#shortNameInput {
+    margin-top: 4px;
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #a0bbdc;
+    border-radius: 8px;
+    font-size: 15px;
+    background-color: #6494c4;
+    color: #1E293B;
+    box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Nút bấm */
-#editFrame button {
-    padding: 10px;
-    margin-top: 15px;
+#shortNameInput {
+    margin-top: 4px;
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #a0bbdc;
+    border-radius: 8px;
+    font-size: 15px;
+    background-color: #6494c4;
+    color: #1E293B;
+    box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#groupNameInput:focus,
+#groupDescInput:focus,
+#shortNameInput:focus {
+    border-color: #0EA5E9; /* Màu xanh khi focus */
+    outline: none;
+    box-shadow: 0px 0px 8px rgba(14, 165, 233, 0.5);
+}
+
+/* Thiết kế textarea */
+#groupDescInput {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Nhóm nút bấm */
+.button-group {
+    width: 100%;
+    display: flex;
+    gap: 12px;
+}
+
+/* Thiết kế nút */
+#edit_frame button {
+    width: 90px;
+    margin-top: 20px;
+    padding: 12px;
     border: none;
-    border-radius: 5px;
+    border-radius: 3px;
     font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
-    transition: 0.2s;
+    transition: all 0.3s ease-in-out;
 }
 
 /* Nút Lưu */
-#editFrame button:first-of-type {
-    background-color: #0c66e4;
+.save-btn {
+    background-color: #0EA5E9;
     color: white;
 }
 
+.save-btn:hover {
+    background-color: #0284C7;
+    transform: translateY(-2px);
+    box-shadow: 0px 6px 12px rgba(18, 145, 213, 0.4);
+}
+
 /* Nút Hủy */
-#editFrame button:last-of-type {
-    background-color: #ccc;
+.cancel-btn {
+    background-color: #8a939d;
+    color: white;
 }
 
-/* Hiệu ứng hover */
-#editFrame button:hover {
-    opacity: 0.8;
-}
-
-/* Hiệu ứng mở modal */
-@keyframes slideIn {
-    from {
-        transform: translateY(-80px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
+.cancel-btn:hover {
+    background-color: #DC2626;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
 }

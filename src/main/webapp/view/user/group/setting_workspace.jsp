@@ -3,9 +3,14 @@
 <html>
 <head>
     <title>Cài đặt Không gian làm việc</title>
+
+    <script src="/js/user/group/edit_group.js" defer></script>
+    <link rel="stylesheet" href="/css/user/group/edit_group.css">
+
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/user/group/setting_workspace.css">
     <link rel="stylesheet" href="/css/user/group/invite_member.css">
     <script src="/js/user/group/invite_member.js" defer></script>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/sweet-modal/dist/min/jquery.sweet-modal.min.css">
     <script src="https://unpkg.com/sweet-modal/dist/min/jquery.sweet-modal.min.js"></script>
@@ -53,23 +58,29 @@
     </div>
     <div class="content-member-workspace">
         <div class="group-general-info">
-            <div class="group-info">
+            <div id="information" class="group-info">
                 <div class="group-info-top">
                     <div class="group-info-logo">
                         <button class="group-title">T</button>
                     </div>
                     <div class="group-info-detail">
                         <h2>
-                            ${groupInfo.title}
-                            <button style="background: none; border: 0"><img class="img-edit-group" src="/images/edit.png">
-                            </button>
+                            <span id="titleGroup">${groupInfo.title}</span>
+                                <button style="background: none; border: 0">
+                                    <img class="img-edit-group" src="/images/edit.png" onclick="showEditModal()">
+                                </button>
                         </h2>
                         <span>${groupInfo.visibility}</span>
                     </div>
                 </div>
                 <div class="group-info-bottom">
-                    <p>${groupInfo.description}</p>
+                    <p id="content">${groupInfo.description}</p>
                 </div>
+            </div>
+            <!-- Phần chỉnh sửa, Ẩn mặc định -->
+
+            <div id="edit_frame">
+                <jsp:include page="edit_group.jsp"/>
             </div>
             <div class="group-invite-member">
                 <button onclick="openInviteMember()">

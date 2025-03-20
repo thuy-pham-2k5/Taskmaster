@@ -14,17 +14,22 @@ public class GroupService implements IGroupService {
 
     @Override
     public User getUserInGroupByUserId(int userId, int groupId) {
-        String query = "select users.user_id, users.full_name, users.username, roles.name as role_name from users join user_group_relationships on users.user_id = user_group_relationships.user_id join roles on user_group_relationships.role_id = roles.role_id where user_group_relationships.group_id = ? and user_group_relationships.user_id = ? and roles.role_id != 5";
+        String query = "select users.user_id, users.email, users.full_name, users.username, roles.name as role_name from users join user_group_relationships on users.user_id = user_group_relationships.user_id join roles on user_group_relationships.role_id = roles.role_id where user_group_relationships.group_id = ? and user_group_relationships.user_id = ? and roles.role_id != 5";
         try (Connection connection = ConnectDatabase.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, groupId);
             preparedStatement.setInt(2, userId);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                String fullName = resultSet.getString(2);
-                String username = resultSet.getString(3);
-                String roleName = resultSet.getString(4);
-                return new User(userId, fullName, username, roleName);
+                String email = resultSet.getString(2);
+                String fullName = resultSet.getString(3);
+                String username = resultSet.getString(4);
+                String roleName = resultSet.getString(5);
+                if (roleName.equals("Admin Workspace"))
+                    roleName = "Quản trị viên";
+                else
+                    roleName = "Thành viên";
+                return new User(userId, email,fullName, username, roleName);
             } else {
                 return null;
             }
@@ -228,15 +233,17 @@ public class GroupService implements IGroupService {
         }
     }
 
-    public void deleteMemberFromGroup(int userId, int groupId) {
-        String query = "delete from 'user_group_relationships' where user_id = ? and group_id = ?";
-        try (Connection connection = ConnectDatabase.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, userId);
-            preparedStatement.setInt(2, groupId);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+    @Override
+    public void deleteMemberInGroup(int userId, int groupId) {
+        String query ="{CALL RemoveUserFromGroup(?, ?)}";
+        try(Connection connection = ConnectDatabase.getConnection()){
+            CallableStatement callableStatement = connection.prepareCall(query);
+            callableStatement.setInt(1, userId);
+            callableStatement.setInt(2, groupId);
+            callableStatement.execute();
+        }catch (Exception e){
+            e.getMessage();
         }
+
     }
 }

@@ -22,30 +22,25 @@ function openInviteMember() {
                 Swal.showValidationMessage("Vui lòng nhập email!");
                 return;
             }
-            return fetch("/group_member?action=inviteMember", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                },
-                body: new URLSearchParams({email: email})
-            })
-                .then(response => response.json())
+            return sendInviteRequest(email)
                 .then(response => {
                     console.log(response);
                     if (response.result === "success") {
-                        Swal.fire({
-                            title: "Thành công!",
-                            text: "Thành viên đã được mời.",
-                            icon: "success",
-                            timer: 1500,
-                            timerProgressBar: true
-                        });
+                        alertShowSuccess("Thành công!", "Thành viên đã được mời.");
+                        let user = response.infoNewMember;
                         let listMember = document.querySelector('#listMember');
                         if (listMember != null) {
-                            let newListHtml = createNewUserHtml(response.infoNewMember);
+                            let newListHtml = createNewUserHtml(user);
                             console.log(newListHtml);
-                            listMember.insertAdjacentHTML("beforebegin", newListHtml);
+                            listMember.insertAdjacentHTML("afterbegin", newListHtml);
                         }
+                        let guestId = document.querySelector(`[data-guestid="${user.userId}"]`);
+                        let requestId = document.querySelector(`[data-requestid="${user.userId}"]`);
+                        console.log(guestId, " ", requestId)
+                        if (guestId)
+                            guestId.remove();
+                        if (requestId)
+                            requestId.remove();
                     } else if (response.result === "false") {
                         Swal.showValidationMessage("Không thể gửi lời mời");
                     } else if (response.result === "added") {
@@ -64,8 +59,30 @@ function openInviteMember() {
 function createNewUserHtml (user) {
     let startHtml = `<div class="user-general-info"><div class="user-info"><p class="user-info-name">`;
     let middleHtml = `</p><p>`;
-    let middle2Html = `</p></div><div class="user-button-change"><button>Thành viên</button><button class="remove-btn">Loại bỏ</button><div class="confirm-box"><p>Bạn có chắc muốn loại bỏ `;
+    let middle2Html = `</p></div><div class="user-button-change"><button>`;
+    let middle3Html = `</button><button class="remove-btn">Loại bỏ</button><div class="confirm-box"><p>Bạn có chắc muốn loại bỏ `;
     let middle4Html = `?</p><button class="confirm-remove" onclick="deleteMember(`;
     let end = `)">Có</button><button class="cancel-remove">Hủy</button></div></div></div>`;
-    return startHtml + user.fullName + middleHtml + user.username + middle2Html + user.fullName + middle4Html + user.userId + end;
+    return startHtml + user.fullName + middleHtml + user.username + middle2Html + user.roleName + middle3Html + user.fullName + middle4Html + user.userId + end;
+}
+
+function sendInviteRequest(email) {
+    return fetch("/group_member?action=inviteMember", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams({ email: email })
+    })
+        .then(response => response.json());
+}
+
+function alertShowSuccess (title, text) {
+    Swal.fire({
+        title: title,
+        text: text,
+        icon: "success",
+        timer: 1000,
+        timerProgressBar: true
+    });
 }

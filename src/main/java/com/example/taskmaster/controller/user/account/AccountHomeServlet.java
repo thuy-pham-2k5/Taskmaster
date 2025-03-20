@@ -2,7 +2,9 @@ package com.example.taskmaster.controller.user.account;
 
 import com.example.taskmaster.model.Group;
 import com.example.taskmaster.model.User;
+import com.example.taskmaster.service.user.BoardService;
 import com.example.taskmaster.service.user.GroupService;
+import com.example.taskmaster.service.user.IBoardService;
 import com.example.taskmaster.service.user.IGroupService;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +18,7 @@ import java.util.List;
 @WebServlet (value = "/account_home")
 public class AccountHomeServlet extends HttpServlet {
     IGroupService groupService = new GroupService();
+    IBoardService boardService = new BoardService();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");

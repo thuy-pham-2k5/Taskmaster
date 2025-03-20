@@ -138,6 +138,7 @@ body {
     overflow-y: auto;
     scrollbar-color: #fff6 #00000026;
     scrollbar-width: thin;
+    margin-left: 20px;
 }
 
 #accountSearchNotification {
@@ -214,8 +215,8 @@ body {
 }
 
 #content {
-    font-size: 15px;
-    color: #e8e2e2;
+    font-size: 20px;
+    color: #ffffff;
 }
 
 .group-info {
@@ -228,6 +229,7 @@ body {
 
 #group-info {
     display: flex;
+    align-items: center;
 }
 
 .group-info-logo {
@@ -280,7 +282,6 @@ body {
 
 
 #mySelect {
-    margin-top: 15px;
     border-radius: 5px;
     border-color: white;
     color: white;
@@ -290,7 +291,6 @@ body {
 }
 
 #searchTable input {
-    margin-top: 15px;
     border-radius: 5px;
     border-color: white;
     height: 35px;
@@ -435,226 +435,8 @@ body {
     font-size: 16px;
 }
 
-
-/* Màn hình lớn (PC) */
-@media (min-width: 1025px) {
-    .container {
-        flex-direction: row;
-    }
-}
-
-/* Máy tính bảng (màn hình từ 768px đến 1024px) */
-@media (max-width: 1024px) {
-    .container {
-        flex-direction: column;
-    }
-
-    #homeLeft {
-        width: 100%;
-        height: auto;
-    }
-
-    #homeRight {
-        width: 100%;
-        height: auto;
-    }
-
-    #headerTopic {
-        width: 100%;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    #accountSearchNotification {
-        width: 100%;
-        justify-content: center;
-    }
-}
-
-/* Điện thoại (màn hình nhỏ hơn 768px) */
-@media screen and (max-width: 768px) {
-
-    #header {
-        height: 60px; /* Giảm chiều cao header */
-    }
-
-    #logo p {
-        font-size: 18px; /* Giảm kích thước chữ trong logo */
-    }
-
-    .topic {
-        font-size: 14px; /* Giảm kích thước chữ của các mục trên header */
-    }
-
-    #headerTopic button {
-        width: 90px;
-        height: 25px;
-        font-size: 13px; /* Giảm kích thước chữ của nút */
-    }
-
-    .container {
-        flex-direction: column;
-    }
-
-    #header {
-        height: auto;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    #logo {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    #homeLeft {
-        width: 100%;
-        height: auto;
-        text-align: center;
-    }
-
-    #homeRight {
-        flex: 1;
-        width: 100%;
-        height: auto;
-        padding: 10px;
-    }
-
-    #headerTopic {
-        flex-wrap: wrap;
-        justify-content: center;
-        width: 100%;
-    }
-
-    #workspaceList div {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    #group-info {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    #addAcount button {
-        width: 100%;
-    }
-
-    #workspaceTable button {
-        width: 100%;
-    }
-
-    #viewOffTable {
-        width: 100%;
-    }
-}
-
-
-/* Khung chính */
-#edit_frame {
-    margin-right: 160px;
-    width: 380px;
-    display: none; /* Ẩn mặc định */
-    background-color: #3179BA; /* Màu xanh đậm hơn */
-    padding: 24px;
-    max-width: 460px; /* Giới hạn chiều rộng */
-}
-
-/* Tiêu đề & nhãn */
-#edit_frame label {
-    color: #F1F5F9; /* Màu chữ trắng nhạt */
-    font-size: 16px;
-    align-self: flex-start; /* Căn trái label */
-}
-
-/* Ô input và textarea */
-#groupNameInput,
-#groupDescInput,
-#shortNameInput {
-    margin-top: 4px;
-    width: 100%;
-    padding: 12px;
-    border: 2px solid #a0bbdc;
-    border-radius: 8px;
-    font-size: 15px;
-    background-color: #6494c4;
-    color: #1E293B;
-    box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-#shortNameInput {
-    margin-top: 4px;
-    width: 100%;
-    padding: 12px;
-    border: 2px solid #a0bbdc;
-    border-radius: 8px;
-    font-size: 15px;
-    background-color: #6494c4;
-    color: #1E293B;
-    box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-#groupNameInput:focus,
-#groupDescInput:focus,
-#shortNameInput:focus {
-    border-color: #0EA5E9; /* Màu xanh khi focus */
-    outline: none;
-    box-shadow: 0px 0px 8px rgba(14, 165, 233, 0.5);
-}
-
-/* Thiết kế textarea */
-#groupDescInput {
-    min-height: 100px;
-    resize: vertical;
-}
-
-/* Nhóm nút bấm */
-.button-group {
-    width: 100%;
-    display: flex;
-    gap: 12px;
-}
-
-/* Thiết kế nút */
-#edit_frame button {
-    width: 90px;
-    margin-top: 20px;
-    padding: 12px;
-    border: none;
-    border-radius: 3px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-}
-
-/* Nút Lưu */
-.save-btn {
-    background-color: #0EA5E9;
-    color: white;
-}
-
-.save-btn:hover {
-    background-color: #0284C7;
-    transform: translateY(-2px);
-    box-shadow: 0px 6px 12px rgba(18, 145, 213, 0.4);
-}
-
-/* Nút Hủy */
-.cancel-btn {
-    background-color: #8a939d;
-    color: white;
-}
-
-.cancel-btn:hover {
-    background-color: #DC2626;
-    transform: translateY(-2px);
-    box-shadow: 0px 6px 12px rgba(220, 38, 38, 0.4);
-}
-
-
 .group-info-detail h2 {
-    max-width: 250px;
+    max-width: 310px;
     margin: 0;
     font-size: 24px;
     flex-grow: 1;

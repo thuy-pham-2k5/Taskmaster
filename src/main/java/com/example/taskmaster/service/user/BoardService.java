@@ -14,30 +14,54 @@ import static java.time.LocalTime.now;
 public class BoardService implements IBoardService {
 
     @Override
-    public List<Board> getAllBoardInGroup(int groupId, boolean sortType) {
-        String query;
-        if (sortType) {
-            query = "select * from boards left join board_backgrounds on boards.background_id = board_backgrounds.background_id where boards.group_id = ? and boards.status = 1 order by boards.title";
-        } else {
-            query = "select * from boards left join board_backgrounds on boards.background_id = board_backgrounds.background_id where boards.group_id = ? and boards.status = 1 order by boards.title desc";
-        }
+    public List<Board> getAllBoardInGroupJoined(int groupId, int userId) {
+        String query = " select b.board_id, b.title, bb.image_link, ubr.timestamp, b.status, ubr.starred from boards b left join board_backgrounds bb on b.background_id = bb.background_id left join user_board_relationships ubr on ubr.board_id = b.board_id where b.group_id = ? and ubr.user_id = ? and b.status = 1 order by b.title";
         List<Board> boards = new ArrayList<>();
         try (Connection connection = ConnectDatabase.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, groupId);
+            preparedStatement.setInt(2, userId);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 int boardId = resultSet.getInt(1);
                 String title = resultSet.getString(2);
-                int backgroundId = resultSet.getInt(3);
-                String backgroundLink = resultSet.getString(8);
+                String imageLink = resultSet.getString(3);
+                String timestamp = resultSet.getString(4);
                 int status = resultSet.getInt(5);
-                boards.add(new Board(boardId, title, backgroundId, backgroundLink, status, groupId));
+                boolean starred = resultSet.getBoolean(6);
+                boards.add(new Board(boardId, title, imageLink, timestamp, status, starred));
             }
             return boards;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public List<Board> getAllBoardInGroup(int groupId, String sortType) {
+        String query = "{call sortTypeByOption (?, ?)}";
+        List<Board> boards = new ArrayList<>();
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            CallableStatement callableStatement = connection.prepareCall(query);
+            callableStatement.setInt(1, groupId);
+            callableStatement.setString(2, sortType);
+            ResultSet resultSet = callableStatement.executeQuery();
+            return getBoards(groupId, boards, resultSet);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private List<Board> getBoards(int groupId, List<Board> boards, ResultSet resultSet) throws SQLException {
+        while (resultSet.next()) {
+            int boardId = resultSet.getInt(1);
+            String title = resultSet.getString(2);
+            int backgroundId = resultSet.getInt(3);
+            String backgroundLink = resultSet.getString(8);
+            int status = resultSet.getInt(5);
+            boards.add(new Board(boardId, title, backgroundId, backgroundLink, status, groupId));
+        }
+        return boards;
     }
 
     @Override
@@ -61,12 +85,12 @@ public class BoardService implements IBoardService {
 
     @Override
     public void saveTimestampToBoard(int userId, int boardId) {
-        String query = "UPDATE user_board_relationships set timestamp = current_timestamp() WHERE (user_id = ? and board_id = ? )";
+        String query = "{call setTimestampToBoard (?, ?)}";
         try (Connection connection = ConnectDatabase.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, userId);
-            preparedStatement.setInt(2, boardId);
-            preparedStatement.executeUpdate();
+            CallableStatement callableStatement = connection.prepareCall(query);
+            callableStatement.setInt(1, userId);
+            callableStatement.setInt(2, boardId);
+            callableStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -95,15 +119,7 @@ public class BoardService implements IBoardService {
             callableStatement.setInt(1, groupId);
             callableStatement.setString(2, sortType ? "1" : "0");
             ResultSet resultSet = callableStatement.executeQuery();
-            while (resultSet.next()) {
-                int boardId = resultSet.getInt(1);
-                String title = resultSet.getString(2);
-                int backgroundId = resultSet.getInt(3);
-                String backgroundLink = resultSet.getString(8);
-                int status = resultSet.getInt(5);
-                boards.add(new Board(boardId, title, backgroundId, backgroundLink, status, groupId));
-            }
-            return boards;
+            return getBoards(groupId, boards, resultSet);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -118,15 +134,7 @@ public class BoardService implements IBoardService {
             preparedStatement.setInt(1, groupId);
             preparedStatement.setString(2, keyword);
             ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                int boardId = resultSet.getInt(1);
-                String title = resultSet.getString(2);
-                int backgroundId = resultSet.getInt(3);
-                String backgroundLink = resultSet.getString(8);
-                int status = resultSet.getInt(5);
-                boards.add(new Board(boardId, title, backgroundId, backgroundLink, status, groupId));
-            }
-            return boards;
+            return getBoards(groupId, boards, resultSet);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -134,7 +142,12 @@ public class BoardService implements IBoardService {
 
     @Override
     public List<Board> getAllBoardClosedInGroup(int groupId) {
-        String query = "select * from boards left join board_backgrounds on boards.background_id = board_backgrounds.background_id where boards.group_id = ? and boards.status = 0 order by boards.title";
+        String query = "select b.board_id, b.title, b.background_id, bb.image_link, b.group_id, g.title\n" +
+                "from boards b\n" +
+                "join board_backgrounds bb on b.background_id = bb.background_id\n" +
+                "join user_board_relationships ubr on ubr.board_id = b.board_id\n" +
+                "join `groups` g on g.group_id = b.group_id\n" +
+                "where b.group_id = ? and b.status = 0 group by b.board_id order by max(ubr.timestamp) desc;";
         List<Board> boards = new ArrayList<>();
         try (Connection connection = ConnectDatabase.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -144,9 +157,9 @@ public class BoardService implements IBoardService {
                 int boardId = resultSet.getInt(1);
                 String title = resultSet.getString(2);
                 int backgroundId = resultSet.getInt(3);
-                String backgroundLink = resultSet.getString(8);
-                int status = resultSet.getInt(5);
-                boards.add(new Board(boardId, title, backgroundId, backgroundLink, status, groupId));
+                String backgroundLink = resultSet.getString(4);
+                String titleGroup = resultSet.getString(6);
+                boards.add(new Board(boardId, title, backgroundId, backgroundLink, groupId, titleGroup));
             }
             return boards;
         } catch (SQLException e) {
@@ -176,14 +189,34 @@ public class BoardService implements IBoardService {
             callableStatement.setInt(1, boardId);
             return callableStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return false;
     }
 
     @Override
-    public void closeBoard(int boardId){
+    public void changeStatusBoard (int boardId, boolean status){
+        String query = "UPDATE boards SET status = ? WHERE board_id = ?";
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setBoolean(1, status);
+            preparedStatement.setInt(2, boardId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
+    @Override
+    public void leaveBoardById(int boardId, int userId) {
+        String query = "{call leaveTheBoard(?, ?)}";
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            CallableStatement callableStatement = connection.prepareCall(query);
+            callableStatement.setInt(1, boardId);
+            callableStatement.setInt(2, userId);
+            callableStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

@@ -26,8 +26,9 @@ public class User {
         this.roleName = roleName;
     }
 
-    public User(int userId, String fullName, String username, String roleName) {
+    public User(int userId, String email, String fullName, String username, String roleName) {
         this.userId = userId;
+        this.email = email;
         this.fullName = fullName;
         this.username = username;
         this.roleName = roleName;

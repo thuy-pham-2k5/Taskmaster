@@ -443,7 +443,6 @@
         });
     });
 
-
     function toggleDropdownMenubar(dataId, button) {
         let dropdown = document.getElementById(dataId);
 
