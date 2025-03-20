@@ -74,8 +74,10 @@
                     <div id="sort">
                         <p><label for="mySelect" style="color: white">Sắp xếp theo</label></p>
                         <select id="mySelect">
-                            <option value="option1" selected>Theo bảng chữ cái từ A - Z</option>
-                            <option value="option2">Theo bảng chữ cái từ Z - A</option>
+                            <option value="option1" selected>Hoạt động gần đây nhất</option>
+                            <option value="option2">Ít hoạt động nhất gần đây</option>
+                            <option value="option3">Theo bảng chữ cái từ A - Z</option>
+                            <option value="option4">Theo bảng chữ cái từ Z - A</option>
                         </select>
                     </div>
                     <div id="searchTable">

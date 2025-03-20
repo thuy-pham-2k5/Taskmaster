@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IBoardService {
     List<Board> getAllBoardInGroupJoined (int groupId, int userId);
-    List<Board> getAllBoardInGroup(int groupId, boolean sortType);
+    List<Board> getAllBoardInGroup(int groupId, String sortType);
     Board getBoardById (int boardId);
     void saveTimestampToBoard (int userId, int boardId);
     void changeStarredBoard (int userId, int boardId, boolean starred);

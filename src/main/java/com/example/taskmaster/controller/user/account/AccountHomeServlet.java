@@ -44,7 +44,6 @@ public class AccountHomeServlet extends HttpServlet {
         int groupId = Integer.parseInt(req.getParameter("groupId"));
         session.setAttribute("groupId", groupId);
         session.setAttribute("groupInfo", groupService.getGroupInfoById(groupId));
-        System.out.println(session.getAttribute("boardJoined"));
         resp.sendRedirect(namePage);
     }
 

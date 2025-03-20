@@ -282,7 +282,6 @@ body {
 
 
 #mySelect {
-    margin-top: 15px;
     border-radius: 5px;
     border-color: white;
     color: white;
@@ -292,7 +291,6 @@ body {
 }
 
 #searchTable input {
-    margin-top: 15px;
     border-radius: 5px;
     border-color: white;
     height: 35px;
