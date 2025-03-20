@@ -31,9 +31,9 @@
                     <div class="group-info-detail">
                         <h2>
                             <span id="titleGroup">${groupInfo.title}</span>
-                                <button style="background: none; border: 0">
-                                    <img class="img-edit-group" src="/images/edit.png" onclick="showEditModal()">
-                                </button>
+                            <button style="background: none; border: 0">
+                                <img class="img-edit-group" src="/images/edit.png" onclick="showEditModal()">
+                            </button>
                         </h2>
                         <span>${groupInfo.visibility}</span>
                     </div>
@@ -47,13 +47,16 @@
             <div id="edit_frame">
                 <jsp:include page="edit_group.jsp"/>
             </div>
-
-            <div class="group-invite-member">
-                <button onclick="openInviteMember()">
-                    <img src="/images/add_account.png" alt="add_member.png">
-                    Mời các thành viên không gian làm việc
-                </button>
-            </div>
+            <c:forEach var="permission" items="${groupPermissions}">
+                <c:if test="${permission.permissionId == 3}">
+                    <div class="group-invite-member">
+                        <button onclick="openInviteMember()">
+                            <img src="/images/add_account.png" alt="add_member.png">
+                            Mời các thành viên không gian làm việc
+                        </button>
+                    </div>
+                </c:if>
+            </c:forEach>
         </div>
         <div class="content-container">
             <div class="content">
@@ -107,7 +110,17 @@
                                         </div>
                                         <div class="user-button-change">
                                             <button>${user.roleName}</button>
-                                            <button class="remove-btn">Loại bỏ</button>
+                                            <c:set var="hasPermission" value="false" />
+                                            <c:forEach var="permission" items="${groupPermissions}">
+                                                <c:if test="${permission.permissionId == 4}">
+                                                    <c:set var="hasPermission" value="true" />
+                                                </c:if>
+                                            </c:forEach>
+
+                                            <button class="remove-btn"
+                                                    style="${hasPermission eq 'true' ? '' : 'pointer-events: none; opacity: 0.5;'}">
+                                                Loại bỏ
+                                            </button>
 
                                             <div class="confirm-box">
                                                 <p>Bạn có chắc muốn loại bỏ ${user.fullName}?</p>

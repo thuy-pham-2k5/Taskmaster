@@ -26,6 +26,7 @@
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
         }
+
         .modal-content {
             background-color: white;
             margin: 10% auto;
@@ -34,15 +35,28 @@
             width: 40%;
             text-align: center;
         }
+
         .btn {
             padding: 10px 15px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
         }
-        .btn-danger { background-color: red; color: white; }
-        .btn-close { background-color: gray; color: white; }
-        #errorMessage { color: red; display: none; }
+
+        .btn-danger {
+            background-color: red;
+            color: white;
+        }
+
+        .btn-close {
+            background-color: gray;
+            color: white;
+        }
+
+        #errorMessage {
+            color: red;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -66,9 +80,9 @@
                     <div class="group-info-detail">
                         <h2>
                             <span id="titleGroup">${groupInfo.title}</span>
-                                <button style="background: none; border: 0">
-                                    <img class="img-edit-group" src="/images/edit.png" onclick="showEditModal()">
-                                </button>
+                            <button style="background: none; border: 0">
+                                <img class="img-edit-group" src="/images/edit.png" onclick="showEditModal()">
+                            </button>
                         </h2>
                         <span>${groupInfo.visibility}</span>
                     </div>
@@ -82,12 +96,16 @@
             <div id="edit_frame">
                 <jsp:include page="edit_group.jsp"/>
             </div>
-            <div class="group-invite-member">
-                <button onclick="openInviteMember()">
-                    <img src="/images/add_account.png" alt="add_member.png">
-                    Mời các thành viên không gian làm việc
-                </button>
-            </div>
+            <c:forEach var="permission" items="${groupPermissions}">
+                <c:if test="${permission.permissionId == 3}">
+                    <div class="group-invite-member">
+                        <button onclick="openInviteMember()">
+                            <img src="/images/add_account.png" alt="add_member.png">
+                            Mời các thành viên không gian làm việc
+                        </button>
+                    </div>
+                </c:if>
+            </c:forEach>
         </div>
         <hr class="horizontally-divide-content">
         <div class="content-container">
