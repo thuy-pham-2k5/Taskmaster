@@ -271,3 +271,38 @@ $('.assign-member-for-task').on("click", function () {
     }
 });
 
+// xóa thẻ
+$('.delete-task-by-task-id').on("click", function () {
+    Swal.fire({
+        title: "Bạn có chắc chắn muốn xóa thẻ?",
+        icon: "question",
+        showCancelButton: true,
+        cancelButtonText: "Hủy",
+        confirmButtonText: "Xác nhận"
+    }).then(result => {
+        if (result.isConfirmed) {
+            let taskId = $(".modal_content").data("task");
+            deleteTaskById(taskId);
+            alertShowSuccess("Thành công", "");
+            closeTaskModal();
+            $('.task[data-task="' + taskId + '"]').remove();
+        }
+    })
+})
+
+function deleteTaskById (taskId) {
+    $.ajax({
+        type: "POST",
+        url: "/board_home?action=deleteTask",
+        data: {
+            taskId: taskId,
+        },
+        success: function () {
+            console.log("Đã xóa task");
+        },
+        error: function (xhr) {
+            console.log("Lỗi khi xử lý trong servlet: ", xhr.responseText);
+        }
+    });
+}
+

@@ -40,6 +40,9 @@ public class BoardHomeServlet extends HttpServlet {
             case "deleteAllTaskInColumn":
                 deleteAllTaskInColumn(req, resp);
                 break;
+            case "deleteTask":
+                deleteTaskById (req, resp);
+                break;
             case "getInfoTask":
                 getDetailTask(req, resp);
                 break;
@@ -58,6 +61,12 @@ public class BoardHomeServlet extends HttpServlet {
             default:
                 break;
         }
+    }
+
+    private void deleteTaskById(HttpServletRequest req, HttpServletResponse resp) {
+        int taskId = Integer.parseInt(req.getParameter("taskId"));
+        taskService.deleteTask(taskId);
+        resp.setStatus(HttpServletResponse.SC_OK);
     }
 
     private void assignTaskForMember(HttpServletRequest req, HttpServletResponse resp) {

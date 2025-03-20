@@ -158,7 +158,7 @@
                 <button><i class="fas fa-users"></i> Thành viên</button>
                 <button><i class="fas fa-tags"></i> Nhãn</button>
                 <button><i class="fas fa-tasks"></i> Việc cần làm</button>
-                <button><i class="fas fa-archive"></i> Lưu trữ</button>
+                <button class="delete-task-by-task-id"><i class="fas fa-archive"></i> Lưu trữ</button>
                 <section style="background-color: #0079bf; width: 100%; height: 30px; border-radius: 5px;"
                          class="date-picker-section">
                     <button id="open_calendar"><i class="fas fa-calendar-alt"></i> Ngày</button>
