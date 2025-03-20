@@ -21,7 +21,7 @@
     </div>
     <div class="home-right">
         <c:if test="${boardDetail.status == 0}">
-            <div class="openClosedBoard">
+            <div class="openClosedBoard" data-board="${boardDetail.boardId}">
             <span>
                 Bảng thông tin đã đóng. Mở lại bảng thông tin để thực hiện thay đổi.
                 <a class="openClosedBoardLink">Mở lại bảng</a>

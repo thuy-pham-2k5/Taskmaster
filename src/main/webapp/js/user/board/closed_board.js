@@ -1,10 +1,23 @@
 $('.openClosedBoard').on("click", function () {
     confirmActionBoard();
+    $(".title-bar, .content_detail_board_parent").css({
+        "pointer-events": "initial",
+        "opacity": "initial"
+    });
+
+    let boardId = $(this).data("board");
+    let boardTitle = $(".board_title").text();
+    console.log(boardId, " ", boardTitle);
+
+    $(".hl-list-boards-ul").prepend(
+        '<li data-board="' + boardId + '">' +
+        '<a href="group_home?action=boardView&boardId=' + boardId + '">' +
+        boardTitle +
+        '<img class="openOperationBoard" src="/images/ellipsis.png" alt="closed-board"/>' +
+        '</a>' +
+        '</li>'
+    );
     $(this).remove();
-    $(".title-bar").css("pointer-events", "initial");
-    $(".title-bar").css("opacity", "initial");
-    $(".content_detail_board_parent").css("pointer-events", "initial");
-    $(".content_detail_board_parent").css("opacity", "initial");
 })
 $('#openModalButton').click(function () {
     getClosedBoards(function (closedBoards) {
