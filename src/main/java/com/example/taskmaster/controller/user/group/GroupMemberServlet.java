@@ -92,7 +92,7 @@ public class GroupMemberServlet extends HttpServlet {
         List<User> guests = userService.getAllGuestGroup(groupId);
         List<User> requests = userService.getAllRequestToJoinGroup(groupId);
         req.getSession().setAttribute("boardJoined", boardService.getAllBoardInGroupJoined(groupId, user.getUserId()));
-        req.setAttribute("boards", boardService.getAllBoardInGroup(groupId, true));
+        req.setAttribute("boards", boardService.getAllBoardInGroup(groupId, "option1"));
         req.setAttribute("members", members);
         req.setAttribute("guests", guests);
         req.setAttribute("requests", requests);

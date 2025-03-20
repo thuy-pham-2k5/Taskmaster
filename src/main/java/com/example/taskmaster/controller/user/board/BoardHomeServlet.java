@@ -130,7 +130,7 @@ public class BoardHomeServlet extends HttpServlet {
         int groupId = (Integer) session.getAttribute("groupId");
         int boardId = (Integer) session.getAttribute("boardId");
         req.setAttribute("groupInfo", groupService.getGroupInfoById(groupId));
-        req.setAttribute("boards", boardService.getAllBoardInGroup(groupId, true));
+        req.setAttribute("boards", boardService.getAllBoardInGroup(groupId, "option1"));
         req.setAttribute("boardDetail", boardService.getBoardById(boardId));
         List<Column> columns = columnService.getAllColumn(boardId);
         Map<Integer, List<Task>> tasks = taskService.getAllTask(taskService.getAllColumnId(boardId));

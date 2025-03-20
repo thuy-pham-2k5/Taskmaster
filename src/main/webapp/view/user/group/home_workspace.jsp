@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="/css/user/group/closed_board.css">
     <script src="/js/user/group/invite_member.js" defer></script>
     <script src="/js/user/group/home_workspace.js" defer></script>
+    <script src="/js/user/group/edit_group.js" defer></script>
+    <link rel="stylesheet" href="/css/user/group/edit_group.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/sweet-modal/dist/min/jquery.sweet-modal.min.css">
     <script src="https://unpkg.com/sweet-modal/dist/min/jquery.sweet-modal.min.js"></script>
@@ -38,9 +40,8 @@
                                         ${groupInfo.title}
 
                                     </h2>
-                                    <button style="background: none; border: 0"><img class="img-edit-group"
-                                                                                     src="/images/edit.png"
-                                                                                     onclick="showEditModal()">
+                                    <button style="background: none; border: 0">
+                                        <img class="img-edit-group" src="/images/edit.png" onclick="showEditModal()">
                                     </button>
                                 </div>
                                 <span>${groupInfo.visibility}</span>
@@ -53,26 +54,7 @@
                 <!-- Phần chỉnh sửa, Ẩn mặc định -->
 
                 <div id="edit_frame">
-                    <form action="/group_home?action=editInfoGroup&groupId=${groupInfo.groupId}" method="post">
-                        <label>🏢 Tên không gian làm việc</label>
-                        <input name="title" type="text" id="groupNameInput" style="margin-bottom: 20px"
-                               value="${groupInfo.title}">
-
-                        <label>🔠 Tên ngắn gọn</label>
-                        <input name="short_title" type="text" id="shortNameInput" style="margin-bottom: 20px"
-                               value="${groupInfo.short_title}">
-
-                        <label>📝 Mô tả (tùy chỉnh)</label>
-                        <textarea name="description" id="groupDescInput">${groupInfo.description}</textarea>
-
-                        <div class="button-group">
-                            <button onclick="saveEditGroup(event)" class="save-btn" type="submit" id="save" disabled>
-                                Lưu
-                            </button>
-
-                            <button type="button" class="cancel-btn" onclick="cancelEdit()">Hủy</button>
-                        </div>
-                    </form>
+                  <jsp:include page="edit_group.jsp"/>
                 </div>
 
 
@@ -92,8 +74,10 @@
                     <div id="sort">
                         <p><label for="mySelect" style="color: white">Sắp xếp theo</label></p>
                         <select id="mySelect">
-                            <option value="option1" selected>Theo bảng chữ cái từ A - Z</option>
-                            <option value="option2">Theo bảng chữ cái từ Z - A</option>
+                            <option value="option1" selected>Hoạt động gần đây nhất</option>
+                            <option value="option2">Ít hoạt động nhất gần đây</option>
+                            <option value="option3">Theo bảng chữ cái từ A - Z</option>
+                            <option value="option4">Theo bảng chữ cái từ Z - A</option>
                         </select>
                     </div>
                     <div id="searchTable">
@@ -129,78 +113,6 @@
 </div>
 
 <script>
-
-    // chỉnh sửa group không cho chỉnh sửa tiêu đề quá 100 ký tự
-    document.addEventListener("DOMContentLoaded", function () {
-        let nameSp = document.getElementById("groupNameInput");
-        let submitBtn = document.getElementById("save");
-
-        nameSp.addEventListener("input", function () {
-            if (this.value.length > 100) {
-                this.setCustomValidity("Bạn chỉ được nhập tối đa 100 ký tự!");
-                this.reportValidity(); // Hiển thị lỗi ngay lập tức
-                submitBtn.disabled = true;
-            } else {
-                this.setCustomValidity("");
-                submitBtn.disabled = false;
-            }
-        });
-
-        submitBtn.addEventListener("click", function (event) {
-            if (nameSp.value.length > 100) {
-                nameSp.setCustomValidity("Bạn chỉ được nhập tối đa 100 ký tự!");
-                nameSp.reportValidity(); // Hiển thị lỗi khi bấm nút
-                event.preventDefault(); // Ngăn chặn form submit nếu lỗi
-            }
-        });
-    });
-
-
-    function cancelEdit() {
-        // Hủy chỉnh sửa, quay về ban đầu
-        document.getElementById("edit_frame").style.display = "none";
-        document.getElementById("information").style.display = "block";
-    }
-
-
-    function showEditModal() {
-        // Ẩn div information và hiển thị div edit_frame
-        document.getElementById("information").style.display = "none";
-        document.getElementById("edit_frame").style.display = "block";
-
-    }
-
-    // Gửi dữ liệu bằng AJAX khi nhấn "Lưu"
-    function saveEditGroup(event) {
-        event.preventDefault(); // Ngăn form gửi request mặc định
-
-        let title = document.getElementById("groupNameInput").value.trim();
-        let short_title = document.getElementById("shortNameInput").value.trim();
-        let description = document.getElementById("groupDescInput").value.trim();
-
-
-        $.ajax({
-            type: "POST",
-            url: "/group_home?action=editInfoGroup",
-            data: {
-                title: title,
-                short_title: short_title,
-                description: description
-            },
-            dataType: "json",
-            success: function (group) {
-
-                document.getElementById("titleGroup").innerText = group.title;
-                document.getElementById("titleGroupHomeLeft").innerText = group.title;
-                document.getElementById("shortNameInput").innerText = group.title;
-                document.getElementById("content").innerText = group.description;
-                cancelEdit();
-            }
-        })
-
-    }
-
-
     document.getElementById("logoutBtn").addEventListener("click", function () {
         Swal.fire({
             title: "Xác nhận đăng xuất",
@@ -262,7 +174,9 @@
                   <div class="closed-board-info">
                       <img src="" alt="error.png" class="image-closed-board"/>
                       <div>
-                          <div class="closed-board-title"></div>
+                          <div class="closed-board-title">
+                                <a class="closed-board-title-link"></a>
+                          </div>
                           <div class="closed-board-group-title"></div>
                       </div>
                   </div>
@@ -272,12 +186,13 @@
                   </div>
             `;
         parentDiv.querySelector(".image-closed-board").src = board.backgroundLink || "error.png";
-        parentDiv.querySelector(".closed-board-title").textContent = board.title || "";
         parentDiv.querySelector(".closed-board-group-title").textContent = board.groupName || "";
+        parentDiv.querySelector(".closed-board-title-link").href = "/group_home?action=boardView&&boardId=" + board.boardId;
+        parentDiv.querySelector(".closed-board-title-link").textContent = board.title || "";
         return parentDiv;
     }
 
-    function showClosedBoard (contentDiv) {
+    function showClosedBoard(contentDiv) {
         let content = $(contentDiv).html().trim();
         if (!content) {
             content = '<div class="no-closed-board">Chưa có bảng nào được đóng.</div>';

@@ -7,8 +7,11 @@
     <link rel="stylesheet" href="/css/user/group/memberWorkspace.css">
     <link rel="stylesheet" href="/css/user/group/invite_member.css">
     <script src="/js/user/group/invite_member.js" defer></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    <script src="/js/user/group/edit_group.js" defer></script>
+    <link rel="stylesheet" href="/css/user/group/edit_group.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <header>
@@ -20,25 +23,31 @@
     </div>
     <div class="content-member-workspace">
         <div class="group-general-info">
-            <div class="group-info">
+            <div id="information" class="group-info">
                 <div class="group-info-top">
                     <div class="group-info-logo">
                         <button class="group-title">T</button>
                     </div>
                     <div class="group-info-detail">
                         <h2>
-                            ${groupInfo.title}
-                            <button style="background: none; border: 0"><img class="img-edit-group"
-                                                                             src="/images/edit.png">
-                            </button>
+                            <span id="titleGroup">${groupInfo.title}</span>
+                                <button style="background: none; border: 0">
+                                    <img class="img-edit-group" src="/images/edit.png" onclick="showEditModal()">
+                                </button>
                         </h2>
                         <span>${groupInfo.visibility}</span>
                     </div>
                 </div>
                 <div class="group-info-bottom">
-                    <p>${groupInfo.description}</p>
+                    <p id="content">${groupInfo.description}</p>
                 </div>
             </div>
+            <!-- Phần chỉnh sửa, Ẩn mặc định -->
+
+            <div id="edit_frame">
+                <jsp:include page="edit_group.jsp"/>
+            </div>
+
             <div class="group-invite-member">
                 <button onclick="openInviteMember()">
                     <img src="/images/add_account.png" alt="add_member.png">
@@ -126,9 +135,8 @@
                                             <a href="#">
                                                 <button>Thêm vào không gian làm việc</button>
                                             </a>
-                                            <a href="/group_member?action=delete&userId=${user.userId}">
-                                                <button>Loại bỏ</button>
-                                            </a>
+
+                                            <button class="remove-btn">Loại bỏ</button>
 
 
                                             <div class="confirm-box">
@@ -156,9 +164,8 @@
                                                     Thêm vào không gian làm việc
                                                 </button>
                                             </a>
-                                            <a href="/group_member?action=delete&userId=${user.userId}">
-                                                <button>Loại bỏ</button>
-                                            </a>
+
+                                            <button button class="remove-btn">Loại bỏ</button>
 
                                             <div class="confirm-box">
                                                 <p style="font-size: 18px">Bạn có chắc muốn loại bỏ ${user.fullName}
@@ -240,25 +247,18 @@
 
                 // Lấy vị trí của nút và modal
                 const rect = this.getBoundingClientRect();
-                const modalHeight = confirmBox.offsetHeight; // Chiều cao của modal
-                const viewportHeight = window.innerHeight; // Chiều cao cửa sổ trình duyệt
-                const spaceBelow = viewportHeight - rect.bottom; // Khoảng trống bên dưới nút
-                const spaceAbove = rect.top; // Khoảng trống phía trên nút
+                console.log(rect.top, " ", rect.left, " ", rect.bottom, " ", rect.right)
 
-                let top, left;
-
-                // Kiểm tra nếu không đủ không gian bên dưới, hiển thị modal phía trên
-                if (spaceBelow < modalHeight) {
-                    top = rect.bottom + window.scrollY + 47 - (modalHeight - spaceBelow);
+                if (this.closest(".request-section")) {
+                    confirmBox.style.top = (rect.top - 160) + "px";
                 } else {
-                    top = rect.bottom + window.scrollY + 47;
+                    confirmBox.style.top = (rect.top - 130) + "px";
                 }
+                confirmBox.style.left = (rect.left - 154) + "px";
 
-                left = rect.left + window.scrollX + 27; // Canh chỉnh lề trái theo nút
+                const test = $(confirmBox).offset();
 
-                // Đặt vị trí của modal
-                confirmBox.style.top = `${top}px`;
-                confirmBox.style.left = `${left}px`;
+                console.log(test.top, " ", test.left);
             });
         });
 
@@ -288,7 +288,7 @@
             let userId = confirmButton.dataset.id;
             console.log(userId);
             deleteMemberFromGroup(userId);
-            userInfo.remove(); // Xóa phần tử khỏi giao diện
+            userInfo.remove();
         });
     });
 

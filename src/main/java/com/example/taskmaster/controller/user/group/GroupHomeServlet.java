@@ -135,11 +135,8 @@ public class GroupHomeServlet extends HttpServlet {
         List<Board> boards;
         String sortType = request.getParameter("option");
         int groupId = (Integer) request.getSession().getAttribute("groupId");
-        if (sortType.equals("option1")) {
-            boards = boardService.getAllBoardInGroup(groupId, true);
-        } else {
-            boards = boardService.getAllBoardInGroup(groupId, false);
-        }
+        System.out.println(sortType);
+        boards = boardService.getAllBoardInGroup(groupId, sortType);
         String boardsJson = new Gson().toJson(boards);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
@@ -155,7 +152,7 @@ public class GroupHomeServlet extends HttpServlet {
         request.setAttribute("closedBoards", boardService.getAllBoardClosedInGroup(groupId));
         session.setAttribute("boardJoined", boardService.getAllBoardInGroupJoined(groupId, user.getUserId()));
         request.setAttribute("roleIdUser", roleId);
-        request.setAttribute("boards", boardService.getAllBoardInGroup(groupId, true));
+        request.setAttribute("boards", boardService.getAllBoardInGroup(groupId, "option1"));
         request.getRequestDispatcher("/view/user/group/home_workspace.jsp").forward(request, response);
     }
 }
