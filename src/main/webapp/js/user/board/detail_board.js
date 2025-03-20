@@ -26,7 +26,11 @@ function openTaskModal(task, details) {
     document.getElementById("modalTaskTitle").value = task.title;
     document.querySelector(".listName").textContent = task.columnName || "To Do";
     document.getElementById("description_display").textContent = task.description || "Thêm mô tả chi tiết...";
-    document.getElementById("selected_date").textContent = task.dueTime || "Chưa có ngày hết hạn";
+    if (task.dueTime) {
+        document.getElementById("selected_date").textContent = task.dueTime || "Chưa có ngày hết hạn";
+    } else {
+        $(".due-date").hide();
+    }
 
     let seenUsers = new Set();
     let memberIconHtml = "";
@@ -34,16 +38,24 @@ function openTaskModal(task, details) {
     let labelHtml = "";
 
     details.forEach(detail => {
-        if (!seenUsers.has(detail.assignedUserId)) {
+        if (detail.assignedUserId && !seenUsers.has(detail.assignedUserId)) {
             seenUsers.add(detail.assignedUserId);
             let words = detail.assignUserFullName.split(" ");
             let initials = (words[0]?.charAt(0) || "") + (words.length > 1 ? words[words.length - 1].charAt(0) : "");
             memberIconHtml += '<span class="icon">' + initials + '</span>'
-        } if (!seenLabels.has(detail.nameLabel)) {
+        }
+        if (detail.nameLabel && !seenLabels.has(detail.nameLabel)) {
             seenLabels.add(detail.nameLabel);
             labelHtml += '<span class="label" style="background: ' + detail.colorLabel + '">' + detail.nameLabel + '</span>';
         }
     })
+
+    if (seenUsers.size===0) {
+        $('.members').hide();
+    } if (seenLabels.size===0) {
+        $('.labels').hide();
+    }
+
     document.querySelector(".member-icons").innerHTML = memberIconHtml;
     document.querySelector(".works_together").innerHTML = labelHtml;
 
@@ -53,6 +65,15 @@ function openTaskModal(task, details) {
 // Đóng modal
 function closeTaskModal() {
     document.getElementById("taskModal").style.display = "none";
+    checkIsHidden(".due-date", ".members", ".labels");
+}
+
+function checkIsHidden (...divs) {
+    divs.forEach(div => {
+        if ($(div).is(":hidden")) {
+            $(div).show()
+        }
+    })
 }
 
 // Hiển thị phần chỉnh sửa mô tả
@@ -80,8 +101,10 @@ document.getElementById("open_calendar").addEventListener("click", function () {
     document.getElementById("date_picker").showPicker(); // Hiển thị bộ chọn ngày
 });
 
+let selectedDate = null;
+
 document.getElementById("date_picker").addEventListener("change", function () {
-    let selectedDate = new Date(this.value);
+     selectedDate = new Date(this.value);
 
     // Lấy ngày, tháng, năm, giờ, phút, giây từ đối tượng Date
     let day = selectedDate.getDate();
@@ -102,4 +125,11 @@ document.getElementById("date_picker").addEventListener("change", function () {
     // Cập nhật vào phần "Ngày hết hạn"
     document.getElementById("selected_date").textContent = formattedDate;
 });
+
+function saveDueTimeOfTask (taskId, selectedDate) {
+    $.ajax({
+        type: "POST",
+        url: "/board_home?action=save"
+    })
+}
 
