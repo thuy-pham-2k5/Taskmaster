@@ -217,18 +217,20 @@
             }
         });
     });
-
-    // ✅ In ra console để kiểm tra dữ liệu JSON
-    let closedBoards = <%= new Gson().toJson(request.getAttribute("closedBoards")) %>;
+</script>
+<script defer>
+    let closedBoards = null;
 
     $('#openModalButton').click(function () {
+        getClosedBoards();
+
         let contentDiv = document.createElement("div");
 
         closedBoards.forEach(board => {
             contentDiv.appendChild(createClosedBoard(board));
         });
 
-        function createClosedBoard (board) {
+        function createClosedBoard(board) {
             let parentDiv = document.createElement("div");
             parentDiv.className = "closed-board-container";
             parentDiv.dataset.board = board.boardId;
@@ -251,71 +253,90 @@
             return parentDiv;
         }
 
-        // ✅ Hiển thị modal với nội dung vừa tạo
+        showClosedBoard(contentDiv);
+    });
+
+    function getClosedBoards () {
+        $.ajax({
+            type: "GET",
+            url: "/group_home?action=getClosedBoards",
+            dataType: "json",
+            success: function (response) {
+                closedBoards = response;
+            },
+            error: function (xhr, status, error) {
+                console.error("Lỗi khi lấy danh sách bảng đã đóng:", error);
+            }
+        })
+    }
+
+    function showClosedBoard (contentDiv) {
+        let content = $(contentDiv).html().trim();
+        if (!content) {
+            content = '<div class="no-closed-board">Chưa có bảng nào được đóng.</div>';
+        }
         Swal.fire({
             title: 'Các bảng đã đóng',
-            html: $(contentDiv).html(),
+            html: content,
             showCloseButton: true,
             showConfirmButton: false,
             showClass: {
                 popup: ""
+            },
+            didOpen: () => {
+                $('.open-closed-board').on("click", function () {
+                    let parentDiv = $(this).closest(".closed-board-container");
+                    let boardId = parentDiv.data("board");
+                    console.log(boardId);
+                    Swal.fire({
+                        title: "Xác nhận",
+                        text: "Bạn có chắc chắn muốn mở lại bảng?",
+                        icon: "question"
+                    })
+                        .then((result) => {
+                            if (result.isConfirmed) {
+                                actionClosedBoard(boardId, "open");
+                            }
+                        })
+                })
+                $('.delete-closed-board').on("click", function () {
+                    let parentDiv = $(this).closest(".closed-board-container");
+                    let boardId = parentDiv.data("board");
+                    console.log(boardId);
+                    Swal.fire({
+                        title: "Bạn chắc chắn xóa bảng?",
+                        text: "Tất cả danh sách, thẻ và hành động sẽ bị xóa và không thể mở lại bảng.",
+                        icon: "question"
+                    })
+                        .then((result) => {
+                            if (result.isConfirmed) {
+                                actionClosedBoard(boardId, "delete");
+                            }
+                        })
+                })
             }
-        });
-    });
-
-    $('.open-closed-board').on("click", function () {
-        let parentDiv = $(this).closest("")
-    })
-
-    // ✅ Lưu danh sách sản phẩm vào JavaScript
-    let boards = <%= new Gson().toJson(request.getAttribute("boards")) %>;
-
-    function filterBoards() {
-        let input = document.getElementById("keyword").value.toLowerCase();
-        let listBoards = document.getElementById("listBoards");
-        listBoards.innerHTML = "";
-
-        // ✅ Lọc danh sách sản phẩm theo tên
-        let filteredBoards = boards.filter(board => board.title.toLowerCase().includes(input));
-
-        // ✅ Tạo danh sách mới và thêm vào MODAL
-        filteredBoards.forEach(board => {
-            let boardDiv = document.createElement("div");
-            boardDiv.className = "workspaceTable";
-
-            let button = document.createElement("button");
-            button.className = "titleBoardWorkspace";
-            button.textContent = board.title;
-
-            boardDiv.appendChild(button);
-            listBoards.appendChild(boardDiv);
         });
     }
 
-    $('.delete-button').on("click", function (event) {
-        let deleteButton = $(this);
-        let deleteButtonId = deleteButton.attr("id"); // Sửa lỗi lấy ID
-        console.log("Delete Button:", deleteButton);
-        console.log("Delete Button ID:", deleteButtonId);
-
+    function actionClosedBoard(boardId, typeAction) {
+        let url = typeAction === "open" ? "/board?action=openBoard" : "/board?action=deleteBoard";
+        let text = typeAction === "open" ? "Đã mở lại bảng" : "Đã xóa bảng";
+        console.log(url)
         $.ajax({
             type: "POST",
-            url: "/board?action=deleteBoard",
-            data: {boardId: deleteButtonId},
-            dataType: "json",
-            success: function (message) {
-                if (message === true) {
-                    let parentDiv = deleteButton.closest('.product-container');
-                    parentDiv.remove();
-                    alert("Xóa bảng thành công")
+            url: url,
+            data: {boardId: boardId},
+            success: function (response, status, xhr) {
+                if (xhr.status === 200) {
+                    console.log("Thành công xóa/mở");
+                    alertShowSuccess("Thành công!", text);
                 }
             },
-            error: function (xhr, status, error) {
-                console.error("Lỗi khi xóa:", error);
+            error: function () {
+                console.log("Lỗi khi xóa / mở bảng!");
             }
-        });
-    });
-
+        })
+    }
 </script>
 </body>
 </html>
