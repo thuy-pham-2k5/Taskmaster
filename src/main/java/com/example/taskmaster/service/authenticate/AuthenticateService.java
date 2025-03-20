@@ -86,7 +86,7 @@ public class AuthenticateService implements IAuthenticateService{
     }
 
     public void insertNewUser (String email, String password, String fullName, String username) {
-        String query = "INSERT INTO users (email, password, full_name, username) VALUES (?, ?, ?, ?)";
+        String query = "insert into users (email, password, full_name, username) values (?, ?, ?, ?)";
         try (Connection connection = ConnectDatabase.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, email);

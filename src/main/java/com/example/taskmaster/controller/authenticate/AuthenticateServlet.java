@@ -97,11 +97,13 @@ public class AuthenticateServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        String fullName = request.getParameter("fullName");
+        String fullName = request.getParameter("full-name");
         User user = new User(email, password, fullName);
         System.out.println(user);
         if (authenticateService.signUp(user)) {
             session.setAttribute("user", authenticateService.getUserByEmail(email));
+            request.setAttribute("message", "Đăng ký thành công");
+            System.out.println(request.getAttribute("message"));
             request.getRequestDispatcher("/view/authenticate/login.jsp").forward(request, response);
         } else {
             request.setAttribute("message", "Có vẻ như bạn đã có một tài khoản được liên kết với email này. Vui lòng đăng ký tài khoản khác");

@@ -26,12 +26,18 @@ function filterBoards() {
     filteredBoards.forEach(board => {
         let boardDiv = document.createElement("div");
         boardDiv.className = "workspaceTable";
+        boardDiv.style.backgroundImage = "url('" + board.backgroundLink + "')"
+
+        let a = document.createElement("a");
+        a.className = "workspaceTableLink";
+        a.href = "/group_home?action=boardView&boardId=" + board.boardId;
 
         let button = document.createElement("button");
         button.className = "titleBoardWorkspace";
         button.textContent = board.title;
 
-        boardDiv.appendChild(button);
+        a.appendChild(button);
+        boardDiv.appendChild(a);
         listBoards.appendChild(boardDiv);
     });
 }

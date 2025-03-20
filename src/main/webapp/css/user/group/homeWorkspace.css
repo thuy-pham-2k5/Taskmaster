@@ -273,7 +273,7 @@ body {
 }
 
 #workspaces {
-    margin: 15px 74px;
+    margin: 15px 78px;
     display: flex;
     flex-direction: column;
     gap: 25px;
@@ -390,6 +390,7 @@ body {
 }
 
 .titleBoardWorkspace {
+    overflow: hidden;
     background: none;
     color: white;
     border: none;
@@ -397,10 +398,8 @@ body {
     font-weight: bolder;
     padding: 10px 15px;
     text-overflow: ellipsis;
-    width: 100%;
-    text-align: left;
     white-space: nowrap;
-    overflow: hidden;
+    width: 100%;
 }
 
 .title_bar {
