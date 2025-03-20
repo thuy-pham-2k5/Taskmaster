@@ -94,10 +94,10 @@
         <div id="header_task">
             <div id="title_task_info">
                 <input id="modalTaskTitle" type="text" name="title_task" value="Tiêu đề Task"/>
-                <p>trong danh sách <span class="status">To Do</span></p>
+                <p>trong danh sách <span class="status"></span></p>
             </div>
             <div id="block">
-                <span class="close" onclick="closeTaskModal()">&times;</span>
+                <img class="close" onclick="closeTaskModal()" src="/images/black_closed.png">
             </div>
         </div>
 
@@ -474,14 +474,16 @@
         })
     }
 </script>
-<script>
-    let task = null;
-    $(".task").on("click", function () {
+<script defer>
+    $(document).on("click", ".task", function () {
+        console.log("clicked")
         let taskId = $(this).data('task');
-        getInfoTask(taskId);
-        openTaskModal(task)
+        getInfoTask(taskId, function (task) {
+            console.log(task)
+            openTaskModal(task)
+        });
     })
-    function getInfoTask (taskId) {
+    function getInfoTask (taskId, callback) {
         $.ajax({
             type: "POST",
             url: "/board_home?action=getInfoTask",
@@ -489,8 +491,8 @@
                 taskId: taskId
             },
             dataType: "json",
-            success: function (task) {
-
+            success: function (taskDetail) {
+                callback(taskDetail);
             }
         })
     }
@@ -576,6 +578,5 @@
 
     setupAutoHide('inputAddNewList', 'openAddNewList');
 </script>
-
 </body>
 </html>

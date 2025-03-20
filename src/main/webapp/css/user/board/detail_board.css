@@ -107,6 +107,8 @@ main {
 }
 
 .close {
+    width: 25px;
+    height: 25px;
     cursor: pointer;
 }
 
@@ -288,7 +290,6 @@ input::placeholder {
 /* Header Task */
 #header_task {
     display: flex;
-    align-items: center; /* Căn giữa theo chiều dọc */
     justify-content: space-between;
     gap: 5px;
     padding-bottom: 10px;
@@ -415,6 +416,7 @@ input::placeholder {
     border: 1px solid darkgray;
     border-radius: 4px;
     resize: none;
+    cursor: pointer;
 }
 
 #description_textarea {
@@ -479,6 +481,7 @@ input::placeholder {
     background-color: #ddad59;
     width: 115px;
     height: 30px;
+    padding: 5px;
 }
 
 .works_together span {

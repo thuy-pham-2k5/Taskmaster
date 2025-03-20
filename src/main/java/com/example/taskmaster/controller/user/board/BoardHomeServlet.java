@@ -51,6 +51,7 @@ public class BoardHomeServlet extends HttpServlet {
         int taskId = Integer.parseInt(req.getParameter("taskId"));
         Map<Task, List<DetailTask>> detailTask = taskService.getDetailTask(taskId);
         String detailTaskJson = new Gson().toJson(detailTask);
+        System.out.println(detailTaskJson);
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
         resp.getWriter().write(detailTaskJson);
