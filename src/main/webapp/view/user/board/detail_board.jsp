@@ -413,12 +413,14 @@
     document.querySelectorAll(".db-dropdown-action").forEach(item => {
         item.addEventListener("click", function () {
             if (currentOpenOperationList) {
-                let parentContainer = currentOpenOperationList.closest(".detail-list").get(0); // Lấy thẻ cha chứa button
+                let parentContainer = currentOpenOperationList.closest(".detail-list").get(0);
                 let columnData = Number(parentContainer.dataset.column);
                 console.log("Thẻ cha của button này có ID: " + columnData);
                 if (item.id === "operation-deleteList") {
-                    deleteList(columnData)
-                } else if (item.id === "operation-deleteAllTask") {
+                    deleteList(columnData);
+                    $(parentContainer).closest(".container-list").remove();
+                    hideDropdown("#operationList");
+                }            else if (item.id === "operation-deleteAllTask") {
                     deleteAllTask(columnData);
                 }
             }
@@ -450,7 +452,7 @@
                 } else {
                     notification = "Xóa cột thất bại";
                 }
-                alert(notification)
+                alertShowSuccess("Thành công", notification);
             },
             error: function (error) {
                 console.log("Lỗi AJAX:", error);
