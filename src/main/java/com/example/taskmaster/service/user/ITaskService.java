@@ -19,5 +19,6 @@ public interface ITaskService {
     void saveDescriptionOfTask (int taskId, String description);
     void saveDueTimeOfTask (int taskId, Timestamp dueTime);
     void deleteDueTimeOfTask (int taskId);
+    boolean assignMemberForTask (int taskId, int userId, boolean type);
 
 }

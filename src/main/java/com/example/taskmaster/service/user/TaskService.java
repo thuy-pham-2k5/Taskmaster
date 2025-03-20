@@ -10,7 +10,7 @@ import java.sql.*;
 import java.util.*;
 import java.util.regex.Pattern;
 
-public class  TaskService implements ITaskService {
+public class TaskService implements ITaskService {
     @Override
     public List<Integer> getAllColumnId(int boardId) {
         List<Integer> columnIds = new ArrayList<>();
@@ -185,6 +185,27 @@ public class  TaskService implements ITaskService {
             preparedStatement.setInt(1, taskId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public boolean assignMemberForTask(int taskId, int userId, boolean type) { // bỏ gắn = false
+        String query;
+        if (type) {
+            query = "INSERT INTO `taskmaster`.`assign` (`user_id`, `task_id`) VALUES (?, ?)";
+        } else {
+            query = "delete from assign where user_id = ? and task_id = ?";
+        }
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setInt(2, taskId);
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            if (e.getErrorCode() == 1062) {
+                return false;
+            }
             throw new RuntimeException(e);
         }
     }

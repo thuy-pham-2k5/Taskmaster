@@ -1,3 +1,5 @@
+<%@ page import="com.example.taskmaster.model.User" %>
+<%@ page import="com.google.gson.Gson" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -152,7 +154,7 @@
             </div>
 
             <div id="tools_task">
-                <button><i class="fas fa-user-plus"></i> Tham gia</button>
+                <button class="assign-member-for-task"><i class="fas fa-user-plus"></i> Tham gia</button>
                 <button><i class="fas fa-users"></i> Thành viên</button>
                 <button><i class="fas fa-tags"></i> Nhãn</button>
                 <button><i class="fas fa-tasks"></i> Việc cần làm</button>
@@ -170,11 +172,17 @@
         </div>
     </div>
 </div>
+<%
+    User user = (User) session.getAttribute("user");
+    String userJson = (user != null) ? new Gson().toJson(user) : "{}";
+%>
 <script defer>
+    let currentUser = <%= userJson %>;
     let boardId = ${boardDetail.boardId};
     let columns = JSON.parse('${columns}');
     let tasks = JSON.parse('${tasks}');
-    console.log(boardId);
+    console.log("User id hien tai", currentUser)
+    console.log("Board hien tai", boardId);
     console.log("Columns", columns);
     console.log("Tasks", tasks);
 

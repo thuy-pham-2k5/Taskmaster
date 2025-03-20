@@ -3,6 +3,7 @@ package com.example.taskmaster.controller.user.board;
 import com.example.taskmaster.model.*;
 import com.example.taskmaster.service.user.*;
 import com.google.gson.Gson;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -43,17 +44,36 @@ public class BoardHomeServlet extends HttpServlet {
                 getDetailTask(req, resp);
                 break;
             case "saveDueTimeOfTask":
-                saveDueTimeOfTask (req, resp);
+                saveDueTimeOfTask(req, resp);
                 break;
-            case "deleteDueTimeOfTask" :
-                deleteDueTimeOfTask (req, resp);
+            case "deleteDueTimeOfTask":
+                deleteDueTimeOfTask(req, resp);
                 break;
             case "saveDescriptionOfTask":
-                saveDescriptionOfTask (req, resp);
+                saveDescriptionOfTask(req, resp);
+                break;
+            case "assignTaskForMember":
+                assignTaskForMember(req, resp);
                 break;
             default:
                 break;
         }
+    }
+
+    private void assignTaskForMember(HttpServletRequest req, HttpServletResponse resp) {
+        int type = Integer.parseInt(req.getParameter("type"));
+        int taskId = Integer.parseInt(req.getParameter("taskId"));
+        int userId = Integer.parseInt(req.getParameter("userId"));
+        if (userId == 0) {
+            User user = (User) req.getSession().getAttribute("user");
+            userId = user.getUserId();
+        }
+        if (type == 1) { // gắn thẻ
+            taskService.assignMemberForTask(taskId, userId, true);
+        } else {
+            taskService.assignMemberForTask(taskId, userId, false);
+        }
+        resp.setStatus(HttpServletResponse.SC_OK);
     }
 
     private void saveDescriptionOfTask(HttpServletRequest req, HttpServletResponse resp) {

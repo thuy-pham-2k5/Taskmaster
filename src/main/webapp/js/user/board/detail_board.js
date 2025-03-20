@@ -44,11 +44,17 @@ function openTaskModal(task, details) {
             seenUsers.add(detail.assignedUserId);
             let words = detail.assignUserFullName.split(" ");
             let initials = (words[0]?.charAt(0) || "") + (words.length > 1 ? words[words.length - 1].charAt(0) : "");
-            memberIconHtml += '<span class="icon">' + initials + '</span>'
+            memberIconHtml += '<span data-id="' + detail.assignedUserId + '" class="icon">' + initials + '</span>'
         }
         if (detail.nameLabel && !seenLabels.has(detail.nameLabel)) {
             seenLabels.add(detail.nameLabel);
             labelHtml += '<span class="label" style="background: ' + detail.colorLabel + '">' + detail.nameLabel + '</span>';
+        }
+        let button = $('.assign-member-for-task'); // Lấy nút cần thay đổi
+        if (parseInt(detail.assignedUserId) === parseInt(currentUser.userId)) {
+            button.html('<i class="fas fa-user-minus"></i> Rời khỏi');
+        } else {
+            button.html('<i class="fas fa-user-plus"></i> Tham gia');
         }
     })
 
@@ -204,4 +210,64 @@ function saveEditDescription (taskId, description) {
         }
     })
 }
+
+function assignTaskForMember(taskId, userId, type) {
+    $.ajax({
+        type: "POST",
+        url: "/board_home?action=assignTaskForMember",
+        data: {
+            taskId: taskId,
+            userId: userId,
+            type: type
+        },
+        success: function () {
+            console.log("Đã cập nhật trạng thái gắn thẻ của task");
+        },
+        error: function (xhr) {
+            console.log("Lỗi khi xử lý trong servlet: ", xhr.responseText);
+        }
+    });
+}
+
+
+
+$('.assign-member-for-task').on("click", function () {
+    let taskId = $('.modal_content').data("task");
+    let button = $(this);
+    let icon = button.find("i");
+
+    if (icon.hasClass("fa-user-plus")) {
+        assignTaskForMember(taskId, 0, 1);  // Gắn thẻ task
+        icon.removeClass("fa-user-plus").addClass("fa-user-minus");
+        button.contents().filter(function() {
+            return this.nodeType === 3;
+        }).replaceWith(" Rời khỏi");
+
+        // Lấy ký tự viết tắt từ tên
+        let words = currentUser.publicName.split(" ");
+        let initials = (words[0]?.charAt(0) || "") + (words.length > 1 ? words[words.length - 1].charAt(0) : "");
+
+        // Tạo span icon
+        let span = $('<span>', {
+            class: 'icon',
+            'data-id': $('.modal_content').data("task"),
+            text: initials
+        });
+
+        $('.member-icons').append(span); // Thêm span vào danh sách
+        checkIsHidden(".members");
+    } else {
+        assignTaskForMember(taskId, 0, 0); // Bỏ gắn thẻ task
+        icon.removeClass("fa-user-minus").addClass("fa-user-plus");
+        button.contents().filter(function() {
+            return this.nodeType === 3;
+        }).replaceWith(" Tham gia");
+
+        // Xóa icon của user khi rời khỏi task
+        $('.member-icons .icon[data-id="' + currentUser.userId + '"]').remove();
+        if ($('.member-icons').children().length === 0) {
+            $('.members').hide();
+        }
+    }
+});
 
