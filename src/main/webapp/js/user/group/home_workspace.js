@@ -11,3 +11,27 @@ $(document).on("change", "#mySelect", function() {
         });
     });
 });
+
+// ✅ Lưu danh sách sản phẩm vào JavaScript
+
+function filterBoards() {
+    let input = document.getElementById("keyword").value.toLowerCase();
+    let listBoards = document.getElementById("listBoards");
+    listBoards.innerHTML = "";
+
+    // ✅ Lọc danh sách sản phẩm theo tên
+    let filteredBoards = boards.filter(board => board.title.toLowerCase().includes(input));
+
+    // ✅ Tạo danh sách mới và thêm vào MODAL
+    filteredBoards.forEach(board => {
+        let boardDiv = document.createElement("div");
+        boardDiv.className = "workspaceTable";
+
+        let button = document.createElement("button");
+        button.className = "titleBoardWorkspace";
+        button.textContent = board.title;
+
+        boardDiv.appendChild(button);
+        listBoards.appendChild(boardDiv);
+    });
+}

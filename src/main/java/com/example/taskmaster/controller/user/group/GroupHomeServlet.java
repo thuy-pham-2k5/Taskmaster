@@ -153,6 +153,7 @@ public class GroupHomeServlet extends HttpServlet {
         session.setAttribute("boardJoined", boardService.getAllBoardInGroupJoined(groupId, user.getUserId()));
         request.setAttribute("roleIdUser", roleId);
         request.setAttribute("boards", boardService.getAllBoardInGroup(groupId, "option1"));
+        System.out.println(boardService.getAllBoardInGroup(groupId, "option1"));
         request.getRequestDispatcher("/view/user/group/home_workspace.jsp").forward(request, response);
     }
 }

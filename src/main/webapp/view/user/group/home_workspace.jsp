@@ -13,8 +13,6 @@
     <script src="/js/user/group/edit_group.js" defer></script>
     <link rel="stylesheet" href="/css/user/group/edit_group.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/sweet-modal/dist/min/jquery.sweet-modal.min.css">
-    <script src="https://unpkg.com/sweet-modal/dist/min/jquery.sweet-modal.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
@@ -88,7 +86,7 @@
                 </div>
 
                 <div class="flex-container">
-                    <div class="workspaceTable">
+                    <div class="workspaceTable-createBoard">
                         <a href="/board?action=create">
                             <button style="background-color: #0D599D; color: white; border: none"
                                     class="create-board-btn">Tạo bảng
@@ -97,8 +95,8 @@
                     </div>
                     <div id="listBoards" class="card-container">
                         <c:forEach var="board" items="${boards}">
-                            <div style="background-color: #0D599D;" class="workspaceTable">
-                                <a href="/group_home?action=boardView&boardId=${board.boardId}">
+                            <div style="background-image: url('${board.backgroundLink}');" class="workspaceTable">
+                                <a class="workspaceTableLink" href="/group_home?action=boardView&boardId=${board.boardId}">
                                     <button class="titleBoardWorkspace">${board.title}</button>
                                 </a>
                             </div>
@@ -259,6 +257,8 @@
             }
         })
     }
+    let boards = <%= new Gson().toJson(request.getAttribute("boards")) %>;
+
 </script>
 </body>
 </html>
