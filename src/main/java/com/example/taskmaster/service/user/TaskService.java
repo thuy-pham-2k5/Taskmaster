@@ -168,5 +168,17 @@ public class  TaskService implements ITaskService {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public void deleteDueTimeOfTask(int taskId) {
+        String query = "delete from dates where task_id = ?";
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, taskId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
 

@@ -18,5 +18,6 @@ public interface ITaskService {
     boolean deleteAllTaskInColumn (int columnId);
     void saveDescriptionOfTask (int taskId, String description);
     void saveDueTimeOfTask (int taskId, Timestamp dueTime);
+    void deleteDueTimeOfTask (int taskId);
 
 }

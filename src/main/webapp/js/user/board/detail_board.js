@@ -28,6 +28,7 @@ function openTaskModal(task, details) {
     document.getElementById("description_display").textContent = task.description || "Thêm mô tả chi tiết...";
     if (task.dueTime) {
         document.getElementById("selected_date").textContent = task.dueTime || "Chưa có ngày hết hạn";
+        countChangeDueTime = 0;
     } else {
         $(".due-date").hide();
     }
@@ -69,9 +70,14 @@ function closeTaskModal() {
     document.getElementById("taskModal").style.display = "none";
     console.log(selectedDate)
     checkIsHidden(".due-date", ".members", ".labels");
-    if (selectedDate) {
-        saveDueTimeOfTask (taskId, selectedDate.toISOString());
-        selectedDate = null;
+    if (countChangeDueTime === 1) {
+        if (selectedDate) {
+            saveDueTimeOfTask (taskId, selectedDate.toISOString());
+            selectedDate = null;
+        } else {
+            deleteDueTimeOfTask(taskId);
+        }
+        countChangeDueTime = 0;
     }
 }
 
@@ -109,9 +115,11 @@ document.getElementById("open_calendar").addEventListener("click", function () {
 });
 
 let selectedDate = null;
+let countChangeDueTime = 0;
 
 document.getElementById("date_picker").addEventListener("change", function () {
      selectedDate = new Date(this.value);
+     countChangeDueTime = 1;
 
     // Lấy ngày, tháng, năm, giờ, phút, giây từ đối tượng Date
     let day = selectedDate.getDate();
@@ -136,8 +144,24 @@ document.getElementById("date_picker").addEventListener("change", function () {
 
 $(".delete-selected_date").on("click", function () {
     $(".due-date").hide();
-    selectedDate = "";
+    selectedDate = null;
+    countChangeDueTime = 1;
 })
+
+function deleteDueTimeOfTask (taskId) {
+    $.ajax({
+        type: "POST",
+        url: "/board_home?action=deleteDueTimeOfTask",
+        data: {taskId: taskId},
+        success: function (status, xhr) {
+            if (xhr.status === 200)
+                console.log("Xoa thoi han thanh cong")
+        },
+        error: function () {
+            console.log("Loi xu ly servlet")
+        }
+    })
+}
 
 function saveDueTimeOfTask (taskId, selectedDate) {
     $.ajax({

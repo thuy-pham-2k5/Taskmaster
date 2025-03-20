@@ -45,9 +45,18 @@ public class BoardHomeServlet extends HttpServlet {
             case "saveDueTimeOfTask":
                 saveDueTimeOfTask (req, resp);
                 break;
+            case "deleteDueTimeOfTask" :
+                deleteDueTimeOfTask (req, resp);
+                break;
             default:
                 break;
         }
+    }
+
+    private void deleteDueTimeOfTask(HttpServletRequest req, HttpServletResponse resp) {
+        int taskId = Integer.parseInt(req.getParameter("taskId"));
+        taskService.deleteDueTimeOfTask(taskId);
+        resp.setStatus(HttpServletResponse.SC_OK);
     }
 
     private void saveDueTimeOfTask(HttpServletRequest req, HttpServletResponse resp) {
