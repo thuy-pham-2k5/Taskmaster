@@ -15,6 +15,7 @@ public interface ITaskService {
     Task createTask (String title, int listId);
     boolean deleteTask (int taskId);
     boolean deleteAllTaskInColumn (int columnId);
-
+    void saveDescriptionOfTask (int taskId, String description);
+    void saveDueTimeOfTask (int taskId, String dueTime);
 
 }

@@ -40,9 +40,16 @@ public class BoardHomeServlet extends HttpServlet {
             case "getInfoTask":
                 getDetailTask(req, resp);
                 break;
+            case "saveDueTimeOfTask":
+                saveDueTimeOfTask (req, resp);
+                break;
             default:
                 break;
         }
+    }
+
+    private void saveDueTimeOfTask(HttpServletRequest req, HttpServletResponse resp) {
+
     }
 
     private void getDetailTask(HttpServletRequest req, HttpServletResponse resp) throws IOException {

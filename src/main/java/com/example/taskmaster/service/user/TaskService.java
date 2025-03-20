@@ -151,5 +151,15 @@ public class  TaskService implements ITaskService {
         }
     }
 
+    @Override
+    public void saveDescriptionOfTask(int taskId, String description) {
+
+    }
+
+    @Override
+    public void saveDueTimeOfTask(int taskId, String dueTime) {
+        String query;
+    }
+
 }
 

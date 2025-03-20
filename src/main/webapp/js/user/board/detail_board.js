@@ -66,6 +66,10 @@ function openTaskModal(task, details) {
 function closeTaskModal() {
     document.getElementById("taskModal").style.display = "none";
     checkIsHidden(".due-date", ".members", ".labels");
+    if (selectedDate) {
+        saveDueTimeOfTask (selectedDate);
+        selectedDate = null;
+    }
 }
 
 function checkIsHidden (...divs) {
@@ -123,13 +127,28 @@ document.getElementById("date_picker").addEventListener("change", function () {
         (seconds < 10 ? "0" : "") + seconds;
 
     // Cập nhật vào phần "Ngày hết hạn"
+    checkIsHidden(".due-date");
     document.getElementById("selected_date").textContent = formattedDate;
 });
+
+$(".delete-selected_date").on("click", function () {
+    $(".due-date").hide();
+    selectedDate = "";
+})
 
 function saveDueTimeOfTask (taskId, selectedDate) {
     $.ajax({
         type: "POST",
-        url: "/board_home?action=save"
+        url: "/board_home?action=saveDueTimeOfTask",
+        data: {
+            taskId: taskId,
+            dueDate: selectedDate
+        },
+        success: function (status, xhr) {
+            if (xhr.status === 200) {
+                console.log("Đã cập nhật thời hạn của task");
+            }
+        }
     })
 }
 

@@ -472,19 +472,32 @@ input::placeholder {
     gap: 10px;
 }
 
+.div-selected-date {
+    display: flex;
+    background: #ddad59;
+    border-radius: 4px;
+    padding: 5px
+}
+
+
 .due-date span {
     font-size: 15px;
     color: #2d2d2d;
-    justify-content: center;
-    text-align: center;
     align-items: center;
     display: flex;
-    border-radius: 4px;
-    align-content: center;
-    background-color: #ddad59;
-    width: 115px;
-    height: 30px;
-    padding: 5px;
+    width: 90px;
+    text-align: center;
+}
+
+.delete-selected_date {
+    width: 15px;
+    height: 15px;
+    display: none;
+    cursor: pointer;
+}
+
+.div-selected-date:hover .delete-selected_date {
+    display: block;
 }
 
 .label {

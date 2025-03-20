@@ -123,8 +123,9 @@
                     </section>
                     <section class="due-date">
                         <p>Ngày hết hạn</p>
-                        <div>
+                        <div class="div-selected-date">
                             <span id="selected_date"></span>
+                            <img class="delete-selected_date" src="/images/black_closed.png">
                         </div>
                     </section>
                 </div>
@@ -159,7 +160,11 @@
                 <section style="background-color: #0079bf; width: 100%; height: 30px; border-radius: 5px;"
                          class="date-picker-section">
                     <button id="open_calendar"><i class="fas fa-calendar-alt"></i> Ngày</button>
-                    <input type="datetime-local" id="date_picker">
+                    <div>
+                        <input type="datetime-local" id="date_picker">
+                        <button id="save_date" style="display: none;">Lưu</button>
+                        <button id="cancel_date" style="display: none;">Hủy</button>
+                    </div>
                 </section>
             </div>
         </div>
