@@ -2,8 +2,11 @@ package com.example.taskmaster.controller.user.group;
 
 import com.example.taskmaster.model.Board;
 import com.example.taskmaster.model.Group;
+import com.example.taskmaster.model.Permission;
 import com.example.taskmaster.model.User;
 import com.example.taskmaster.service.authenticate.AuthenticateService;
+import com.example.taskmaster.service.permission.IPermissionService;
+import com.example.taskmaster.service.permission.PermissionService;
 import com.example.taskmaster.service.user.*;
 import com.google.gson.Gson;
 
@@ -23,7 +26,7 @@ public class GroupHomeServlet extends HttpServlet {
     IUserService userService = new UserService();
     IGroupService groupService = new GroupService();
     IBoardService boardService = new BoardService();
-    AuthenticateService authenticateService = new AuthenticateService();
+    IPermissionService permissionService = new PermissionService();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -149,11 +152,13 @@ public class GroupHomeServlet extends HttpServlet {
         User user = (User) session.getAttribute("user");
         int groupId = (Integer) session.getAttribute("groupId");
         int roleId = userService.getRoleUserInGroup(user.getUserId(), groupId);
+        List<Permission> permissions = permissionService.getAllMyPermissionInGroup(user.getUserId(), groupId);
+        System.out.println(permissions);
+        session.setAttribute("groupPermissions", permissions);
         request.setAttribute("closedBoards", boardService.getAllBoardClosedInGroup(groupId));
         session.setAttribute("boardJoined", boardService.getAllBoardInGroupJoined(groupId, user.getUserId()));
         request.setAttribute("roleIdUser", roleId);
         request.setAttribute("boards", boardService.getAllBoardInGroup(groupId, "option1"));
-        System.out.println(boardService.getAllBoardInGroup(groupId, "option1"));
         request.getRequestDispatcher("/view/user/group/home_workspace.jsp").forward(request, response);
     }
 }

@@ -41,7 +41,15 @@
                                         ${groupInfo.title}
 
                                     </h2>
-                                    <button style="background: none; border: 0">
+                                    <c:set var="hasPermission" value="false" />
+                                    <c:forEach var="permission" items="${groupPermissions}">
+                                        <c:if test="${permission.permissionId == 2}">
+                                            <c:set var="hasPermission" value="true" />
+                                        </c:if>
+                                    </c:forEach>
+
+                                    <button style="background: none; border: 0;
+                                    <c:if test='${hasPermission ne "true"}'>pointer-events: none; opacity: 0.5;</c:if>">
                                         <img class="img-edit-group" src="/images/edit.png" onclick="showEditModal()">
                                     </button>
                                 </div>
@@ -59,15 +67,17 @@
                 </div>
 
 
-                <c:if test="${roleIdUser == 3}">
-                    <div id="addAccount">
-                        <button id="btnAddAccount" onclick="openInviteMember()">
-                            <img style="width: 18px; height: 18px" src="/images/add_account.png" alt="">
+                <c:forEach var="permission" items="${groupPermissions}">
+                    <c:if test="${permission.permissionId == 3}">
+                        <div id="addAccount">
+                            <button id="btnAddAccount" onclick="openInviteMember()">
+                                <img style="width: 18px; height: 18px" src="/images/add_account.png" alt="">
 
-                            <p style="color:white;">Mời thành viên vào không gian làm việc</p>
-                        </button>
-                    </div>
-                </c:if>
+                                <p style="color:white;">Mời thành viên vào không gian làm việc</p>
+                            </button>
+                        </div>
+                    </c:if>
+                </c:forEach>
             </div>
             <div id="workspaces">
                 <p style="color: white; font-weight: bold; font-size: 22px; margin-bottom: 0px">Bảng</p>

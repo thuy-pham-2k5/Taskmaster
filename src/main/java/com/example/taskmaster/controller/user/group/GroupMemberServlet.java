@@ -1,7 +1,10 @@
 package com.example.taskmaster.controller.user.group;
 
+import com.example.taskmaster.model.Permission;
 import com.example.taskmaster.model.User;
 import com.example.taskmaster.service.authenticate.AuthenticateService;
+import com.example.taskmaster.service.permission.IPermissionService;
+import com.example.taskmaster.service.permission.PermissionService;
 import com.example.taskmaster.service.user.*;
 import com.google.gson.Gson;
 
@@ -23,6 +26,7 @@ public class GroupMemberServlet extends HttpServlet {
     IUserService userService = new UserService();
     IBoardService boardService = new BoardService();
     IGroupService groupService = new GroupService();
+    IPermissionService permissionService = new PermissionService();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -91,6 +95,9 @@ public class GroupMemberServlet extends HttpServlet {
         List<User> members = userService.getAllMemberGroup(groupId);
         List<User> guests = userService.getAllGuestGroup(groupId);
         List<User> requests = userService.getAllRequestToJoinGroup(groupId);
+        List<Permission> permissions = permissionService.getAllMyPermissionInGroup(user.getUserId(), groupId);
+        System.out.println(permissions);
+        req.getSession().setAttribute("groupPermissions", permissions);
         req.getSession().setAttribute("boardJoined", boardService.getAllBoardInGroupJoined(groupId, user.getUserId()));
         req.setAttribute("boards", boardService.getAllBoardInGroup(groupId, "option1"));
         req.setAttribute("members", members);
