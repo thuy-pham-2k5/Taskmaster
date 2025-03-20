@@ -80,7 +80,15 @@
                     <div class="group-info-detail">
                         <h2>
                             <span id="titleGroup">${groupInfo.title}</span>
-                            <button style="background: none; border: 0">
+                            <c:set var="hasPermission" value="false" />
+                            <c:forEach var="permission" items="${groupPermissions}">
+                                <c:if test="${permission.permissionId == 2}">
+                                    <c:set var="hasPermission" value="true" />
+                                </c:if>
+                            </c:forEach>
+
+                            <button style="background: none; border: 0;
+                            <c:if test='${hasPermission ne "true"}'>pointer-events: none; opacity: 0.5;</c:if>">
                                 <img class="img-edit-group" src="/images/edit.png" onclick="showEditModal()">
                             </button>
                         </h2>
@@ -110,7 +118,14 @@
         <hr class="horizontally-divide-content">
         <div class="content-container">
             <div class="delete-workspace">
-                <a id="deleteWorkspaceBtn">
+                <c:set var="hasPermission" value="false" />
+                <c:forEach var="permission" items="${groupPermissions}">
+                    <c:if test="${permission.permissionId == 13}">
+                        <c:set var="hasPermission" value="true" />
+                    </c:if>
+                </c:forEach>
+
+                <a id="deleteWorkspaceBtn" style="<c:if test='${hasPermission ne "true"}'>pointer-events: none; opacity: 0.5;</c:if>">
                     Xóa không gian làm việc này ?
                 </a>
             </div>

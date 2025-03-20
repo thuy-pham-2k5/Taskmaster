@@ -41,7 +41,15 @@
                                         ${groupInfo.title}
 
                                     </h2>
-                                    <button style="background: none; border: 0">
+                                    <c:set var="hasPermission" value="false" />
+                                    <c:forEach var="permission" items="${groupPermissions}">
+                                        <c:if test="${permission.permissionId == 2}">
+                                            <c:set var="hasPermission" value="true" />
+                                        </c:if>
+                                    </c:forEach>
+
+                                    <button style="background: none; border: 0;
+                                    <c:if test='${hasPermission ne "true"}'>pointer-events: none; opacity: 0.5;</c:if>">
                                         <img class="img-edit-group" src="/images/edit.png" onclick="showEditModal()">
                                     </button>
                                 </div>
