@@ -233,15 +233,17 @@ public class GroupService implements IGroupService {
         }
     }
 
-    public void deleteMemberFromGroup(int userId, int groupId) {
-        String query = "delete from 'user_group_relationships' where user_id = ? and group_id = ?";
-        try (Connection connection = ConnectDatabase.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, userId);
-            preparedStatement.setInt(2, groupId);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+    @Override
+    public void deleteMemberInGroup(int userId, int groupId) {
+        String query ="{CALL RemoveUserFromGroup(?, ?)}";
+        try(Connection connection = ConnectDatabase.getConnection()){
+            CallableStatement callableStatement = connection.prepareCall(query);
+            callableStatement.setInt(1, userId);
+            callableStatement.setInt(2, groupId);
+            callableStatement.execute();
+        }catch (Exception e){
+            e.getMessage();
         }
+
     }
 }

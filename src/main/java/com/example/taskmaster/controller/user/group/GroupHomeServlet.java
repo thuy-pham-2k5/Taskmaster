@@ -105,10 +105,24 @@ public class GroupHomeServlet extends HttpServlet {
             case "showCreateGroup":
                 response.sendRedirect("/view/user/group/create_workspace.jsp");
                 break;
+            case "getClosedBoards":
+                showClosedBoards (request, response);
+                break;
             default:
                 showGroupInfo(request, response);
                 break;
         }
+    }
+
+    private void showClosedBoards(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int groupId = (Integer) request.getSession().getAttribute("groupId");
+        List<Board> closedBoard = boardService.getAllBoardClosedInGroup(groupId);
+        String closedBoardJson = new Gson().toJson(closedBoard);
+        System.out.println(closedBoard);
+        System.out.println(closedBoardJson);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(closedBoardJson);
     }
 
     private void switchToBoardView(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -138,9 +152,10 @@ public class GroupHomeServlet extends HttpServlet {
         User user = (User) session.getAttribute("user");
         int groupId = (Integer) session.getAttribute("groupId");
         int roleId = userService.getRoleUserInGroup(user.getUserId(), groupId);
+        request.setAttribute("closedBoards", boardService.getAllBoardClosedInGroup(groupId));
+        session.setAttribute("boardJoined", boardService.getAllBoardInGroupJoined(groupId, user.getUserId()));
         request.setAttribute("roleIdUser", roleId);
         request.setAttribute("boards", boardService.getAllBoardInGroup(groupId, true));
-        request.setAttribute("closedBoards", boardService.getAllBoardClosedInGroup(groupId));
         request.getRequestDispatcher("/view/user/group/home_workspace.jsp").forward(request, response);
     }
 }

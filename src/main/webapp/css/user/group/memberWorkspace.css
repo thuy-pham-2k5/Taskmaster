@@ -22,11 +22,6 @@ main {
     background: #afe4f1;
 }
 
-input::placeholder {
-    color: white;
-    font-size: 15px;
-}
-
 .content-member-workspace {
     margin-top: 0;
     flex: 1;
@@ -179,13 +174,17 @@ button {
     cursor: pointer;
 }
 
+input {
+    color: white;
+}
+
 .input-search {
     padding: 5px;
     border-radius: 3px;
     border: 1px solid #FFFFFF;
 }
 .input-search::placeholder {
-    color: #d9d7d7;
+    color: #ffffff !important;
     opacity: 1; /* Đảm bảo màu trắng hiển thị rõ */
 }
 

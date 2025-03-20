@@ -215,11 +215,13 @@
         display: none;
         margin: 0 0 0 15px;
     }
+
     .hl-dropdown-action button {
         border: 0;
         background: none;
         padding: 10px;
         font-size: 15px;
+        text-align: left;
     }
 
     .hl-dropdown-action-board {
@@ -231,11 +233,7 @@
         min-width: 120px;
         list-style: none;
         border-radius: 10px;
-    }
-
-    .hl-dropdown-action-board div h4 {
-        display: flex;
-        justify-content: center;
+        padding-bottom: 10px;
     }
 
     .hl-dropdown-action {
@@ -251,6 +249,50 @@
         list-style-type: none;
         padding: 0;
         margin: 0;
+    }
+
+    #hl-action-board-main {
+        display: block;
+    }
+
+    .hl-dropdown-content {
+        display: none;
+    }
+
+    .hl-dropdown-content div h4 {
+        display: flex;
+        justify-content: center;
+        margin: 0;
+    }
+
+    .hl-dropdown-content-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 8px;
+    }
+
+    .img-action-board {
+        width: 18px;
+        height: 18px;
+        padding: 5px;
+        cursor: pointer;
+    }
+
+    .img-action-board:hover {
+        border-radius: 5px;
+        background-color: rgba(117, 114, 114, 0.5);
+    }
+
+    .hl-dropdown-option {
+        background: red;
+        width: 100%;
+        text-align: center;
+        margin: 0 12px;
+        border-radius: 5px;
+        color: white;
+        padding: 8px;
+        border: 0;
     }
 </style>
 
@@ -295,8 +337,8 @@
                             </div>
                         </div>
                         <ul class="hl-list-boards-ul">
-                            <c:forEach items="${boards}" var="board">
-                                <li>
+                            <c:forEach items="${boardJoined}" var="board">
+                                <li data-board="${board.boardId}">
                                     <a href="group_home?action=boardView&boardId=${board.boardId}">
                                             ${board.title}
                                         <img class="openOperationBoard" src="/images/ellipsis.png" alt="closed-board"/>
@@ -311,18 +353,59 @@
     </nav>
 </div>
 <div class="hl-dropdown-action-board" id="operationBoard">
-    <div>
-        <h4>Thao tác</h4>
+    <div class="hl-dropdown-content" id="hl-action-board-main">
+        <div class="hl-dropdown-content-title" style="display: block">
+            <h4>Thao tác</h4>
+        </div>
+        <ul class="hl-dropdown-lists">
+            <li onclick="openActionBoard(event, 'hl-action-board-main', 'hl-leave-board')" id="operation-addTask"
+                class="hl-dropdown-action">
+                <button data-action="board">Rời khỏi bảng</button>
+            </li>
+            <li data-action="board" onclick="openActionBoard(event, 'hl-action-board-main', 'hl-close-board')"
+                id="operation-copyList" class="hl-dropdown-action">
+                <button>Đóng bảng</button>
+            </li>
+        </ul>
     </div>
-    <ul class="hl-dropdown-lists">
-        <li id="operation-addTask" class="hl-dropdown-action">
-            <button>Rời khỏi bảng</button>
-        </li>
-        <li id="operation-copyList" class="hl-dropdown-action">
-            <button>Đóng bảng</button>
-        </li>
-    </ul>
+
+    <div class="hl-dropdown-content" id="hl-close-board">
+        <div class="hl-dropdown-content-title">
+            <img src="/images/black_back.png" onclick="openActionBoard(event, 'hl-close-board', 'hl-action-board-main')"
+                 alt="back.png" class="img-action-board">
+            <h4>Đóng bảng?</h4>
+            <img src="/images/black_closed.png" onclick="closedActionBoard(event, 'operationBoard')"
+                 alt="back.png" class="img-action-board">
+        </div>
+        <ul class="hl-dropdown-lists">
+            <li class="hl-dropdown-action" style="pointer-events: none">
+                <button>Bạn có thể tìm và mở lại các bảng đã đóng ở cuối trang chủ không gian làm việc</button>
+            </li>
+            <li style="display: flex; justify-content: center;">
+                <button class="hl-dropdown-option" id="close-board">Đóng bảng</button>
+            </li>
+        </ul>
+    </div>
+
+    <div class="hl-dropdown-content" id="hl-leave-board">
+        <div class="hl-dropdown-content-title">
+            <img src="/images/black_back.png" onclick="openActionBoard(event, 'hl-leave-board', 'hl-action-board-main')"
+                 alt="back.png" class="img-action-board">
+            <h4>Bạn muốn rời khỏi bảng?</h4>
+            <img src="/images/black_closed.png" onclick="closedActionBoard(event, 'operationBoard')"
+                 alt="back.png" class="img-action-board">
+        </div>
+        <ul class="hl-dropdown-lists">
+            <li class="hl-dropdown-action" style="pointer-events: none">
+                <button>Bạn sẽ bị loại bỏ khỏi toàn bộ thẻ trong bảng này</button>
+            </li>
+            <li style="display: flex; justify-content: center;">
+                <button class="hl-dropdown-option" id="leave-board">Rời bỏ</button>
+            </li>
+        </ul>
+    </div>
 </div>
+
 <script>
     let currentOpenOperationBoard = null;
 
@@ -356,7 +439,7 @@
         const offset = openDropdown.offset();
         dropdown.css({
             left: offset.left + "px",
-            top: offset.top + openDropdown.outerHeight() + "px",
+            top: offset.top + openDropdown.outerHeight() + 10 + "px",
             display: "block"
         });
     }
@@ -368,7 +451,81 @@
             if (currentOpenOperationBoard) {
                 currentOpenOperationBoard.removeClass("dropdown-open");
             }
+            openActionBoard(event, 'hl-close-board', 'hl-action-board-main');
+            openActionBoard(event, 'hl-leave-board', 'hl-action-board-main')
             currentOpenOperationBoard = null;
         }
     });
+</script>
+
+<%--giao diện các thao tác của bảng--%>
+<script defer>
+    function closedActionBoard (event, currentId) {
+        openActionBoard(event, currentId, null);
+        console.log(currentOpenOperationBoard);
+        currentOpenOperationBoard.removeClass("dropdown-open");
+        openActionBoard(event, 'hl-close-board', 'hl-action-board-main');
+        openActionBoard(event, 'hl-leave-board', 'hl-action-board-main')
+    }
+
+    function openActionBoard(event, currentId, needId) {
+        event.stopPropagation();
+        document.getElementById(currentId).style.display = "none";
+        if (needId!=null) {
+            document.getElementById(needId).style.display = "block";
+        }
+    }
+
+    $("#close-board").on("click", function () {
+        let parentDiv = currentOpenOperationBoard.closest("li");
+        showAlert("Bạn có chắc chắn muốn đóng bảng?")
+            .then((result) => {
+                if (result.isConfirmed) {
+                    handleActionBoard(parentDiv.data("board"), "close");
+                }
+            })
+    })
+
+    $("#leave-board").on("click", function () {
+        let parentDiv = currentOpenOperationBoard.closest("li");
+        showAlert("Bạn có chắc chắn muốn rời khỏi bảng không?")
+            .then((result) => {
+                if (result.isConfirmed) {
+                    handleActionBoard(parentDiv.data("board"), "leave");
+                }
+            })
+    })
+    function showAlert(text) {
+        return Swal.fire({
+            title: "Xác nhận",
+            text: text,
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonText: "Có",
+            confirmButtonColor: "#1170c4",
+            cancelButtonText: "Hủy"
+        });
+    }
+    function handleActionBoard (boardId, typeAction) {
+        let url = typeAction === "close" ? "/board?action=closeBoard": "/board?action=leaveBoard";
+        let title = typeAction === "close" ? "Đã đóng bảng" : "Đã rời bảng";
+        console.log(url);
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: {
+                boardId: boardId
+            },
+            success: function (response, status, xhr) {
+                if (xhr.status === 200) {
+                    alertShowSuccess(title);
+                    console.log(currentOpenOperationBoard);
+                    $('li[data-board="' + boardId + '"]').remove();
+                }
+            },
+            error: function () {
+                console.log("Lỗi khi đóng/rời bảng!");
+            }
+        })
+    }
 </script>

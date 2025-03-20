@@ -43,7 +43,7 @@ public class GroupMemberServlet extends HttpServlet {
     private void deleteMemberGroup(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         int groupId = (Integer) req.getSession().getAttribute("groupId");
         int userId = Integer.parseInt(req.getParameter("userId"));
-        userService.deleteMemberInGroup(userId, groupId);
+        groupService.deleteMemberInGroup(userId, groupId);
         resp.setStatus(HttpServletResponse.SC_OK);
     }
 
@@ -85,12 +85,13 @@ public class GroupMemberServlet extends HttpServlet {
         response.getWriter().write(resultJson);
     }
 
-    private void showGroupMember(HttpServletRequest req, HttpServletResponse resp) throws
-            ServletException, IOException {
+    private void showGroupMember(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        User user = (User) req.getSession().getAttribute("user");
         int groupId = (Integer) req.getSession().getAttribute("groupId");
         List<User> members = userService.getAllMemberGroup(groupId);
         List<User> guests = userService.getAllGuestGroup(groupId);
         List<User> requests = userService.getAllRequestToJoinGroup(groupId);
+        req.getSession().setAttribute("boardJoined", boardService.getAllBoardInGroupJoined(groupId, user.getUserId()));
         req.setAttribute("boards", boardService.getAllBoardInGroup(groupId, true));
         req.setAttribute("members", members);
         req.setAttribute("guests", guests);

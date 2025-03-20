@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface IBoardService {
+    List<Board> getAllBoardInGroupJoined (int groupId, int userId);
     List<Board> getAllBoardInGroup(int groupId, boolean sortType);
     Board getBoardById (int boardId);
     void saveTimestampToBoard (int userId, int boardId);
@@ -16,6 +17,7 @@ public interface IBoardService {
     List<Board> getAllBoardClosedInGroup(int groupId);
     void createBoard(int userId, String boardTitle, int groupId, String backgroundLink);
     boolean deleteBoard( int boardId) throws SQLException;
-    void closeBoard(int boardId);
+    void changeStatusBoard(int boardId, boolean status);
+    void leaveBoardById (int boardId, int userId);
     int checkBoardBackground(String backgroundLink);
 }

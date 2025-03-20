@@ -5,9 +5,28 @@ public class Board {
     private String title;
     private int backgroundId;
     private String backgroundLink;
+    private String timestamp;
     private int status, groupId;
     private String groupName;
     private boolean starredBoard;
+
+    public Board(int boardId, String title, int backgroundId, String backgroundLink, int groupId, String groupName) {
+        this.boardId = boardId;
+        this.title = title;
+        this.backgroundId = backgroundId;
+        this.backgroundLink = backgroundLink;
+        this.groupId = groupId;
+        this.groupName = groupName;
+    }
+
+    public Board(int boardId, String title, String backgroundLink, String timestamp, int status, boolean starredBoard) {
+        this.boardId = boardId;
+        this.title = title;
+        this.backgroundLink = backgroundLink;
+        this.timestamp = timestamp;
+        this.status = status;
+        this.starredBoard = starredBoard;
+    }
 
     public Board(int boardId, String title, int backgroundId, String backgroundLink, int status, int groupId) {
         this.boardId = boardId;
@@ -38,11 +57,22 @@ public class Board {
         return "Board{" +
                 "boardId=" + boardId +
                 ", title='" + title + '\'' +
-                ", backgroundId='" + backgroundId + '\'' +
+                ", backgroundId=" + backgroundId +
                 ", backgroundLink='" + backgroundLink + '\'' +
+                ", timestamp='" + timestamp + '\'' +
                 ", status=" + status +
                 ", groupId=" + groupId +
+                ", groupName='" + groupName + '\'' +
+                ", starredBoard=" + starredBoard +
                 '}';
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 
     public int getBoardId() {
