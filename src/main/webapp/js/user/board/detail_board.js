@@ -64,10 +64,13 @@ function openTaskModal(task, details) {
 
 // Đóng modal
 function closeTaskModal() {
+    let taskId = $('.modal_content').data("task");
+    console.log(taskId)
     document.getElementById("taskModal").style.display = "none";
+    console.log(selectedDate)
     checkIsHidden(".due-date", ".members", ".labels");
     if (selectedDate) {
-        saveDueTimeOfTask (selectedDate);
+        saveDueTimeOfTask (taskId, selectedDate.toISOString());
         selectedDate = null;
     }
 }
@@ -142,12 +145,15 @@ function saveDueTimeOfTask (taskId, selectedDate) {
         url: "/board_home?action=saveDueTimeOfTask",
         data: {
             taskId: taskId,
-            dueDate: selectedDate
+            dueTime: selectedDate
         },
         success: function (status, xhr) {
             if (xhr.status === 200) {
                 console.log("Đã cập nhật thời hạn của task");
             }
+        },
+        error: function () {
+            console.log("Loi khi xu ly trong servlet")
         }
     })
 }

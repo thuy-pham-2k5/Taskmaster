@@ -157,9 +157,16 @@ public class  TaskService implements ITaskService {
     }
 
     @Override
-    public void saveDueTimeOfTask(int taskId, String dueTime) {
-        String query;
+    public void saveDueTimeOfTask(int taskId, Timestamp dueTime) {
+        String query = "{call saveDueTimeInTask (?, ?)}";
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            CallableStatement callableStatement = connection.prepareCall(query);
+            callableStatement.setInt(2, taskId);
+            callableStatement.setTimestamp(1, dueTime);
+            callableStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
-
 }
 

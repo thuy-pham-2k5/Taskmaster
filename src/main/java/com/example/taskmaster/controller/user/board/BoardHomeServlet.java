@@ -3,7 +3,6 @@ package com.example.taskmaster.controller.user.board;
 import com.example.taskmaster.model.*;
 import com.example.taskmaster.service.user.*;
 import com.google.gson.Gson;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @WebServlet(value = "/board_home")
@@ -23,6 +24,7 @@ public class BoardHomeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
+        System.out.println(action);
         if (action == null) action = "";
         switch (action) {
             case "addNewTask":
@@ -49,7 +51,12 @@ public class BoardHomeServlet extends HttpServlet {
     }
 
     private void saveDueTimeOfTask(HttpServletRequest req, HttpServletResponse resp) {
-
+        String dueTime = req.getParameter("dueTime");
+        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(dueTime.replace("Z", "")));
+        System.out.println(timestamp);
+        int taskId = Integer.parseInt(req.getParameter("taskId"));
+        taskService.saveDueTimeOfTask(taskId, timestamp);
+        resp.setStatus(HttpServletResponse.SC_OK);
     }
 
     private void getDetailTask(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -57,9 +64,6 @@ public class BoardHomeServlet extends HttpServlet {
 
         Task task = taskService.getTask(taskId);
         List<DetailTask> detailTask = taskService.getDetailTask(taskId);
-
-        System.out.println(task);
-        System.out.println(detailTask);
 
         Map<String, Object> responseMap = new HashMap<>();
         responseMap.put("task", task);

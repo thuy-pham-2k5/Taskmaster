@@ -4,6 +4,7 @@ import com.example.taskmaster.model.DetailTask;
 import com.example.taskmaster.model.Task;
 import com.mysql.cj.x.protobuf.MysqlxPrepare;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,6 @@ public interface ITaskService {
     boolean deleteTask (int taskId);
     boolean deleteAllTaskInColumn (int columnId);
     void saveDescriptionOfTask (int taskId, String description);
-    void saveDueTimeOfTask (int taskId, String dueTime);
+    void saveDueTimeOfTask (int taskId, Timestamp dueTime);
 
 }
