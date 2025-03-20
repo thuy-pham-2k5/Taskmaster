@@ -26,6 +26,7 @@ function openTaskModal(task, details) {
     document.getElementById("modalTaskTitle").value = task.title;
     document.querySelector(".listName").textContent = task.columnName || "To Do";
     document.getElementById("description_display").textContent = task.description || "Thêm mô tả chi tiết...";
+    document.getElementById("description_textarea").textContent = task.description || "Thêm mô tả chi tiết...";
     if (task.dueTime) {
         document.getElementById("selected_date").textContent = task.dueTime || "Chưa có ngày hết hạn";
         countChangeDueTime = 0;
@@ -98,7 +99,10 @@ function editDescription() {
 // Lưu mô tả
 function saveDescription() {
     let descText = document.getElementById("description_textarea").value;
-    document.getElementById("description_display").textContent = descText || "Thêm mô tả chi tiết...";
+    let taskId = $('.modal_content').data("task");
+    saveEditDescription (taskId, descText);
+    console.log(taskId, " ", descText)
+    document.getElementById("description_display").textContent = descText;
     document.getElementById("description_display").classList.remove("hidden");
     document.getElementById("description_edit").classList.add("hidden");
 }
@@ -170,6 +174,25 @@ function saveDueTimeOfTask (taskId, selectedDate) {
         data: {
             taskId: taskId,
             dueTime: selectedDate
+        },
+        success: function (status, xhr) {
+            if (xhr.status === 200) {
+                console.log("Đã cập nhật thời hạn của task");
+            }
+        },
+        error: function () {
+            console.log("Loi khi xu ly trong servlet")
+        }
+    })
+}
+
+function saveEditDescription (taskId, description) {
+    $.ajax({
+        type: "POST",
+        url: "/board_home?action=saveDescriptionOfTask",
+        data: {
+            taskId: taskId,
+            description: description
         },
         success: function (status, xhr) {
             if (xhr.status === 200) {

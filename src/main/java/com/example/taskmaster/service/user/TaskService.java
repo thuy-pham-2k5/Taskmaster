@@ -153,7 +153,15 @@ public class  TaskService implements ITaskService {
 
     @Override
     public void saveDescriptionOfTask(int taskId, String description) {
-
+        String query = "UPDATE `taskmaster`.`tasks` SET `description` = ? WHERE (`task_id` = ?)";
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, description);
+            preparedStatement.setInt(2, taskId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
