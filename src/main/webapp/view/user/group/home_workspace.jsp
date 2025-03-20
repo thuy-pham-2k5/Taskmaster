@@ -222,19 +222,43 @@
     let closedBoards = null;
 
     $('#openModalButton').click(function () {
-        getClosedBoards();
+        getClosedBoards(function (closedBoards) {
+            let contentDiv = document.createElement("div");
 
-        let contentDiv = document.createElement("div");
+            if (closedBoards.length > 0) {
+                closedBoards.forEach(board => {
+                    contentDiv.appendChild(createClosedBoard(board));
+                });
+            } else {
+                let noDataDiv = document.createElement("div");
+                noDataDiv.className = "closed-board-no-data";
+                noDataDiv.textContent = "Không có bảng nào đã đóng";
+                contentDiv.appendChild(noDataDiv);
+            }
 
-        closedBoards.forEach(board => {
-            contentDiv.appendChild(createClosedBoard(board));
+            showClosedBoard(contentDiv);
         });
+    });
 
-        function createClosedBoard(board) {
-            let parentDiv = document.createElement("div");
-            parentDiv.className = "closed-board-container";
-            parentDiv.dataset.board = board.boardId;
-            parentDiv.innerHTML = `
+    function getClosedBoards(callback) {
+        $.ajax({
+            type: "GET",
+            url: "/group_home?action=getClosedBoards",
+            dataType: "json",
+            success: function (response) {
+                callback(response); // Chỉ gọi callback khi dữ liệu đã có
+            },
+            error: function (xhr, status, error) {
+                console.error("Lỗi khi lấy danh sách bảng đã đóng:", error);
+            }
+        });
+    }
+
+    function createClosedBoard(board) {
+        let parentDiv = document.createElement("div");
+        parentDiv.className = "closed-board-container";
+        parentDiv.dataset.board = board.boardId;
+        parentDiv.innerHTML = `
                   <div class="closed-board-info">
                       <img src="" alt="error.png" class="image-closed-board"/>
                       <div>
@@ -247,27 +271,10 @@
                       <button class="delete-closed-board">Xóa</button>
                   </div>
             `;
-            parentDiv.querySelector(".image-closed-board").src = board.backgroundLink || "error.png";
-            parentDiv.querySelector(".closed-board-title").textContent = board.title || "";
-            parentDiv.querySelector(".closed-board-group-title").textContent = board.groupName || "";
-            return parentDiv;
-        }
-
-        showClosedBoard(contentDiv);
-    });
-
-    function getClosedBoards () {
-        $.ajax({
-            type: "GET",
-            url: "/group_home?action=getClosedBoards",
-            dataType: "json",
-            success: function (response) {
-                closedBoards = response;
-            },
-            error: function (xhr, status, error) {
-                console.error("Lỗi khi lấy danh sách bảng đã đóng:", error);
-            }
-        })
+        parentDiv.querySelector(".image-closed-board").src = board.backgroundLink || "error.png";
+        parentDiv.querySelector(".closed-board-title").textContent = board.title || "";
+        parentDiv.querySelector(".closed-board-group-title").textContent = board.groupName || "";
+        return parentDiv;
     }
 
     function showClosedBoard (contentDiv) {
