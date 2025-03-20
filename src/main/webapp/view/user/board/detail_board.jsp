@@ -150,108 +150,6 @@
         </div>
     </div>
 </div>
-<script>
-    let task = null;
-    $(".task").on("click", function () {
-        let taskId = $(this).data('task');
-        getInfoTask(taskId);
-        openTaskModal(task)
-    })
-    function getInfoTask (taskId) {
-        $.ajax({
-            type: "POST",
-            url: "/board_home?action=getInfoTask",
-            data: {
-                taskId: taskId
-            },
-            dataType: "json",
-            success: function (task) {
-
-            }
-        })
-    }
-    // Hiển thị modal task với thông tin từ task
-    function openTaskModal(task) {
-        document.getElementById("modalTaskTitle").value = task.title;
-        document.querySelector(".status").textContent = task.status || "To Do";
-        document.getElementById("description_display").textContent = task.description || "Thêm mô tả chi tiết...";
-        document.getElementById("selected_date").textContent = task.dueDate || "Chưa có ngày hết hạn";
-
-        document.getElementById("taskModal").style.display = "block";
-    }
-
-    // Đóng modal
-    function closeTaskModal() {
-        document.getElementById("taskModal").style.display = "none";
-    }
-
-    // Hiển thị phần chỉnh sửa mô tả
-    function editDescription() {
-        document.getElementById("description_display").classList.add("hidden");
-        document.getElementById("description_edit").classList.remove("hidden");
-    }
-
-    // Lưu mô tả
-    function saveDescription() {
-        let descText = document.getElementById("description_textarea").value;
-        document.getElementById("description_display").textContent = descText || "Thêm mô tả chi tiết...";
-        document.getElementById("description_display").classList.remove("hidden");
-        document.getElementById("description_edit").classList.add("hidden");
-    }
-
-    // Hủy chỉnh sửa mô tả
-    function cancelDescription() {
-        document.getElementById("description_display").classList.remove("hidden");
-        document.getElementById("description_edit").classList.add("hidden");
-    }
-
-
-    document.getElementById("open_calendar").addEventListener("click", function () {
-        document.getElementById("date_picker").showPicker(); // Hiển thị bộ chọn ngày
-    });
-
-    document.getElementById("date_picker").addEventListener("change", function () {
-        let selectedDate = new Date(this.value);
-
-        // Lấy ngày, tháng, năm từ đối tượng Date
-        let day = selectedDate.getDate();
-        let month = selectedDate.getMonth() + 1; // Tháng trong JS bắt đầu từ 0
-        let year = selectedDate.getFullYear();
-
-        // Định dạng thành "dd/mm/yyyy"
-        let formattedDate = (day < 10 ? "0" : "") + day + "/" +
-            (month < 10 ? "0" : "") + month + "/" + year;
-
-        // Cập nhật vào phần "Ngày hết hạn"
-        document.getElementById("selected_date").textContent = formattedDate;
-    });
-
-    function showAndClosed(idClosed, idShow) {
-        event.stopPropagation();
-        document.getElementById(idClosed).style.display = "none";
-        let showElement = document.getElementById(idShow);
-        showElement.style.display = "block";
-
-        let input = showElement.querySelector("input");
-        if (input) {
-            setTimeout(() => input.focus(), 50);
-        }
-    }
-
-    function setupAutoHide(idHidden, idReplacement) {
-        document.addEventListener("click", function (event) {
-            let div = document.getElementById(idHidden);
-            if (div.style.display === "block" && !div.contains(event.target)) {
-                div.style.display = "none";
-                if (idReplacement !== null) {
-                    document.getElementById(idReplacement).style.display = 'block';
-                }
-            }
-        });
-    }
-
-    setupAutoHide('inputAddNewList', 'openAddNewList');
-</script>
 <script defer>
     let boardId = ${boardDetail.boardId};
     let columns = JSON.parse('${columns}');
@@ -314,9 +212,6 @@
                     newTaskHtml.classList.add("task");
                     newTaskHtml.setAttribute("data-task", task.taskId);
                     newTaskHtml.setAttribute("data-position", task.position);
-                    newTaskHtml.onclick = function () {
-                        openTaskModal({ title: titleTask, status: "To Do", description: "Mô tả task" });
-                    };
                     newTaskHtml.textContent = titleTask;
 
                     if (listTask === null) {
@@ -391,7 +286,7 @@
         // Lặp qua các column
         const boardHtml = columns.map(column => {
             const taskList = Object.values(tasks || {}).flat().filter(task => task.columnId === column.columnId);
-            const taskListHtml = taskList.map(task => `<li onclick="openTaskModal({ title: 'Tiêu đề Task', status: 'To Do', description: 'Mô tả task'})" class="task" data-task="` + task.taskId + `" data-position="` + task.position + `">` + task.title + `</li>`).join('');
+            const taskListHtml = taskList.map(task => `<li class="task" data-task="` + task.taskId + `" data-position="` + task.position + `">` + task.title + `</li>`).join('');
             return repeatColumnAndTask(column, taskListHtml);
         });
         listsContainer.innerHTML = boardHtml.join('');
@@ -567,5 +462,108 @@
         })
     }
 </script>
+<script>
+    let task = null;
+    $(".task").on("click", function () {
+        let taskId = $(this).data('task');
+        getInfoTask(taskId);
+        openTaskModal(task)
+    })
+    function getInfoTask (taskId) {
+        $.ajax({
+            type: "POST",
+            url: "/board_home?action=getInfoTask",
+            data: {
+                taskId: taskId
+            },
+            dataType: "json",
+            success: function (task) {
+
+            }
+        })
+    }
+    // Hiển thị modal task với thông tin từ task
+    function openTaskModal(task) {
+        document.getElementById("modalTaskTitle").value = task.title;
+        document.querySelector(".status").textContent = task.status || "To Do";
+        document.getElementById("description_display").textContent = task.description || "Thêm mô tả chi tiết...";
+        document.getElementById("selected_date").textContent = task.dueDate || "Chưa có ngày hết hạn";
+
+        document.getElementById("taskModal").style.display = "block";
+    }
+
+    // Đóng modal
+    function closeTaskModal() {
+        document.getElementById("taskModal").style.display = "none";
+    }
+
+    // Hiển thị phần chỉnh sửa mô tả
+    function editDescription() {
+        document.getElementById("description_display").classList.add("hidden");
+        document.getElementById("description_edit").classList.remove("hidden");
+    }
+
+    // Lưu mô tả
+    function saveDescription() {
+        let descText = document.getElementById("description_textarea").value;
+        document.getElementById("description_display").textContent = descText || "Thêm mô tả chi tiết...";
+        document.getElementById("description_display").classList.remove("hidden");
+        document.getElementById("description_edit").classList.add("hidden");
+    }
+
+    // Hủy chỉnh sửa mô tả
+    function cancelDescription() {
+        document.getElementById("description_display").classList.remove("hidden");
+        document.getElementById("description_edit").classList.add("hidden");
+    }
+
+
+    document.getElementById("open_calendar").addEventListener("click", function () {
+        document.getElementById("date_picker").showPicker(); // Hiển thị bộ chọn ngày
+    });
+
+    document.getElementById("date_picker").addEventListener("change", function () {
+        let selectedDate = new Date(this.value);
+
+        // Lấy ngày, tháng, năm từ đối tượng Date
+        let day = selectedDate.getDate();
+        let month = selectedDate.getMonth() + 1; // Tháng trong JS bắt đầu từ 0
+        let year = selectedDate.getFullYear();
+
+        // Định dạng thành "dd/mm/yyyy"
+        let formattedDate = (day < 10 ? "0" : "") + day + "/" +
+            (month < 10 ? "0" : "") + month + "/" + year;
+
+        // Cập nhật vào phần "Ngày hết hạn"
+        document.getElementById("selected_date").textContent = formattedDate;
+    });
+
+    function showAndClosed(idClosed, idShow) {
+        event.stopPropagation();
+        document.getElementById(idClosed).style.display = "none";
+        let showElement = document.getElementById(idShow);
+        showElement.style.display = "block";
+
+        let input = showElement.querySelector("input");
+        if (input) {
+            setTimeout(() => input.focus(), 50);
+        }
+    }
+
+    function setupAutoHide(idHidden, idReplacement) {
+        document.addEventListener("click", function (event) {
+            let div = document.getElementById(idHidden);
+            if (div.style.display === "block" && !div.contains(event.target)) {
+                div.style.display = "none";
+                if (idReplacement !== null) {
+                    document.getElementById(idReplacement).style.display = 'block';
+                }
+            }
+        });
+    }
+
+    setupAutoHide('inputAddNewList', 'openAddNewList');
+</script>
+
 </body>
 </html>

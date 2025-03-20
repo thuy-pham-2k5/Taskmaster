@@ -20,4 +20,5 @@ public interface IBoardService {
     void changeStatusBoard(int boardId, boolean status);
     void leaveBoardById (int boardId, int userId);
     int checkBoardBackground(String backgroundLink);
+    void saveDescriptionInTask (int taskId, String description);
 }
