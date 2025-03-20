@@ -126,9 +126,8 @@
                                             <a href="#">
                                                 <button>Thêm vào không gian làm việc</button>
                                             </a>
-                                            <a href="/group_member?action=delete&userId=${user.userId}">
-                                                <button>Loại bỏ</button>
-                                            </a>
+
+                                            <button class="remove-btn">Loại bỏ</button>
 
 
                                             <div class="confirm-box">
@@ -156,9 +155,8 @@
                                                     Thêm vào không gian làm việc
                                                 </button>
                                             </a>
-                                            <a href="/group_member?action=delete&userId=${user.userId}">
-                                                <button>Loại bỏ</button>
-                                            </a>
+
+                                            <button button class="remove-btn">Loại bỏ</button>
 
                                             <div class="confirm-box">
                                                 <p style="font-size: 18px">Bạn có chắc muốn loại bỏ ${user.fullName}
@@ -240,25 +238,18 @@
 
                 // Lấy vị trí của nút và modal
                 const rect = this.getBoundingClientRect();
-                const modalHeight = confirmBox.offsetHeight; // Chiều cao của modal
-                const viewportHeight = window.innerHeight; // Chiều cao cửa sổ trình duyệt
-                const spaceBelow = viewportHeight - rect.bottom; // Khoảng trống bên dưới nút
-                const spaceAbove = rect.top; // Khoảng trống phía trên nút
+                console.log(rect.top, " ", rect.left, " ", rect.bottom, " ", rect.right)
 
-                let top, left;
-
-                // Kiểm tra nếu không đủ không gian bên dưới, hiển thị modal phía trên
-                if (spaceBelow < modalHeight) {
-                    top = rect.bottom + window.scrollY + 47 - (modalHeight - spaceBelow);
+                if (this.closest(".request-section")) {
+                    confirmBox.style.top = (rect.top - 160) + "px";
                 } else {
-                    top = rect.bottom + window.scrollY + 47;
+                    confirmBox.style.top = (rect.top - 130) + "px";
                 }
+                confirmBox.style.left = (rect.left - 154) + "px";
 
-                left = rect.left + window.scrollX + 27; // Canh chỉnh lề trái theo nút
+                const test = $(confirmBox).offset();
 
-                // Đặt vị trí của modal
-                confirmBox.style.top = `${top}px`;
-                confirmBox.style.left = `${left}px`;
+                console.log(test.top, " ", test.left);
             });
         });
 
