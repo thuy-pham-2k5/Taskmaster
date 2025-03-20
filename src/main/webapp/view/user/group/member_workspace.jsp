@@ -279,7 +279,7 @@
             let userId = confirmButton.dataset.id;
             console.log(userId);
             deleteMemberFromGroup(userId);
-            userInfo.remove(); // Xóa phần tử khỏi giao diện
+            userInfo.remove();
         });
     });
 
