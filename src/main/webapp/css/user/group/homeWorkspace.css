@@ -400,6 +400,7 @@ body {
     text-overflow: ellipsis;
     white-space: nowrap;
     width: 100%;
+    text-align: left;
 }
 
 .title_bar {

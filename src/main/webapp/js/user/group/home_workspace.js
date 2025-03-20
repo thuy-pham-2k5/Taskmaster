@@ -2,12 +2,10 @@ $(document).on("change", "#mySelect", function() {
     console.log("Changed to: " + $(this).val());
     const selectedValue = $(this).val();
     $.get(`/group_home?action=sortType&option=` + selectedValue, function(responseJson) {
-        const $listBoards = $("#listBoards");
-        $listBoards.empty();
+        const listBoards = $("#listBoards");
+        listBoards.empty();
         $.each(responseJson, function(index, board) {
-            $("<div>").addClass("workspaceTable")
-                .append($("<label>").addClass("title_bar").text(board.title))
-                .appendTo($listBoards);
+            createListBoard(board);
         });
     });
 });
@@ -24,20 +22,24 @@ function filterBoards() {
 
     // ✅ Tạo danh sách mới và thêm vào MODAL
     filteredBoards.forEach(board => {
-        let boardDiv = document.createElement("div");
-        boardDiv.className = "workspaceTable";
-        boardDiv.style.backgroundImage = "url('" + board.backgroundLink + "')"
-
-        let a = document.createElement("a");
-        a.className = "workspaceTableLink";
-        a.href = "/group_home?action=boardView&boardId=" + board.boardId;
-
-        let button = document.createElement("button");
-        button.className = "titleBoardWorkspace";
-        button.textContent = board.title;
-
-        a.appendChild(button);
-        boardDiv.appendChild(a);
-        listBoards.appendChild(boardDiv);
+        createListBoard(board);
     });
+}
+
+function createListBoard (board) {
+    let boardDiv = document.createElement("div");
+    boardDiv.className = "workspaceTable";
+    boardDiv.style.backgroundImage = "url('" + board.backgroundLink + "')"
+
+    let a = document.createElement("a");
+    a.className = "workspaceTableLink";
+    a.href = "/group_home?action=boardView&boardId=" + board.boardId;
+
+    let button = document.createElement("button");
+    button.className = "titleBoardWorkspace";
+    button.textContent = board.title;
+
+    a.appendChild(button);
+    boardDiv.appendChild(a);
+    listBoards.appendChild(boardDiv);
 }
