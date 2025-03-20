@@ -3,25 +3,33 @@ document.addEventListener("DOMContentLoaded", function () {
     let nameSp = document.getElementById("groupNameInput");
     let submitBtn = document.getElementById("save");
 
-    nameSp.addEventListener("input", function () {
-        if (this.value.length > 100) {
-            this.setCustomValidity("Bạn chỉ được nhập tối đa 100 ký tự!");
-            this.reportValidity(); // Hiển thị lỗi ngay lập tức
+    function validateInput() {
+        if (nameSp.value.length > 100) {
+            nameSp.setCustomValidity("Bạn chỉ được nhập tối đa 100 ký tự!");
             submitBtn.disabled = true;
         } else {
-            this.setCustomValidity("");
+            nameSp.setCustomValidity("");
             submitBtn.disabled = false;
         }
+    }
+
+    // Kiểm tra ngay khi trang tải xong
+    validateInput();
+
+    nameSp.addEventListener("input", function () {
+        validateInput();
+        this.reportValidity(); // Hiển thị lỗi ngay lập tức
     });
 
     submitBtn.addEventListener("click", function (event) {
         if (nameSp.value.length > 100) {
             nameSp.setCustomValidity("Bạn chỉ được nhập tối đa 100 ký tự!");
-            nameSp.reportValidity(); // Hiển thị lỗi khi bấm nút
-            event.preventDefault(); // Ngăn chặn form submit nếu lỗi
+            nameSp.reportValidity();
+            event.preventDefault();
         }
     });
 });
+
 
 
 function cancelEdit() {
@@ -57,7 +65,6 @@ function saveEditGroup(event) {
         },
         dataType: "json",
         success: function (group) {
-
             document.getElementById("titleGroup").innerText = group.title;
             document.getElementById("titleGroupHomeLeft").innerText = group.title;
             document.getElementById("shortNameInput").innerText = group.title;

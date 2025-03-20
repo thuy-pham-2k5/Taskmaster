@@ -67,8 +67,9 @@ main {
 .group-info-detail h2 {
     margin: 0;
 }
-
-.img-edit-group {
+#content {
+    font-size: 20px;
+    color: #ffffff;
 }
 
 .group-invite-member {
@@ -77,7 +78,7 @@ main {
     background: #1B5B94;
     margin: auto 0;
     border-radius: 5px;
-    width: 609px;
+    width: auto;
 }
 
 .group-invite-member button {

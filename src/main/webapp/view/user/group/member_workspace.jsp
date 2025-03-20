@@ -38,8 +38,8 @@
                         <span>${groupInfo.visibility}</span>
                     </div>
                 </div>
-                <div class="group-info-bottom" id="content">
-                    <p>${groupInfo.description}</p>
+                <div class="group-info-bottom">
+                    <p id="content">${groupInfo.description}</p>
                 </div>
             </div>
             <!-- Phần chỉnh sửa, Ẩn mặc định -->
