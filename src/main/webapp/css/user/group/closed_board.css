@@ -27,6 +27,10 @@
     font-size: 14px;
 }
 
+.closed-board-title-link {
+    font-size: 20px;
+}
+
 .open-closed-board,
 .delete-closed-board {
     color: white;

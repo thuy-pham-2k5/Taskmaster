@@ -1,9 +1,15 @@
+<%@ page import="com.example.taskmaster.model.User" %>
+<%@ page import="com.google.gson.Gson" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Chi tiết bảng</title>
     <link rel="stylesheet" href="/css/user/board/detail_board.css">
+    <script src="/js/user/group/invite_member.js" defer></script>
+    <script src="/js/user/board/closed_board.js" defer></script>
+    <script src="/js/user/board/detail_board.js" defer></script>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -17,10 +23,19 @@
         <jsp:include page="../account/home_left.jsp"/>
     </div>
     <div class="home-right">
-        <div class="title-bar">
+        <c:if test="${boardDetail.status == 0}">
+            <div class="openClosedBoard" data-board="${boardDetail.boardId}">
+            <span>
+                Bảng thông tin đã đóng. Mở lại bảng thông tin để thực hiện thay đổi.
+                <a class="openClosedBoardLink">Mở lại bảng</a>
+            </span>
+            </div>
+        </c:if>
+
+        <div class="title-bar" style="<c:if test='${boardDetail.status == 0}'>pointer-events: none; opacity: 0.5;</c:if>">
             <div class="board_title">${boardDetail.title}</div>
         </div>
-        <div class="content_detail_board_parent">
+        <div class="content_detail_board_parent" style="<c:if test='${boardDetail.status == 0}'>pointer-events: none; opacity: 0.5;</c:if>">
             <div class="lists">
             </div>
             <div class="container-list">
@@ -78,14 +93,16 @@
 </main>
 <!-- Task Modal -->
 <div id="taskModal">
-    <div class="modal_content">
+    <div class="modal_content" data-task="0">
         <div id="header_task">
             <div id="title_task_info">
                 <input id="modalTaskTitle" type="text" name="title_task" value="Tiêu đề Task"/>
-                <p>trong danh sách <span class="status">To Do</span></p>
+                <p>trong danh sách
+                    <span class="listName"></span>
+                </p>
             </div>
             <div id="block">
-                <span class="close" onclick="closeTaskModal()">&times;</span>
+                <img class="close" onclick="closeTaskModal()" src="/images/black_closed.png">
             </div>
         </div>
 
@@ -95,21 +112,22 @@
                     <section class="members">
                         <p>Thành viên</p>
                         <div class="member-icons">
-                            <span class="icon">T</span>
-                            <button>+</button>
+<%--                            <span class="icon"></span>--%>
+<%--                            <button>+</button>--%>
                         </div>
                     </section>
                     <section class="labels">
                         <p>Nhãn</p>
                         <div class="works_together">
-                            <span class="label">Công việc chung</span>
-                            <button>+</button>
+<%--                            <span class="label">Chưa gán nhãn</span>--%>
+<%--                            <button>+</button>--%>
                         </div>
                     </section>
                     <section class="due-date">
                         <p>Ngày hết hạn</p>
-                        <div>
+                        <div class="div-selected-date">
                             <span id="selected_date"></span>
+                            <img class="delete-selected_date" src="/images/black_closed.png">
                         </div>
                     </section>
                 </div>
@@ -136,127 +154,35 @@
             </div>
 
             <div id="tools_task">
-                <button><i class="fas fa-user-plus"></i> Tham gia</button>
+                <button class="assign-member-for-task"><i class="fas fa-user-plus"></i> Tham gia</button>
                 <button><i class="fas fa-users"></i> Thành viên</button>
                 <button><i class="fas fa-tags"></i> Nhãn</button>
                 <button><i class="fas fa-tasks"></i> Việc cần làm</button>
-                <button><i class="fas fa-archive"></i> Lưu trữ</button>
+                <button class="delete-task-by-task-id"><i class="fas fa-archive"></i> Lưu trữ</button>
                 <section style="background-color: #0079bf; width: 100%; height: 30px; border-radius: 5px;"
                          class="date-picker-section">
                     <button id="open_calendar"><i class="fas fa-calendar-alt"></i> Ngày</button>
-                    <input type="date" id="date_picker">
+                    <div>
+                        <input type="datetime-local" id="date_picker">
+                        <button id="save_date" style="display: none;">Lưu</button>
+                        <button id="cancel_date" style="display: none;">Hủy</button>
+                    </div>
                 </section>
             </div>
         </div>
     </div>
 </div>
-<script>
-    let task = null;
-    $(".task").on("click", function () {
-        let taskId = $(this).data('task');
-        getInfoTask(taskId);
-        openTaskModal(task)
-    })
-    function getInfoTask (taskId) {
-        $.ajax({
-            type: "POST",
-            url: "/board_home?action=getInfoTask",
-            data: {
-                taskId: taskId
-            },
-            dataType: "json",
-            success: function (task) {
-
-            }
-        })
-    }
-    // Hiển thị modal task với thông tin từ task
-    function openTaskModal(task) {
-        document.getElementById("modalTaskTitle").value = task.title;
-        document.querySelector(".status").textContent = task.status || "To Do";
-        document.getElementById("description_display").textContent = task.description || "Thêm mô tả chi tiết...";
-        document.getElementById("selected_date").textContent = task.dueDate || "Chưa có ngày hết hạn";
-
-        document.getElementById("taskModal").style.display = "block";
-    }
-
-    // Đóng modal
-    function closeTaskModal() {
-        document.getElementById("taskModal").style.display = "none";
-    }
-
-    // Hiển thị phần chỉnh sửa mô tả
-    function editDescription() {
-        document.getElementById("description_display").classList.add("hidden");
-        document.getElementById("description_edit").classList.remove("hidden");
-    }
-
-    // Lưu mô tả
-    function saveDescription() {
-        let descText = document.getElementById("description_textarea").value;
-        document.getElementById("description_display").textContent = descText || "Thêm mô tả chi tiết...";
-        document.getElementById("description_display").classList.remove("hidden");
-        document.getElementById("description_edit").classList.add("hidden");
-    }
-
-    // Hủy chỉnh sửa mô tả
-    function cancelDescription() {
-        document.getElementById("description_display").classList.remove("hidden");
-        document.getElementById("description_edit").classList.add("hidden");
-    }
-
-
-    document.getElementById("open_calendar").addEventListener("click", function () {
-        document.getElementById("date_picker").showPicker(); // Hiển thị bộ chọn ngày
-    });
-
-    document.getElementById("date_picker").addEventListener("change", function () {
-        let selectedDate = new Date(this.value);
-
-        // Lấy ngày, tháng, năm từ đối tượng Date
-        let day = selectedDate.getDate();
-        let month = selectedDate.getMonth() + 1; // Tháng trong JS bắt đầu từ 0
-        let year = selectedDate.getFullYear();
-
-        // Định dạng thành "dd/mm/yyyy"
-        let formattedDate = (day < 10 ? "0" : "") + day + "/" +
-            (month < 10 ? "0" : "") + month + "/" + year;
-
-        // Cập nhật vào phần "Ngày hết hạn"
-        document.getElementById("selected_date").textContent = formattedDate;
-    });
-
-    function showAndClosed(idClosed, idShow) {
-        event.stopPropagation();
-        document.getElementById(idClosed).style.display = "none";
-        let showElement = document.getElementById(idShow);
-        showElement.style.display = "block";
-
-        let input = showElement.querySelector("input");
-        if (input) {
-            setTimeout(() => input.focus(), 50);
-        }
-    }
-
-    function setupAutoHide(idHidden, idReplacement) {
-        document.addEventListener("click", function (event) {
-            let div = document.getElementById(idHidden);
-            if (div.style.display === "block" && !div.contains(event.target)) {
-                div.style.display = "none";
-                if (idReplacement !== null) {
-                    document.getElementById(idReplacement).style.display = 'block';
-                }
-            }
-        });
-    }
-
-    setupAutoHide('inputAddNewList', 'openAddNewList');
-</script>
+<%
+    User user = (User) session.getAttribute("user");
+    String userJson = (user != null) ? new Gson().toJson(user) : "{}";
+%>
 <script defer>
+    let currentUser = <%= userJson %>;
     let boardId = ${boardDetail.boardId};
     let columns = JSON.parse('${columns}');
     let tasks = JSON.parse('${tasks}');
-    console.log(boardId);
+    console.log("User id hien tai", currentUser)
+    console.log("Board hien tai", boardId);
     console.log("Columns", columns);
     console.log("Tasks", tasks);
 
@@ -314,9 +240,6 @@
                     newTaskHtml.classList.add("task");
                     newTaskHtml.setAttribute("data-task", task.taskId);
                     newTaskHtml.setAttribute("data-position", task.position);
-                    newTaskHtml.onclick = function () {
-                        openTaskModal({ title: titleTask, status: "To Do", description: "Mô tả task" });
-                    };
                     newTaskHtml.textContent = titleTask;
 
                     if (listTask === null) {
@@ -391,7 +314,7 @@
         // Lặp qua các column
         const boardHtml = columns.map(column => {
             const taskList = Object.values(tasks || {}).flat().filter(task => task.columnId === column.columnId);
-            const taskListHtml = taskList.map(task => `<li onclick="openTaskModal({ title: 'Tiêu đề Task', status: 'To Do', description: 'Mô tả task'})" class="task" data-task="` + task.taskId + `" data-position="` + task.position + `">` + task.title + `</li>`).join('');
+            const taskListHtml = taskList.map(task => `<li class="task" data-task="` + task.taskId + `" data-position="` + task.position + `">` + task.title + `</li>`).join('');
             return repeatColumnAndTask(column, taskListHtml);
         });
         listsContainer.innerHTML = boardHtml.join('');
@@ -404,7 +327,6 @@
             });
         }, 0);
     }
-
 
     function repeatColumnAndTask(column, tasks) {
         return '<div class="container-list">' +
@@ -491,12 +413,14 @@
     document.querySelectorAll(".db-dropdown-action").forEach(item => {
         item.addEventListener("click", function () {
             if (currentOpenOperationList) {
-                let parentContainer = currentOpenOperationList.closest(".detail-list").get(0); // Lấy thẻ cha chứa button
+                let parentContainer = currentOpenOperationList.closest(".detail-list").get(0);
                 let columnData = Number(parentContainer.dataset.column);
                 console.log("Thẻ cha của button này có ID: " + columnData);
                 if (item.id === "operation-deleteList") {
-                    deleteList(columnData)
-                } else if (item.id === "operation-deleteAllTask") {
+                    deleteList(columnData);
+                    $(parentContainer).closest(".container-list").remove();
+                    hideDropdown("#operationList");
+                }            else if (item.id === "operation-deleteAllTask") {
                     deleteAllTask(columnData);
                 }
             }
@@ -528,7 +452,7 @@
                 } else {
                     notification = "Xóa cột thất bại";
                 }
-                alert(notification)
+                alertShowSuccess("Thành công", notification);
             },
             error: function (error) {
                 console.log("Lỗi AJAX:", error);
@@ -566,6 +490,33 @@
             }
         })
     }
+</script>
+<script defer>
+    function showAndClosed(idClosed, idShow) {
+        event.stopPropagation();
+        document.getElementById(idClosed).style.display = "none";
+        let showElement = document.getElementById(idShow);
+        showElement.style.display = "block";
+
+        let input = showElement.querySelector("input");
+        if (input) {
+            setTimeout(() => input.focus(), 50);
+        }
+    }
+
+    function setupAutoHide(idHidden, idReplacement) {
+        document.addEventListener("click", function (event) {
+            let div = document.getElementById(idHidden);
+            if (div.style.display === "block" && !div.contains(event.target)) {
+                div.style.display = "none";
+                if (idReplacement !== null) {
+                    document.getElementById(idReplacement).style.display = 'block';
+                }
+            }
+        });
+    }
+
+    setupAutoHide('inputAddNewList', 'openAddNewList');
 </script>
 </body>
 </html>

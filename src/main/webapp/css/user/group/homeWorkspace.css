@@ -273,7 +273,7 @@ body {
 }
 
 #workspaces {
-    margin: 15px 74px;
+    margin: 15px 78px;
     display: flex;
     flex-direction: column;
     gap: 25px;
@@ -355,50 +355,58 @@ body {
     transform: scale(0.95); /* Nhấn xuống nhỏ lại một chút */
 }
 
-.workspaceTable {
-    display: flex; /* Dùng flexbox để căn giữa */
-    justify-content: center; /* Căn giữa theo chiều ngang */
-    align-items: center; /* Căn giữa theo chiều dọc */
-    width: 170px; /* Đặt chiều rộng cố định */
-    height: 90px; /* Đặt chiều cao cố định */
+.workspaceTable-createBoard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 170px;
+    height: 90px;
     word-wrap: break-word;
-    gap: 10px; /* Tạo khoảng cách giữa các phần tử */
+    gap: 10px;
     overflow-wrap: break-word;
     background-color: #0D599D;
     border-radius: 10px;
-    overflow: hidden; /* Ngăn không cho nội dung tràn ra */
-    text-overflow: ellipsis; /* Nếu cần cắt bớt nội dung dài */
-    text-align: center; /* Căn giữa nội dung text */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+
+.workspaceTable {
+    display: flex;
+    width: 170px;
+    height: 90px;
+    gap: 10px;
+    border-radius: 10px;
+    text-overflow: ellipsis;
+    text-align: center;
+    background-size: cover;
+    background-position: center;
+}
+
+.workspaceTableLink {
+    width: 100%;
+    height: 100%;
+    text-align: left;
 }
 
 .titleBoardWorkspace {
-    background-color: #0D599D;
+    overflow: hidden;
+    background: none;
     color: white;
     border: none;
-}
-
-
-.workspaceTable button {
-    white-space: normal; /* Đảm bảo nội dung xuống dòng */
-    word-break: break-word; /* Cắt từ xuống dòng nếu quá dài */
-    overflow: hidden; /* Không cho nội dung tràn ra */
+    font-size: 16px;
+    font-weight: bolder;
+    padding: 10px 15px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    text-align: left;
 }
 
 .title_bar {
     background-color: #0D599D;
     color: white;
     border: none;
-}
-
-#workspaceTable button {
-    border: none;
-    border-radius: 10px;
-    width: 177px;
-    height: 75px;
-    color: white;
-    align-content: center;
-    background-color: #0D599D;
-    cursor: pointer;
 }
 
 #viewOffTable {

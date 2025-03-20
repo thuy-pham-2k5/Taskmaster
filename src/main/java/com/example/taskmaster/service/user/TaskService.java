@@ -10,7 +10,7 @@ import java.sql.*;
 import java.util.*;
 import java.util.regex.Pattern;
 
-public class  TaskService implements ITaskService {
+public class TaskService implements ITaskService {
     @Override
     public List<Integer> getAllColumnId(int boardId) {
         List<Integer> columnIds = new ArrayList<>();
@@ -59,28 +59,43 @@ public class  TaskService implements ITaskService {
     }
 
     @Override
-    public Map<Task, List<DetailTask>> getDetailTask(int taskId) {
+    public Task getTask(int taskId) {
         String query = "{call getDetailTask(?)}";
         Map<Task, List<DetailTask>> detailTask = new HashMap<>();
         try (Connection connection = ConnectDatabase.getConnection()) {
             CallableStatement callableStatement = connection.prepareCall(query);
             callableStatement.setInt(1, taskId);
             ResultSet resultSet = callableStatement.executeQuery();
-            while (resultSet.next()) {
+            if (resultSet.next()) {
                 String titleTask = resultSet.getString("title");
                 String description = resultSet.getString("description");
                 int listId = resultSet.getInt("list_id");
                 String listName = resultSet.getString("name");
                 int position = resultSet.getInt("position");
                 String dueTime = resultSet.getString("due_time");
-                Task task = new Task(taskId, titleTask, description, listId, listName, position, dueTime);
-                detailTask.putIfAbsent(task, new ArrayList<>());
+                return new Task(taskId, titleTask, description, listId, listName, position, dueTime);
+            } else
+                return null;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<DetailTask> getDetailTask(int taskId) {
+        String query = "{call getDetailTask(?)}";
+        List<DetailTask> detailTask = new ArrayList<>();
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            CallableStatement callableStatement = connection.prepareCall(query);
+            callableStatement.setInt(1, taskId);
+            ResultSet resultSet = callableStatement.executeQuery();
+            while (resultSet.next()) {
                 int userId = resultSet.getInt("user_id");
                 String fullName = resultSet.getString("full_name");
                 String colorLabel = resultSet.getString("color_label");
                 String nameLabel = resultSet.getString("name_label");
                 boolean isFollowing = resultSet.getBoolean("is_following");
-                detailTask.get(task).add(new DetailTask(userId, fullName, isFollowing, colorLabel, nameLabel));
+                detailTask.add(new DetailTask(userId, fullName, isFollowing, colorLabel, nameLabel));
             }
             return detailTask;
         } catch (SQLException e) {
@@ -136,5 +151,63 @@ public class  TaskService implements ITaskService {
         }
     }
 
+    @Override
+    public void saveDescriptionOfTask(int taskId, String description) {
+        String query = "UPDATE `taskmaster`.`tasks` SET `description` = ? WHERE (`task_id` = ?)";
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, description);
+            preparedStatement.setInt(2, taskId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void saveDueTimeOfTask(int taskId, Timestamp dueTime) {
+        String query = "{call saveDueTimeInTask (?, ?)}";
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            CallableStatement callableStatement = connection.prepareCall(query);
+            callableStatement.setInt(2, taskId);
+            callableStatement.setTimestamp(1, dueTime);
+            callableStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void deleteDueTimeOfTask(int taskId) {
+        String query = "delete from dates where task_id = ?";
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, taskId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public boolean assignMemberForTask(int taskId, int userId, boolean type) { // bỏ gắn = false
+        String query;
+        if (type) {
+            query = "INSERT INTO `taskmaster`.`assign` (`user_id`, `task_id`) VALUES (?, ?)";
+        } else {
+            query = "delete from assign where user_id = ? and task_id = ?";
+        }
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setInt(2, taskId);
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            if (e.getErrorCode() == 1062) {
+                return false;
+            }
+            throw new RuntimeException(e);
+        }
+    }
 }
 

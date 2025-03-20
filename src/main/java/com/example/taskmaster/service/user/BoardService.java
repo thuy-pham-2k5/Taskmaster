@@ -234,5 +234,18 @@ public class BoardService implements IBoardService {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public void saveDescriptionInTask(int taskId, String description) {
+        String query = "update tasks set description = ? where task_id = ?";
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, description);
+            preparedStatement.setInt(2, taskId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
 

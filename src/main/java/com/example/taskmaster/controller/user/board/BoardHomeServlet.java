@@ -11,11 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.*;
 
-@WebServlet (value = "/board_home")
+@WebServlet(value = "/board_home")
 public class BoardHomeServlet extends HttpServlet {
     GroupService groupService = new GroupService();
     BoardService boardService = new BoardService();
@@ -25,35 +25,101 @@ public class BoardHomeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
+        System.out.println(action);
         if (action == null) action = "";
         switch (action) {
             case "addNewTask":
-                addNewTaskInTasks (req, resp);
+                addNewTaskInTasks(req, resp);
                 break;
             case "addNewColumn":
-                addNewColumnInLists (req, resp);
+                addNewColumnInLists(req, resp);
                 break;
             case "deleteColumn":
-                deleteColumnInLists (req, resp);
+                deleteColumnInLists(req, resp);
                 break;
             case "deleteAllTaskInColumn":
-                deleteAllTaskInColumn (req, resp);
+                deleteAllTaskInColumn(req, resp);
+                break;
+            case "deleteTask":
+                deleteTaskById (req, resp);
                 break;
             case "getInfoTask":
-                getDetailTask (req, resp);
+                getDetailTask(req, resp);
+                break;
+            case "saveDueTimeOfTask":
+                saveDueTimeOfTask(req, resp);
+                break;
+            case "deleteDueTimeOfTask":
+                deleteDueTimeOfTask(req, resp);
+                break;
+            case "saveDescriptionOfTask":
+                saveDescriptionOfTask(req, resp);
+                break;
+            case "assignTaskForMember":
+                assignTaskForMember(req, resp);
                 break;
             default:
                 break;
         }
     }
 
+    private void deleteTaskById(HttpServletRequest req, HttpServletResponse resp) {
+        int taskId = Integer.parseInt(req.getParameter("taskId"));
+        taskService.deleteTask(taskId);
+        resp.setStatus(HttpServletResponse.SC_OK);
+    }
+
+    private void assignTaskForMember(HttpServletRequest req, HttpServletResponse resp) {
+        int type = Integer.parseInt(req.getParameter("type"));
+        int taskId = Integer.parseInt(req.getParameter("taskId"));
+        int userId = Integer.parseInt(req.getParameter("userId"));
+        if (userId == 0) {
+            User user = (User) req.getSession().getAttribute("user");
+            userId = user.getUserId();
+        }
+        if (type == 1) { // gắn thẻ
+            taskService.assignMemberForTask(taskId, userId, true);
+        } else {
+            taskService.assignMemberForTask(taskId, userId, false);
+        }
+        resp.setStatus(HttpServletResponse.SC_OK);
+    }
+
+    private void saveDescriptionOfTask(HttpServletRequest req, HttpServletResponse resp) {
+        int taskId = Integer.parseInt(req.getParameter("taskId"));
+        String description = req.getParameter("description");
+        taskService.saveDescriptionOfTask(taskId, description);
+        resp.setStatus(HttpServletResponse.SC_OK);
+    }
+
+    private void deleteDueTimeOfTask(HttpServletRequest req, HttpServletResponse resp) {
+        int taskId = Integer.parseInt(req.getParameter("taskId"));
+        taskService.deleteDueTimeOfTask(taskId);
+        resp.setStatus(HttpServletResponse.SC_OK);
+    }
+
+    private void saveDueTimeOfTask(HttpServletRequest req, HttpServletResponse resp) {
+        String dueTime = req.getParameter("dueTime");
+        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(dueTime.replace("Z", "")));
+        System.out.println(timestamp);
+        int taskId = Integer.parseInt(req.getParameter("taskId"));
+        taskService.saveDueTimeOfTask(taskId, timestamp);
+        resp.setStatus(HttpServletResponse.SC_OK);
+    }
+
     private void getDetailTask(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         int taskId = Integer.parseInt(req.getParameter("taskId"));
-        Map<Task, List<DetailTask>> detailTask = taskService.getDetailTask(taskId);
-        String detailTaskJson = new Gson().toJson(detailTask);
+
+        Task task = taskService.getTask(taskId);
+        List<DetailTask> detailTask = taskService.getDetailTask(taskId);
+
+        Map<String, Object> responseMap = new HashMap<>();
+        responseMap.put("task", task);
+        responseMap.put("details", detailTask);
+        String responseJson = new Gson().toJson(responseMap);
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
-        resp.getWriter().write(detailTaskJson);
+        resp.getWriter().write(responseJson);
     }
 
     private void deleteAllTaskInColumn(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -102,11 +168,11 @@ public class BoardHomeServlet extends HttpServlet {
         if (action == null) action = "";
         switch (action) {
             case "changeBoardStarredStatus":
-                starredBoardByBoardId (req, resp);
+                starredBoardByBoardId(req, resp);
                 break;
             default:
-                setTimestampToBoard (req);
-                showDetailBoard (req, resp);
+                setTimestampToBoard(req);
+                showDetailBoard(req, resp);
                 break;
         }
     }
