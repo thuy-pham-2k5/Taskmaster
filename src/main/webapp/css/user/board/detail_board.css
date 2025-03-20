@@ -343,6 +343,7 @@ input::placeholder {
 #expire_task {
     display: flex;
     flex-wrap: wrap;
+    margin-bottom: 16px;;
 }
 
 
@@ -521,7 +522,7 @@ input::placeholder {
 }
 
 .description_task {
-    margin-top: 55px;
+    /*margin-top: 55px;*/
 }
 
 
