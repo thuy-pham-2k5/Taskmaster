@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <title>Thành viên Không gian làm việc</title>
     <link rel="stylesheet" href="/css/user/group/memberWorkspace.css">
+    <link rel="stylesheet" href="/css/user/group/invite_member.css">
+    <script src="/js/user/group/invite_member.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <header>
@@ -35,7 +38,7 @@
                 </div>
             </div>
             <div class="group-invite-member">
-                <button>
+                <button onclick="openInviteMember()">
                     <img src="/images/add_account.png" alt="add_member.png">
                     Mời các thành viên không gian làm việc
                 </button>
@@ -49,7 +52,7 @@
                 <div class="main-content">
                     <%--nội dung bên trái--%>
                     <div class="main-content-sidebar">
-                        <ul>
+                        <ul class="mw-ul">
                             <li id="member" onclick="toggleDisplay('member')"><a>Thành viên không gian làm việc</a></li>
                             <li id="guest" onclick="toggleDisplay('guest')"><a>Khách</a></li>
                             <hr>
@@ -86,7 +89,7 @@
 
                         <hr>
                         <div>
-                            <div class="member-section">
+                            <div id="listMember" class="member-section">
                                 <c:forEach items="${members}" var="user">
                                     <div class="user-general-info">
                                         <div class="user-info">
@@ -159,7 +162,7 @@
                                             </a>
 
                                             <div class="confirm-box">
-                                                <p>Bạn có chắc muốn loại bỏ ${user.fullName}?</p>
+                                                <p style="font-size: 18px">Bạn có chắc muốn loại bỏ ${user.fullName} ?</p>
                                                 <button class="confirm-remove">Có</button>
                                                 <button class="cancel-remove">Hủy</button>
                                             </div>
@@ -177,21 +180,6 @@
     </div>
 </main>
 <script>
-    function deleteMember(userId) {
-        $.ajax({
-            type: "POST",
-            url: "/group_member",
-            data: {
-                action: "delete",
-                userId: userId
-            },
-            dataType: "json",
-            success: function (response) {
-                const userInfo = this.closest(".user-general-info");
-                userInfo.remove();
-            }
-        })
-    }
     document.addEventListener("DOMContentLoaded", function () {
         const removeButtons = document.querySelectorAll(".remove-btn");
 
@@ -200,22 +188,40 @@
                 // Lấy modal xác nhận gần nút được nhấn
                 const confirmBox = this.nextElementSibling;
 
-                // Ẩn tất cả các modal khác
+                // Ẩn tất cả các modal khác trước khi hiển thị
                 document.querySelectorAll(".confirm-box").forEach(box => {
                     if (box !== confirmBox) {
                         box.classList.remove("show");
                     }
                 });
 
-                // Hiển thị modal dưới nút "Loại bỏ"
+                // Hiển thị modal
                 confirmBox.classList.add("show");
 
-                // Xác định vị trí modal ngay dưới nút
+                // Lấy vị trí của nút và modal
                 const rect = this.getBoundingClientRect();
-                confirmBox.style.top = `${rect.bottom + window.scrollY + 45}px`; /* Hiển thị ngay dưới */
-                confirmBox.style.left = `${rect.left + window.scrollX + 45}px`; /* Canh lề theo nút */
+                const modalHeight = confirmBox.offsetHeight; // Chiều cao của modal
+                const viewportHeight = window.innerHeight; // Chiều cao cửa sổ trình duyệt
+                const spaceBelow = viewportHeight - rect.bottom; // Khoảng trống bên dưới nút
+                const spaceAbove = rect.top; // Khoảng trống phía trên nút
+
+                let top, left;
+
+                // Kiểm tra nếu không đủ không gian bên dưới, hiển thị modal phía trên
+                if (spaceBelow < modalHeight) {
+                    top = rect.bottom + window.scrollY + 47 - (modalHeight - spaceBelow);
+                } else {
+                    top = rect.bottom + window.scrollY + 47;
+                }
+
+                left = rect.left + window.scrollX + 27; // Canh chỉnh lề trái theo nút
+
+                // Đặt vị trí của modal
+                confirmBox.style.top = `${top}px`;
+                confirmBox.style.left = `${left}px`;
             });
         });
+
 
         // Xử lý nút "Hủy"
         document.querySelectorAll(".cancel-remove").forEach(cancelButton => {

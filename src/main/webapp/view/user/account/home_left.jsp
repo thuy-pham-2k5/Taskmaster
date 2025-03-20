@@ -10,12 +10,16 @@
     }
 
     .home-left {
+        min-height: 100%;
+        height: auto;
         width: 260px;
         z-index: 5;
         background: #3179ba;
     }
 
     .home-left-child {
+        min-height: 100%;
+        height: auto;
         color: white;
         width: inherit;
         position: absolute;
@@ -152,7 +156,7 @@
 
     .hl-list-boards-title-closed-board-img {
         display: none;
-        padding:5px;
+        padding: 5px;
         width: 13px;
         height: 13px;
         border-radius: 5px;
@@ -170,9 +174,6 @@
     }
 
     .hl-list-boards-ul {
-        scrollbar-color: #fff6 #00000026;
-        scrollbar-width: thin;
-        overflow-y: auto;
         max-height: 457px;
         margin: 5px 0 0 0;
         padding: 0;
@@ -182,16 +183,17 @@
         padding: 5px 12px 0 12px;
         height: 32px;
         display: flex;
-        align-items: center;
-        justify-content: space-between;
     }
 
     .hl-list-boards-ul li a {
+        width: 100%;
         text-overflow: ellipsis;
         overflow: hidden;
-        display: block;
+        display: flex;
         white-space: nowrap;
         color: white;
+        align-items: center;
+        justify-content: space-between;
     }
 
     .hl-list-boards-ul li:hover {
@@ -203,13 +205,54 @@
         display: block;
     }
 
+    .hl-list-boards-ul li:hover img,
+    .hl-list-boards-ul li img.dropdown-open {
+        display: block !important;
+    }
+
     .hl-list-boards-ul li img {
         width: 15px;
         height: 15px;
         display: none;
         margin: 0 0 0 15px;
     }
+    .hl-dropdown-action button {
+        border: 0;
+        background: none;
+        padding: 10px;
+        font-size: 15px;
+    }
 
+    .hl-dropdown-action-board {
+        position: absolute;
+        display: none; /* Ẩn mặc định */
+        background-color: white;
+        border: 1px solid #ccc;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        min-width: 120px;
+        list-style: none;
+        border-radius: 10px;
+    }
+
+    .hl-dropdown-action-board div h4 {
+        display: flex;
+        justify-content: center;
+    }
+
+    .hl-dropdown-action {
+        cursor: pointer;
+        width: 290px;
+    }
+
+    .hl-dropdown-action:hover {
+        background-color: #d4e4f3;
+    }
+
+    .hl-dropdown-lists {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
 </style>
 
 <div class="position-home-left">
@@ -228,7 +271,7 @@
                 </button>
             </div>
             <div class="hl-general-info">
-                <div>
+                <div style="overflow-y: auto; scrollbar-color: #fff6 #00000026; scrollbar-width: thin; height: calc(100% - 20px);">
                     <div class="hl-group-basic-features">
                         <a href="group_home">
                             <img class="hl-img" src="/images/board.png" alt="board.png">
@@ -247,29 +290,86 @@
                         <div class="hl-list-boards-title">
                             <h3>Các bảng của bạn</h3>
                             <div>
-                                <img class="hl-list-boards-title-closed-board-img" src="/images/ellipsis.png" alt="closed-board"/>
+                                <img class="hl-list-boards-title-closed-board-img" src="/images/ellipsis.png"
+                                     alt="closed-board"/>
                                 <img class="hl-list-boards-title-add-board-img" src="/images/plus.png" alt="plus.png">
                             </div>
                         </div>
                         <ul class="hl-list-boards-ul">
                             <c:forEach items="${boards}" var="board">
                                 <li>
-                                    <a href="group_home?action=boardView&boardId=${board.boardId}">${board.title}</a>
-                                    <img src="/images/ellipsis.png" alt="closed-board"/>
+                                    <a href="group_home?action=boardView&boardId=${board.boardId}">
+                                            ${board.title}
+                                        <img class="openOperationBoard" src="/images/ellipsis.png" alt="closed-board"/>
+                                    </a>
                                 </li>
                             </c:forEach>
                         </ul>
                     </div>
                 </div>
             </div>
-            <%--        <div class="hl-auxiliary-part">--%>
-            <%--            <div class="role-guest-workspace">--%>
-            <%--                <p>Bạn là khách của không gian làm việc.</p>--%>
-            <%--                <p>Để xem các bảng và thành viên khác trong không gian làm việc này, quản trị viên phải thêm bạn làm--%>
-            <%--                    thành viên không gian làm việc</p>--%>
-            <%--                <button>Yêu cầu tham gia</button>--%>
-            <%--            </div>--%>
-            <%--        </div>--%>
         </div>
     </nav>
 </div>
+<div class="hl-dropdown-action-board" id="operationBoard">
+    <div>
+        <h4>Thao tác</h4>
+    </div>
+    <ul class="hl-dropdown-lists">
+        <li id="operation-addTask" class="hl-dropdown-action">
+            <button>Rời khỏi bảng</button>
+        </li>
+        <li id="operation-copyList" class="hl-dropdown-action">
+            <button>Đóng bảng</button>
+        </li>
+    </ul>
+</div>
+<script>
+    let currentOpenOperationBoard = null;
+
+    $(document).on("click", ".openOperationBoard", function (event) {
+        event.stopPropagation();
+        event.preventDefault();
+
+        let openDropdown = $(this);
+        let dropdown = $("#operationBoard");
+
+        if (currentOpenOperationBoard) {
+            currentOpenOperationBoard.removeClass("dropdown-open");
+        }
+
+        if (typeof currentOpenOperationList !== "undefined" && currentOpenOperationList) {
+            hideDropdown("#operationList");
+        }
+
+        openDropdown.addClass("dropdown-open");
+        updateDropdownBoardPosition(openDropdown, dropdown);
+
+        $('.hl-general-info div').on("scroll", function () {
+            if (dropdown.is(":visible")) {
+                updateDropdownBoardPosition(openDropdown, dropdown);
+            }
+        });
+        currentOpenOperationBoard = openDropdown;
+    });
+
+    function updateDropdownBoardPosition(openDropdown, dropdown) {
+        const offset = openDropdown.offset();
+        dropdown.css({
+            left: offset.left + "px",
+            top: offset.top + openDropdown.outerHeight() + "px",
+            display: "block"
+        });
+    }
+
+    // Đóng dropdown khi nhấn ra ngoài
+    $(document).on("click", function (event) {
+        if (!$(event.target).closest(".openOperationBoard, #operationBoard").length) {
+            hideDropdown("#operationBoard");
+            if (currentOpenOperationBoard) {
+                currentOpenOperationBoard.removeClass("dropdown-open");
+            }
+            currentOpenOperationBoard = null;
+        }
+    });
+</script>

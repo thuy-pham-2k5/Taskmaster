@@ -6,10 +6,13 @@
     <title>Title</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/user/group/homeWorkspace.css">
+    <link rel="stylesheet" href="/css/user/group/invite_member.css">
+    <script src="/js/user/group/invite_member.js" defer></script>
     <script src="/js/user/group/home_workspace.js" defer></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/sweet-modal/dist/min/jquery.sweet-modal.min.css">
     <script src="https://unpkg.com/sweet-modal/dist/min/jquery.sweet-modal.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 <div style="height: 100%;">
@@ -62,7 +65,9 @@
                         <textarea name="description" id="groupDescInput">${groupInfo.description}</textarea>
 
                         <div class="button-group">
-                            <button onclick="saveEditGroup(event)" class="save-btn" type="submit">Lưu</button>
+                            <button onclick="saveEditGroup(event)" class="save-btn" type="submit" id="save" disabled>
+                                Lưu
+                            </button>
 
                             <button type="button" class="cancel-btn" onclick="cancelEdit()">Hủy</button>
                         </div>
@@ -72,8 +77,7 @@
 
                 <c:if test="${roleIdUser == 3}">
                     <div id="addAccount">
-                        <button style="background-color: #1B5B94; padding: 10px;cursor: pointer;border-radius: 5px;align-items: center;height: 35px;justify-content: space-around;display: flex;width: 285px;border: none;"
-                                onclick="invite_member()">
+                        <button id="btnAddAccount" onclick="openInviteMember()">
                             <img style="width: 18px; height: 18px" src="/images/add_account.png" alt="">
 
                             <p style="color:white;">Mời thành viên vào không gian làm việc</p>
@@ -108,7 +112,7 @@
                     </div>
                     <div id="listBoards" class="card-container">
                         <c:forEach var="board" items="${boards}">
-                            <div style=" background-color: #0D599D; " class="workspaceTable">
+                            <div style="background-color: #0D599D;" class="workspaceTable">
                                 <a href="/group_home?action=boardView&boardId=${board.boardId}">
                                     <button class="titleBoardWorkspace">${board.title}</button>
                                 </a>
@@ -122,10 +126,35 @@
         </div>
     </div>
 </div>
-</div>
-</div>
 
 <script>
+
+    // chỉnh sửa group không cho chỉnh sửa tiêu đề quá 100 ký tự
+    document.addEventListener("DOMContentLoaded", function () {
+        let nameSp = document.getElementById("groupNameInput");
+        let submitBtn = document.getElementById("save");
+
+        nameSp.addEventListener("input", function () {
+            if (this.value.length > 100) {
+                this.setCustomValidity("Bạn chỉ được nhập tối đa 100 ký tự!");
+                this.reportValidity(); // Hiển thị lỗi ngay lập tức
+                submitBtn.disabled = true;
+            } else {
+                this.setCustomValidity("");
+                submitBtn.disabled = false;
+            }
+        });
+
+        submitBtn.addEventListener("click", function (event) {
+            if (nameSp.value.length > 100) {
+                nameSp.setCustomValidity("Bạn chỉ được nhập tối đa 100 ký tự!");
+                nameSp.reportValidity(); // Hiển thị lỗi khi bấm nút
+                event.preventDefault(); // Ngăn chặn form submit nếu lỗi
+            }
+        });
+    });
+
+
     function cancelEdit() {
         // Hủy chỉnh sửa, quay về ban đầu
         document.getElementById("edit_frame").style.display = "none";
@@ -169,7 +198,6 @@
         })
 
     }
-
 
 
     document.getElementById("logoutBtn").addEventListener("click", function () {
@@ -263,7 +291,7 @@
         $.ajax({
             type: "POST",
             url: "/board?action=deleteBoard",
-            data: { boardId: deleteButtonId },
+            data: {boardId: deleteButtonId},
             dataType: "json",
             success: function (message) {
                 if (message === true) {

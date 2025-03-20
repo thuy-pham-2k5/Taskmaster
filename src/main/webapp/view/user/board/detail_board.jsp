@@ -316,6 +316,9 @@
                     newTaskHtml.classList.add("task");
                     newTaskHtml.setAttribute("data-task", task.taskId);
                     newTaskHtml.setAttribute("data-position", task.position);
+                    newTaskHtml.onclick = function () {
+                        openTaskModal({ title: titleTask, status: "To Do", description: "Mô tả task" });
+                    };
                     newTaskHtml.textContent = titleTask;
 
                     if (listTask === null) {
@@ -448,6 +451,13 @@
     $(document).on("click", ".openOperationList", function (event) {
         let openDropdown = $(this);
         let dropdown = $("#operationList");
+
+        if (currentOpenOperationBoard) {
+            currentOpenOperationBoard.removeClass("dropdown-open");
+            hideDropdown("#operationBoard");
+            currentOpenOperationBoard = null;
+        }
+
         updateDropdownPosition(openDropdown, dropdown);
 
         $('.content_detail_board_parent').scroll(function () {
@@ -463,6 +473,7 @@
 
     function updateDropdownPosition(openDropdown, dropdown) {
         const offset = openDropdown.offset();
+        console.log(offset.left, " ", offset.top);
         dropdown.css({
             left: offset.left + "px",
             top: offset.top + openDropdown.outerHeight() + "px",
@@ -472,13 +483,10 @@
 
     $(document).on("click", function (event) {
         if (!$(event.target).closest(".openOperationList, #operationList").length) {
-            hideDropdown();
+            hideDropdown("#operationList");
+            currentOpenOperationList = null;
         }
     });
-
-    function hideDropdown() {
-        $("#operationList").hide();
-    }
 
 </script>
 <script>
