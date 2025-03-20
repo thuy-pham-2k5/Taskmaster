@@ -262,7 +262,9 @@
                   <div class="closed-board-info">
                       <img src="" alt="error.png" class="image-closed-board"/>
                       <div>
-                          <div class="closed-board-title"></div>
+                          <div class="closed-board-title">
+                                <a class="closed-board-title-link"></a>
+                          </div>
                           <div class="closed-board-group-title"></div>
                       </div>
                   </div>
@@ -272,8 +274,9 @@
                   </div>
             `;
         parentDiv.querySelector(".image-closed-board").src = board.backgroundLink || "error.png";
-        parentDiv.querySelector(".closed-board-title").textContent = board.title || "";
         parentDiv.querySelector(".closed-board-group-title").textContent = board.groupName || "";
+        parentDiv.querySelector(".closed-board-title-link").href = "/group_home?action=boardView&&boardId=" + board.boardId;
+        parentDiv.querySelector(".closed-board-title-link").textContent = board.title || "";
         return parentDiv;
     }
 
