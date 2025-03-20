@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/css/user/board/detail_board.css">
     <script src="/js/user/group/invite_member.js" defer></script>
     <script src="/js/user/board/closed_board.js" defer></script>
+    <script src="/js/user/board/detail_board.js" defer></script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -90,11 +91,13 @@
 </main>
 <!-- Task Modal -->
 <div id="taskModal">
-    <div class="modal_content">
+    <div class="modal_content" data-task="0">
         <div id="header_task">
             <div id="title_task_info">
                 <input id="modalTaskTitle" type="text" name="title_task" value="Tiêu đề Task"/>
-                <p>trong danh sách <span class="status"></span></p>
+                <p>trong danh sách
+                    <span class="listName"></span>
+                </p>
             </div>
             <div id="block">
                 <img class="close" onclick="closeTaskModal()" src="/images/black_closed.png">
@@ -107,15 +110,15 @@
                     <section class="members">
                         <p>Thành viên</p>
                         <div class="member-icons">
-                            <span class="icon">T</span>
-                            <button>+</button>
+<%--                            <span class="icon"></span>--%>
+<%--                            <button>+</button>--%>
                         </div>
                     </section>
                     <section class="labels">
                         <p>Nhãn</p>
                         <div class="works_together">
-                            <span class="label">Công việc chung</span>
-                            <button>+</button>
+<%--                            <span class="label">Chưa gán nhãn</span>--%>
+<%--                            <button>+</button>--%>
                         </div>
                     </section>
                     <section class="due-date">
@@ -156,7 +159,7 @@
                 <section style="background-color: #0079bf; width: 100%; height: 30px; border-radius: 5px;"
                          class="date-picker-section">
                     <button id="open_calendar"><i class="fas fa-calendar-alt"></i> Ngày</button>
-                    <input type="date" id="date_picker">
+                    <input type="datetime-local" id="date_picker">
                 </section>
             </div>
         </div>
@@ -311,7 +314,6 @@
             });
         }, 0);
     }
-
 
     function repeatColumnAndTask(column, tasks) {
         return '<div class="container-list">' +
@@ -475,83 +477,6 @@
     }
 </script>
 <script defer>
-    $(document).on("click", ".task", function () {
-        console.log("clicked")
-        let taskId = $(this).data('task');
-        getInfoTask(taskId, function (task) {
-            console.log(task)
-            openTaskModal(task)
-        });
-    })
-    function getInfoTask (taskId, callback) {
-        $.ajax({
-            type: "POST",
-            url: "/board_home?action=getInfoTask",
-            data: {
-                taskId: taskId
-            },
-            dataType: "json",
-            success: function (taskDetail) {
-                callback(taskDetail);
-            }
-        })
-    }
-    // Hiển thị modal task với thông tin từ task
-    function openTaskModal(task) {
-        document.getElementById("modalTaskTitle").value = task.title;
-        document.querySelector(".status").textContent = task.status || "To Do";
-        document.getElementById("description_display").textContent = task.description || "Thêm mô tả chi tiết...";
-        document.getElementById("selected_date").textContent = task.dueDate || "Chưa có ngày hết hạn";
-
-        document.getElementById("taskModal").style.display = "block";
-    }
-
-    // Đóng modal
-    function closeTaskModal() {
-        document.getElementById("taskModal").style.display = "none";
-    }
-
-    // Hiển thị phần chỉnh sửa mô tả
-    function editDescription() {
-        document.getElementById("description_display").classList.add("hidden");
-        document.getElementById("description_edit").classList.remove("hidden");
-    }
-
-    // Lưu mô tả
-    function saveDescription() {
-        let descText = document.getElementById("description_textarea").value;
-        document.getElementById("description_display").textContent = descText || "Thêm mô tả chi tiết...";
-        document.getElementById("description_display").classList.remove("hidden");
-        document.getElementById("description_edit").classList.add("hidden");
-    }
-
-    // Hủy chỉnh sửa mô tả
-    function cancelDescription() {
-        document.getElementById("description_display").classList.remove("hidden");
-        document.getElementById("description_edit").classList.add("hidden");
-    }
-
-
-    document.getElementById("open_calendar").addEventListener("click", function () {
-        document.getElementById("date_picker").showPicker(); // Hiển thị bộ chọn ngày
-    });
-
-    document.getElementById("date_picker").addEventListener("change", function () {
-        let selectedDate = new Date(this.value);
-
-        // Lấy ngày, tháng, năm từ đối tượng Date
-        let day = selectedDate.getDate();
-        let month = selectedDate.getMonth() + 1; // Tháng trong JS bắt đầu từ 0
-        let year = selectedDate.getFullYear();
-
-        // Định dạng thành "dd/mm/yyyy"
-        let formattedDate = (day < 10 ? "0" : "") + day + "/" +
-            (month < 10 ? "0" : "") + month + "/" + year;
-
-        // Cập nhật vào phần "Ngày hết hạn"
-        document.getElementById("selected_date").textContent = formattedDate;
-    });
-
     function showAndClosed(idClosed, idShow) {
         event.stopPropagation();
         document.getElementById(idClosed).style.display = "none";

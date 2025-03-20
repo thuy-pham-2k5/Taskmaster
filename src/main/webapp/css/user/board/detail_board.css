@@ -321,7 +321,7 @@ input::placeholder {
     color: #2d2d2d;
 }
 
-.status {
+.listName {
     font-weight: bold;
     color: #1258d3;
 }
@@ -342,12 +342,13 @@ input::placeholder {
 
 #expire_task {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 
 #navigation_task section {
     margin-bottom: 10px;
+    min-width: 100px;
 }
 
 #navigation_task p {
@@ -358,6 +359,7 @@ input::placeholder {
 
 .member-icons, .labels span, .works_together {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 10px;
 }
@@ -484,12 +486,12 @@ input::placeholder {
     padding: 5px;
 }
 
-.works_together span {
-    color: #2d2d2d;
+.label {
+    color: #FFFFFF;
     justify-content: center;
     display: flex;
     border-radius: 4px;
-    background-color: #4ae1a3;
+    background-color: #949494;
     width: 134px;
     height: 30px;
 }

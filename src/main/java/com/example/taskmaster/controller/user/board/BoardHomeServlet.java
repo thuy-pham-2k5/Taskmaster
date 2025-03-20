@@ -11,11 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-@WebServlet (value = "/board_home")
+@WebServlet(value = "/board_home")
 public class BoardHomeServlet extends HttpServlet {
     GroupService groupService = new GroupService();
     BoardService boardService = new BoardService();
@@ -28,19 +26,19 @@ public class BoardHomeServlet extends HttpServlet {
         if (action == null) action = "";
         switch (action) {
             case "addNewTask":
-                addNewTaskInTasks (req, resp);
+                addNewTaskInTasks(req, resp);
                 break;
             case "addNewColumn":
-                addNewColumnInLists (req, resp);
+                addNewColumnInLists(req, resp);
                 break;
             case "deleteColumn":
-                deleteColumnInLists (req, resp);
+                deleteColumnInLists(req, resp);
                 break;
             case "deleteAllTaskInColumn":
-                deleteAllTaskInColumn (req, resp);
+                deleteAllTaskInColumn(req, resp);
                 break;
             case "getInfoTask":
-                getDetailTask (req, resp);
+                getDetailTask(req, resp);
                 break;
             default:
                 break;
@@ -49,12 +47,20 @@ public class BoardHomeServlet extends HttpServlet {
 
     private void getDetailTask(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         int taskId = Integer.parseInt(req.getParameter("taskId"));
-        Map<Task, List<DetailTask>> detailTask = taskService.getDetailTask(taskId);
-        String detailTaskJson = new Gson().toJson(detailTask);
-        System.out.println(detailTaskJson);
+
+        Task task = taskService.getTask(taskId);
+        List<DetailTask> detailTask = taskService.getDetailTask(taskId);
+
+        System.out.println(task);
+        System.out.println(detailTask);
+
+        Map<String, Object> responseMap = new HashMap<>();
+        responseMap.put("task", task);
+        responseMap.put("details", detailTask);
+        String responseJson = new Gson().toJson(responseMap);
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
-        resp.getWriter().write(detailTaskJson);
+        resp.getWriter().write(responseJson);
     }
 
     private void deleteAllTaskInColumn(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -103,11 +109,11 @@ public class BoardHomeServlet extends HttpServlet {
         if (action == null) action = "";
         switch (action) {
             case "changeBoardStarredStatus":
-                starredBoardByBoardId (req, resp);
+                starredBoardByBoardId(req, resp);
                 break;
             default:
-                setTimestampToBoard (req);
-                showDetailBoard (req, resp);
+                setTimestampToBoard(req);
+                showDetailBoard(req, resp);
                 break;
         }
     }
