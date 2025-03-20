@@ -1,3 +1,11 @@
+$('.openClosedBoard').on("click", function () {
+    confirmActionBoard();
+    $(this).remove();
+    $(".title-bar").css("pointer-events", "initial");
+    $(".title-bar").css("opacity", "initial");
+    $(".content_detail_board_parent").css("pointer-events", "initial");
+    $(".content_detail_board_parent").css("opacity", "initial");
+})
 $('#openModalButton').click(function () {
     getClosedBoards(function (closedBoards) {
         let contentDiv = document.createElement("div");
@@ -23,7 +31,7 @@ function getClosedBoards(callback) {
         url: "/group_home?action=getClosedBoards",
         dataType: "json",
         success: function (response) {
-            callback(response); // Chỉ gọi callback khi dữ liệu đã có
+            callback(response);
         },
         error: function (xhr, status, error) {
             console.error("Lỗi khi lấy danh sách bảng đã đóng:", error);
@@ -75,16 +83,7 @@ function showClosedBoard(contentDiv) {
                 let parentDiv = $(this).closest(".closed-board-container");
                 let boardId = parentDiv.data("board");
                 console.log(boardId);
-                Swal.fire({
-                    title: "Xác nhận",
-                    text: "Bạn có chắc chắn muốn mở lại bảng?",
-                    icon: "question"
-                })
-                    .then((result) => {
-                        if (result.isConfirmed) {
-                            actionClosedBoard(boardId, "open");
-                        }
-                    })
+                confirmActionBoard();
             })
             $('.delete-closed-board').on("click", function () {
                 let parentDiv = $(this).closest(".closed-board-container");
@@ -103,6 +102,19 @@ function showClosedBoard(contentDiv) {
             })
         }
     });
+}
+
+function confirmActionBoard () {
+    Swal.fire({
+        title: "Xác nhận",
+        text: "Bạn có chắc chắn muốn mở lại bảng?",
+        icon: "question"
+    })
+        .then((result) => {
+            if (result.isConfirmed) {
+                actionClosedBoard(boardId, "open");
+            }
+        })
 }
 
 function actionClosedBoard(boardId, typeAction) {

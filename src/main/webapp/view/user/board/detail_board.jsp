@@ -5,7 +5,7 @@
     <title>Chi tiết bảng</title>
     <link rel="stylesheet" href="/css/user/board/detail_board.css">
     <script src="/js/user/group/invite_member.js" defer></script>
-
+    <script src="/js/user/board/closed_board.js" defer></script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -20,16 +20,19 @@
         <jsp:include page="../account/home_left.jsp"/>
     </div>
     <div class="home-right">
-        <div class="openClosedBoard">
+        <c:if test="${boardDetail.status == 0}">
+            <div class="openClosedBoard">
             <span>
-                Bảng thông tin đã đóng. Mở lại bảng thông tin để thực hiện thay đổi
-                <a>Mở lại bảng</a>
+                Bảng thông tin đã đóng. Mở lại bảng thông tin để thực hiện thay đổi.
+                <a class="openClosedBoardLink">Mở lại bảng</a>
             </span>
-        </div>
-        <div class="title-bar">
+            </div>
+        </c:if>
+
+        <div class="title-bar" style="<c:if test='${boardDetail.status == 0}'>pointer-events: none; opacity: 0.5;</c:if>">
             <div class="board_title">${boardDetail.title}</div>
         </div>
-        <div class="content_detail_board_parent">
+        <div class="content_detail_board_parent" style="<c:if test='${boardDetail.status == 0}'>pointer-events: none; opacity: 0.5;</c:if>">
             <div class="lists">
             </div>
             <div class="container-list">

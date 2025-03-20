@@ -685,3 +685,17 @@ input::placeholder {
     font-size: 20px;
     color: #2d2d2f;
 }
+
+/*mở bảng đã đóng*/
+.openClosedBoard {
+    display: flex;
+    justify-content: center;
+    color: white;
+    padding: 15px;
+    background: rgb(43 89 130);
+}
+
+.openClosedBoardLink {
+    text-decoration: underline;
+    cursor: pointer;
+}
