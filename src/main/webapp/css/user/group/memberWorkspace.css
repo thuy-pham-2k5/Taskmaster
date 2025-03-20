@@ -40,6 +40,7 @@ main {
 
 .group-info-top {
     display: flex;
+    align-items: center;
 }
 
 .group-info-bottom {
@@ -68,19 +69,15 @@ main {
 }
 
 .img-edit-group {
-    width: 20px;
-}
-
-.group-invite-member {
-    padding: 2px 5px;
-    font-size: 15px;
 }
 
 .group-invite-member {
     padding: 6px 9px;
-    background: #084294;
+    font-size: 15px;
+    background: #1B5B94;
     margin: auto 0;
     border-radius: 5px;
+    width: 609px;
 }
 
 .group-invite-member button {

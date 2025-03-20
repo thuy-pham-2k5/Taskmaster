@@ -38,13 +38,14 @@ input::placeholder {
 .group-general-info {
     margin: 0 auto;
     padding: 32px;
-    max-width: 850px;
+    width: 850px;
     display: flex;
     justify-content: space-between;
 }
 
 .group-info-top {
     display: flex;
+    align-items: center;
 }
 
 .group-info-bottom {
@@ -73,16 +74,15 @@ input::placeholder {
 }
 
 .img-edit-group {
-    width: 20px;
 }
 
 .group-invite-member {
     padding: 6px 9px;
     font-size: 15px;
-    padding: 6px 9px;
-    background: #084294;
+    background: #1B5B94;
     margin: auto 0;
     border-radius: 5px;
+    width: 609px;
 }
 
 .group-invite-member button {
