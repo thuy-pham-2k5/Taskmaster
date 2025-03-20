@@ -4,6 +4,9 @@
 <head>
     <title>Chi tiết bảng</title>
     <link rel="stylesheet" href="/css/user/board/detail_board.css">
+    <script src="/js/user/group/invite_member.js" defer></script>
+
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -17,6 +20,12 @@
         <jsp:include page="../account/home_left.jsp"/>
     </div>
     <div class="home-right">
+        <div class="openClosedBoard">
+            <span>
+                Bảng thông tin đã đóng. Mở lại bảng thông tin để thực hiện thay đổi
+                <a>Mở lại bảng</a>
+            </span>
+        </div>
         <div class="title-bar">
             <div class="board_title">${boardDetail.title}</div>
         </div>
