@@ -247,5 +247,18 @@ public class BoardService implements IBoardService {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public void editTitleBoard(int boardId, String title) {
+        String query = "UPDATE `taskmaster`.`boards` SET `title` = ? WHERE (`board_id` = ?)";
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, title);
+            preparedStatement.setInt(2, boardId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
 

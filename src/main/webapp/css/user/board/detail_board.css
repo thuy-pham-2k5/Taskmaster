@@ -33,6 +33,16 @@ main {
 
 .board_title {
     padding: 0 10px;
+    background: none;
+    border: none;
+    font-size: 25px;
+    color: white;
+    border-radius: 5px;
+}
+
+.board_title:focus {
+    border: 2px solid white;
+    outline: none;
 }
 
 .lists {
