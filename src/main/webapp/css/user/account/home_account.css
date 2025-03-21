@@ -491,3 +491,40 @@
 }
 
 
+/*bảng đã đánh dấu sao và bảng đã xem gần đây*/
+.starred-list-boards {
+    display: flex;
+    width: 195px;
+    height: 100px;
+    gap: 10px;
+    border-radius: 8px;
+    text-overflow: ellipsis;
+    text-align: center;
+    background-size: cover;
+    background-position: center;
+}
+
+.starred-list-boards a {
+    padding: 8px 13px;
+    width: 100%;
+    height: 100%;
+    text-align: left;
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+.parent-starred-lists-boards {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.interface-board-ha h4,
+.recent-list-board h4 {
+    color: white;
+    font-size: 23px;
+    margin-bottom: 15px;
+}

@@ -10,6 +10,17 @@ public class Board {
     private String groupName;
     private boolean starredBoard;
 
+    public Board(int boardId, String title, int backgroundId, String backgroundLink, String timestamp, int status, int groupId, boolean starredBoard) {
+        this.boardId = boardId;
+        this.title = title;
+        this.backgroundId = backgroundId;
+        this.backgroundLink = backgroundLink;
+        this.timestamp = timestamp;
+        this.status = status;
+        this.groupId = groupId;
+        this.starredBoard = starredBoard;
+    }
+
     public Board(int boardId, String title, int backgroundId, String backgroundLink, int groupId, String groupName) {
         this.boardId = boardId;
         this.title = title;

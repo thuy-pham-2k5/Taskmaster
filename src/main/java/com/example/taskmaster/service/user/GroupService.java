@@ -1,13 +1,16 @@
 package com.example.taskmaster.service.user;
 
 import com.example.taskmaster.database.ConnectDatabase;
+import com.example.taskmaster.model.Board;
 import com.example.taskmaster.model.Group;
 import com.example.taskmaster.model.User;
 
 import java.security.SecureRandom;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GroupService implements IGroupService {
     public static String newShortTitle = null;
@@ -245,5 +248,30 @@ public class GroupService implements IGroupService {
             e.getMessage();
         }
 
+    }
+
+    @Override
+    public List<Board> getGroupRecentOrStarred(int userId, String type) {
+        List<Board> boards = new ArrayList<>();
+        String query = "{call getRecentOrStarredBoardsByUserId (?, ?)}";
+        try (Connection connection = ConnectDatabase.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setString(2, type);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int groupId = resultSet.getInt(5);
+                int boardId = resultSet.getInt(1);
+                String boardTitle = resultSet.getString(2);
+                int backgroundId = resultSet.getInt(3);
+                String backgroundLink = resultSet.getString(4);
+                boolean starred = resultSet.getBoolean(7);
+                String timestamp = resultSet.getString(8);
+                boards.add(new Board(boardId, boardTitle, backgroundId, backgroundLink, timestamp, 1, groupId, starred));
+            }
+            return boards;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

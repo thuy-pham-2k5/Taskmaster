@@ -1,5 +1,6 @@
 package com.example.taskmaster.controller.user.account;
 
+import com.example.taskmaster.model.Board;
 import com.example.taskmaster.model.Group;
 import com.example.taskmaster.model.User;
 import com.example.taskmaster.service.user.BoardService;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet (value = "/account_home")
 public class AccountHomeServlet extends HttpServlet {
@@ -51,6 +53,10 @@ public class AccountHomeServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         List<Group> titleGroupList = groupService.getTitleGroupByUserId(user.getUserId());
+        List<Board> starredBoards = groupService.getGroupRecentOrStarred(user.getUserId(), "starred");
+        List<Board> recentBoards = groupService.getGroupRecentOrStarred(user.getUserId(), "recent");
+        request.setAttribute("starredBoards", starredBoards);
+        request.setAttribute("recentBoards", recentBoards);
         session.setAttribute("groups", titleGroupList);
         request.getRequestDispatcher("view/user/account/home_account.jsp").forward(request, response);
     }

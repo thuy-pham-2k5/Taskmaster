@@ -54,6 +54,33 @@
                 </div>
             </nav>
             <div id="homeRight">
+                <c:if test="${not empty starredBoards}">
+                    <div class="interface-board-ha">
+                        <h4>Đã đánh dấu sao</h4>
+                        <div class="parent-starred-lists-boards">
+                            <c:forEach var="board" items="${starredBoards}">
+                                <div class="starred-list-boards"
+                                     style="background-image: url('${board.backgroundLink}');">
+                                    <a href="#">
+                                        <span>${board.title}</span>
+                                    </a>
+                                </div>
+                            </c:forEach>
+                        </div>
+                    </div>
+                </c:if>
+                <div class="recent-list-board">
+                    <h4>Đã xem gần đây</h4>
+                    <div class="parent-starred-lists-boards">
+                        <c:forEach var="board" items="${recentBoards}" varStatus="loop" begin="0" end="3">
+                            <div class="starred-list-boards" style="background-image: url('${board.backgroundLink}');">
+                                <a href="#">
+                                    <span>${board.title}</span>
+                                </a>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

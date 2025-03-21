@@ -1,5 +1,7 @@
 package com.example.taskmaster.model;
 
+import java.util.Objects;
+
 public class Group {
     private int groupId;
     private String short_title, title, linkWeb, description, visibility;
@@ -39,8 +41,6 @@ public class Group {
         this.title = title;
         this.description = description;
     }
-
-
 
     @Override
     public String toString() {
