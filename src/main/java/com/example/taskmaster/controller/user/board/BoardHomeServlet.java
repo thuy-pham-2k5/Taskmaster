@@ -1,6 +1,8 @@
 package com.example.taskmaster.controller.user.board;
 
 import com.example.taskmaster.model.*;
+import com.example.taskmaster.service.permission.IPermissionService;
+import com.example.taskmaster.service.permission.PermissionService;
 import com.example.taskmaster.service.user.*;
 import com.google.gson.Gson;
 
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.security.Permissions;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -21,6 +24,7 @@ public class BoardHomeServlet extends HttpServlet {
     BoardService boardService = new BoardService();
     IColumnService columnService = new ColumnService();
     ITaskService taskService = new TaskService();
+    IPermissionService permissionService = new PermissionService();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -205,6 +209,10 @@ public class BoardHomeServlet extends HttpServlet {
         HttpSession session = req.getSession();
         int groupId = (Integer) session.getAttribute("groupId");
         int boardId = (Integer) session.getAttribute("boardId");
+        User user = (User) session.getAttribute("user");
+        List<Permission> permissions = permissionService.getAllMyPermissionInBoard(user.getUserId(), boardId);
+        System.out.println(permissions);
+        session.setAttribute("boardPermissions", permissions);
         req.setAttribute("groupInfo", groupService.getGroupInfoById(groupId));
         req.setAttribute("boards", boardService.getAllBoardInGroup(groupId, "option1"));
         req.setAttribute("boardDetail", boardService.getBoardById(boardId));
