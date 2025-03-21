@@ -61,7 +61,7 @@
                             <c:forEach var="board" items="${starredBoards}">
                                 <div class="starred-list-boards"
                                      style="background-image: url('${board.backgroundLink}');">
-                                    <a href="#">
+                                    <a href="/group_home?action=boardView&boardId=${board.boardId}&&groupId=${board.groupId}">
                                         <span>${board.title}</span>
                                     </a>
                                 </div>
@@ -74,7 +74,7 @@
                     <div class="parent-starred-lists-boards">
                         <c:forEach var="board" items="${recentBoards}" varStatus="loop" begin="0" end="3">
                             <div class="starred-list-boards" style="background-image: url('${board.backgroundLink}');">
-                                <a href="#">
+                                <a href="/group_home?action=boardView&boardId=${board.boardId}&&groupId=${board.groupId}">
                                     <span>${board.title}</span>
                                 </a>
                             </div>

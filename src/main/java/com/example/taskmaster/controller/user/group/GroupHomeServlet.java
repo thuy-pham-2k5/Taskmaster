@@ -129,6 +129,13 @@ public class GroupHomeServlet extends HttpServlet {
     }
 
     private void switchToBoardView(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        try {
+            int groupId = Integer.parseInt(request.getParameter("groupId"));
+            System.out.println(groupId);
+            request.getSession().setAttribute("groupId", groupId);
+        } catch (NumberFormatException | NullPointerException e) {
+            // Không làm gì, groupId vẫn giữ giá trị -1 nếu lỗi
+        }
         int boardId = Integer.parseInt(request.getParameter("boardId"));
         request.getSession().setAttribute("boardId", boardId);
         response.sendRedirect("board_home");
