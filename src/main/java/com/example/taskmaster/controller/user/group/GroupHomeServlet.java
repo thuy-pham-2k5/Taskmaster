@@ -133,6 +133,7 @@ public class GroupHomeServlet extends HttpServlet {
             int groupId = Integer.parseInt(request.getParameter("groupId"));
             System.out.println(groupId);
             request.getSession().setAttribute("groupId", groupId);
+            request.getSession().setAttribute("groupInfo", groupService.getGroupInfoById(groupId));
         } catch (NumberFormatException | NullPointerException e) {
             // Không làm gì, groupId vẫn giữ giá trị -1 nếu lỗi
         }
