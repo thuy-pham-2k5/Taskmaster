@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface IPermissionService {
     List<Permission> getAllMyPermissionInGroup (int userId, int groupId);
-    List<Permission> getAllMyPermissionInBoard (int userId, int groupId);
+    List<Permission> getAllMyPermissionInBoard (int userId, int boardId);
 }

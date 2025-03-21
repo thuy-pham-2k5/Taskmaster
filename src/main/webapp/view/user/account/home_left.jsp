@@ -362,10 +362,15 @@
                 class="hl-dropdown-action">
                 <button data-action="board">Rời khỏi bảng</button>
             </li>
-            <li data-action="board" onclick="openActionBoard(event, 'hl-action-board-main', 'hl-close-board')"
-                id="operation-copyList" class="hl-dropdown-action">
-                <button>Đóng bảng</button>
-            </li>
+
+            <c:forEach var="permission" items="${boardPermissions}">
+                <c:if test="${permission.permissionId == 14}">
+                    <li data-action="board" onclick="openActionBoard(event, 'hl-action-board-main', 'hl-close-board')"
+                        id="operation-copyList" class="hl-dropdown-action">
+                        <button>Đóng bảng</button>
+                    </li>
+                </c:if>
+            </c:forEach>
         </ul>
     </div>
 
@@ -460,7 +465,7 @@
 
 <%--giao diện các thao tác của bảng--%>
 <script defer>
-    function closedActionBoard (event, currentId) {
+    function closedActionBoard(event, currentId) {
         openActionBoard(event, currentId, null);
         console.log(currentOpenOperationBoard);
         currentOpenOperationBoard.removeClass("dropdown-open");
@@ -471,7 +476,7 @@
     function openActionBoard(event, currentId, needId) {
         event.stopPropagation();
         document.getElementById(currentId).style.display = "none";
-        if (needId!=null) {
+        if (needId != null) {
             document.getElementById(needId).style.display = "block";
         }
     }
@@ -495,6 +500,7 @@
                 }
             })
     })
+
     function showAlert(text) {
         return Swal.fire({
             title: "Xác nhận",
@@ -506,8 +512,9 @@
             cancelButtonText: "Hủy"
         });
     }
-    function handleActionBoard (boardId, typeAction) {
-        let url = typeAction === "close" ? "/board?action=closeBoard": "/board?action=leaveBoard";
+
+    function handleActionBoard(boardId, typeAction) {
+        let url = typeAction === "close" ? "/board?action=closeBoard" : "/board?action=leaveBoard";
         let title = typeAction === "close" ? "Đã đóng bảng" : "Đã rời bảng";
         console.log(url);
         $.ajax({
