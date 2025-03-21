@@ -522,6 +522,8 @@
     gap: 12px;
 }
 
+.title-group-in-ha h5,
+.ha-list-boards h4,
 .interface-board-ha h4,
 .recent-list-board h4 {
     color: white;

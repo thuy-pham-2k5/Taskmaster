@@ -83,10 +83,32 @@
                 </div>
                 <div class="ha-list-boards">
                     <h4>CÁC KHÔNG GIAN LÀM VIỆC CỦA BẠN</h4>
-                    <div>
-
+                    <div class="ha-every-group">
+                        <c:forEach var="group" items="${groups}">
+                            <c:forEach var="entry" items="${listBoards}">
+                                <c:if test="${group.groupId == entry.key and not empty entry.value}">
+                                    <div class="title-group-in-ha">
+                                        <h5>${group.title}</h5>
+                                        <div class="parent-starred-lists-boards">
+                                            <c:set var="listBoard" value="${entry.value}" />
+                                            <c:forEach var="board" items="${listBoard}">
+                                                <div class="starred-list-boards"
+                                                     style="background-image: url('${board.backgroundLink}');">
+                                                    <a href="/group_home?action=boardView&boardId=${board.boardId}&&groupId=${board.groupId}">
+                                                        <span>${board.title}</span>
+                                                    </a>
+                                                </div>
+                                            </c:forEach>
+                                        </div>
+                                    </div>
+                                </c:if>
+                            </c:forEach>
+                        </c:forEach>
                     </div>
                 </div>
+
+
+            </div>
             </div>
         </div>
     </div>
