@@ -55,9 +55,12 @@ public class AccountHomeServlet extends HttpServlet {
         List<Group> titleGroupList = groupService.getTitleGroupByUserId(user.getUserId());
         List<Board> starredBoards = groupService.getGroupRecentOrStarred(user.getUserId(), "starred");
         List<Board> recentBoards = groupService.getGroupRecentOrStarred(user.getUserId(), "recent");
-        request.setAttribute("starredBoards", starredBoards);
-        request.setAttribute("recentBoards", recentBoards);
+        Map<Integer, List<Board>> listBoards = groupService.getListBoardOfGroup(titleGroupList);
+        session.setAttribute("starredBoards", starredBoards);
+        session.setAttribute("recentBoards", recentBoards);
         session.setAttribute("groups", titleGroupList);
+        request.setAttribute("listBoards", listBoards);
+        System.out.println(listBoards);
         request.getRequestDispatcher("view/user/account/home_account.jsp").forward(request, response);
     }
 }

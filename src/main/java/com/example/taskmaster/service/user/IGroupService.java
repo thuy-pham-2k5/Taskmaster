@@ -16,6 +16,7 @@ public interface IGroupService {
     Group getGroupInfoByShortTitle(String shortTitle);
     boolean inviteMember (int userId, int groupId, int roleId);
     List<Group> getTitleGroupByUserId(int user_id);
+    Map<Integer, List<Board>> getListBoardOfGroup (List<Group> groups);
     void deleteMemberInGroup(int userId, int groupId);
     List<Board> getGroupRecentOrStarred (int userId, String type);
 }

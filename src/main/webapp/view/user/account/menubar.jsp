@@ -304,9 +304,9 @@
                     <img src="/images/list.png" alt="dropdown.png" class="dropdown-img">
                 </button>
                 <div class="dropdown-content" id="recent">
-                    <a href="#">Tùy chọn 3</a>
-                    <a>Tùy chọn 4</a>
-                    <a>Tùy chọn 5</a>
+                    <c:forEach items="${recentBoards}" var="group">
+                        <a href="/account_home?action=showGroupHomeView&groupId=${group.groupId}">${group.title}</a>
+                    </c:forEach>
                 </div>
             </div>
             <div class="dropdown-menubar">
@@ -315,9 +315,14 @@
                     <img src="/images/list.png" alt="dropdown.png" class="dropdown-img">
                 </button>
                 <div class="dropdown-content" id="stars">
-                    <a href="#">Tùy chọn 6</a>
-                    <a href="#">Tùy chọn 7</a>
-                    <a href="#">Tùy chọn 8</a>
+                    <c:if test="${not empty starredBoards}">
+                        <c:forEach items="${starredBoards}" var="group">
+                            <a href="/account_home?action=showGroupHomeView&groupId=${group.groupId}">${group.title}</a>
+                        </c:forEach>
+                    </c:if>
+                    <c:if test="${empty starredBoards}">
+                        <p style="text-align: center; color: #f7f7f7;">Đánh dấu sao các bảng quan trọng để truy cập nhanh và dễ dàng</p>
+                    </c:if>
                 </div>
             </div>
         </div>

@@ -3,14 +3,12 @@ package com.example.taskmaster.service.user;
 import com.example.taskmaster.database.ConnectDatabase;
 import com.example.taskmaster.model.Board;
 import com.example.taskmaster.model.Group;
+import com.example.taskmaster.model.Task;
 import com.example.taskmaster.model.User;
 
 import java.security.SecureRandom;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class GroupService implements IGroupService {
     public static String newShortTitle = null;
@@ -134,6 +132,39 @@ public class GroupService implements IGroupService {
                 titleGroupList.add(group);
             }
             return titleGroupList;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public Map<Integer, List<Board>> getListBoardOfGroup(List<Group> groups) {
+        Map<Integer, List<Board>> boardMap = new HashMap<>();
+        if (groups.isEmpty()) return boardMap; // Tránh SQL lỗi nếu danh sách rỗng
+
+        String placeholders = String.join(",", Collections.nCopies(groups.size(), "?"));
+        String query = "select * from boards left join board_backgrounds bb on boards.background_id = bb.background_id where boards.group_id IN (" + placeholders + ")";
+
+        try (Connection connection = ConnectDatabase.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            int index = 1;
+            for (Group group : groups) {
+                preparedStatement.setInt(index++, group.getGroupId());
+            }
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    int groupId = resultSet.getInt("group_id");
+                    boardMap.putIfAbsent(groupId, new ArrayList<>());
+                    int boardId = resultSet.getInt(1);
+                    String name = resultSet.getString(2);
+                    int backgroundId = resultSet.getInt(3);
+                    String backgroundLink = resultSet.getString(8);
+                    String timestamp = resultSet.getString(4);
+                    int status = resultSet.getInt(5);
+                    boardMap.get(groupId).add(new Board(boardId, name, backgroundId, backgroundLink, timestamp, groupId, status));
+                }
+            }
+            return boardMap;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

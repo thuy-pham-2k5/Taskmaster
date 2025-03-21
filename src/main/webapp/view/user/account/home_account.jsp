@@ -81,6 +81,12 @@
                         </c:forEach>
                     </div>
                 </div>
+                <div class="ha-list-boards">
+                    <h4>CÁC KHÔNG GIAN LÀM VIỆC CỦA BẠN</h4>
+                    <div>
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>
