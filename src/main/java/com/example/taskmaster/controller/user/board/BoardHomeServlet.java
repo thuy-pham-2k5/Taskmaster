@@ -58,9 +58,19 @@ public class BoardHomeServlet extends HttpServlet {
             case "assignTaskForMember":
                 assignTaskForMember(req, resp);
                 break;
+            case "editTitleBoard":
+                editTitleBoard (req, resp);
+                break;
             default:
                 break;
         }
+    }
+
+    private void editTitleBoard(HttpServletRequest req, HttpServletResponse resp) {
+        String title = req.getParameter("title");
+        int boardId = (Integer) req.getSession().getAttribute("boardId");
+        boardService.editTitleBoard(boardId, title);
+        resp.setStatus(HttpServletResponse.SC_OK);
     }
 
     private void deleteTaskById(HttpServletRequest req, HttpServletResponse resp) {

@@ -33,7 +33,7 @@
         </c:if>
 
         <div class="title-bar" style="<c:if test='${boardDetail.status == 0}'>pointer-events: none; opacity: 0.5;</c:if>">
-            <div class="board_title">${boardDetail.title}</div>
+            <input id="board_title_edit" class="board_title" value="${boardDetail.title}">
         </div>
         <div class="content_detail_board_parent" style="<c:if test='${boardDetail.status == 0}'>pointer-events: none; opacity: 0.5;</c:if>">
             <div class="lists">
@@ -517,6 +517,44 @@
     }
 
     setupAutoHide('inputAddNewList', 'openAddNewList');
+
+    document.getElementById("board_title_edit").addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            let value = this.value.trim();
+            if (value) {
+                console.log("Giá trị nhập:", value);
+                editTitleBoard(value);
+                let liElement = document.querySelector('li[data-board="' + boardId +'"]');
+
+                if (liElement) {
+                    let aElement = liElement.querySelector("a"); // Tìm thẻ <a> bên trong <li>
+                    if (aElement) {
+                        aElement.textContent = value; // Đổi text của thẻ <a>
+                    }
+                }
+                this.blur(); // Mất focus
+            }
+        }
+    })
+
+
+
+    function editTitleBoard (text) {
+        $.ajax({
+            type: "POST",
+            url: "/board_home?action=editTitleBoard",
+            data: {title: text},
+            success: function (response, status, xhr) {
+                if (xhr.status === 200) {
+                    console.log("Doi ten thành công");
+                }
+            },
+            error: function () {
+                console.log("Lỗi khi doi ten!");
+            }
+        })
+    }
 </script>
 </body>
 </html>
